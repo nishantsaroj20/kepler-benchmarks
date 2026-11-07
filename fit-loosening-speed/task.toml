@@ -4,15 +4,15 @@ artifacts = ["/app/output/fit_result.json"]
 [task]
 name = "afterquery/fit-loosening-speed"
 description = "Find the nonuniform assembly pressure of a short aluminum pulley shrunk on a steel spindle and the hot spinning speed at which the fit drops to the required torque."
-authors = [{ name = "Nishant Saroj", email = "nishantsaroj20@gmail.com" }]
+authors = [{ name = "Nishant Kumar Saroj", email = "nishantsaroj20@gmail.com" }]
 keywords = ["shrink fit", "axisymmetric elasticity", "contact pressure", "thermal expansion"]
 
 [metadata]
-author_name = "Nishant Saroj"
+author_name = "Nishant Kumar Saroj"
 author_email = "nishantsaroj20@gmail.com"
-author_organization = "Independent Researcher"
-author_profile = "https://github.com/nishantsaroj20"
-conflicts_of_interest = "Paid contributor to this benchmark; no other competing evaluation work."
+author_organization = "Indian Institute of Technology Delhi"
+author_profile = "https://www.linkedin.com/in/nishant-kumar-saroj"
+conflicts_of_interest = "Also writes scientific and engineering evaluation tasks for Turing, Mercor, Handshake AI, and Alignerr. This shrink-fit task was written for this benchmark and is not reused from those engagements."
 domain = "engineering-sciences"
 field = "mechanical-engineering"
 subfield = "interference fits for rotating machinery"
@@ -20,7 +20,7 @@ category = "Science"
 subcategory = "Mechanical & Aerospace Engineering"
 tags = ["shrink fit", "axisymmetric elasticity", "contact pressure", "thermal expansion"]
 expert_time_estimate_hours = 6
-relevant_experience = "Machine-design calculations for press-fit pulleys and spindles, including short hubs where contact pressure is not uniform and operating temperature unloads the fit."
+relevant_experience = "M.Tech in Engineering Analysis and Design at IIT Delhi, with a B.Tech in Mechanical Engineering from IIITDM Jabalpur. Built MATLAB finite-element solvers with numerical integration, matrix assembly, and convergence checks against analytical solutions, and ran thermo-mechanical contact simulations in Abaqus and DEFORM-3D. This task uses that workflow on a short shrink-fit hub: nonuniform contact pressure, thermal strain, and a speed root."
 difficulty_explanation = "The geometry is synthetic. Dimensions, materials, interference, temperatures, and the required torque are disclosed in environment/data/problem.json, and the mesh study is in authoring/evidence. The pulley is short relative to its wall, so interface pressure varies along the contact and a uniform long-cylinder value is wrong. Heating unloads the aluminum more than the steel, and spin unloads the fit further; the limit speed is the root of that coupled torque capacity. The ground truth is a fine linear-quadrilateral axisymmetric mesh, checked against a plane-strain Lamé solution on a separate long equal-material sleeve."
 solution_explanation = "A medium axisymmetric mesh closes the diametral interference with stuck contact, applies each part's thermal strain and centrifugal body force, integrates friction times pressure times radius squared, and bisects speed until the hot torque capacity equals the required torque."
 verification_explanation = "tests/truth.json is written by authoring/generate_truth.py on a fine mesh and is not produced by solution/solve.sh. The acceptance bands are 3 percent on the five assembly pressures, 1.5 percent on assembly torque, and 2 percent on limit speed. Those bands are wider than the medium-to-fine mesh spread and narrower than the station error of a uniform long-cylinder pressure. A missing or non-finite result scores 0."
