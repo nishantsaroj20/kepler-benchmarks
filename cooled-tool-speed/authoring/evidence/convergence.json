@@ -1,0 +1,21 @@
+{
+  "annulus_max_abs_error_c": 0.12849596818522002,
+  "medium_vs_fine_rake_temperature_rel": 0.008987377783104515,
+  "medium_vs_fine_edge_growth_rel": 0.012279613700066952,
+  "medium_vs_fine_limit_speed_rel": 0.002949259075769102,
+  "constant_conductivity_rake_temperature_rel": 0.18447910685966676,
+  "constant_conductivity_limit_speed_rel": 0.3221703736724079,
+  "solid_tool_rake_temperature_rel": 0.27097104482932755,
+  "solid_tool_edge_growth_rel": 0.46939841698484214,
+  "fine_node_count": 2376,
+  "medium_node_count": 624,
+  "fine_rake_temperature_c": [
+    414.3317974580185,
+    406.46261983007656,
+    391.45161921394356,
+    368.320785653708,
+    328.09373731530206
+  ],
+  "fine_edge_growth_um": 8.674186416027426,
+  "fine_limit_speed_m_s": 1.2796421531587836
+}

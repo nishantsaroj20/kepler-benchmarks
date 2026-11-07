@@ -1,0 +1,44 @@
+schema_version = "1.4"
+artifacts = ["/app/output/bus_timing.json"]
+
+[task]
+name = "afterquery/bus-crosstalk-timing"
+description = "Find the far-end crossing times of a five-wire on-chip bus driven by inverters, and the clock rate set by the slowest wire."
+authors = [{ name = "Nishant Kumar Saroj", email = "nishantsaroj20@gmail.com" }]
+keywords = ["interconnect", "crosstalk", "inverter", "timing"]
+
+[metadata]
+author_name = "Nishant Kumar Saroj"
+author_email = "nishantsaroj20@gmail.com"
+author_organization = "Indian Institute of Technology Delhi"
+author_profile = "https://www.linkedin.com/in/nishant-kumar-saroj"
+conflicts_of_interest = "Also writes scientific and engineering evaluation tasks for Turing, Mercor, Handshake AI, and Alignerr. This bus-timing task was written for this benchmark and is not reused from those engagements."
+domain = "engineering-sciences"
+field = "electrical-engineering"
+subfield = "on-chip interconnect timing"
+category = "Science"
+subcategory = "Electrical & Computer Engineering"
+tags = ["interconnect", "crosstalk", "inverter", "timing"]
+expert_time_estimate_hours = 6
+relevant_experience = "M.Tech in Engineering Analysis and Design at IIT Delhi. Writes numerical solvers in Python and MATLAB with matrix assembly, time stepping, and checks against a simpler model. This task applies that workflow to a synthetic on-chip bus with coupled capacitance and level-1 inverter drivers."
+difficulty_explanation = "The geometry is synthetic. Wire length, resistance, ground and coupling capacitance, receiver capacitance, inverter parameters, ramps, and skews are disclosed in environment/data/problem.json, and the time-step study is in authoring/evidence. Neighbor capacitance moves the far-end crossings by much more than the acceptance band, and the inverter current is the level-1 MOSFET law rather than a linear resistor, so an uncoupled RC line is the wrong arrival time. The ground truth is a fine RC ladder and a fine backward-Euler step. The same ladder with the coupling terms removed is the baseline that misses."
+solution_explanation = "A medium RC ladder stamps nearest-neighbor capacitance, integrates the five level-1 inverters with backward Euler and Newton, and records the first half-supply crossing at each far end. The limit clock is one millionth of the reciprocal of the latest crossing plus the setup time."
+verification_explanation = "tests/truth.json is written by authoring/generate_truth.py on a fine ladder and a fine time step, and is not produced by solution/solve.sh. The acceptance bands are 3 percent on the five crossing times and 2 percent on the limit clock. Those bands are wider than the medium-to-fine spread and narrower than the error of the same transient with coupling removed. A missing or non-finite result scores 0."
+
+[verifier]
+timeout_sec = 600.0
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+timeout_sec = 28800.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+network_mode = "public"
