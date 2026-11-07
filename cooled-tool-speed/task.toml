@@ -1,0 +1,44 @@
+schema_version = "1.4"
+artifacts = ["/app/output/tool_result.json"]
+
+[task]
+name = "afterquery/cooled-tool-speed"
+description = "Find the rake temperatures and edge growth of a cooled carbide turning tool, and the cutting speed at which the corner reaches the temperature limit."
+authors = [{ name = "Nishant Kumar Saroj", email = "nishantsaroj20@gmail.com" }]
+keywords = ["cutting tool", "heat conduction", "thermal stress", "coolant channel"]
+
+[metadata]
+author_name = "Nishant Kumar Saroj"
+author_email = "nishantsaroj20@gmail.com"
+author_organization = "Indian Institute of Technology Delhi"
+author_profile = "https://www.linkedin.com/in/nishant-kumar-saroj"
+conflicts_of_interest = "Also writes scientific and engineering evaluation tasks for Turing, Mercor, Handshake AI, and Alignerr. This cooled-tool task was written for this benchmark and is not reused from those engagements."
+domain = "engineering-sciences"
+field = "mechanical-engineering"
+subfield = "cutting-tool heat transfer"
+category = "Science"
+subcategory = "Mechanical & Aerospace Engineering"
+tags = ["cutting tool", "heat conduction", "thermal stress", "coolant channel"]
+expert_time_estimate_hours = 6
+relevant_experience = "M.Tech in Engineering Analysis and Design at IIT Delhi. Ran thermo-mechanical simulations of a cutting tool in turning with DEFORM-3D, including temperature, heat transfer, and the tool-workpiece interaction, and wrote MATLAB finite-element solvers with convergence checks against analytical solutions. This task is that workflow on a synthetic carbide tip with a coolant hole."
+difficulty_explanation = "The geometry is synthetic. Dimensions, the coolant hole, the heat-flux coefficient, convection, and the temperature-dependent conductivity are disclosed in environment/data/problem.json, and the mesh study is in authoring/evidence. A solid rectangle misses the rake stations because the hole is the main heat sink, and a room-temperature conductivity misses them again because the carbide softens thermally, so the limit speed is not a linear scale of a cold solve. The ground truth is a fine triangle mesh fitted to the circular hole, and the conduction operator is checked on a separate annular wall with a known radial solution."
+solution_explanation = "A medium fitted mesh solves steady plane-strain conduction with Picard updates of conductivity, integrates the rake flux and the coolant and air convection, then solves the clamped plane-strain thermal-stress problem at the reference speed. The limit speed is a bisection on the cutting-corner temperature."
+verification_explanation = "tests/truth.json is written by authoring/generate_truth.py on a fine mesh and is not produced by solution/solve.sh. The acceptance bands are 3 percent on the five rake temperatures, 3 percent on edge growth, and 2 percent on limit speed. Those bands are wider than the medium-to-fine mesh spread and narrower than the station error of a constant-conductivity solve. A missing or non-finite result scores 0."
+
+[verifier]
+timeout_sec = 600.0
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+timeout_sec = 28800.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+network_mode = "public"
