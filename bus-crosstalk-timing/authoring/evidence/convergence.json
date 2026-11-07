@@ -1,0 +1,18 @@
+{
+  "medium_vs_fine_cross_rel": 0.00023850230502572934,
+  "medium_vs_fine_clock_rel": 8.372790719577706e-05,
+  "uncoupled_cross_rel": 0.7617213252035853,
+  "uncoupled_clock_rel": 2.7515078085834506,
+  "fine_far_end_cross_ps": [
+    165.28254732158217,
+    516.5202736748907,
+    261.77707137135627,
+    514.0260683570976,
+    182.47776708997773
+  ],
+  "fine_limit_clock_mhz": 1870.8364289438086,
+  "fine_segments": 48,
+  "fine_dt_ps": 0.1,
+  "medium_segments": 24,
+  "medium_dt_ps": 0.2
+}

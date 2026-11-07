@@ -1,0 +1,24 @@
+{
+  "wire_count": 5,
+  "length_m": 0.0012,
+  "resistance_ohm_per_m": 90000.0,
+  "ground_cap_f_per_m": 1.1e-10,
+  "coupling_cap_f_per_m": 8.5e-11,
+  "receiver_cap_f": 6.0e-15,
+  "vdd_v": 0.8,
+  "vt_n_v": 0.25,
+  "vt_p_v": 0.25,
+  "kn_a_per_v2": 0.0045,
+  "kp_a_per_v2": 0.0036,
+  "lambda_per_v": 0.04,
+  "ramp_s": 2.0e-11,
+  "setup_time_s": 1.8e-11,
+  "horizon_s": 1.2e-9,
+  "wires": [
+    {"gate_from_v": 0.0, "gate_to_v": 0.8, "skew_s": 0.0},
+    {"gate_from_v": 0.8, "gate_to_v": 0.0, "skew_s": 6.0e-12},
+    {"gate_from_v": 0.0, "gate_to_v": 0.8, "skew_s": 1.0e-11},
+    {"gate_from_v": 0.8, "gate_to_v": 0.0, "skew_s": 4.0e-12},
+    {"gate_from_v": 0.0, "gate_to_v": 0.8, "skew_s": 1.4e-11}
+  ]
+}
