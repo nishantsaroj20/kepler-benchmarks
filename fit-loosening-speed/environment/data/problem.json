@@ -1,0 +1,26 @@
+{
+  "shaft_inner_radius_m": 0.015,
+  "shaft_outer_radius_m": 0.025,
+  "sleeve_outer_radius_m": 0.040,
+  "shaft_length_m": 0.120,
+  "sleeve_length_m": 0.020,
+  "sleeve_z0_m": 0.050,
+  "diametral_interference_m": 8.0e-5,
+  "friction_coefficient": 0.12,
+  "required_torque_nm": 140.0,
+  "assembly_temperature_c": 20.0,
+  "operating_shaft_temperature_c": 30.0,
+  "operating_sleeve_temperature_c": 60.0,
+  "shaft": {
+    "young_modulus_pa": 210000000000.0,
+    "poisson_ratio": 0.29,
+    "alpha_per_c": 1.2e-5,
+    "density_kg_m3": 7850.0
+  },
+  "sleeve": {
+    "young_modulus_pa": 73000000000.0,
+    "poisson_ratio": 0.33,
+    "alpha_per_c": 2.3e-5,
+    "density_kg_m3": 2700.0
+  }
+}

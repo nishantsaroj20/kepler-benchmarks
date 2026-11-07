@@ -1,0 +1,22 @@
+{
+  "assembly_pressure_pa": [
+    42195694.45292293,
+    35297434.64669643,
+    33532829.886588868,
+    35297434.646692164,
+    42195694.45293005
+  ],
+  "assembly_torque_capacity_nm": 359.8565384483598,
+  "limit_speed_rad_s": 1964.132691733539,
+  "pressure_rel_tol": 0.03,
+  "torque_rel_tol": 0.015,
+  "speed_rel_tol": 0.02,
+  "uniform_lame_pressure_pa": 35939210.90493292,
+  "fine_mesh": {
+    "nr_shaft": 16,
+    "nr_sleeve": 16,
+    "nz_contact": 32,
+    "nz_side": 16,
+    "penalty_scale": 5000.0
+  }
+}
