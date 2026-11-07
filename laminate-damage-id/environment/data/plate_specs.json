@@ -1,0 +1,76 @@
+{
+  "Lx_m": 0.5,
+  "Ly_m": 0.4,
+  "layup_deg": [0, 45, -45, 90, 90, -45, 45, 0],
+  "ply_thickness_m": 0.0005,
+  "n_plies": 8,
+  "thickness_m": 0.004,
+  "material": {
+    "E1_Pa": 38000000000.0,
+    "E2_Pa": 8500000000.0,
+    "G12_Pa": 4000000000.0,
+    "G13_Pa": 3500000000.0,
+    "G23_Pa": 3500000000.0,
+    "nu12": 0.28,
+    "rho_kg_m3": 1900.0
+  },
+  "coordinate_system": "right-handed; x along length Lx, y along width Ly; origin at lower-left corner of the plate midplane; w positive upward",
+  "model": {
+    "sine_orders": [3, 3],
+    "inplane_sine_orders": [3, 3],
+    "gauss_orders": [30, 26],
+    "theory": "von Karman shallow plate about a known stress-free imperfection; quasi-static in-plane relaxation; transverse inertia only; midplane split that breathes with the preparation sign",
+    "definition": "The nine-term bending and eighteen-term in-plane sine spaces, the 30 by 26 area quadrature, exact thickness integrals and exact boundary integrals define the finite model. The breathing law and sublaminate bending stiffness are defined in README.md."
+  },
+  "rotational_springs_N": {"x0": 42.0, "xL": 120.0, "y0": 78.0, "yL": 210.0},
+  "damage_model": {
+    "zones_per_plate": 2,
+    "interface": "single midplane split between ply 4 and ply 5, counted from the bottom",
+    "profile": "g_j=(max(0, 1-(u_j/a_j)^2-(v_j/b_j)^2))^2 with u_j=cos(theta_j)*(x-xc_j)+sin(theta_j)*(y-yc_j) and v_j=-sin(theta_j)*(x-xc_j)+cos(theta_j)*(y-yc_j). g_j is identically zero outside the ellipse.",
+    "separated_fraction": "s(x,y)=1-product_j(1-d_j*g_j). s is not a ply-group knockdown and it does not scale A.",
+    "axes": "a and b are the semi-axes of the elliptical support, not e-fold radii, diameters, or standard deviations. theta is CCW degrees from +x to the major axis, periodic modulo 180 degrees. Bounds keep a>b.",
+    "breathing": "On a preparation with q11>0 the split is open and D(x)=D_intact+s(x)*(D_split-D_intact). On a preparation with q11<0 the split is closed and D(x)=D_intact. Membrane A is the intact laminate on both preparations.",
+    "overlap": "The product for s applies at every point, including overlapping tails. Profiles are evaluated only on the plate. No hard ellipse, clipping, or non-overlap rule. Both zones are one interface field, not separate cross-ply and angle-ply severities.",
+    "zone_order": "Zones are physically unordered; either output order is accepted.",
+    "bounds": {
+      "xc": [0.06, 0.44],
+      "yc": [0.055, 0.345],
+      "a": [0.026, 0.055],
+      "b": [0.01, 0.024],
+      "theta_deg": [-90.0, 90.0],
+      "d": [0.4, 0.95]
+    }
+  },
+  "fixture_model": {
+    "unknowns": ["x0_multiplier", "yL_multiplier"],
+    "bounds": [0.6, 1.6],
+    "description": "One pair of spring multipliers is shared by every record: x=0 and y=Ly change; x=Lx and y=0 stay nominal."
+  },
+  "observation": {
+    "candidate_modes": 7,
+    "observed_modes": 4,
+    "selection": "Four distinct modes from the lowest seven positive modes of the relaxed tangent about the prepared stable equilibrium. Omission and ordering are record-specific. resonance_id pairs a frequency with its shape column only inside that record. The preparation sign is not recorded.",
+    "normalization": "Each clean seven-sensor shape is normalized, then component noise is added and one arbitrary nonzero signed column scale is applied.",
+    "noise": {
+      "frequency_relative_std": 8e-05,
+      "unit_shape_component_std": 0.0003,
+      "distribution": "Independent zero-mean Gaussian; one fixed synthetic realization."
+    }
+  },
+  "precompression_N_m": 29219.687271229384,
+  "precompression_y_to_x": 0.35,
+  "imperfection_h_coefficients": [0.04, -0.01, 0.0, 0.015, 0.0, 0.0, 0.0, 0.0, 0.0],
+  "records": [
+    {"record_id": "record_01", "force_N": -60.0},
+    {"record_id": "record_02", "force_N": -15.0},
+    {"record_id": "record_03", "force_N": 20.0},
+    {"record_id": "record_04", "force_N": 45.0}
+  ],
+  "forecast": {
+    "preparation_sign": 1,
+    "forces_N": [80.0, -90.0],
+    "ascending_modes": 4,
+    "description": "After the zones, fixture and preparation of each record have been identified, report the lowest four natural frequencies of the positive preparation at each listed force. Neither force is a supplied hold."
+  },
+  "specimen_id": "plate_01"
+}

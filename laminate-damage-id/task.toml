@@ -1,0 +1,47 @@
+schema_version = "1.4"
+
+artifacts = ["/app/output/damage.json"]
+
+[task]
+name = "afterquery/laminate-damage-id"
+description = "Identify a breathing midplane split and uncertain edge restraint from unlabeled postbuckling vibration records, then forecast the closed-branch snap and the open-branch spectrum off the measured holds."
+authors = [{ name = "Nishant Kumar Saroj", email = "nishantsaroj20@gmail.com" }]
+keywords = ["composites", "laminates", "damage-identification", "modal-analysis", "inverse-problem", "GFRP", "SHM"]
+
+[metadata]
+author_name = "Nishant Kumar Saroj"
+author_email = "nishantsaroj20@gmail.com"
+author_organization = "Independent Researcher"
+author_profile = "https://www.linkedin.com/in/nishant-kumar-saroj-15b536170/"
+research_advisor = ""
+referred_by = ""
+conflicts_of_interest = "None"
+domain = "engineering-sciences"
+field = "mechanical-engineering"
+subfield = "composite structures, vibration-based damage identification"
+category = "Science"
+subcategory = "Mechanical & Aerospace Engineering"
+tags = ["composites", "laminates", "damage-identification", "modal-analysis", "inverse-problem", "GFRP", "SHM"]
+expert_time_estimate_hours = 18
+relevant_experience = "M.Tech (Engineering Analysis and Design) at IIT Delhi with a thesis on GFRP laminates that combined experimental fatigue/self-heating measurements with Abaqus FE models of laminated plates and progressive damage; previously built a MATLAB plate finite-element solver comparing Kirchhoff, BFS and DKQ elements for static and free-vibration analysis; professional FEA experience in structural analysis of composite components."
+difficulty_explanation = "The records are synthetic. They come from a disclosed nine-mode von Karman plate with a breathing midplane split: the split is open only on the upward preparation, membrane stiffness stays intact, and two compact elliptical zones carry the separated area. A ply-group knockdown shares one bending field across both preparations and cannot match the holds. Because each zone is silent until its ellipse overlaps the real split, generic local searches stop in decoy basins. The required open-branch frequencies lie off the measured holds, and the snap load is the first stability loss of the closed branch. Engineers in composite structural health monitoring meet this combination of contact state, uncertain restraint and incomplete modal records."
+solution_explanation = "Assemble the intact membrane energy, replace bending with the open or closed split operator, and assign the four measured mode columns inside each preparation. Scan candidate centres with one zone active, then polish both zones, both spring multipliers and a few orientations by bounded least squares. Bisect the closed branch for the snap load and evaluate the positive preparation at the two requested forecast forces. The search does not start from the authored parameters."
+verification_explanation = "The data are synthetic. Ground truth for the zones and fixture is the authored generator input, fixed before inversion. The snap load and the eight forecast frequencies are forward predictions of that input, written by the generator. Outcome checks compare preparation signs, the snap relative error and each forecast frequency. They do not execute participant code. A random local search on the same residual misses the forecast limit; the centre scan meets it."
+
+[verifier]
+timeout_sec = 600.0
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+timeout_sec = 28800.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+network_mode = "public"

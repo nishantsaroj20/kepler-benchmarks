@@ -1,0 +1,60 @@
+{
+  "plates": [
+    {
+      "plate_id": "plate_01",
+      "zones": [
+        {
+          "xc": 0.18,
+          "yc": 0.16,
+          "a": 0.03,
+          "b": 0.014,
+          "theta_deg": 25.0,
+          "d": 0.8
+        },
+        {
+          "xc": 0.33,
+          "yc": 0.27,
+          "a": 0.028,
+          "b": 0.013,
+          "theta_deg": -50.0,
+          "d": 0.7
+        }
+      ],
+      "fixture": {
+        "x0_multiplier": 1.18,
+        "yL_multiplier": 0.79
+      },
+      "branches": {
+        "record_01": 1,
+        "record_02": -1,
+        "record_03": 1,
+        "record_04": -1
+      },
+      "snap_load_N": 69.15589034557343,
+      "open_branch_forecast_Hz": [
+        {
+          "force_N": 80.0,
+          "frequencies_Hz": [
+            85.0684742809005,
+            117.68691385706921,
+            149.9073830791868,
+            208.2502823459999
+          ]
+        },
+        {
+          "force_N": -90.0,
+          "frequencies_Hz": [
+            45.90644220453208,
+            90.77938622049274,
+            125.03515343752817,
+            188.53625906572557
+          ]
+        }
+      ]
+    }
+  ],
+  "tolerances": {
+    "snap_relative": 0.01,
+    "forecast_relative": 0.0005
+  }
+}
