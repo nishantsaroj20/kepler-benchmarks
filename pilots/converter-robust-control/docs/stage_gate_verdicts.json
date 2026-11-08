@@ -1,0 +1,24 @@
+{
+  "overall": "STOP",
+  "source_commit": "595ff19f1b24955dfbf15423ab5f889342f49fa6",
+  "run_directory": "pilots/converter-robust-control/runs/2026-11-08-stage0-4",
+  "raw_run_verdict_file": "runs/2026-11-08-stage0-4/stage_gate_verdicts.json",
+  "gates": {
+    "0_application": "pass",
+    "1_model": "pass",
+    "2_interface": "pass",
+    "3_evaluation": "pass_for_cited_controllers",
+    "4_pilot": "STOP"
+  },
+  "do_not_build_bundle": true,
+  "thresholds_changed_after_success": false,
+  "unverified": [
+    "matlab_hinfstruct",
+    "python_control_import_pypi_quarantine",
+    "harbor_oracle_nop_and_probes",
+    "current_submission_screen_difficulty_band",
+    "future_instruction_md",
+    "hamiltonian_bisection_when_its_probe_misses_a_narrow_peak"
+  ],
+  "note": "STOP means ordinary tied PI meets the frozen specification. It does not mean the model failed or that no controller exists."
+}

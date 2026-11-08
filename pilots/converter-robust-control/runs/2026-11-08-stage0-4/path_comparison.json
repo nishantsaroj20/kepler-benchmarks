@@ -1,0 +1,50 @@
+[
+  {
+    "case_id": "nominal",
+    "rhs_inf_difference": 0.0,
+    "fd_relative_by_step": {
+      "real_0.0001": 1.6663335622810336e-09,
+      "real_1e-05": 1.7383907628317222e-11,
+      "real_1e-06": 8.052588591481595e-11,
+      "real_1e-07": 7.185555627410425e-10
+    },
+    "fd_complex_rel_1e-5": 1.738005936462181e-11,
+    "sigma_max_abs_diff": 2.2792254195103112e-12
+  },
+  {
+    "case_id": "weak_grid",
+    "rhs_inf_difference": 4.739948537702338e-10,
+    "fd_relative_by_step": {
+      "real_0.0001": 1.6665554116230073e-09,
+      "real_1e-05": 1.6010007262097062e-11,
+      "real_1e-06": 7.640264356239308e-11,
+      "real_1e-07": 8.620185041047806e-10
+    },
+    "fd_complex_rel_1e-5": 1.6010127555740335e-11,
+    "sigma_max_abs_diff": 1.8950008229268178e-11
+  },
+  {
+    "case_id": "high_power",
+    "rhs_inf_difference": 6.236040496245652e-10,
+    "fd_relative_by_step": {
+      "real_0.0001": 1.6663403512651735e-09,
+      "real_1e-05": 1.83279588339216e-11,
+      "real_1e-06": 3.673597429883887e-11,
+      "real_1e-07": 1.1102062598818301e-09
+    },
+    "fd_complex_rel_1e-5": 1.8349066400829808e-11,
+    "sigma_max_abs_diff": 1.5685992435510165e-11
+  },
+  {
+    "case_id": "asymmetric",
+    "rhs_inf_difference": 6.462348535570529e-27,
+    "fd_relative_by_step": {
+      "real_0.0001": 1.6663327574343344e-09,
+      "real_1e-05": 1.7826124715149012e-11,
+      "real_1e-06": 8.317909415000305e-11,
+      "real_1e-07": 8.735116726328347e-10
+    },
+    "fd_complex_rel_1e-5": 1.78297180727549e-11,
+    "sigma_max_abs_diff": 6.066210034294528e-12
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "verdict": "STOP",
+  "reason": "A tied diagonal PI with gains kp=0.4 and ki=4 on both power channels meets internal stability and the stacked weighted H-infinity bound on every public case under SLICOT and the refined frequency lower bound, and the bounded-real lemma certifies the pass threshold. Ordinary tuning solves the frozen specification. Thresholds were not tightened.",
+  "simple_pi_pass_all": true,
+  "simple_pi_witness": true,
+  "zero_pass_all": false,
+  "future_harbor_harness": "UNVERIFIED",
+  "future_instruction_md": "not authored",
+  "matlab_hinfstruct": "UNVERIFIED",
+  "python_control_import": "UNVERIFIED_PYPI_QUARANTINE",
+  "difficulty_band_current_screen": "UNVERIFIED",
+  "wall_s": 86.38462606599978,
+  "campaign_wall_s": 42.98512761100028
+}

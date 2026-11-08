@@ -1,0 +1,26 @@
+{
+  "plant_set_id": "crc-two-gfl-lcl-v1",
+  "schema_version": "1.0.0",
+  "gamma_pass": 1.0,
+  "gamma_witness": 0.95,
+  "stab_pass_physical": -0.5,
+  "stab_witness_physical": -1.0,
+  "disturbance_pu": {
+    "voltage": 0.05,
+    "reference": 0.1,
+    "noise": 0.005
+  },
+  "W_e": {
+    "hz": 2.0,
+    "M": 3.0,
+    "eps": 0.01
+  },
+  "W_u": {
+    "k_inf": 2.0,
+    "zero_rad_s": 188.49555921538757,
+    "pole_rad_s": 1884.9555921538758
+  },
+  "d_sigma_max": 15.0,
+  "stability_scope": "physical plant plus controller states; weight poles are excluded from the margin and included only in the Hurwitz gate for H-infinity",
+  "f_res_hz": 2004.459314343183
+}

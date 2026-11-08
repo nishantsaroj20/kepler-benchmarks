@@ -1,0 +1,20 @@
+{
+  "run_id": "2026-11-08-stage0-4",
+  "git_head": "595ff19f1b24955dfbf15423ab5f889342f49fa6",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-6.12.113+-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "cpu_count": 4,
+  "threads_requested": 1,
+  "started_unix": 1794179264.6124456,
+  "versions": {
+    "numpy": "2.2.6",
+    "python": "3.12.3",
+    "scipy": "1.16.2",
+    "cvxpy": "1.7.3",
+    "clarabel": "0.11.1",
+    "slycot": "0.7.1"
+  },
+  "finished_unix": 1794179350.994623,
+  "verdict": "STOP"
+}

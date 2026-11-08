@@ -1,0 +1,69 @@
+[
+  {
+    "name": "lowpass",
+    "expect": 1.0,
+    "slicot": 1.0,
+    "slicot_fpeak": 0.0,
+    "hamiltonian_status": "bracket",
+    "hamiltonian_lower": 1.0,
+    "hamiltonian_upper": 1.0000009536743164,
+    "brl_certified_near_expect": true,
+    "brl_status": "optimal",
+    "slicot_abs_error": 0.0
+  },
+  {
+    "name": "feedthrough",
+    "expect": 2.5,
+    "slicot": 2.5,
+    "slicot_fpeak": 0.0,
+    "hamiltonian_status": "bracket",
+    "hamiltonian_lower": 2.5,
+    "hamiltonian_upper": 2.500002384185791,
+    "brl_certified_near_expect": true,
+    "brl_status": "optimal",
+    "slicot_abs_error": 0.0
+  },
+  {
+    "name": "second_order",
+    "expect": 10.012523486435176,
+    "slicot": 10.012523486435176,
+    "slicot_fpeak": 9.97496867163,
+    "hamiltonian_status": "bracket",
+    "hamiltonian_lower": 10.012521674780288,
+    "hamiltonian_upper": 10.012528254213125,
+    "brl_certified_near_expect": true,
+    "brl_status": "optimal",
+    "slicot_abs_error": 0.0
+  },
+  {
+    "name": "narrow_resonance",
+    "expect": 5000.000025,
+    "slicot": 5000.000025,
+    "slicot_fpeak": 199.99999799999995,
+    "hamiltonian_status": "imag_axis_test_inactive",
+    "hamiltonian_lower": 6.681192512145545,
+    "hamiltonian_upper": null,
+    "brl_certified_near_expect": false,
+    "brl_status": "infeasible",
+    "slicot_abs_error": 0.0
+  },
+  {
+    "name": "cancellation",
+    "expect": 0.5,
+    "slicot": 0.5,
+    "slicot_fpeak": 0.0,
+    "hamiltonian_status": "bracket",
+    "hamiltonian_lower": 0.5,
+    "hamiltonian_upper": 0.5000009536743164,
+    "brl_certified_near_expect": true,
+    "brl_status": "optimal",
+    "slicot_abs_error": 0.0
+  },
+  {
+    "name": "unstable_pole",
+    "expect_linf": 1.0,
+    "slicot_linf": 1.0,
+    "hinf": "infinite",
+    "note": "finite L-infinity must not be read as H-infinity"
+  }
+]

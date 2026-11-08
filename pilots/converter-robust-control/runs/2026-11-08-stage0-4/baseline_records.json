@@ -1,0 +1,6728 @@
+[
+  {
+    "family": "zero_stable_realization",
+    "start_id": 0,
+    "seed": null,
+    "theta": null,
+    "search_cost": null,
+    "wall_s": 0.0,
+    "n_evaluations": 1,
+    "note": "Dk=0, Ak=-100 I",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 11.610956944779316,
+      "worst_abscissa": -7.85571316964168,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855734770864478,
+          "uncertainty": 0.0004833592078727877,
+          "slicot_linf": 10.729116620868554,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85571316964168,
+          "uncertainty": 0.0004823839437742527,
+          "slicot_linf": 10.685087233951897,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855970008559099,
+          "uncertainty": 0.0004881886193034233,
+          "slicot_linf": 11.610956944779316,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.857773119691098,
+          "uncertainty": 0.00045852634676442453,
+          "slicot_linf": 10.674427295003875,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "zero_ak_on_imaginary_axis",
+    "start_id": 0,
+    "seed": null,
+    "theta": null,
+    "search_cost": null,
+    "wall_s": 0.0,
+    "n_evaluations": 1,
+    "note": "same zero law realized with Ak=0; internal stability must fail",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 0.0,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 0.0,
+          "uncertainty": 0.00048335507014554924,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 0.0,
+          "uncertainty": 0.00048237979768145497,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 0.0,
+          "uncertainty": 0.0004881845225090434,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 0.0,
+          "uncertainty": 0.00045852198494415655,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 1,
+    "seed": null,
+    "theta": [
+      0.05
+    ],
+    "search_cost": 10.997402485556275,
+    "wall_s": 0.008698576999904617,
+    "n_evaluations": 1,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 10.997402485556275,
+      "worst_abscissa": -7.855626467398846,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855651494857721,
+          "uncertainty": 0.0004833638662451388,
+          "slicot_linf": 10.200601939321915,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855626467398846,
+          "uncertainty": 0.0004823889120255286,
+          "slicot_linf": 10.109113537859507,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855871173062606,
+          "uncertainty": 0.0004881947928423776,
+          "slicot_linf": 10.997402485556275,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.857594709670343,
+          "uncertainty": 0.0004585312850065363,
+          "slicot_linf": 10.143869540299852,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 2,
+    "seed": null,
+    "theta": [
+      0.07931303121327431
+    ],
+    "search_cost": 10.667232425617149,
+    "wall_s": 0.017123387000083312,
+    "n_evaluations": 2,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 10.667232425617149,
+      "worst_abscissa": -7.855579556707038,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8556062492968,
+          "uncertainty": 0.0004833709292897213,
+          "slicot_linf": 9.914623992568039,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855579556707038,
+          "uncertainty": 0.0004823964449036228,
+          "slicot_linf": 9.80191705364712,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855817666341547,
+          "uncertainty": 0.0004882041531537813,
+          "slicot_linf": 10.667232425617149,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85749767165872,
+          "uncertainty": 0.0004585387723802108,
+          "slicot_linf": 9.857601016053568,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 3,
+    "seed": null,
+    "theta": [
+      0.12581113840475658
+    ],
+    "search_cost": 10.182680049058865,
+    "wall_s": 0.02540338199969483,
+    "n_evaluations": 3,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 10.182680049058865,
+      "worst_abscissa": -7.85551039187227,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855539296393571,
+          "uncertainty": 0.00048338870102676725,
+          "slicot_linf": 9.492906706608846,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85551039187227,
+          "uncertainty": 0.0004824153987826416,
+          "slicot_linf": 9.354412249302726,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855738736191444,
+          "uncertainty": 0.0004882277049885739,
+          "slicot_linf": 10.182680049058865,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.857353949160885,
+          "uncertainty": 0.00045855761173949414,
+          "slicot_linf": 9.436380691917226,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 4,
+    "seed": null,
+    "theta": [
+      0.19956925494548067
+    ],
+    "search_cost": 9.499009777529805,
+    "wall_s": 0.0336424869997245,
+    "n_evaluations": 4,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 9.499009777529805,
+      "worst_abscissa": -7.855412164695132,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855443709400802,
+          "uncertainty": 0.0004834334157860134,
+          "slicot_linf": 8.893732934478276,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855412164695132,
+          "uncertainty": 0.0004824630876705429,
+          "slicot_linf": 8.7290912135053,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855626557888957,
+          "uncertainty": 0.0004882869616261188,
+          "slicot_linf": 9.499009777529805,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.857148506145652,
+          "uncertainty": 0.00045860501234061237,
+          "slicot_linf": 8.839540021664117,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 5,
+    "seed": null,
+    "theta": [
+      0.3165688509340162
+    ],
+    "search_cost": 8.58600371537898,
+    "wall_s": 0.04193850100000418,
+    "n_evaluations": 5,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 8.58600371537898,
+      "worst_abscissa": -7.855279837527575,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855314000561876,
+          "uncertainty": 0.00048354590978936753,
+          "slicot_linf": 8.085779971516459,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855279837527575,
+          "uncertainty": 0.00048258306268838267,
+          "slicot_linf": 7.902531155064459,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855475282622035,
+          "uncertainty": 0.0004884360327241325,
+          "slicot_linf": 8.58600371537898,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.856869280269348,
+          "uncertainty": 0.00045872426114473565,
+          "slicot_linf": 8.03704549896374,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 6,
+    "seed": null,
+    "theta": [
+      0.5021607031056003
+    ],
+    "search_cost": 7.4520574831574615,
+    "wall_s": 0.050229275999754464,
+    "n_evaluations": 6,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 7.4520574831574615,
+      "worst_abscissa": -7.855113708246173,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855149614935136,
+          "uncertainty": 0.0004838288540541439,
+          "slicot_linf": 7.069470743985157,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855113708246173,
+          "uncertainty": 0.0004828848146936672,
+          "slicot_linf": 6.882882037400454,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855285113771059,
+          "uncertainty": 0.0004888109277014478,
+          "slicot_linf": 7.4520574831574615,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.856514736985314,
+          "uncertainty": 0.000459024180654251,
+          "slicot_linf": 7.0299014304336085,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 7,
+    "seed": null,
+    "theta": [
+      0.7965577503898852
+    ],
+    "search_cost": 6.163655195409403,
+    "wall_s": 0.05857375799996589,
+    "n_evaluations": 7,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 6.163655195409403,
+      "worst_abscissa": -7.854922666360524,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.854958422332046,
+          "uncertainty": 0.0004845400739396688,
+          "slicot_linf": 5.896720086456037,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.854922666360524,
+          "uncertainty": 0.0004836432571029663,
+          "slicot_linf": 5.723553604885581,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855066079221692,
+          "uncertainty": 0.0004897529774662545,
+          "slicot_linf": 6.163655195409403,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.856101553124663,
+          "uncertainty": 0.000459777979474093,
+          "slicot_linf": 5.868740574130862,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 8,
+    "seed": null,
+    "theta": [
+      1.2635481943969715
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.06573840200007908,
+    "n_evaluations": 8,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 14.511448252135352,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.854757051663392,
+          "uncertainty": 0.0004863250603722959,
+          "slicot_linf": 4.670414118256448,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85472394116586,
+          "uncertainty": 0.00048554642624085837,
+          "slicot_linf": 7.163287012776419,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 14.511448252135352,
+          "uncertainty": 0.0004921154069253168,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85566556301961,
+          "uncertainty": 0.00046166926054086894,
+          "slicot_linf": 4.653617820021102,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 9,
+    "seed": null,
+    "theta": [
+      2.004316747633668
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.06717040800003815,
+    "n_evaluations": 9,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 250.8326796229427,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 101.85650162732705,
+          "uncertainty": 0.0004907877655648525,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 155.5328255566671,
+          "uncertainty": 0.0004903025445413176,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 250.8326796229427,
+          "uncertainty": 0.0004980102317947341,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 56.48810060828656,
+          "uncertainty": 0.00046639421855229103,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 10,
+    "seed": null,
+    "theta": [
+      3.1793687353271514
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.06854928999973708,
+    "n_evaluations": 10,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 570.9535458709217,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 374.4130667959945,
+          "uncertainty": 0.0005018413967500095,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 387.33689308106614,
+          "uncertainty": 0.0005020707241298201,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 570.9535458709217,
+          "uncertainty": 0.0005125430910251443,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 293.21689046770393,
+          "uncertainty": 0.0004780767274746131,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 11,
+    "seed": null,
+    "theta": [
+      5.043307434870219
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.06987659199967311,
+    "n_evaluations": 11,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 990.6725937718793,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 740.8607803455776,
+          "uncertainty": 0.0005286333113839038,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 700.0567335933932,
+          "uncertainty": 0.0005305285435770959,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 990.6725937718793,
+          "uncertainty": 0.0005474068362847574,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 616.5689179887208,
+          "uncertainty": 0.0005062813759244134,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 12,
+    "seed": null,
+    "theta": [
+      8.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.07142234399998415,
+    "n_evaluations": 12,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 1514.4650911406104,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1212.369123138118,
+          "uncertainty": 0.0005906962319599079,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1107.7919147498956,
+          "uncertainty": 0.0005961552305297376,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1514.4650911406104,
+          "uncertainty": 0.0006266085686986554,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1043.7498630993819,
+          "uncertainty": 0.0005711216312222615,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 13,
+    "seed": null,
+    "theta": [
+      -0.4
+    ],
+    "search_cost": 21.090490406869957,
+    "wall_s": 0.07952448300011383,
+    "n_evaluations": 13,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 21.090490406869957,
+      "worst_abscissa": -7.856897013164785,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.856897013164785,
+          "uncertainty": 0.0004836572532506355,
+          "slicot_linf": 18.450086002344506,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.856974307109368,
+          "uncertainty": 0.0004827018087654047,
+          "slicot_linf": 20.28090501494203,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.857399333010196,
+          "uncertainty": 0.0004885835685358809,
+          "slicot_linf": 21.090490406869957,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.860229093011204,
+          "uncertainty": 0.00045884228711460476,
+          "slicot_linf": 18.74221670538242,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 14,
+    "seed": null,
+    "theta": [
+      -1.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.0811962009997842,
+    "n_evaluations": 14,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 274.2227262893577,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 136.1026848974436,
+          "uncertainty": 0.0004852189879335801,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 274.2227262893577,
+          "uncertainty": 0.00048436717766576733,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 259.720201906079,
+          "uncertainty": 0.0004906518362638517,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 161.53258990788763,
+          "uncertainty": 0.00046049741771651685,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "static_diagonal",
+    "start_id": 15,
+    "seed": null,
+    "theta": [
+      0.0
+    ],
+    "search_cost": 11.610956944779316,
+    "wall_s": 0.0885819810000612,
+    "n_evaluations": 15,
+    "note": "static tied gain, stable unused poles at -100",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 11.610956944779316,
+      "worst_abscissa": -7.85571316964168,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855734770864478,
+          "uncertainty": 0.0004833592078727877,
+          "slicot_linf": 10.729116620868554,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85571316964168,
+          "uncertainty": 0.0004823839437742527,
+          "slicot_linf": 10.685087233951897,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.855970008559099,
+          "uncertainty": 0.0004881886193034233,
+          "slicot_linf": 11.610956944779316,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.857773119691098,
+          "uncertainty": 0.00045852634676442453,
+          "slicot_linf": 10.674427295003875,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 1,
+    "seed": null,
+    "theta": [
+      0.1,
+      0.5,
+      0.1,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.0016264119999505056,
+    "n_evaluations": 1,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": -0.4617455389336859,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.4617455389336859,
+          "uncertainty": 0.0004837229762706445,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.48448492486990685,
+          "uncertainty": 0.0004827496480516366,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.47830895973709675,
+          "uncertainty": 0.0004885550323910101,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.4625093833070279,
+          "uncertainty": 0.0004589099103344278,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 2,
+    "seed": null,
+    "theta": [
+      0.1,
+      1.0,
+      0.1,
+      1.0
+    ],
+    "search_cost": 1.1775992598566816,
+    "wall_s": 0.012761318000229949,
+    "n_evaluations": 2,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.1775992598566816,
+      "worst_abscissa": -0.9236539134887304,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.9236539134887304,
+          "uncertainty": 0.0004847692829686652,
+          "slicot_linf": 1.1643698764851225,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.9691265213985054,
+          "uncertainty": 0.0004837980597644043,
+          "slicot_linf": 1.1233213414695071,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.9568099686562337,
+          "uncertainty": 0.0004895910125935771,
+          "slicot_linf": 1.1775992598566816,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.9251554171583442,
+          "uncertainty": 0.00046001265823993986,
+          "slicot_linf": 1.1652896850133494,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 3,
+    "seed": null,
+    "theta": [
+      0.1,
+      2.0,
+      0.1,
+      2.0
+    ],
+    "search_cost": 0.6243854160252769,
+    "wall_s": 0.023882810000031895,
+    "n_evaluations": 3,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.6243854160252769,
+      "worst_abscissa": -1.847551838318048,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.847551838318048,
+          "uncertainty": 0.0004889321194820875,
+          "slicot_linf": 0.6195370325784549,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.9380712716978017,
+          "uncertainty": 0.00048796918179644784,
+          "slicot_linf": 0.59646488506774,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.9141125824973648,
+          "uncertainty": 0.0004937131954522755,
+          "slicot_linf": 0.6243854160252769,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.8503236172710495,
+          "uncertainty": 0.00046439746499337005,
+          "slicot_linf": 0.620194948872379,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 4,
+    "seed": null,
+    "theta": [
+      0.1,
+      4.0,
+      0.1,
+      4.0
+    ],
+    "search_cost": 0.3223761275878802,
+    "wall_s": 0.03737147799984086,
+    "n_evaluations": 4,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.3223761275878802,
+      "worst_abscissa": -3.6916698467378426,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.6916698467378426,
+          "uncertainty": 0.0005052405926550407,
+          "slicot_linf": 0.32048165903373754,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.8663453970448054,
+          "uncertainty": 0.0005043087956681554,
+          "slicot_linf": 0.3081925325350292,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.8268217006197305,
+          "uncertainty": 0.0005098687658298628,
+          "slicot_linf": 0.3223761275878802,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.6953330444498893,
+          "uncertainty": 0.00048153758368110674,
+          "slicot_linf": 0.32086764037983706,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 5,
+    "seed": null,
+    "theta": [
+      0.1,
+      8.0,
+      0.1,
+      8.0
+    ],
+    "search_cost": 0.1647497053899047,
+    "wall_s": 0.05044556500024555,
+    "n_evaluations": 5,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.1647497053899047,
+      "worst_abscissa": -7.230283676988864,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.2473259562375105,
+          "uncertainty": 0.0005657930827494262,
+          "slicot_linf": 0.16394257449019528,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.352562902760978,
+          "uncertainty": 0.0005649611645139401,
+          "slicot_linf": 0.15755902709571085,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.465872589152181,
+          "uncertainty": 0.0005699297451349152,
+          "slicot_linf": 0.1647497053899047,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.230283676988864,
+          "uncertainty": 0.0005447313103890034,
+          "slicot_linf": 0.1641514089662461,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 6,
+    "seed": null,
+    "theta": [
+      0.1,
+      16.0,
+      0.1,
+      16.0
+    ],
+    "search_cost": 0.10043456353690632,
+    "wall_s": 0.06489021500010494,
+    "n_evaluations": 6,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.10043456353690632,
+      "worst_abscissa": -7.841789408874517,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85055115391765,
+          "uncertainty": 0.0007612731681662164,
+          "slicot_linf": 0.08965804436987496,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.841789408874517,
+          "uncertainty": 0.0007606550739275167,
+          "slicot_linf": 0.08133130633667753,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8500978413130476,
+          "uncertainty": 0.000764352627046102,
+          "slicot_linf": 0.10043456353690632,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8454995970529815,
+          "uncertainty": 0.0007457527905417784,
+          "slicot_linf": 0.08476510663899378,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 7,
+    "seed": null,
+    "theta": [
+      0.1,
+      40.0,
+      0.1,
+      40.0
+    ],
+    "search_cost": 0.10518645354184182,
+    "wall_s": 0.07933432400022866,
+    "n_evaluations": 7,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.10518645354184182,
+      "worst_abscissa": -7.851172530714052,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853240794407663,
+          "uncertainty": 0.0015477215528475804,
+          "slicot_linf": 0.0938712535966025,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851172530714052,
+          "uncertainty": 0.0015474176262634388,
+          "slicot_linf": 0.08679252429928867,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853104998838964,
+          "uncertainty": 0.0015492385571794214,
+          "slicot_linf": 0.10518645354184182,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851970764758406,
+          "uncertainty": 0.0015401468738987035,
+          "slicot_linf": 0.08319549111124157,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 8,
+    "seed": null,
+    "theta": [
+      0.2,
+      0.5,
+      0.2,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.08089365500018175,
+    "n_evaluations": 8,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": -0.4227012297866292,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.4227012297866292,
+          "uncertainty": 0.0004837788317450517,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.44167825161840046,
+          "uncertainty": 0.00048280921853423623,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.43654023433477784,
+          "uncertainty": 0.000488629054157581,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.42334245425393624,
+          "uncertainty": 0.00045896911620995376,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 9,
+    "seed": null,
+    "theta": [
+      0.2,
+      1.0,
+      0.2,
+      1.0
+    ],
+    "search_cost": 1.1644864417030856,
+    "wall_s": 0.09207728299998053,
+    "n_evaluations": 9,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.1644864417030856,
+      "worst_abscissa": -0.8455346526869487,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8455346526869487,
+          "uncertainty": 0.0004848250179007166,
+          "slicot_linf": 1.1514930045196459,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8834894197237226,
+          "uncertainty": 0.0004838575011710194,
+          "slicot_linf": 1.110598275299774,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8732304941822533,
+          "uncertainty": 0.0004896648777528927,
+          "slicot_linf": 1.1644864417030856,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8467975829389898,
+          "uncertainty": 0.00046007172220466797,
+          "slicot_linf": 1.1523422049333814,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 10,
+    "seed": null,
+    "theta": [
+      0.2,
+      2.0,
+      0.2,
+      2.0
+    ],
+    "search_cost": 0.6206781720264822,
+    "wall_s": 0.10315348399990398,
+    "n_evaluations": 10,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.6206781720264822,
+      "worst_abscissa": -1.6913133075400528,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.6913133075400528,
+          "uncertainty": 0.0004889873799329823,
+          "slicot_linf": 0.615871864632879,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.7669531658314608,
+          "uncertainty": 0.0004880281151642347,
+          "slicot_linf": 0.592860539656725,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.7468758316781172,
+          "uncertainty": 0.0004937864439776044,
+          "slicot_linf": 0.6206781720264822,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.693678994191305,
+          "uncertainty": 0.0004644559713510656,
+          "slicot_linf": 0.6165085365147827,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 11,
+    "seed": null,
+    "theta": [
+      0.2,
+      4.0,
+      0.2,
+      4.0
+    ],
+    "search_cost": 0.3213838942570885,
+    "wall_s": 0.11520684700008132,
+    "n_evaluations": 11,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.3213838942570885,
+      "worst_abscissa": -3.38067150592321,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.38067150592321,
+          "uncertainty": 0.0005052940695663204,
+          "slicot_linf": 0.3194974909002795,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.5280041354373726,
+          "uncertainty": 0.0005043658198132841,
+          "slicot_linf": 0.30722726335065553,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.4932604022784024,
+          "uncertainty": 0.0005099396937493869,
+          "slicot_linf": 0.3213838942570885,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.3840724019752786,
+          "uncertainty": 0.0004815940077792002,
+          "slicot_linf": 0.3198777275825616,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 12,
+    "seed": null,
+    "theta": [
+      0.2,
+      8.0,
+      0.2,
+      8.0
+    ],
+    "search_cost": 0.1644891665262706,
+    "wall_s": 0.12828519100003177,
+    "n_evaluations": 12,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.1644891665262706,
+      "worst_abscissa": -6.687834111941221,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.693774250990168,
+          "uncertainty": 0.0005658408369493804,
+          "slicot_linf": 0.16368420851492618,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.874027637646517,
+          "uncertainty": 0.0005650120673194585,
+          "slicot_linf": 0.15730604662144992,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.912880240919839,
+          "uncertainty": 0.0005699931993295189,
+          "slicot_linf": 0.1644891665262706,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.687834111941221,
+          "uncertainty": 0.0005447811894233449,
+          "slicot_linf": 0.16389165215748208,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 13,
+    "seed": null,
+    "theta": [
+      0.2,
+      16.0,
+      0.2,
+      16.0
+    ],
+    "search_cost": 0.12463727382770132,
+    "wall_s": 0.14274443400017844,
+    "n_evaluations": 13,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.12463727382770132,
+      "worst_abscissa": -7.84031136332661,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.850092546327483,
+          "uncertainty": 0.0007613086606904614,
+          "slicot_linf": 0.10870680457143904,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.84031136332661,
+          "uncertainty": 0.0007606928817199074,
+          "slicot_linf": 0.09057338304831243,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.849611493430141,
+          "uncertainty": 0.0007643999420229107,
+          "slicot_linf": 0.12463727382770132,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.844496437320673,
+          "uncertainty": 0.00074578922520525,
+          "slicot_linf": 0.09116028497724367,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 14,
+    "seed": null,
+    "theta": [
+      0.2,
+      40.0,
+      0.2,
+      40.0
+    ],
+    "search_cost": 0.12947501743490167,
+    "wall_s": 0.15664914800026963,
+    "n_evaluations": 14,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.12947501743490167,
+      "worst_abscissa": -7.8510996734056,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853221206305166,
+          "uncertainty": 0.0015477390107577573,
+          "slicot_linf": 0.1129247534847133,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8510996734056,
+          "uncertainty": 0.0015474362115701038,
+          "slicot_linf": 0.09835363887063957,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853082120062481,
+          "uncertainty": 0.0015492619016627658,
+          "slicot_linf": 0.12947501743490167,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851919276812243,
+          "uncertainty": 0.0015401645162161544,
+          "slicot_linf": 0.09596416163153097,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 15,
+    "seed": null,
+    "theta": [
+      0.4,
+      0.5,
+      0.4,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.15820697800018024,
+    "n_evaluations": 15,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": -0.3615585895807336,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.3615585895807336,
+          "uncertainty": 0.00048400218918359493,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.3753528573443211,
+          "uncertainty": 0.0004830474270009974,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.3716358004200493,
+          "uncertainty": 0.0004889250291571673,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.36202869453203373,
+          "uncertainty": 0.00045920586337733124,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 16,
+    "seed": null,
+    "theta": [
+      0.4,
+      1.0,
+      0.4,
+      1.0
+    ],
+    "search_cost": 1.1391772136996519,
+    "wall_s": 0.16917649000015444,
+    "n_evaluations": 16,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.1391772136996519,
+      "worst_abscissa": -0.7232068862359345,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.7232068862359345,
+          "uncertainty": 0.00048504789358612367,
+          "slicot_linf": 1.126633604893647,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.7508005160823704,
+          "uncertainty": 0.00048409519381017107,
+          "slicot_linf": 1.086160618280115,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.7433685682217395,
+          "uncertainty": 0.0004899602270329297,
+          "slicot_linf": 1.1391772136996519,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.7241354151301767,
+          "uncertainty": 0.00046030790227623004,
+          "slicot_linf": 1.1273778631909335,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 17,
+    "seed": null,
+    "theta": [
+      0.4,
+      2.0,
+      0.4,
+      2.0
+    ],
+    "search_cost": 0.6134142557633178,
+    "wall_s": 0.18018669999992198,
+    "n_evaluations": 17,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.6134142557633178,
+      "worst_abscissa": -1.4466197386852884,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.4466197386852884,
+          "uncertainty": 0.0004892083593149531,
+          "slicot_linf": 0.6086894384124265,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.5016862393871788,
+          "uncertainty": 0.0004882637775028982,
+          "slicot_linf": 0.5858296860341683,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.4870296627363686,
+          "uncertainty": 0.0004940793294861188,
+          "slicot_linf": 0.6134142557633178,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.4483933549165176,
+          "uncertainty": 0.0004646899231199617,
+          "slicot_linf": 0.6092927235565172,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 18,
+    "seed": null,
+    "theta": [
+      0.4,
+      4.0,
+      0.4,
+      4.0
+    ],
+    "search_cost": 0.3194257333473456,
+    "wall_s": 0.19130388800022047,
+    "n_evaluations": 18,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.3194257333473456,
+      "worst_abscissa": -2.8926201577191692,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.8926201577191692,
+          "uncertainty": 0.0005055079206390328,
+          "slicot_linf": 0.31755472462633844,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.001012024400775,
+          "uncertainty": 0.0005045938519508241,
+          "slicot_linf": 0.3053301510390297,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.9742294660140507,
+          "uncertainty": 0.000510223306828121,
+          "slicot_linf": 0.3194257333473456,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.89545137034617,
+          "uncertainty": 0.00048181963809542516,
+          "slicot_linf": 0.3179256745146695,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 19,
+    "seed": null,
+    "theta": [
+      0.4,
+      8.0,
+      0.4,
+      8.0
+    ],
+    "search_cost": 0.22125783507843244,
+    "wall_s": 0.20562546100018153,
+    "n_evaluations": 19,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.22125783507843244,
+      "worst_abscissa": -5.761098385404819,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -5.761098385404819,
+          "uncertainty": 0.0005660318134605871,
+          "slicot_linf": 0.18165496746594004,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -5.9422958790826925,
+          "uncertainty": 0.0005652156326989309,
+          "slicot_linf": 0.15680882453748896,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -5.928616523365224,
+          "uncertainty": 0.0005702469454993207,
+          "slicot_linf": 0.22125783507843244,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -5.7611196304801116,
+          "uncertainty": 0.0005449806599092196,
+          "slicot_linf": 0.16337932963122986,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 20,
+    "seed": null,
+    "theta": [
+      0.4,
+      16.0,
+      0.4,
+      16.0
+    ],
+    "search_cost": 0.2233727460977645,
+    "wall_s": 0.22052856100026474,
+    "n_evaluations": 20,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.2233727460977645,
+      "worst_abscissa": -7.835974431747648,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.848683673188782,
+          "uncertainty": 0.0007614506142437667,
+          "slicot_linf": 0.18325952620605584,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.835974431747648,
+          "uncertainty": 0.0007608440941020601,
+          "slicot_linf": 0.14195732777050715,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.848161527391054,
+          "uncertainty": 0.000764589172650276,
+          "slicot_linf": 0.2233727460977645,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.84155220503674,
+          "uncertainty": 0.0007459349460628702,
+          "slicot_linf": 0.14418175648778833,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 21,
+    "seed": null,
+    "theta": [
+      0.4,
+      40.0,
+      0.4,
+      40.0
+    ],
+    "search_cost": 0.23051050595360598,
+    "wall_s": 0.23590855400016153,
+    "n_evaluations": 21,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.23051050595360598,
+      "worst_abscissa": -7.8509420053835655,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853178747915408,
+          "uncertainty": 0.0015478088404293695,
+          "slicot_linf": 0.18868452191494692,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8509420053835655,
+          "uncertainty": 0.0015475105505647058,
+          "slicot_linf": 0.15152142238239621,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853032582914755,
+          "uncertainty": 0.0015493552760787732,
+          "slicot_linf": 0.23051050595360598,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851807957134154,
+          "uncertainty": 0.001540235083465164,
+          "slicot_linf": 0.14972490937376362,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 22,
+    "seed": null,
+    "theta": [
+      0.8,
+      0.5,
+      0.8,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.23750843900006657,
+    "n_evaluations": 22,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": -0.2804347386863845,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.2804347386863845,
+          "uncertainty": 0.00048489459008544756,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.2886628009927576,
+          "uncertainty": 0.00048399908848556684,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.2864594027466542,
+          "uncertainty": 0.0004901071417699969,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.2807180029727128,
+          "uncertainty": 0.00046015163398864127,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 23,
+    "seed": null,
+    "theta": [
+      0.8,
+      1.0,
+      0.8,
+      1.0
+    ],
+    "search_cost": 1.0918517882739613,
+    "wall_s": 0.2485105350001504,
+    "n_evaluations": 23,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.0918517882739613,
+      "worst_abscissa": -0.5609155337268948,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.5609155337268948,
+          "uncertainty": 0.00048593837410926624,
+          "slicot_linf": 1.08013304238363,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.5773750148102941,
+          "uncertainty": 0.0004850447995728671,
+          "slicot_linf": 1.0407352908102667,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.5729659351145113,
+          "uncertainty": 0.0004911398480593679,
+          "slicot_linf": 1.0918517882739613,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.5614769177972758,
+          "uncertainty": 0.000461251413223027,
+          "slicot_linf": 1.080753506704743,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 24,
+    "seed": null,
+    "theta": [
+      0.8,
+      2.0,
+      0.8,
+      2.0
+    ],
+    "search_cost": 0.8089730360883395,
+    "wall_s": 0.26019690900011483,
+    "n_evaluations": 24,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.8089730360883395,
+      "worst_abscissa": -1.1219581339863314,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.1219581339863314,
+          "uncertainty": 0.0004900912804603342,
+          "slicot_linf": 0.5948608326466711,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.1548471890664036,
+          "uncertainty": 0.000489205291614855,
+          "slicot_linf": 0.572367794010606,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.1460862365532776,
+          "uncertainty": 0.0004952491394268865,
+          "slicot_linf": 0.8089730360883395,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.123052175091385,
+          "uncertainty": 0.00046562455471284194,
+          "slicot_linf": 0.595419409844453,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 25,
+    "seed": null,
+    "theta": [
+      0.8,
+      4.0,
+      0.8,
+      4.0
+    ],
+    "search_cost": 0.8117838614618317,
+    "wall_s": 0.27510052200022983,
+    "n_evaluations": 25,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.8117838614618317,
+      "worst_abscissa": -2.24395600827481,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.24395600827481,
+          "uncertainty": 0.0005063624217775451,
+          "slicot_linf": 0.5172653033431879,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.30924938046632,
+          "uncertainty": 0.0005055049518542285,
+          "slicot_linf": 0.4441232267751162,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.2924844820820423,
+          "uncertainty": 0.0005113561861444937,
+          "slicot_linf": 0.8117838614618317,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.245887929274316,
+          "uncertainty": 0.00048272110473512837,
+          "slicot_linf": 0.3825284416872243,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 26,
+    "seed": null,
+    "theta": [
+      0.8,
+      8.0,
+      0.8,
+      8.0
+    ],
+    "search_cost": 0.8174955138568643,
+    "wall_s": 0.2891656269998748,
+    "n_evaluations": 26,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.8174955138568643,
+      "worst_abscissa": -4.4824579863851675,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -4.4824579863851675,
+          "uncertainty": 0.0005667950760275733,
+          "slicot_linf": 0.519742993261611,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -4.605574731401836,
+          "uncertainty": 0.0005660291621196102,
+          "slicot_linf": 0.4487528257238501,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -4.581904001985038,
+          "uncertainty": 0.0005712608030741513,
+          "slicot_linf": 0.8174955138568643,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -4.484332185983337,
+          "uncertainty": 0.000545777812829896,
+          "slicot_linf": 0.38452883435336416,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 27,
+    "seed": null,
+    "theta": [
+      0.8,
+      16.0,
+      0.8,
+      16.0
+    ],
+    "search_cost": 0.8292911379588741,
+    "wall_s": 0.303223676000016,
+    "n_evaluations": 27,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.8292911379588741,
+      "worst_abscissa": -7.808060182340965,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.836588052267789,
+          "uncertainty": 0.0007620181640169944,
+          "slicot_linf": 0.5248330275221815,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.808060182340965,
+          "uncertainty": 0.000761448643345404,
+          "slicot_linf": 0.4585082020493529,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.837733353640741,
+          "uncertainty": 0.0007653456272898234,
+          "slicot_linf": 0.8292911379588741,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.821182049888023,
+          "uncertainty": 0.0007465175450450667,
+          "slicot_linf": 0.3886729600022259,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 28,
+    "seed": null,
+    "theta": [
+      0.8,
+      40.0,
+      0.8,
+      40.0
+    ],
+    "search_cost": 0.8679341399175556,
+    "wall_s": 0.31735900000012407,
+    "n_evaluations": 28,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.8679341399175556,
+      "worst_abscissa": -7.850568586661434,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853077812372874,
+          "uncertainty": 0.001548088127617717,
+          "slicot_linf": 0.5412545758436548,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.850568586661434,
+          "uncertainty": 0.0015478078708391606,
+          "slicot_linf": 0.4923133082798066,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.852915116487695,
+          "uncertainty": 0.001549728717482757,
+          "slicot_linf": 0.8679341399175556,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851544861657173,
+          "uncertainty": 0.0015405173201360675,
+          "slicot_linf": 0.40234164463049754,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 29,
+    "seed": null,
+    "theta": [
+      1.5,
+      0.5,
+      1.5,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3189246430001731,
+    "n_evaluations": 29,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 94.04874907570559,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.2013701644372343,
+          "uncertainty": 0.00048787593175283664,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 43.166882315371765,
+          "uncertainty": 0.0004871775449799238,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 94.04874907570559,
+          "uncertainty": 0.0004940514908760045,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.20151626875144354,
+          "uncertainty": 0.0004633098083865721,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 30,
+    "seed": null,
+    "theta": [
+      1.5,
+      1.0,
+      1.5,
+      1.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.32046270499995444,
+    "n_evaluations": 30,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 94.13916122765562,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.4027581899937494,
+          "uncertainty": 0.0004889133509340093,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 43.26953722892809,
+          "uncertainty": 0.00048821644817692166,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 94.13916122765562,
+          "uncertainty": 0.0004950759694982437,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.4030492498223699,
+          "uncertainty": 0.00046440210861388784,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 31,
+    "seed": null,
+    "theta": [
+      1.5,
+      2.0,
+      1.5,
+      2.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.32770857800005615,
+    "n_evaluations": 31,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 94.32004755018608,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8055751312020311,
+          "uncertainty": 0.0004930411995693811,
+          "slicot_linf": 7.921505863753053,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 43.474953569779956,
+          "uncertainty": 0.0004923501396585376,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 94.32004755018608,
+          "uncertainty": 0.0004991528576758011,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8061488504556596,
+          "uncertainty": 0.00046874585676709505,
+          "slicot_linf": 3.146601970843841,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 32,
+    "seed": null,
+    "theta": [
+      1.5,
+      4.0,
+      1.5,
+      4.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3348327319999953,
+    "n_evaluations": 32,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 94.68206814007252,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.6112680036288527,
+          "uncertainty": 0.0005092180902894013,
+          "slicot_linf": 8.024852692002023,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 43.88621164607761,
+          "uncertainty": 0.0005085490133968916,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 94.68206814007252,
+          "uncertainty": 0.000515137859539647,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.6123501138728535,
+          "uncertainty": 0.00048573255732088666,
+          "slicot_linf": 3.169550974596816,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 33,
+    "seed": null,
+    "theta": [
+      1.5,
+      8.0,
+      1.5,
+      8.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3419683340002848,
+    "n_evaluations": 33,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 95.40710005054623,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.2218317538020123,
+          "uncertainty": 0.0005693477140541331,
+          "slicot_linf": 8.240254680266615,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 44.710424049216044,
+          "uncertainty": 0.000568749378063514,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 95.40710005054623,
+          "uncertainty": 0.0005746483884531228,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.223449764666485,
+          "uncertainty": 0.000548443135851084,
+          "slicot_linf": 3.216601116613078,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 34,
+    "seed": null,
+    "theta": [
+      1.5,
+      16.0,
+      1.5,
+      16.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.34905226799992306,
+    "n_evaluations": 34,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 96.86111822970318,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.419004540498925,
+          "uncertainty": 0.0007639187414780418,
+          "slicot_linf": 8.709508145284207,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 46.365590520900724,
+          "uncertainty": 0.0007634729066118603,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 96.86111822970318,
+          "uncertainty": 0.0007678774605589746,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.417305409729089,
+          "uncertainty": 0.0007484683676314578,
+          "slicot_linf": 3.315584530446944,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 35,
+    "seed": null,
+    "theta": [
+      1.5,
+      40.0,
+      1.5,
+      40.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.35622746800027016,
+    "n_evaluations": 35,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 101.2546222620839,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.852822839766276,
+          "uncertainty": 0.0015490245356870574,
+          "slicot_linf": 10.524750217287355,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 51.38409507547519,
+          "uncertainty": 0.0015488047158081165,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 101.2546222620839,
+          "uncertainty": 0.0015509806455960681,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.850889702343397,
+          "uncertainty": 0.0015414636116120285,
+          "slicot_linf": 3.6582643146778184,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 36,
+    "seed": null,
+    "theta": [
+      3.0,
+      0.5,
+      3.0,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.35785788700013654,
+    "n_evaluations": 36,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 525.4551853370083,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 335.37325923217475,
+          "uncertainty": 0.00050018195298399,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 354.1215201697263,
+          "uncertainty": 0.0005002836116208353,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 525.4551853370083,
+          "uncertainty": 0.0005102565790029752,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 259.1932315997151,
+          "uncertainty": 0.00047632272737162636,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 37,
+    "seed": null,
+    "theta": [
+      3.0,
+      1.0,
+      3.0,
+      1.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.35934750000023996,
+    "n_evaluations": 37,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 525.5049421341251,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 335.4264831379167,
+          "uncertainty": 0.0005011939006299873,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 354.17524338036986,
+          "uncertainty": 0.0005012953540520896,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 525.5049421341251,
+          "uncertainty": 0.0005112485856739776,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 259.2493592812659,
+          "uncertainty": 0.00047738525380301375,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 38,
+    "seed": null,
+    "theta": [
+      3.0,
+      2.0,
+      3.0,
+      2.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.36083438900004694,
+    "n_evaluations": 38,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 525.6044681595732,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 335.53294284203207,
+          "uncertainty": 0.0005052214225267909,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 354.28270954340235,
+          "uncertainty": 0.0005053220673446812,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 525.6044681595732,
+          "uncertainty": 0.0005151975117417932,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 259.3616301567498,
+          "uncertainty": 0.0004816119187684836,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 39,
+    "seed": null,
+    "theta": [
+      3.0,
+      4.0,
+      3.0,
+      4.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3624805429999469,
+    "n_evaluations": 39,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 525.8035699081071,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 335.74590979431537,
+          "uncertainty": 0.0005210202729118749,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 354.4977207693856,
+          "uncertainty": 0.0005211178664665731,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 525.8035699081071,
+          "uncertainty": 0.0005306994583661318,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 259.58623391628885,
+          "uncertainty": 0.0004981600940511304,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 40,
+    "seed": null,
+    "theta": [
+      3.0,
+      8.0,
+      3.0,
+      8.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.36401291099991795,
+    "n_evaluations": 40,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 526.2019719773592,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 336.17203366286924,
+          "uncertainty": 0.0005799274789194309,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 354.92805828318853,
+          "uncertainty": 0.0005800151608116422,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 526.2019719773592,
+          "uncertainty": 0.0005886388291055796,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 260.0356891408816,
+          "uncertainty": 0.000559479432442081,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 41,
+    "seed": null,
+    "theta": [
+      3.0,
+      16.0,
+      3.0,
+      16.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.36560350599984304,
+    "n_evaluations": 41,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 526.999568651204,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 337.02503955153304,
+          "uncertainty": 0.0007718360608889528,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 355.78998923005986,
+          "uncertainty": 0.0007719019438076857,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 526.999568651204,
+          "uncertainty": 0.0007784026562220327,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 260.93558776823545,
+          "uncertainty": 0.0007565925319539188,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid",
+    "start_id": 42,
+    "seed": null,
+    "theta": [
+      3.0,
+      40.0,
+      3.0,
+      40.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3671633120002298,
+    "n_evaluations": 42,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 529.3986625413704,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 339.5900870129198,
+          "uncertainty": 0.0015529443240076813,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 358.3857391010038,
+          "uncertainty": 0.0015529770698349617,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 529.3986625413704,
+          "uncertainty": 0.0015562184498946932,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 263.6431339646608,
+          "uncertainty": 0.0015454246756110566,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_grid_best_pointer",
+    "start_id": 0,
+    "seed": null,
+    "theta": [
+      0.1,
+      16.0,
+      0.1,
+      16.0
+    ],
+    "search_cost": 0.10043456353690632,
+    "wall_s": 0.38137104399993405,
+    "n_evaluations": 42,
+    "note": "pointer restates the best grid entry",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.10043456353690632,
+      "worst_abscissa": -7.841789408874517,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85055115391765,
+          "uncertainty": 0.0007612731681662164,
+          "slicot_linf": 0.08965804436987496,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.841789408874517,
+          "uncertainty": 0.0007606550739275167,
+          "slicot_linf": 0.08133130633667753,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8500978413130476,
+          "uncertainty": 0.000764352627046102,
+          "slicot_linf": 0.10043456353690632,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8454995970529815,
+          "uncertainty": 0.0007457527905417784,
+          "slicot_linf": 0.08476510663899378,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_wrong_sign",
+    "start_id": 0,
+    "seed": null,
+    "theta": [
+      -0.4,
+      -4.0,
+      -0.4,
+      -4.0
+    ],
+    "search_cost": null,
+    "wall_s": 0.0,
+    "n_evaluations": 1,
+    "note": "sign flipped relative to the passing positive PI",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 8.545388020828184,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 7.099654279962567,
+          "uncertainty": 0.000505507920639033,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 8.545388020828184,
+          "uncertainty": 0.000504593851950824,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 8.073248778229917,
+          "uncertainty": 0.0005102233068281214,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 7.79139503647606,
+          "uncertainty": 0.00048181963809542505,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_de",
+    "start_id": 0,
+    "seed": 1101,
+    "theta": [
+      -0.014772324750966286,
+      52.027519237494936,
+      -0.04206376049849525,
+      14.033396896848329
+    ],
+    "search_cost": 0.09030360027942129,
+    "wall_s": 6.269270380999842,
+    "n_evaluations": 513,
+    "note": "Optimization terminated successfully.",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.09030360027942129,
+      "worst_abscissa": -7.84521155756423,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85164725856724,
+          "uncertainty": 0.001481643422368083,
+          "slicot_linf": 0.09012892543185969,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.84521155756423,
+          "uncertainty": 0.0014813265807492905,
+          "slicot_linf": 0.08601278687894352,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85134326890595,
+          "uncertainty": 0.0014832168107234902,
+          "slicot_linf": 0.09030360027942129,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.848825312612877,
+          "uncertainty": 0.0014737319162234106,
+          "slicot_linf": 0.09030359812071584,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_diagonal_pi_de",
+    "start_id": 1,
+    "seed": 1102,
+    "theta": [
+      0.009241584663839389,
+      35.25396801652789,
+      -0.07696739556682099,
+      14.1353276599818
+    ],
+    "search_cost": 0.08975941788381632,
+    "wall_s": 6.183439678000013,
+    "n_evaluations": 478,
+    "note": "Optimization terminated successfully.",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.08975941788381632,
+      "worst_abscissa": -7.845022389101742,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851587882382186,
+          "uncertainty": 0.0010991150385389406,
+          "slicot_linf": 0.08957703298648013,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.845022389101742,
+          "uncertainty": 0.0010986908897784484,
+          "slicot_linf": 0.08557955592152593,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851262703707558,
+          "uncertainty": 0.0011012084717293542,
+          "slicot_linf": 0.08975941788381632,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.848438730154342,
+          "uncertainty": 0.0010884347438717614,
+          "slicot_linf": 0.08975941746800725,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "tied_pi_with_cross_terms",
+    "start_id": 0,
+    "seed": 1201,
+    "theta": [
+      17.685669733974933,
+      3.263777852604079,
+      0.2932101194288598,
+      15.473271500980287,
+      0.1752423146951537,
+      -0.03950147944736712,
+      0.13621146939329107,
+      -0.03981229382211443
+    ],
+    "search_cost": 0.08610357220488732,
+    "wall_s": 21.049849947999974,
+    "n_evaluations": 1947,
+    "note": "Maximum number of iterations has been exceeded.",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.08610357220488732,
+      "worst_abscissa": -7.84718337834403,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853558009174341,
+          "uncertainty": 0.0007832641095396854,
+          "slicot_linf": 0.08608699688199475,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.84718337834403,
+          "uncertainty": 0.0007826803891117356,
+          "slicot_linf": 0.08172402916441161,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853004788156774,
+          "uncertainty": 0.0007861771316424174,
+          "slicot_linf": 0.08610357220488732,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.84948601603087,
+          "uncertainty": 0.00076823530139157,
+          "slicot_linf": 0.08529368134482491,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "general_2state_multistart",
+    "start_id": 0,
+    "seed": 1301,
+    "theta": [
+      -4.999338930386481,
+      3.536390620846566,
+      -3.114903206956626,
+      -4.708795859101907,
+      -3.777387946312224,
+      3.93827864118156,
+      3.3782421812619337,
+      2.9488861695408097,
+      -2.0014724135573703,
+      -4.02873625933567,
+      -1.9787217577791427,
+      -2.6403054453487,
+      2.4030129701452925,
+      -0.4099552298023905,
+      1.9933125735812958,
+      -2.3662270019485723,
+      -2.5630737325909836,
+      0.7519693045243834,
+      -2.9939372474087387,
+      -2.7636020045984977,
+      -2.7207515379889182,
+      -3.584560228665631,
+      4.2134550062185845,
+      -4.911988161177284,
+      -2.6939205197062988,
+      2.7954911037250563,
+      3.1926551918203003,
+      4.054112885517814,
+      -3.615266944484865,
+      -1.8327206476516436,
+      4.493634279078988,
+      -0.9660734250925316
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.04248538899992127,
+    "n_evaluations": 25,
+    "note": "Maximum number of function evaluations has been exceeded.",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 1771.2980080990828,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1598.0206386190007,
+          "uncertainty": 0.0005284609560803634,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1561.6421898134236,
+          "uncertainty": 0.0005291647298811328,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1771.2980080990828,
+          "uncertainty": 0.0005410944984994693,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1321.5110715273058,
+          "uncertainty": 0.0005020358923991386,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "general_2state_multistart",
+    "start_id": 1,
+    "seed": 1302,
+    "theta": [
+      -4.999338930386481,
+      1.8037365631522473,
+      -2.654954227419922,
+      0.6870631824455362,
+      2.388613134134376,
+      -2.5639073590625747,
+      -3.5641697827730203,
+      -3.403345051591665,
+      -4.399068065963236,
+      -1.6826667025159026,
+      4.810686801500539,
+      -3.248167253856317,
+      1.0997626615803373,
+      4.100985958741051,
+      2.4254581510417523,
+      -3.5618906437713136,
+      -4.469479375926966,
+      2.3521655629801517,
+      -1.4608830792027372,
+      2.317076578182917,
+      -0.4557430315007611,
+      -2.0538633705581946,
+      4.5389955557782695,
+      -0.4080110787696931,
+      2.772245613202397,
+      4.04112941802034,
+      4.638103397758542,
+      -0.5254677462275588,
+      2.5355007596197865,
+      -0.7283078162609069,
+      4.02488814752825,
+      0.05020426083541629
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.038309015999857365,
+    "n_evaluations": 25,
+    "note": "Maximum number of function evaluations has been exceeded.",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 1933.5367975154597,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1904.5748127596082,
+          "uncertainty": 0.0005347269121537622,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1610.1549941275443,
+          "uncertainty": 0.000535897690496451,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1933.5367975154597,
+          "uncertainty": 0.0005479840484754955,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 1688.8790212712986,
+          "uncertainty": 0.0005134879454800899,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "general_2state_multistart",
+    "start_id": 2,
+    "seed": 1303,
+    "theta": [
+      -4.999338930386481,
+      -3.635066529359613,
+      -4.100771612381541,
+      -2.272420764991324,
+      0.8043810151568582,
+      1.0034490070309863,
+      -1.1244390239014503,
+      -0.39478729152977365,
+      -1.6181149458568322,
+      -3.8492794219432316,
+      -2.0134296799270945,
+      -3.975673850848519,
+      -4.314548089967365,
+      2.1722447354557195,
+      1.6609219966423279,
+      -2.449761049934891,
+      1.1421387180274412,
+      0.20913846113412582,
+      -2.976459438633846,
+      -2.210965905882282,
+      -3.4792026378708893,
+      -3.6877336684798676,
+      4.1985920648323365,
+      3.2154246523923344,
+      -2.3616184298935075,
+      4.566858875125417,
+      4.987700013656752,
+      -1.318985824491512,
+      -0.8201211443017007,
+      -2.007061505107084,
+      -3.017959098320231,
+      -1.5322268360731828
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.03922083399993426,
+    "n_evaluations": 25,
+    "note": "Maximum number of function evaluations has been exceeded.",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 2716.8507600209277,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 2402.8121987170907,
+          "uncertainty": 0.0005359691494533996,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 2241.78367398523,
+          "uncertainty": 0.0005363284038128224,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 2716.8507600209277,
+          "uncertainty": 0.0005471638539434992,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 2343.604758360086,
+          "uncertainty": 0.0005146577240843197,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "general_2state_multistart",
+    "start_id": 3,
+    "seed": 1304,
+    "theta": [
+      -4.9993389303864815,
+      4.245513870260954,
+      2.5976451776238747,
+      -4.630398012519245,
+      3.3703842407728466,
+      4.280930298081122,
+      2.2819596239323294,
+      4.5607925425772375,
+      3.6571030135631073,
+      2.243857595993859,
+      0.23598940929015555,
+      4.19035634460028,
+      3.086166793203292,
+      3.2102920184093815,
+      -4.826905506517797,
+      -4.850886516748593,
+      0.367249718207761,
+      -1.301919139492136,
+      1.154798508013826,
+      1.6646948074285604,
+      -3.3092090427069087,
+      -0.036565914493500884,
+      -2.359695383105697,
+      -1.9840482978051144,
+      -2.1280080097514853,
+      -1.0199311184223916,
+      4.508771247434369,
+      1.0821247614619818,
+      0.9215752229147336,
+      -0.006597119156586118,
+      -3.5731737082524226,
+      2.5126680315333347
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.03909028099997158,
+    "n_evaluations": 25,
+    "note": "Maximum number of function evaluations has been exceeded.",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 725.1273824605482,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 365.0898966476208,
+          "uncertainty": 0.0005367497220664147,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 725.1273824605482,
+          "uncertainty": 0.0005384889257802429,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 304.3363817405681,
+          "uncertainty": 0.0005482286002100548,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 204.98330365491978,
+          "uncertainty": 0.00051403600636862,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "nominal_only_tied_pi",
+    "start_id": 1,
+    "seed": null,
+    "theta": [
+      0.1,
+      16.0,
+      0.1,
+      16.0
+    ],
+    "search_cost": 0.10043456353690632,
+    "wall_s": 0.11134951599979104,
+    "n_evaluations": 42,
+    "note": "selected on nominal slicot 0.08965804436987496",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.10043456353690632,
+      "worst_abscissa": -7.841789408874517,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85055115391765,
+          "uncertainty": 0.0007612731681662164,
+          "slicot_linf": 0.08965804436987496,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.841789408874517,
+          "uncertainty": 0.0007606550739275167,
+          "slicot_linf": 0.08133130633667753,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8500978413130476,
+          "uncertainty": 0.000764352627046102,
+          "slicot_linf": 0.10043456353690632,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8454995970529815,
+          "uncertainty": 0.0007457527905417784,
+          "slicot_linf": 0.08476510663899378,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "per_case_tied_pi",
+    "start_id": "nominal",
+    "seed": null,
+    "theta": [
+      0.1,
+      16.0
+    ],
+    "search_cost": 0.08965804436987496,
+    "wall_s": 0.09720741000000999,
+    "n_evaluations": 42,
+    "note": "best tied PI for this case alone; not required to be shared",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.08965804436987496,
+      "worst_abscissa": -7.85055115391765,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85055115391765,
+          "uncertainty": 0.0007612731681662164,
+          "slicot_linf": 0.08965804436987496,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "per_case_tied_pi",
+    "start_id": "weak_grid",
+    "seed": null,
+    "theta": [
+      0.1,
+      16.0
+    ],
+    "search_cost": 0.08133130633667753,
+    "wall_s": 0.08154089000026943,
+    "n_evaluations": 42,
+    "note": "best tied PI for this case alone; not required to be shared",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.08133130633667753,
+      "worst_abscissa": -7.841789408874517,
+      "per_case": [
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.841789408874517,
+          "uncertainty": 0.0007606550739275167,
+          "slicot_linf": 0.08133130633667753,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "per_case_tied_pi",
+    "start_id": "high_power",
+    "seed": null,
+    "theta": [
+      0.1,
+      16.0
+    ],
+    "search_cost": 0.10043456353690632,
+    "wall_s": 0.08411103299977185,
+    "n_evaluations": 42,
+    "note": "best tied PI for this case alone; not required to be shared",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.10043456353690632,
+      "worst_abscissa": -7.8500978413130476,
+      "per_case": [
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8500978413130476,
+          "uncertainty": 0.000764352627046102,
+          "slicot_linf": 0.10043456353690632,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "per_case_tied_pi",
+    "start_id": "asymmetric",
+    "seed": null,
+    "theta": [
+      0.1,
+      40.0
+    ],
+    "search_cost": 0.08319549111124157,
+    "wall_s": 0.09703096999965055,
+    "n_evaluations": 42,
+    "note": "best tied PI for this case alone; not required to be shared",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.08319549111124157,
+      "worst_abscissa": -7.851970764758406,
+      "per_case": [
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851970764758406,
+          "uncertainty": 0.0015401468738987035,
+          "slicot_linf": 0.08319549111124157,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 1,
+    "seed": null,
+    "theta": [
+      0.1,
+      0.5,
+      0.1,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.001358326000172383,
+    "n_evaluations": 1,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": -0.4617453901695102,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.4617453901695102,
+          "uncertainty": 0.0004697976438683316,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.48448507432799726,
+          "uncertainty": 0.00046362418946732745,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.47830959845114857,
+          "uncertainty": 0.0004747714482639895,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.4625099152055256,
+          "uncertainty": 0.00045139816343234957,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 2,
+    "seed": null,
+    "theta": [
+      0.1,
+      1.0,
+      0.1,
+      1.0
+    ],
+    "search_cost": 1.1089704483103995,
+    "wall_s": 0.013626157000089734,
+    "n_evaluations": 2,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.1089704483103995,
+      "worst_abscissa": -0.9236919270679969,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.9236919270679969,
+          "uncertainty": 0.00047087489434249826,
+          "slicot_linf": 1.1001869033142495,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.9691917429929838,
+          "uncertainty": 0.00046471575075206933,
+          "slicot_linf": 1.0457308618966565,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.9568378212572668,
+          "uncertainty": 0.0004758374386536951,
+          "slicot_linf": 1.0631150348026221,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.9251984776380319,
+          "uncertainty": 0.00045251921714764906,
+          "slicot_linf": 1.1089704483103995,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 3,
+    "seed": null,
+    "theta": [
+      0.1,
+      2.0,
+      0.1,
+      2.0
+    ],
+    "search_cost": 0.5901941992697421,
+    "wall_s": 0.026946355000291078,
+    "n_evaluations": 3,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.5901941992697421,
+      "worst_abscissa": -1.8480763516823588,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.8480763516823588,
+          "uncertainty": 0.0004751594741487867,
+          "slicot_linf": 0.5854262479388419,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.9391497652635967,
+          "uncertainty": 0.00046905659439810883,
+          "slicot_linf": 0.5550076629562714,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.9144577115061912,
+          "uncertainty": 0.00048007773097260176,
+          "slicot_linf": 0.5644682200530186,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.8508577985734143,
+          "uncertainty": 0.0004569759311377503,
+          "slicot_linf": 0.5901941992697421,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 4,
+    "seed": null,
+    "theta": [
+      0.1,
+      4.0,
+      0.1,
+      4.0
+    ],
+    "search_cost": 0.30533786413528835,
+    "wall_s": 0.04027817399992273,
+    "n_evaluations": 4,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.30533786413528835,
+      "worst_abscissa": -3.6975358445918918,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.6975358445918918,
+          "uncertainty": 0.0004919247553015827,
+          "slicot_linf": 0.30284602476305617,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.879804619901098,
+          "uncertainty": 0.0004860324348780877,
+          "slicot_linf": 0.2867020589149633,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.830864870639087,
+          "uncertainty": 0.0004966770246155668,
+          "slicot_linf": 0.2916583189466071,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.700748271705071,
+          "uncertainty": 0.0004743842752920719,
+          "slicot_linf": 0.30533786413528835,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 5,
+    "seed": null,
+    "theta": [
+      0.1,
+      8.0,
+      0.1,
+      8.0
+    ],
+    "search_cost": 0.15620361198871893,
+    "wall_s": 0.05365342899995085,
+    "n_evaluations": 5,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.15620361198871893,
+      "worst_abscissa": -7.314654309408318,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.345503762188362,
+          "uncertainty": 0.0005539347623134011,
+          "slicot_linf": 0.15492231099767162,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.657747645569543,
+          "uncertainty": 0.000548708742206833,
+          "slicot_linf": 0.14655469471439922,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.6137077425301225,
+          "uncertainty": 0.000558159316684452,
+          "slicot_linf": 0.1491071064609518,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.314654309408318,
+          "uncertainty": 0.000538418235821435,
+          "slicot_linf": 0.15620361198871893,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 6,
+    "seed": null,
+    "theta": [
+      0.1,
+      16.0,
+      0.1,
+      16.0
+    ],
+    "search_cost": 0.08065946347050418,
+    "wall_s": 0.0661627130002671,
+    "n_evaluations": 6,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.08065946347050418,
+      "worst_abscissa": -7.845324981358788,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851832756124676,
+          "uncertainty": 0.0007525016577934777,
+          "slicot_linf": 0.07999616599331555,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851479656179924,
+          "uncertainty": 0.0007486630135494428,
+          "slicot_linf": 0.0756470419440402,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851711327519828,
+          "uncertainty": 0.0007556168651402526,
+          "slicot_linf": 0.07696950796397853,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.845324981358788,
+          "uncertainty": 0.0007411539791081169,
+          "slicot_linf": 0.08065946347050418,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 7,
+    "seed": null,
+    "theta": [
+      0.1,
+      40.0,
+      0.1,
+      40.0
+    ],
+    "search_cost": 0.05175579026970929,
+    "wall_s": 0.07990521000010631,
+    "n_evaluations": 7,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.05175579026970929,
+      "worst_abscissa": -7.851837070761651,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853486164851103,
+          "uncertainty": 0.0015434260311271899,
+          "slicot_linf": 0.049094799205543035,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853374086244882,
+          "uncertainty": 0.0015415581326813567,
+          "slicot_linf": 0.04191753544350494,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8534377618288325,
+          "uncertainty": 0.0015449472532949081,
+          "slicot_linf": 0.05175579026970929,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851837070761651,
+          "uncertainty": 0.0015379253523259487,
+          "slicot_linf": 0.048675231208825095,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 8,
+    "seed": null,
+    "theta": [
+      0.2,
+      0.5,
+      0.2,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.0813195480000104,
+    "n_evaluations": 8,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": -0.4227012077550686,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.4227012077550686,
+          "uncertainty": 0.00046985515476230766,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.44167846056587406,
+          "uncertainty": 0.00046368621703356386,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.43654032013266436,
+          "uncertainty": 0.0004748476186936576,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.42334222708053787,
+          "uncertainty": 0.00045145835442650926,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 9,
+    "seed": null,
+    "theta": [
+      0.2,
+      1.0,
+      0.2,
+      1.0
+    ],
+    "search_cost": 1.0967358058048096,
+    "wall_s": 0.09309357700021792,
+    "n_evaluations": 9,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.0967358058048096,
+      "worst_abscissa": -0.8455583140202976,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8455583140202976,
+          "uncertainty": 0.00047093227368118977,
+          "slicot_linf": 1.0880840281890807,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8835265478958148,
+          "uncertainty": 0.00046477763264245013,
+          "slicot_linf": 1.034171534207908,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.873248182301407,
+          "uncertainty": 0.0004759134384705483,
+          "slicot_linf": 1.051360869291351,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8468251139464481,
+          "uncertainty": 0.0004525792590467606,
+          "slicot_linf": 1.0967358058048096,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 10,
+    "seed": null,
+    "theta": [
+      0.2,
+      2.0,
+      0.2,
+      2.0
+    ],
+    "search_cost": 0.5867106617242667,
+    "wall_s": 0.10642203999987032,
+    "n_evaluations": 10,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.5867106617242667,
+      "worst_abscissa": -1.6916639913483675,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.6916639913483675,
+          "uncertainty": 0.000475216336152102,
+          "slicot_linf": 0.5819810760291305,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.7676516092175023,
+          "uncertainty": 0.0004691179036830856,
+          "slicot_linf": 0.5517337352005747,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.7471044997570975,
+          "uncertainty": 0.00048015305962594143,
+          "slicot_linf": 0.561136799804159,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.6940395107610906,
+          "uncertainty": 0.00045703538754740574,
+          "slicot_linf": 0.5867106617242667,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 11,
+    "seed": null,
+    "theta": [
+      0.2,
+      4.0,
+      0.2,
+      4.0
+    ],
+    "search_cost": 0.30440241921656996,
+    "wall_s": 0.11968250600011743,
+    "n_evaluations": 11,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.30440241921656996,
+      "worst_abscissa": -3.384619779120289,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.384619779120289,
+          "uncertainty": 0.0004919796796118702,
+          "slicot_linf": 0.30192095717919853,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.536718842646471,
+          "uncertainty": 0.000486091603055621,
+          "slicot_linf": 0.2858251717640135,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.495896639017085,
+          "uncertainty": 0.0004967498361079986,
+          "slicot_linf": 0.29076572036321,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.387774127378076,
+          "uncertainty": 0.00047444155011526755,
+          "slicot_linf": 0.30440241921656996,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 12,
+    "seed": null,
+    "theta": [
+      0.2,
+      8.0,
+      0.2,
+      8.0
+    ],
+    "search_cost": 0.15595819653130163,
+    "wall_s": 0.1330524019999757,
+    "n_evaluations": 12,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.15595819653130163,
+      "worst_abscissa": -6.734801832220298,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.748544273505716,
+          "uncertainty": 0.0005539835387190492,
+          "slicot_linf": 0.15467959905646642,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.042733581609706,
+          "uncertainty": 0.0005487611525808524,
+          "slicot_linf": 0.14632468958966935,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.969253195846718,
+          "uncertainty": 0.0005582241088433976,
+          "slicot_linf": 0.1488729838605253,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.734801832220298,
+          "uncertainty": 0.0005384686996441485,
+          "slicot_linf": 0.15595819653130163,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 13,
+    "seed": null,
+    "theta": [
+      0.2,
+      16.0,
+      0.2,
+      16.0
+    ],
+    "search_cost": 0.0805937212090817,
+    "wall_s": 0.14641726099989683,
+    "n_evaluations": 13,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.0805937212090817,
+      "worst_abscissa": -7.844370001186565,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851568508767968,
+          "uncertainty": 0.0007525375640155172,
+          "slicot_linf": 0.07993111940015926,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851194601732439,
+          "uncertainty": 0.0007487014269150244,
+          "slicot_linf": 0.07558513542398153,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85144756185961,
+          "uncertainty": 0.0007556647270957761,
+          "slicot_linf": 0.07690654604546646,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.844370001186565,
+          "uncertainty": 0.0007411906398351158,
+          "slicot_linf": 0.0805937212090817,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 14,
+    "seed": null,
+    "theta": [
+      0.2,
+      40.0,
+      0.2,
+      40.0
+    ],
+    "search_cost": 0.06666108154118006,
+    "wall_s": 0.16022351800029355,
+    "n_evaluations": 14,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.06666108154118006,
+      "worst_abscissa": -7.851782947312522,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853473357843436,
+          "uncertainty": 0.0015434435376240705,
+          "slicot_linf": 0.06290842081653905,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853358642677878,
+          "uncertainty": 0.0015415767886302945,
+          "slicot_linf": 0.054864254227587506,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.85342387341478,
+          "uncertainty": 0.001544970662619789,
+          "slicot_linf": 0.06666108154118006,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851782947312522,
+          "uncertainty": 0.0015379430201273021,
+          "slicot_linf": 0.06244616297653186,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 15,
+    "seed": null,
+    "theta": [
+      0.4,
+      0.5,
+      0.4,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.16167345100029706,
+    "n_evaluations": 15,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": -0.36155866511450774,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.36155866511450774,
+          "uncertainty": 0.0004700851279785581,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.3753530756300364,
+          "uncertainty": 0.0004639342443682522,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.37163579215521714,
+          "uncertainty": 0.0004751521783054792,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.36202793664023747,
+          "uncertainty": 0.00045169903819586077,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 16,
+    "seed": null,
+    "theta": [
+      0.4,
+      1.0,
+      0.4,
+      1.0
+    ],
+    "search_cost": 1.0731044732216024,
+    "wall_s": 0.173536138000145,
+    "n_evaluations": 16,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.0731044732216024,
+      "worst_abscissa": -0.7232164061774187,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.7232164061774187,
+          "uncertainty": 0.00047116172115786384,
+          "slicot_linf": 1.0646892218406039,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.7508118650095635,
+          "uncertainty": 0.00046502507785641423,
+          "slicot_linf": 1.0118288435494978,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.7433762073242206,
+          "uncertainty": 0.000476217316449397,
+          "slicot_linf": 1.0286469313249962,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.7241473450527595,
+          "uncertainty": 0.00045281934703023585,
+          "slicot_linf": 1.0731044732216024,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 17,
+    "seed": null,
+    "theta": [
+      0.4,
+      2.0,
+      0.4,
+      2.0
+    ],
+    "search_cost": 0.5798808018612713,
+    "wall_s": 0.18700600000011036,
+    "n_evaluations": 17,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.5798808018612713,
+      "worst_abscissa": -1.4467902654271658,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.4467902654271658,
+          "uncertainty": 0.00047544371615968725,
+          "slicot_linf": 0.5752215924325491,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.5020070765187743,
+          "uncertainty": 0.0004693630607393992,
+          "slicot_linf": 0.5453101029978511,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.4871399040167603,
+          "uncertainty": 0.00048045425613429395,
+          "slicot_linf": 0.5546017800915765,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.448571715662875,
+          "uncertainty": 0.0004572731358785267,
+          "slicot_linf": 0.5798808018612713,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 18,
+    "seed": null,
+    "theta": [
+      0.4,
+      4.0,
+      0.4,
+      4.0
+    ],
+    "search_cost": 0.3025548757356389,
+    "wall_s": 0.20037838999996893,
+    "n_evaluations": 18,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.3025548757356389,
+      "worst_abscissa": -2.894584253774074,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.894584253774074,
+          "uncertainty": 0.0004921993155632215,
+          "slicot_linf": 0.30009267285840746,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.0051033048314064,
+          "uncertainty": 0.0004863282037799447,
+          "slicot_linf": 0.28409221890304587,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.9754873249418456,
+          "uncertainty": 0.000497040975416241,
+          "slicot_linf": 0.28900203987695233,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.897338831735771,
+          "uncertainty": 0.00047467058029896107,
+          "slicot_linf": 0.3025548757356389,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 19,
+    "seed": null,
+    "theta": [
+      0.4,
+      8.0,
+      0.4,
+      8.0
+    ],
+    "search_cost": 0.155473392178245,
+    "wall_s": 0.21397240099986448,
+    "n_evaluations": 19,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.155473392178245,
+      "worst_abscissa": -5.781432872066691,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -5.7848135750496015,
+          "uncertainty": 0.00055417860141076,
+          "slicot_linf": 0.15419983619016928,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.004639134830417,
+          "uncertainty": 0.0005489707440406178,
+          "slicot_linf": 0.14587026922034194,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -5.948070724328333,
+          "uncertainty": 0.0005584832023108755,
+          "slicot_linf": 0.14841047020142586,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -5.781432872066691,
+          "uncertainty": 0.0005386705076593986,
+          "slicot_linf": 0.155473392178245,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 20,
+    "seed": null,
+    "theta": [
+      0.4,
+      16.0,
+      0.4,
+      16.0
+    ],
+    "search_cost": 0.11771040721085371,
+    "wall_s": 0.22847248400012177,
+    "n_evaluations": 20,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.11771040721085371,
+      "worst_abscissa": -7.8416493635284485,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.850780650239745,
+          "uncertainty": 0.0007526811717748185,
+          "slicot_linf": 0.10950699118325728,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.850371325600047,
+          "uncertainty": 0.0007488550606727833,
+          "slicot_linf": 0.0978942139990507,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.850679996987134,
+          "uncertainty": 0.0007558561446109561,
+          "slicot_linf": 0.11771040721085371,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8416493635284485,
+          "uncertainty": 0.0007413372646135918,
+          "slicot_linf": 0.11062436407052528,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 21,
+    "seed": null,
+    "theta": [
+      0.4,
+      40.0,
+      0.4,
+      40.0
+    ],
+    "search_cost": 0.11891365103183688,
+    "wall_s": 0.2428297440001188,
+    "n_evaluations": 21,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.11891365103183688,
+      "worst_abscissa": -7.8516660694445335,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853445647657066,
+          "uncertainty": 0.0015435135616260105,
+          "slicot_linf": 0.11049427002584046,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853325272446606,
+          "uncertainty": 0.001541651410168439,
+          "slicot_linf": 0.09862331358122566,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853393852708111,
+          "uncertainty": 0.0015450642963725613,
+          "slicot_linf": 0.11891365103183688,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8516660694445335,
+          "uncertainty": 0.0015380136893031417,
+          "slicot_linf": 0.11185667990888225,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 22,
+    "seed": null,
+    "theta": [
+      0.8,
+      0.5,
+      0.8,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.24424842999997054,
+    "n_evaluations": 22,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": -0.2804348284262775,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.2804348284262775,
+          "uncertainty": 0.00047100389797350843,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.2886629530112632,
+          "uncertainty": 0.00046492503053730796,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.2864594396848821,
+          "uncertainty": 0.0004763684695968665,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.28071727413735903,
+          "uncertainty": 0.00045266049353722267,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 23,
+    "seed": null,
+    "theta": [
+      0.8,
+      1.0,
+      0.8,
+      1.0
+    ],
+    "search_cost": 1.0288739247706336,
+    "wall_s": 0.2552288629999566,
+    "n_evaluations": 23,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.0288739247706336,
+      "worst_abscissa": -0.5609167931033476,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.5609167931033476,
+          "uncertainty": 0.0004720783958666846,
+          "slicot_linf": 1.0208597278747642,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.5773749061726742,
+          "uncertainty": 0.0004660135448224011,
+          "slicot_linf": 0.9699772574419242,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.5729675207925436,
+          "uncertainty": 0.00047743089422856163,
+          "slicot_linf": 0.9861117581744546,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.5614792893992403,
+          "uncertainty": 0.00045377842869310706,
+          "slicot_linf": 1.0288739247706336,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 24,
+    "seed": null,
+    "theta": [
+      0.8,
+      2.0,
+      0.8,
+      2.0
+    ],
+    "search_cost": 0.5667231259773189,
+    "wall_s": 0.2678684229999817,
+    "n_evaluations": 24,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.5667231259773189,
+      "worst_abscissa": -1.1220089267936533,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.1220089267936533,
+          "uncertainty": 0.00047635215082473886,
+          "slicot_linf": 0.5621879847483934,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.1549329055869755,
+          "uncertainty": 0.0004703424111317548,
+          "slicot_linf": 0.5329237413608998,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.1461193193630834,
+          "uncertainty": 0.0004816571586877711,
+          "slicot_linf": 0.5420039624000703,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.1231071857132506,
+          "uncertainty": 0.00045822289565066246,
+          "slicot_linf": 0.5667231259773189,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 25,
+    "seed": null,
+    "theta": [
+      0.8,
+      4.0,
+      0.8,
+      4.0
+    ],
+    "search_cost": 0.31039806287041655,
+    "wall_s": 0.280720484000085,
+    "n_evaluations": 25,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.31039806287041655,
+      "worst_abscissa": -2.244586119232502,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.244586119232502,
+          "uncertainty": 0.000493076881024172,
+          "slicot_linf": 0.29651370922465164,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.310466392669443,
+          "uncertainty": 0.0004872734578390282,
+          "slicot_linf": 0.28069994088298855,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.2928723422208916,
+          "uncertainty": 0.0004982038312983424,
+          "slicot_linf": 0.31039806287041655,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -2.246513912066786,
+          "uncertainty": 0.00047558559808266737,
+          "slicot_linf": 0.30103332506987607,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 26,
+    "seed": null,
+    "theta": [
+      0.8,
+      8.0,
+      0.8,
+      8.0
+    ],
+    "search_cost": 0.3109676710138181,
+    "wall_s": 0.29334713700018256,
+    "n_evaluations": 26,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.3109676710138181,
+      "worst_abscissa": -4.489552657907802,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -4.489552657907802,
+          "uncertainty": 0.0005549581665506036,
+          "slicot_linf": 0.2735915337092534,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -4.621355250450686,
+          "uncertainty": 0.0005498083109003401,
+          "slicot_linf": 0.25294741219264927,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -4.586741493547721,
+          "uncertainty": 0.0005595183764104887,
+          "slicot_linf": 0.3109676710138181,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -4.490645519912482,
+          "uncertainty": 0.0005394769847957654,
+          "slicot_linf": 0.3016769886275576,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 27,
+    "seed": null,
+    "theta": [
+      0.8,
+      16.0,
+      0.8,
+      16.0
+    ],
+    "search_cost": 0.31212520896891893,
+    "wall_s": 0.3063173909999932,
+    "n_evaluations": 27,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.31212520896891893,
+      "worst_abscissa": -7.825617347718677,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.844757330906516,
+          "uncertainty": 0.0007532553290245848,
+          "slicot_linf": 0.27445959869491104,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.845131123285535,
+          "uncertainty": 0.0007494692807699416,
+          "slicot_linf": 0.2537588876705944,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.845602920130329,
+          "uncertainty": 0.0007566213304049507,
+          "slicot_linf": 0.31212520896891893,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.825617347718677,
+          "uncertainty": 0.0007419234739560802,
+          "slicot_linf": 0.3029880130170605,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 28,
+    "seed": null,
+    "theta": [
+      0.8,
+      40.0,
+      0.8,
+      40.0
+    ],
+    "search_cost": 0.3157492843111684,
+    "wall_s": 0.31949140500000794,
+    "n_evaluations": 28,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.3157492843111684,
+      "worst_abscissa": -7.851390603112095,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8533800437544805,
+          "uncertainty": 0.0015437936258720056,
+          "slicot_linf": 0.27717902954829154,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853246511244945,
+          "uncertainty": 0.0015419498602084675,
+          "slicot_linf": 0.2563137000659663,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853322938350836,
+          "uncertainty": 0.0015454387746536113,
+          "slicot_linf": 0.3157492843111684,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851390603112095,
+          "uncertainty": 0.0015382963335411537,
+          "slicot_linf": 0.30711803115120634,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 29,
+    "seed": null,
+    "theta": [
+      1.5,
+      0.5,
+      1.5,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3208942589999424,
+    "n_evaluations": 29,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": -0.20137021700748636,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.20137021700748636,
+          "uncertainty": 0.0004740726032959545,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.2055779641478136,
+          "uncertainty": 0.0004682329833511549,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.20445791051330192,
+          "uncertainty": 0.00048042562801010923,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.2015158659706062,
+          "uncertainty": 0.0004558705679182939,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 30,
+    "seed": null,
+    "theta": [
+      1.5,
+      1.0,
+      1.5,
+      1.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.322202653000204,
+    "n_evaluations": 30,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": -0.4027582006856132,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.4027582006856132,
+          "uncertainty": 0.0004751401615666968,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.4111739326999525,
+          "uncertainty": 0.00046931382531920584,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.40893375263810156,
+          "uncertainty": 0.0004814791002595345,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": -0.40304901064144577,
+          "uncertainty": 0.00045698065017237986,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 31,
+    "seed": null,
+    "theta": [
+      1.5,
+      2.0,
+      1.5,
+      2.0
+    ],
+    "search_cost": 1.6644145296121626,
+    "wall_s": 0.3354244050001398,
+    "n_evaluations": 31,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.6644145296121626,
+      "worst_abscissa": -0.8055841582562276,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8055841582562276,
+          "uncertainty": 0.0004793866215122398,
+          "slicot_linf": 1.0067235807587427,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8224167635248313,
+          "uncertainty": 0.00047361252769224623,
+          "slicot_linf": 0.9994828501302458,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8179367074296113,
+          "uncertainty": 0.0004856701388164846,
+          "slicot_linf": 1.4926139913542207,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -0.8061595089245521,
+          "uncertainty": 0.00046139427216130825,
+          "slicot_linf": 1.6644145296121626,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 32,
+    "seed": null,
+    "theta": [
+      1.5,
+      4.0,
+      1.5,
+      4.0
+    ],
+    "search_cost": 1.6683465354589062,
+    "wall_s": 0.3484880260002683,
+    "n_evaluations": 32,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.6683465354589062,
+      "worst_abscissa": -1.6114083442835627,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.6114083442835627,
+          "uncertainty": 0.0004960090441615858,
+          "slicot_linf": 1.007901822158451,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.645079738986547,
+          "uncertainty": 0.000490430693770495,
+          "slicot_linf": 1.0007850057227152,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.6361267429030495,
+          "uncertainty": 0.0005020845772807547,
+          "slicot_linf": 1.4952643141247757,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -1.6124947233393765,
+          "uncertainty": 0.00047864194695871996,
+          "slicot_linf": 1.6683465354589062,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 33,
+    "seed": null,
+    "theta": [
+      1.5,
+      8.0,
+      1.5,
+      8.0
+    ],
+    "search_cost": 1.676280857491392,
+    "wall_s": 0.3616598730000078,
+    "n_evaluations": 33,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.676280857491392,
+      "worst_abscissa": -3.2234216214556306,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.2234216214556306,
+          "uncertainty": 0.0005575649988214576,
+          "slicot_linf": 1.010271040150662,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.2908002835918593,
+          "uncertainty": 0.00055260837978888,
+          "slicot_linf": 1.0034047669012858,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.272996189232839,
+          "uncertainty": 0.0005629766236389183,
+          "slicot_linf": 1.5006023175941727,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -3.224950003525632,
+          "uncertainty": 0.0005421732835626598,
+          "slicot_linf": 1.676280857491392,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 34,
+    "seed": null,
+    "theta": [
+      1.5,
+      16.0,
+      1.5,
+      16.0
+    ],
+    "search_cost": 1.692436393935695,
+    "wall_s": 0.37469106200023816,
+    "n_evaluations": 34,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.692436393935695,
+      "worst_abscissa": -6.435685612634578,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.4403768269932575,
+          "uncertainty": 0.0007551779604791842,
+          "slicot_linf": 1.015060987429154,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.574325973334631,
+          "uncertainty": 0.0007515258115963948,
+          "slicot_linf": 1.0087068546817013,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.54087608888084,
+          "uncertainty": 0.0007591822593070814,
+          "slicot_linf": 1.5114300769666258,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -6.435685612634578,
+          "uncertainty": 0.0007438863444719526,
+          "slicot_linf": 1.692436393935695,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 35,
+    "seed": null,
+    "theta": [
+      1.5,
+      40.0,
+      1.5,
+      40.0
+    ],
+    "search_cost": 1.7433209335939077,
+    "wall_s": 0.3878870009998536,
+    "n_evaluations": 35,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1.7433209335939077,
+      "worst_abscissa": -7.850709382343576,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853215983499693,
+          "uncertainty": 0.001544732637245876,
+          "slicot_linf": 1.0298550126652133,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853051036724541,
+          "uncertainty": 0.0015429504898326189,
+          "slicot_linf": 1.025129918746774,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853146580788672,
+          "uncertainty": 0.001546694175144428,
+          "slicot_linf": 1.5451771715496043,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.850709382343576,
+          "uncertainty": 0.0015392439904287245,
+          "slicot_linf": 1.7433209335939077,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 36,
+    "seed": null,
+    "theta": [
+      3.0,
+      0.5,
+      3.0,
+      0.5
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3893142500000977,
+    "n_evaluations": 36,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 293.43902344554675,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 129.5854440162527,
+          "uncertainty": 0.00048672774166158176,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 153.14272024860742,
+          "uncertainty": 0.00048185460298895546,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 283.54010064098395,
+          "uncertainty": 0.000497075129963192,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 293.43902344554675,
+          "uncertainty": 0.00046908990263881217,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 37,
+    "seed": null,
+    "theta": [
+      3.0,
+      1.0,
+      3.0,
+      1.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3906308780001382,
+    "n_evaluations": 37,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 293.49112336067884,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 129.6396623181006,
+          "uncertainty": 0.00048776760290204454,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 153.19777250855458,
+          "uncertainty": 0.00048290495789489175,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 283.5918003861237,
+          "uncertainty": 0.0004980933896025397,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 293.49112336067884,
+          "uncertainty": 0.0004701687746921455,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 38,
+    "seed": null,
+    "theta": [
+      3.0,
+      2.0,
+      3.0,
+      2.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3919046940000044,
+    "n_evaluations": 38,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 293.5953328921634,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 129.7481083517796,
+          "uncertainty": 0.0004919050662395125,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 153.307886534644,
+          "uncertainty": 0.00048708372802913445,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 283.69520921706976,
+          "uncertainty": 0.0005021457801446112,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 293.5953328921634,
+          "uncertainty": 0.0004744597311119312,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 39,
+    "seed": null,
+    "theta": [
+      3.0,
+      4.0,
+      3.0,
+      4.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3931984939999893,
+    "n_evaluations": 39,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 293.8037907468061,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 129.96503812812176,
+          "uncertainty": 0.0005081181291759524,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 153.52815259935244,
+          "uncertainty": 0.0005034520802578238,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 283.90206423091354,
+          "uncertainty": 0.0005180384382670949,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 293.8037907468061,
+          "uncertainty": 0.0004912488935885521,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 40,
+    "seed": null,
+    "theta": [
+      3.0,
+      8.0,
+      3.0,
+      8.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.39450246100022923,
+    "n_evaluations": 40,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 294.22086151702143,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 130.3990484287994,
+          "uncertainty": 0.0005683641343522228,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 153.96883668073758,
+          "uncertainty": 0.0005641965554100915,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 284.3159235807335,
+          "uncertainty": 0.0005772500147621415,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 294.22086151702143,
+          "uncertainty": 0.0005533346469114859,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 41,
+    "seed": null,
+    "theta": [
+      3.0,
+      16.0,
+      3.0,
+      16.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3959609220000857,
+    "n_evaluations": 41,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 295.0556224517288,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 131.267671315937,
+          "uncertainty": 0.0007631859624630685,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 154.8508118631457,
+          "uncertainty": 0.0007600873484142072,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 285.1442388808235,
+          "uncertainty": 0.0007698263464091245,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 295.0556224517288,
+          "uncertainty": 0.0007520600079484263,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid",
+    "start_id": 42,
+    "seed": null,
+    "theta": [
+      3.0,
+      40.0,
+      3.0,
+      40.0
+    ],
+    "search_cost": 1000000.0,
+    "wall_s": 0.3972602650001136,
+    "n_evaluations": 42,
+    "note": "tied diagonal PI, identical blocks",
+    "fast": {
+      "pass_all": false,
+      "worst_slicot": 1000000.0,
+      "worst_abscissa": 297.56484276582233,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 133.87834358652867,
+          "uncertainty": 0.0015486632887363795,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 157.50157719467472,
+          "uncertainty": 0.0015471386317322824,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 287.63394328991944,
+          "uncertainty": 0.0015519464463069335,
+          "slicot_linf": null,
+          "pass_hinf": false
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": false,
+          "stability_class": "fail",
+          "abscissa": 297.56484276582233,
+          "uncertainty": 0.0015432107516909306,
+          "slicot_linf": null,
+          "pass_hinf": false
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_tied_diagonal_pi_grid_best_pointer",
+    "start_id": 0,
+    "seed": null,
+    "theta": [
+      0.1,
+      40.0,
+      0.1,
+      40.0
+    ],
+    "search_cost": 0.05175579026970929,
+    "wall_s": 0.41097672900014004,
+    "n_evaluations": 42,
+    "note": "pointer restates the best grid entry",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.05175579026970929,
+      "worst_abscissa": -7.851837070761651,
+      "per_case": [
+        {
+          "case_id": "nominal_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853486164851103,
+          "uncertainty": 0.0015434260311271899,
+          "slicot_linf": 0.049094799205543035,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853374086244882,
+          "uncertainty": 0.0015415581326813567,
+          "slicot_linf": 0.04191753544350494,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.8534377618288325,
+          "uncertainty": 0.0015449472532949081,
+          "slicot_linf": 0.05175579026970929,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric_decoupled_design",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851837070761651,
+          "uncertainty": 0.0015379253523259487,
+          "slicot_linf": 0.048675231208825095,
+          "pass_hinf": true
+        }
+      ]
+    }
+  },
+  {
+    "family": "decoupled_design_replay_on_coupled",
+    "start_id": 0,
+    "seed": null,
+    "theta": null,
+    "search_cost": 0.10518645354184182,
+    "wall_s": 0.0,
+    "n_evaluations": 0,
+    "note": "best decoupled-grid controller replayed on the coupled plants",
+    "fast": {
+      "pass_all": true,
+      "worst_slicot": 0.10518645354184182,
+      "worst_abscissa": -7.851172530714052,
+      "per_case": [
+        {
+          "case_id": "nominal",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853240794407663,
+          "uncertainty": 0.0015477215528475804,
+          "slicot_linf": 0.0938712535966025,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "weak_grid",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851172530714052,
+          "uncertainty": 0.0015474176262634388,
+          "slicot_linf": 0.08679252429928867,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "high_power",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.853104998838964,
+          "uncertainty": 0.0015492385571794214,
+          "slicot_linf": 0.10518645354184182,
+          "pass_hinf": true
+        },
+        {
+          "case_id": "asymmetric",
+          "pass_stability": true,
+          "stability_class": "pass",
+          "abscissa": -7.851970764758406,
+          "uncertainty": 0.0015401468738987035,
+          "slicot_linf": 0.08319549111124157,
+          "pass_hinf": true
+        }
+      ]
+    }
+  }
+]
