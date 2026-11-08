@@ -1,0 +1,138 @@
+{
+  "audit_type": "Parent-side completed-correction artifact audit",
+  "supersedes_gate_wording": [
+    "correction.md",
+    "results/corrected/gate_verdicts.json"
+  ],
+  "original_artifacts_modified": false,
+  "simulations_executed_by_audit": false,
+  "source_root": "/workspace/swift-pilot-correction-review/extracted/pilots/swift-thermomechanical-schedule",
+  "recommendation": "RECONSIDER",
+  "overall": "Simple one-variable proportional family passes tested constraints; full validation incomplete and four-variable difficulty not demonstrated.",
+  "gates": [
+    {
+      "id": "precorrection_proportional_reproduction",
+      "verdict": "PASS",
+      "scope_and_evidence": "Stored 12/12 before-fix rows; historical command only, not replayed here."
+    },
+    {
+      "id": "corrected_simple_family",
+      "verdict": "PASS",
+      "scope_and_evidence": "Stored P4/P5/P6/P7 base histories pass all three scenarios, 12/12; generating card, primary 4x8/8."
+    },
+    {
+      "id": "acceptance_restore_and_commit_rule",
+      "verdict": "PASS",
+      "scope_and_evidence": "Source returns no payload on unconverged mechanics/stagger; run restores snapshot and predictor before retry; recorded tests pass. Injected failures use explicit caller restore, not a full-loop fault-injection regression."
+    },
+    {
+      "id": "saved_primary_acceptance_diagnostics",
+      "verdict": "PASS",
+      "scope_and_evidence": "No saved stagger delta exceeds filename tolerance; max saved residual/abs-reaction scale 9.95e-7. Diagnostics not independently recomputed."
+    },
+    {
+      "id": "p4_p7_refinement_label_stability",
+      "verdict": "PASS",
+      "scope_and_evidence": "P4 20 completed k45 rows, P7 16; all pass. Mesh/time all three scenarios; combined P4 all three, P7 warm only; coupling P4 warm only."
+    },
+    {
+      "id": "four_variable_schedule_required",
+      "verdict": "FAIL",
+      "scope_and_evidence": "One-variable no-hold family succeeds; no schedule optimizer executed, no necessity of four-dimensional optimization demonstrated."
+    },
+    {
+      "id": "same_integrator_conduction_effect",
+      "verdict": "PASS",
+      "scope_and_evidence": "Warm primary P4 T=340.238681 at k45, 376.088780 at k0; both same operator/settings, same grip Dirichlet. P7 warm also flips."
+    },
+    {
+      "id": "independent_conducting_selected_scenarios",
+      "verdict": "PASS",
+      "scope_and_evidence": "Own-assembly reference P4 and M2 coarse k45 all three scenarios: six completed sampled-constraint passes. Finer/shared-node comparisons warm P4 only."
+    },
+    {
+      "id": "shared_node_warm_label_agreement",
+      "verdict": "PASS",
+      "scope_and_evidence": "Logged warm conducting reference and primary outputs pass, but time subdivisions, coupling and mechanical tolerances differ; no shared-node NPZ supplied."
+    },
+    {
+      "id": "independent_all_scenario_all_constraint_converged_accuracy",
+      "verdict": "UNVERIFIED",
+      "scope_and_evidence": "No independently converged all-scenario study across full family/cards; shared nodes do not match accepted time steps and do not isolate constitutive bias."
+    },
+    {
+      "id": "m2_coarse_hold_solver_robustness",
+      "verdict": "FAIL",
+      "scope_and_evidence": "Corrected M2 S0 primary nsub4 k45 fails at hold; not physical infeasibility."
+    },
+    {
+      "id": "primary_m2_k0_completion",
+      "verdict": "FAIL",
+      "scope_and_evidence": "All three primary M2 zero-k cases fail at hold; failures retained."
+    },
+    {
+      "id": "two_local_fit_card_replays",
+      "verdict": "PASS",
+      "scope_and_evidence": "Truth plus fits0/2 P4 base all three scenarios: nine completed passes; discrepancy-scaled calibration only."
+    },
+    {
+      "id": "noise_only_calibration_consistency",
+      "verdict": "UNVERIFIED",
+      "scope_and_evidence": "RMS .743/.746 uses truth-estimated discretization augmentation; CAL_SLOW force denominator about823N versus20N noise, dominated by early sample discrepancy."
+    },
+    {
+      "id": "full_calibration_uncertainty",
+      "verdict": "UNVERIFIED",
+      "scope_and_evidence": "Two local fits, one truth-initialized; penalty-return starts not accepted cards; no validated coverage ensemble/profile/bootstrap."
+    },
+    {
+      "id": "uncertainty_refinement_neighborhood_stability",
+      "verdict": "UNVERIFIED",
+      "scope_and_evidence": "No joint uncertainty-card/refinement/independent/neighborhood cross-product."
+    },
+    {
+      "id": "asymptotic_mesh_time_convergence",
+      "verdict": "UNVERIFIED",
+      "scope_and_evidence": "Successful finite sensitivity tests, not demonstrated asymptotic convergence or certified error bounds."
+    },
+    {
+      "id": "initial_inclusive_stored_extrema",
+      "verdict": "PASS",
+      "scope_and_evidence": "All91 NPZ files finite with initial row and increasing times; assembled extrema match arrays."
+    },
+    {
+      "id": "continuous_interstep_extrema",
+      "verdict": "UNVERIFIED",
+      "scope_and_evidence": "Accepted-step extrema only; no certified between-step maxima/minima."
+    },
+    {
+      "id": "independent_coupled_energy_balance",
+      "verdict": "UNVERIFIED",
+      "scope_and_evidence": "Both heat balances are internal assembled-residual balances; no independent work or heat-flux audit."
+    },
+    {
+      "id": "clean_all_stages_reproduction",
+      "verdict": "UNVERIFIED",
+      "scope_and_evidence": "Main run EXIT1; finish EXIT0 reuses saved histories after residual-length fix; final source not clean-rerun end to end. Finish also depends on historical /tmp stdout."
+    },
+    {
+      "id": "frontier_difficulty",
+      "verdict": "UNVERIFIED",
+      "scope_and_evidence": "No fresh probes."
+    }
+  ],
+  "arithmetic_corrections": {
+    "warm_P4_cycle_headroom_s": 4.0,
+    "warm_P4_gauge_headroom_low_mm": 0.34925970047242005,
+    "warm_P4_gauge_headroom_high_mm": 0.2007402995275802,
+    "warm_P4_primary_temperature_spread_K": 1.60746489973695,
+    "warm_P4_primary_gauge_spread_mm": 0.093219810977387,
+    "note": "Corrects raw report 2.60s, 1.24K and0.084mm; report originals preserved."
+  },
+  "recorded_unfinished_primary_cases": [
+    "M2_manual/S0_nominal/time/nsub4/k45",
+    "M2_manual/S0_nominal/k0",
+    "M2_manual/S1_warm/k0",
+    "M2_manual/S2_imperfection/k0"
+  ]
+}
