@@ -1,0 +1,151 @@
+17:52:15 pilot start
+17:52:15 compute environment
+17:52:15 wrote environment in 0.0s
+17:52:15 compute material
+17:52:15 wrote material in 0.0s
+17:52:15 compute conduction
+17:52:16 wrote conduction in 0.2s
+17:52:16 compute calibration_data
+17:52:18 generated CAL_SLOW steps=24 Tn=306.18
+17:52:22 generated CAL_FAST steps=24 Tn=326.62
+17:52:27 generated CAL_HOLD steps=28 Tn=314.10
+17:52:27 wrote calibration_data in 11.3s
+17:52:27 compute fit
+17:52:27 stage1 start 0
+17:53:26 stage1 start 0 cost 197.436 nfev 10
+17:53:26 stage1 start 1
+17:54:14 stage1 start 1 cost 262.349 nfev 10
+17:54:14 stage2 start 0
+17:55:01 stage2 start 0 C=0.0103 m=0.921 cost 93.754
+17:55:01 stage2 start 1
+17:56:11 stage2 start 1 C=0.0142 m=0.861 cost 65.796
+17:56:11 wrote fit in 224.2s
+17:56:11 compute sweep
+17:56:14 sweep FAST S0_nominal T=326.83 r=2.5117 g=2.3321 pass=False
+17:56:17 sweep FAST S1_warm T=368.33 r=2.3966 g=2.6364 pass=False
+17:56:20 sweep FAST S2_imperfection T=329.47 r=2.4437 g=2.4636 pass=True
+17:56:22 sweep CR S0_nominal T=326.78 r=2.5093 g=2.3380 pass=False
+17:56:25 sweep CR S1_warm T=367.67 r=2.3898 g=2.6495 pass=False
+17:56:28 sweep CR S2_imperfection T=329.41 r=2.4405 g=2.4718 pass=True
+17:56:31 sweep H4 S0_nominal T=316.48 r=2.5297 g=2.2865 pass=False
+17:56:34 sweep H4 S1_warm T=352.51 r=2.4075 g=2.6199 pass=False
+17:56:35 sweep H4 S2_imperfection FAIL newton failed at t=0.6900 u_end=1.4500 Jmin=9.953e-01 T=[293.0,312.5] ep=0.187
+17:56:37 sweep M1 S0_nominal T=321.56 r=2.4532 g=2.4665 pass=True
+17:56:39 sweep M1 S1_warm T=347.92 r=2.3430 g=2.7384 pass=False
+17:56:41 sweep M1 S2_imperfection T=322.77 r=2.3912 g=2.5810 pass=True
+17:56:43 sweep M2 S0_nominal T=316.07 r=2.4281 g=2.5254 pass=True
+17:56:45 sweep M2 S1_warm T=334.45 r=2.3367 g=2.7474 pass=True
+17:56:46 sweep M2 S2_imperfection T=316.72 r=2.3680 g=2.6314 pass=True
+17:56:48 sweep M3 S0_nominal T=314.00 r=2.4091 g=2.5569 pass=True
+17:56:50 sweep M3 S1_warm T=332.37 r=2.3388 g=2.7262 pass=True
+17:56:52 sweep M3 S2_imperfection T=314.50 r=2.3449 g=2.6700 pass=True
+17:56:53 sweep SLOW S0_nominal T=306.47 r=2.4256 g=2.5093 pass=False
+17:56:55 sweep SLOW S1_warm T=330.54 r=2.3937 g=2.5903 pass=False
+17:56:57 sweep SLOW S2_imperfection T=306.70 r=2.3544 g=2.6398 pass=False
+17:56:57 wrote sweep in 45.9s
+17:56:57 compute refine
+17:57:00 refine FAST S0_nominal base err=None
+17:57:05 refine FAST S0_nominal mesh err=None
+17:57:08 refine FAST S0_nominal time err=None
+17:57:11 refine FAST S1_warm base err=None
+17:57:15 refine FAST S1_warm mesh err=None
+17:57:18 refine FAST S1_warm time err=None
+17:57:21 refine H4 S0_nominal base err=None
+17:57:27 refine H4 S0_nominal mesh err=None
+17:57:30 refine H4 S0_nominal time err=None
+17:57:33 refine H4 S1_warm base err=None
+17:57:37 refine H4 S1_warm mesh err=newton failed at t=0.6900 u_end=1.4500 Jmin=9.952e-01 T=[293.0,353.4] ep=0.217
+17:57:41 refine H4 S1_warm time err=None
+17:57:42 refine M2 S0_nominal base err=None
+17:57:45 refine M2 S0_nominal mesh err=None
+17:57:48 refine M2 S0_nominal time err=None
+17:57:50 refine M2 S1_warm base err=None
+17:57:52 refine M2 S1_warm mesh err=None
+17:57:55 refine M2 S1_warm time err=None
+17:57:57 refine M3 S0_nominal base err=None
+17:57:59 refine M3 S0_nominal mesh err=None
+17:58:02 refine M3 S0_nominal time err=None
+17:58:04 refine M3 S1_warm base err=None
+17:58:06 refine M3 S1_warm mesh err=None
+17:58:09 refine M3 S1_warm time err=None
+17:58:11 refine SLOW S0_nominal base err=None
+17:58:13 refine SLOW S0_nominal mesh err=None
+17:58:16 refine SLOW S0_nominal time err=None
+17:58:18 refine SLOW S1_warm base err=None
+17:58:20 refine SLOW S1_warm mesh err=None
+17:58:24 refine SLOW S1_warm time err=None
+17:58:24 wrote refine in 86.5s
+17:58:24 compute perturb
+17:58:29 perturb M2 violations=[]
+17:58:35 perturb M2_lo0 violations=[]
+17:58:41 perturb M2_lo1 violations=[]
+17:58:46 perturb M2_lo2 violations=[]
+17:58:52 perturb M2_lo3 violations=[]
+17:58:58 perturb M2_hi0 violations=[]
+17:59:03 perturb M2_hi1 violations=[]
+17:59:09 perturb M2_hi2 violations=[]
+17:59:15 perturb M2_hi3 violations=[]
+17:59:20 perturb M2_all_hi10 violations=[]
+17:59:26 perturb M2_all_lo10 violations=[]
+17:59:26 wrote perturb in 62.2s
+17:59:26 compute thermal_modes
+17:59:29 thermal FAST coupled_k45.0 T=326.8347181737063
+17:59:35 thermal FAST adiabatic_k0.0 T=327.18026565397355
+17:59:39 thermal FAST coupled_k0.0 T=329.2445949337434
+17:59:42 thermal H4 coupled_k45.0 T=316.47660589216866
+17:59:49 thermal H4 adiabatic_k0.0 T=327.18022380422696
+17:59:51 thermal H4 coupled T=None
+17:59:53 thermal M2 coupled_k45.0 T=316.06600335127143
+17:59:55 thermal M2 adiabatic_k0.0 T=337.2030172160536
+17:59:56 thermal M2 coupled T=None
+17:59:58 thermal SLOW coupled_k45.0 T=306.4669079872261
+18:00:00 thermal SLOW adiabatic_k0.0 T=339.67096980538406
+18:00:02 thermal SLOW coupled_k0.0 T=338.7885227751574
+18:00:02 wrote thermal_modes in 36.3s
+18:00:02 compute independence
+18:00:08 FAILED independence: reference newton failed at t=0.0508742623651051
+18:00:08 wrote independence in 5.6s
+18:00:08 compute fitted_design
+18:00:15 fitted truth FAST
+18:00:20 fitted truth H4
+18:00:27 fitted truth M2
+18:00:32 fitted truth SLOW
+18:00:39 fitted fit_start_0 FAST
+18:00:42 fitted fit_start_0 H4
+18:00:48 fitted fit_start_0 M2
+18:00:53 fitted fit_start_0 SLOW
+18:01:01 fitted fit_start_1 FAST
+18:01:07 fitted fit_start_1 H4
+18:01:13 fitted fit_start_1 M2
+18:01:19 fitted fit_start_1 SLOW
+18:01:19 wrote fitted_design in 71.0s
+18:04:11 pilot start
+18:04:11 cache hit environment
+18:04:11 cache hit material
+18:04:11 cache hit conduction
+18:04:11 cache hit calibration_data
+18:04:11 cache hit fit
+18:04:11 cache hit sweep
+18:04:11 cache hit refine
+18:04:11 cache hit perturb
+18:04:11 cache hit thermal_modes
+18:04:11 compute independence
+18:04:20 indep FAST isothermal dF=-0.0001 dT=0.00
+18:06:25 indep FAST adiabatic dF=0.0002 dT=-6.14
+18:06:49 indep M2 isothermal dF=0.0001 dT=0.00
+18:09:21 indep M2 adiabatic dF=0.0006 dT=-4.39
+18:09:21 wrote independence in 309.8s
+18:09:21 cache hit fitted_design
+18:09:21 gates written
+18:09:21 GATE robust_feasible_region PASS
+18:09:21 GATE simple_baselines_not_trivial PASS
+18:09:21 GATE timing_tradeoff_two_constraints PASS
+18:09:21 GATE conduction_material PASS
+18:09:21 GATE mesh_time_refinement PASS
+18:09:21 GATE independence PASS
+18:09:21 GATE calibration_fairness PASS
+18:09:21 GATE conduction_benchmark_and_material_point PASS
+18:09:21 GATE bounded_runtime PASS
+18:09:21 GATE frontier_difficulty UNVERIFIED
+18:09:21 GATE perturbations_after_base PASS
+18:09:21 pilot done

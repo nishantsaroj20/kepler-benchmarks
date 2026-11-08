@@ -1,0 +1,4 @@
+Imported static review of the corrected pilot. These files are not new simulation output.
+They were copied unchanged from the parent evidence audit dated 8 November 2026.
+Gate wording in reviewed_corrected_gate_verdicts.json supersedes overbroad wording in
+correction.md and results/corrected/gate_verdicts.json. Those earlier files are not edited.
