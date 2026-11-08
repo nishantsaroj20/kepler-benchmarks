@@ -1,4 +1,4 @@
-# Breathing midplane-split identification
+# GFRP plate with a breathing midplane split
 
 ## Difficulty
 
