@@ -93,12 +93,37 @@ def test_schema_bounds_and_forecast_shape():
             assert all(finite(value) > 0 for value in freqs)
 
 
+def angle_gap(left, right):
+    return abs((left - right + 90.0) % 180.0 - 90.0)
+
+
+def zone_matches(got, target, tol):
+    return (
+        abs(finite(got["xc"]) - target["xc"]) <= tol["zone_centre_m"] + 1e-12
+        and abs(finite(got["yc"]) - target["yc"]) <= tol["zone_centre_m"] + 1e-12
+        and abs(finite(got["a"]) - target["a"]) <= tol["zone_a_m"] + 1e-12
+        and abs(finite(got["b"]) - target["b"]) <= tol["zone_b_m"] + 1e-12
+        and angle_gap(finite(got["theta_deg"]), target["theta_deg"]) <= tol["zone_theta_deg"] + 1e-12
+        and abs(finite(got["d"]) - target["d"]) <= tol["zone_d"] + 1e-12
+    )
+
+
 def test_preparations_snap_and_open_branch_forecast():
     by = entries()
     truth = json.loads(GT.read_text())
     tol = truth["tolerances"]
     for plate in truth["plates"]:
         entry = by[plate["plate_id"]]
+        reported = entry["zones"]
+        authored = plate["zones"]
+        paired = (zone_matches(reported[0], authored[0], tol) and zone_matches(reported[1], authored[1], tol)) or (
+            zone_matches(reported[0], authored[1], tol) and zone_matches(reported[1], authored[0], tol)
+        )
+        assert paired, plate["plate_id"] + " zones do not match the physical patches"
+        for key in ("x0_multiplier", "yL_multiplier"):
+            assert abs(finite(entry["fixture"][key]) - plate["fixture"][key]) <= tol["fixture_absolute"] + 1e-12, (
+                plate["plate_id"] + " spring multiplier " + key + " is outside its limit"
+            )
         assert all(
             abs(finite(entry["branches"][key]) - plate["branches"][key]) <= 1e-12
             for key in plate["branches"]

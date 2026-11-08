@@ -15,6 +15,6 @@ Physical entries are JSON numbers. A boolean or a quoted string in those positio
 
 Keep every reported parameter inside its interval, including the endpoints: `xc` 0.06 to 0.44 m, `yc` 0.055 to 0.345 m, `a` 0.026 to 0.055 m, `b` 0.010 to 0.024 m, `theta_deg` -90.0 to 90.0, `d` 0.40 to 0.95, and both multipliers 0.6 to 1.6. For each patch, `a` is greater than `b`.
 
-The four signs must be the preparations that were held. `snap_load_N`, and each of the eight forecast frequencies, must come within 0.0005 of the true value when the difference is divided by that true value. Endpoints count. Another 1e-12 is allowed for roundoff.
+Match the two patches to the physical patches in either order. For each matched patch the centre must lie within 0.020 m in both x and y, semi-axis `a` within 0.010 m, semi-axis `b` within 0.008 m, `theta_deg` within 30 degrees after a 180-degree shift is removed, and `d` within 0.12. Each spring multiplier must lie within 0.05 of its physical value. The four signs must be the preparations that were held. `snap_load_N`, and each of the eight forecast frequencies, must come within 0.0005 of the true value when the difference is divided by that true value. Every limit includes its endpoint. Another 1e-12 is allowed for roundoff.
 
 You have 28800 seconds to complete this task. Do not cheat by using online solutions or hints specific to this task.
