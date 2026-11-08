@@ -1,0 +1,476 @@
+{
+  "gates": [
+    {
+      "id": "robust_feasible_region",
+      "verdict": "PASS",
+      "detail": {
+        "feasible": [
+          "M2",
+          "M3"
+        ],
+        "comfortable": [
+          "M2"
+        ]
+      }
+    },
+    {
+      "id": "simple_baselines_not_trivial",
+      "verdict": "PASS",
+      "detail": {
+        "FAST_pass": false,
+        "CR_pass": false,
+        "H4_hold_pass": false,
+        "SLOW_pass": false
+      }
+    },
+    {
+      "id": "timing_tradeoff_two_constraints",
+      "verdict": "PASS",
+      "detail": {
+        "T_failures": [
+          "FAST/S1_warm",
+          "CR/S1_warm",
+          "H4/S1_warm",
+          "M1/S1_warm"
+        ],
+        "tau_failures": [
+          "SLOW/S0_nominal",
+          "SLOW/S1_warm",
+          "SLOW/S2_imperfection"
+        ],
+        "radius_failures": [],
+        "gauge_failures": [
+          "FAST/S0_nominal",
+          "CR/S0_nominal",
+          "H4/S0_nominal"
+        ],
+        "force_failures": []
+      }
+    },
+    {
+      "id": "conduction_material",
+      "verdict": "PASS",
+      "detail": {
+        "comparisons": [
+          {
+            "schedule": "FAST",
+            "coupled_T": 326.8347181737063,
+            "adiabatic_T": 327.18026565397355,
+            "dT_K": 0.3455474802672711,
+            "coupled_pass": false,
+            "adiabatic_pass": false
+          },
+          {
+            "schedule": "H4",
+            "coupled_T": 316.47660589216866,
+            "adiabatic_T": 327.18022380422696,
+            "dT_K": 10.703617912058291,
+            "coupled_pass": false,
+            "adiabatic_pass": false
+          },
+          {
+            "schedule": "M2",
+            "coupled_T": 316.06600335127143,
+            "adiabatic_T": 337.2030172160536,
+            "dT_K": 21.137013864782148,
+            "coupled_pass": true,
+            "adiabatic_pass": true
+          },
+          {
+            "schedule": "SLOW",
+            "coupled_T": 306.4669079872261,
+            "adiabatic_T": 339.67096980538406,
+            "dT_K": 33.20406181815798,
+            "coupled_pass": false,
+            "adiabatic_pass": false
+          }
+        ],
+        "max_abs_dT_K": 33.20406181815798,
+        "pass_flip": false,
+        "warm_supplement_S1": [
+          {
+            "schedule": "M2",
+            "mode": "adiabatic",
+            "T": 373.82263182406723,
+            "r": 2.4618059757214574,
+            "g": 2.4094101666590833,
+            "F": 11271.72818429345,
+            "tau": 5.4,
+            "wall": 2.5435743740004
+          },
+          {
+            "schedule": "M2",
+            "mode": "coupled",
+            "T": 334.44730517294386,
+            "r": 2.336736975032849,
+            "g": 2.747397277675628,
+            "F": 11549.985839922972,
+            "tau": 5.4,
+            "wall": 1.976664690999769
+          },
+          {
+            "schedule": "H4",
+            "mode": "adiabatic",
+            "T": 363.9518837365863,
+            "r": 2.5908981684664925,
+            "g": 2.0927597121269788,
+            "F": 11346.730449711156,
+            "tau": 4.99,
+            "wall": 6.754958539000199
+          },
+          {
+            "schedule": "H4",
+            "mode": "coupled",
+            "T": 352.51277797932795,
+            "r": 2.4075358409318155,
+            "g": 2.6198863727859076,
+            "F": 11659.992560901199,
+            "tau": 4.99,
+            "wall": 3.148960913999872
+          },
+          {
+            "schedule": "SLOW",
+            "mode": "adiabatic",
+            "T": 375.8090827524032,
+            "r": 2.430758191639048,
+            "g": 2.454414055972726,
+            "F": 11266.559340784544,
+            "tau": 14.5,
+            "wall": 2.322755455999868
+          },
+          {
+            "schedule": "SLOW",
+            "mode": "coupled",
+            "T": 330.5364976197448,
+            "r": 2.3937357086103956,
+            "g": 2.5903337945985765,
+            "F": 11847.444635508307,
+            "tau": 14.5,
+            "wall": 2.010360655000113
+          },
+          {
+            "schedule": "FAST",
+            "mode": "adiabatic",
+            "T": 363.9518861560745,
+            "r": 2.5908981398817117,
+            "g": 2.0927598005482375,
+            "F": 11346.730449711156,
+            "tau": 0.99,
+            "wall": 6.511987982999926
+          },
+          {
+            "schedule": "FAST",
+            "mode": "coupled",
+            "T": 368.32628029798354,
+            "r": 2.3965518878520164,
+            "g": 2.6363689471129343,
+            "F": 11508.756805190122,
+            "tau": 0.99,
+            "wall": 2.9174742940003853
+          }
+        ],
+        "warm_M2_flips": true,
+        "note": "S0 pass/fail did not flip at the 345 K cap. On S1, M2 coupled neck temperature is 334.45 K (passes) and M2 adiabatic is 373.82 K (fails). That supplement was executed after the automatic decider and is included here."
+      }
+    },
+    {
+      "id": "mesh_time_refinement",
+      "verdict": "PASS",
+      "detail": {
+        "M2_and_neighbors": [
+          {
+            "schedule": "M2",
+            "scenario": "S0_nominal",
+            "dT_K": 0.0725602552168425,
+            "dr_mm": 0.01789277499770714,
+            "dF_rel": 0.00013361016415564762,
+            "dg_mm": 0.02672191554089709,
+            "flip": false,
+            "base_pass": true,
+            "mesh_pass": true,
+            "time_pass": true
+          },
+          {
+            "schedule": "M2",
+            "scenario": "S1_warm",
+            "dT_K": 0.16277263490860605,
+            "dr_mm": 0.023307810585320166,
+            "dF_rel": 0.000984884689039863,
+            "dg_mm": 0.02644048259183185,
+            "flip": false,
+            "base_pass": true,
+            "mesh_pass": true,
+            "time_pass": true
+          },
+          {
+            "schedule": "FAST",
+            "scenario": "S0_nominal",
+            "dT_K": 0.8413414609752863,
+            "dr_mm": 0.016288460286031814,
+            "dF_rel": 0.00031076406731039087,
+            "dg_mm": 0.033702361647180545,
+            "flip": false,
+            "base_pass": false,
+            "mesh_pass": false,
+            "time_pass": false
+          },
+          {
+            "schedule": "FAST",
+            "scenario": "S1_warm",
+            "dT_K": 0.5409190346391028,
+            "dr_mm": 0.015373950242565826,
+            "dF_rel": 0.0005102641606567935,
+            "dg_mm": 0.02356424120443057,
+            "flip": false,
+            "base_pass": false,
+            "mesh_pass": false,
+            "time_pass": false
+          },
+          {
+            "schedule": "SLOW",
+            "scenario": "S0_nominal",
+            "dT_K": 0.01032275814878858,
+            "dr_mm": 0.023166935485556372,
+            "dF_rel": 0.00017840758870408228,
+            "dg_mm": 0.03549984434987996,
+            "flip": false,
+            "base_pass": false,
+            "mesh_pass": false,
+            "time_pass": false
+          },
+          {
+            "schedule": "SLOW",
+            "scenario": "S1_warm",
+            "dT_K": 1.8275077419492618,
+            "dr_mm": 0.0238578422717719,
+            "dF_rel": 0.0008849493445952121,
+            "dg_mm": 0.03216179013982323,
+            "flip": false,
+            "base_pass": false,
+            "mesh_pass": false,
+            "time_pass": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "independence",
+      "verdict": "PASS",
+      "detail": {
+        "max_rel_force": 0.0005836030864318657,
+        "max_abs_dT_K": 6.139311350215053,
+        "rows": [
+          {
+            "schedule": "FAST",
+            "mode": "isothermal",
+            "current": {
+              "force_N": 12185.579363786868,
+              "T_neck_K": 293.0,
+              "r_min_mm": 2.620293875578664,
+              "gauge_mm": 2.0120113853136177
+            },
+            "reference": {
+              "force_N": 12184.412944076419,
+              "T_neck_K": 293.0,
+              "r_min_mm": 2.640677892827328,
+              "gauge_mm": 1.9519364978439633
+            },
+            "dForce_rel": -9.5721317438181e-05,
+            "dT_K": 0.0,
+            "dr_mm": 0.02038401724866379,
+            "dg_mm": -0.06007488746965439,
+            "wall_s": 9.09007344299971
+          },
+          {
+            "schedule": "FAST",
+            "mode": "adiabatic",
+            "current": {
+              "force_N": 11901.506339863556,
+              "T_neck_K": 330.30672145975905,
+              "r_min_mm": 2.5264583761928985,
+              "gauge_mm": 2.2551940229194685
+            },
+            "reference": {
+              "force_N": 11904.43262979649,
+              "T_neck_K": 324.167410109544,
+              "r_min_mm": 2.5989990787132733,
+              "gauge_mm": 2.0812388287211396
+            },
+            "dForce_rel": 0.0002458755933384357,
+            "dT_K": -6.139311350215053,
+            "dr_mm": 0.07254070252037481,
+            "dg_mm": -0.17395519419832883,
+            "wall_s": 125.01916697599972
+          },
+          {
+            "schedule": "M2",
+            "mode": "isothermal",
+            "current": {
+              "force_N": 12109.597909572982,
+              "T_neck_K": 293.0,
+              "r_min_mm": 2.5332781960065542,
+              "gauge_mm": 2.2546186083066746
+            },
+            "reference": {
+              "force_N": 12111.01576054767,
+              "T_neck_K": 293.0,
+              "r_min_mm": 2.570921016771188,
+              "gauge_mm": 2.177973598672925
+            },
+            "dForce_rel": 0.00011708489293175177,
+            "dT_K": 0.0,
+            "dr_mm": 0.037642820764633544,
+            "dg_mm": -0.07664500963374943,
+            "wall_s": 23.791101914000137
+          },
+          {
+            "schedule": "M2",
+            "mode": "adiabatic",
+            "current": {
+              "force_N": 11803.036101018992,
+              "T_neck_K": 336.1932968122632,
+              "r_min_mm": 2.4423981330402946,
+              "gauge_mm": 2.454788337981176
+            },
+            "reference": {
+              "force_N": 11809.924389316813,
+              "T_neck_K": 331.8082214100126,
+              "r_min_mm": 2.493214385371907,
+              "gauge_mm": 2.378633429101259
+            },
+            "dForce_rel": 0.0005836030864318657,
+            "dT_K": -4.385075402250607,
+            "dr_mm": 0.050816252331612244,
+            "dg_mm": -0.07615490887991694,
+            "wall_s": 151.8624602760001
+          }
+        ]
+      }
+    },
+    {
+      "id": "calibration_fairness",
+      "verdict": "PASS",
+      "detail": {
+        "n_cards": 2,
+        "disagreements": [],
+        "cards": [
+          {
+            "K": 669.4948969523889,
+            "eps0": 0.02184104361309016,
+            "n": 0.18710769690483015,
+            "alpha": 0.6058964464983139,
+            "Q": 200.11021486673184,
+            "beta": 18.58350543874559,
+            "C": 0.01027907654859929,
+            "m": 0.9206355729963261
+          },
+          {
+            "K": 727.0592969411625,
+            "eps0": 0.018938424834269565,
+            "n": 0.2086050342607518,
+            "alpha": 0.4637544678383823,
+            "Q": 186.1733243954975,
+            "beta": 18.877748466465125,
+            "C": 0.014209699738037696,
+            "m": 0.861309668927558
+          }
+        ]
+      }
+    },
+    {
+      "id": "conduction_benchmark_and_material_point",
+      "verdict": "PASS",
+      "detail": {
+        "material_ok": true,
+        "conduction_max_abs_diff_K": 1.2637348058474345,
+        "conduction_rows": [
+          {
+            "t_s": 0.0,
+            "fe_neck_K": 333.0,
+            "series_neck_K": 332.99989593115805,
+            "diff_K": 0.00010406884194935628
+          },
+          {
+            "t_s": 2.0,
+            "fe_neck_K": 320.83792534310703,
+            "series_neck_K": 320.1695052053292,
+            "diff_K": 0.6684201377778436
+          },
+          {
+            "t_s": 4.0,
+            "fe_neck_K": 308.9579576409462,
+            "series_neck_K": 307.69422283509874,
+            "diff_K": 1.2637348058474345
+          },
+          {
+            "t_s": 6.0,
+            "fe_neck_K": 302.01625101100666,
+            "series_neck_K": 300.92973811171703,
+            "diff_K": 1.0865128992896302
+          },
+          {
+            "t_s": 8.0,
+            "fe_neck_K": 298.0899214420032,
+            "series_neck_K": 297.27921614523996,
+            "diff_K": 0.8107052967632171
+          }
+        ]
+      }
+    },
+    {
+      "id": "bounded_runtime",
+      "verdict": "PASS",
+      "detail": {
+        "note": "see wall-clock fields on each checkpoint; pilot is a bounded study, not an 8 h agent run"
+      }
+    },
+    {
+      "id": "frontier_difficulty",
+      "verdict": "UNVERIFIED",
+      "detail": {
+        "reason": "No fresh Harbor or frontier-model probes were run. Stages 4\u20138 were not started."
+      }
+    },
+    {
+      "id": "perturbations_after_base",
+      "verdict": "PASS",
+      "detail": {
+        "passing": [
+          "M2",
+          "M2_all_hi10",
+          "M2_all_lo10",
+          "M2_hi0",
+          "M2_hi1",
+          "M2_hi2",
+          "M2_hi3",
+          "M2_lo0",
+          "M2_lo1",
+          "M2_lo2",
+          "M2_lo3"
+        ],
+        "tested": [
+          "M2",
+          "M2_all_hi10",
+          "M2_all_lo10",
+          "M2_hi0",
+          "M2_hi1",
+          "M2_hi2",
+          "M2_hi3",
+          "M2_lo0",
+          "M2_lo1",
+          "M2_lo2",
+          "M2_lo3"
+        ]
+      }
+    }
+  ],
+  "feasible_schedules": [
+    "M2",
+    "M3"
+  ],
+  "comfortable_schedules": [
+    "M2"
+  ],
+  "results_csv": "/agent/repos/kepler-benchmarks/pilots/swift-thermomechanical-schedule/results/pilot_results.csv",
+  "results_csv_sha256": "af9861d976ee2a9f14b680cd5511bb1b9c2526595559448b2c2a41f02d2d2b4c"
+}
