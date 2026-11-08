@@ -90,7 +90,11 @@ def test_schema_bounds_and_forecast_shape():
             finite(row["force_N"])
             freqs = row["frequencies_Hz"]
             assert isinstance(freqs, list) and len(freqs) == 4, pid + " needs four forecast frequencies"
-            assert all(finite(value) > 0 for value in freqs)
+            values = [finite(value) for value in freqs]
+            assert all(value > 0 for value in values), pid + " forecast frequencies must be positive"
+            assert all(values[i] <= values[i + 1] + 1e-12 for i in range(3)), (
+                pid + " forecast frequencies must be in ascending order"
+            )
 
 
 def test_preparations_snap_and_open_branch_forecast():
