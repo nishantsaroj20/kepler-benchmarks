@@ -469,7 +469,7 @@ class CoupledSolver:
         u[self.axis, 0] = 0.0
         u[self.mid, 1] = 0.0
         last = None
-        for it in range(12):
+        for it in range(16):
             fint, kglob, aux = self._assemble(u, t_gp, dt, adiabatic, True)
             if not np.all(np.isfinite(fint)):
                 return None, aux, it, np.inf
@@ -512,7 +512,28 @@ class CoupledSolver:
                 return None, aux, it, nr
             if nr < 1e-6 * scale:
                 return u, aux, it, nr
-        return None, last[1] if last else None, 12, last[2] if last else np.inf
+        return None, last[1] if last else None, 16, last[2] if last else np.inf
+
+    def snapshot(self):
+        """Copy every committed field. A failed attempt must restore this exactly."""
+        return {
+            "u": self.u.copy(),
+            "be": self.be.copy(),
+            "fn2": self.fn2.copy(),
+            "fnth": self.fnth.copy(),
+            "ep": self.ep.copy(),
+            "t_nodes": self.t_nodes.copy(),
+            "tgp": self.tgp.copy(),
+        }
+
+    def restore(self, snap):
+        self.u = snap["u"].copy()
+        self.be = snap["be"].copy()
+        self.fn2 = snap["fn2"].copy()
+        self.fnth = snap["fnth"].copy()
+        self.ep = snap["ep"].copy()
+        self.t_nodes = snap["t_nodes"].copy()
+        self.tgp = snap["tgp"].copy()
 
     def _observe(self, u, t_gp, ep):
         # Gauge: material point initially at z = Z_GAUGE on the outer surface.
@@ -547,19 +568,112 @@ class CoupledSolver:
             "ep_neck": ep_neck_num / neck_den,
         }
 
-    def run(self, schedule: Schedule, nsub=8, mode="coupled", max_stagger=3, verbose=False):
-        """mode: coupled | adiabatic | isothermal."""
-        if schedule.violations() and mode == "coupled":
-            # Still allow intentional illegal probes, but record them.
-            pass
+    def _commit_step(self, u_new, aux, t_nodes, t_gp, adiabatic):
+        self.u = np.array(u_new, copy=True)
+        self.be = np.array(aux["be"], copy=True)
+        self.fn2 = np.array(aux["Fn2"], copy=True)
+        self.fnth = np.array(aux["Fnth"], copy=True)
+        self.ep = np.array(aux["ep"], copy=True)
+        if adiabatic:
+            self.tgp = np.array(aux["T"], copy=True)
+        else:
+            self.t_nodes = np.array(t_nodes, copy=True)
+            self.tgp = np.array(t_gp, copy=True)
+
+    def _attempt_step(self, u_guess, u_end, dt, mode, stagger_tol, max_stagger):
+        """Return a commit payload only when mechanics and, if coupled, heat both converge.
+
+        This function does not write committed state. ``k`` enters only through ``self.k_cond``
+        inside the same heat operator used for every positive conductivity, including the
+        discrete k=0 limit. End-face temperature remains the Dirichlet value T_grip for every k.
+        """
+        adiabatic = mode == "adiabatic"
+        if mode == "adiabatic":
+            t_gp = self.tgp.copy()
+        else:
+            t_gp = self._tgp_from_nodes(self.t_nodes)
+        if mode == "isothermal":
+            t_gp[:] = float(self.t_nodes[0])
+        t_gp_start = t_gp.copy()
+        u_new, aux, it, nr = self._newton(u_guess, u_end, t_gp, dt, adiabatic)
+        if u_new is None or not np.isfinite(nr):
+            return None
+        balance = {"stored_Nmm": 0.0, "plastic_Nmm": 0.0, "boundary_out_Nmm": 0.0, "imbalance_Nmm": 0.0}
+        ep_n = self.ep
+        stagger_passes = 0
+        stagger_delta = 0.0
+        t_nodes = self.t_nodes
+        t_mech = t_gp
+        if mode == "coupled":
+            coupled_ok = False
+            for _s in range(max_stagger):
+                aux["dg"] = np.maximum(aux["ep"] - ep_n, 0.0)
+                t_nodes_new, t_gp_new, balance = _heat_step(
+                    self.xy, self.conn, self.ref, aux, self.t_nodes, dt, self.card, self.k_cond, T_GRIP, self.end
+                )
+                stagger_delta = float(np.max(np.abs(t_gp_new - t_gp)))
+                stagger_passes = _s + 1
+                if stagger_delta <= stagger_tol:
+                    t_mech = np.array(t_gp, copy=True)
+                    t_nodes, t_gp = t_nodes_new, t_gp_new
+                    coupled_ok = True
+                    break
+                u2, aux2, it2, nr2 = self._newton(u_new, u_end, t_gp_new, dt, False)
+                if u2 is None or not np.isfinite(nr2):
+                    return None
+                u_new, aux, it, nr = u2, aux2, it2, nr2
+                t_gp = t_gp_new
+                t_nodes = t_nodes_new
+            if not coupled_ok:
+                return None
+        elif mode == "adiabatic":
+            dg = np.maximum(aux["ep"] - ep_n, 0.0)
+            plastic = 0.0
+            stored = 0.0
+            for g in range(4):
+                w0 = 2.0 * math.pi * self.ref[g]["R"] * self.ref[g]["detJ0"]
+                plastic += float(np.sum(w0 * self.card.chi * aux["q"][:, g] * dg[:, g]))
+                stored += float(np.sum(w0 * self.card.rho_c * (aux["T"][:, g] - t_gp_start[:, g])))
+            balance = {"stored_Nmm": stored, "plastic_Nmm": plastic, "boundary_out_Nmm": 0.0, "imbalance_Nmm": stored - plastic}
+            t_gp = aux["T"]
+        fint, _, _ = self._assemble(np.asarray(u_new), t_mech, dt, adiabatic, False)
+        force = float(np.sum(fint[2 * self.end + 1]))
+        return {
+            "u": u_new, "aux": aux, "t_nodes": t_nodes, "t_gp": t_gp, "it": int(it), "nr": float(nr),
+            "balance": balance, "stagger_passes": stagger_passes, "stagger_delta_K": stagger_delta,
+            "adiabatic": adiabatic, "t_mech": t_mech, "force_N": force,
+        }
+
+    def run(self, schedule: Schedule, nsub=8, mode="coupled", max_stagger=4, stagger_tol=0.25, verbose=False):
+        """mode: coupled | adiabatic | isothermal.
+
+        A step is committed only after the Newton residual meets its tolerance and, in coupled
+        mode, the staggered temperature change meets ``stagger_tol``. Hitting ``max_stagger``
+        without that tolerance rejects the step. Rejected attempts restore the previous
+        displacement, plastic strain, elastic Finger tensor, deformation gradient and nodal temperature.
+        """
         hist = []
-        extrema = {"force_N": 0.0, "T_neck_K": -1e9, "T_shoulder_K": -1e9, "r_min_mm": 1e9, "ep_max": 0.0, "ep_neck": 0.0}
-        heat_stored = 0.0
-        heat_plastic = 0.0
-        heat_boundary = 0.0
+        extrema = {
+            "force_N": 0.0, "force_t_s": 0.0,
+            "T_neck_K": -1e9, "T_neck_t_s": 0.0,
+            "T_shoulder_K": -1e9, "T_shoulder_t_s": 0.0,
+            "r_min_mm": 1e9, "r_min_t_s": 0.0,
+            "ep_max": 0.0, "ep_neck": 0.0,
+        }
+        heat_stored = heat_plastic = heat_boundary = 0.0
         u_prev = self.u.copy()
         t_cursor = 0.0
-        # substeps: equal time slices inside each stage; extrema are sampled at every accepted step
+        # t = 0 is the unloaded, uniformly hot (or cold) solid, before the grip Dirichlet is applied.
+        obs0 = self._observe(self.u, self.tgp, self.ep)
+        obs0.update({
+            "t_s": 0.0, "u_end_mm": 0.0, "force_N": 0.0, "newton_iter": 0, "residual_N": 0.0,
+            "dt_s": 0.0, "stagger_passes": 0, "stagger_delta_K": 0.0, "coupling_converged": True,
+            "heat_imbalance_step_Nmm": 0.0, "accepted": True,
+        })
+        hist.append(obs0)
+        self._track_extrema(extrema, obs0)
+        if mode == "coupled":
+            self.t_nodes[self.end] = T_GRIP
         plan = []
         for kind, t0, dur, _u0, _delta in schedule.stages():
             n = max(int(nsub if kind == "ramp" else max(4, nsub // 2)), 1)
@@ -568,22 +682,21 @@ class CoupledSolver:
             for i in range(1, n + 1):
                 plan.append(t0 + dur * i / n)
         failures = []
-        if mode == "coupled":
-            self.t_nodes[self.end] = T_GRIP
         for t_target in plan:
             remaining = t_target - t_cursor
             guard = 0
             while remaining > 1e-12:
                 guard += 1
-                if guard > 14:
+                if guard > 12:
                     failures.append({"t": t_cursor, "reason": "step halved out"})
                     raise RuntimeError(f"time step collapsed at t={t_cursor}")
                 dt = remaining
                 ok = False
                 adv = dt
                 while adv >= dt / 64.0 - 1e-15:
-                    t_try = t_cursor + adv
-                    u_end = schedule.u_end(t_try)
+                    snap = self.snapshot()
+                    u_prev_snap = u_prev.copy()
+                    u_end = schedule.u_end(t_cursor + adv)
                     dend = u_end - float(np.mean(self.u[self.end, 1]))
                     prev = float(np.mean(self.u[self.end, 1] - u_prev[self.end, 1]))
                     if abs(prev) > 1e-8 and abs(dend) <= 1.5 * abs(prev) + 0.05:
@@ -591,110 +704,89 @@ class CoupledSolver:
                     else:
                         u_guess = self.u.copy()
                         u_guess[:, 1] += (self.xy[:, 1] / max(float(self.xy[:, 1].max()), 1e-9)) * dend
-                    if mode == "adiabatic":
-                        t_gp = self.tgp.copy()
-                    else:
-                        t_gp = self._tgp_from_nodes(self.t_nodes)
-                    if mode == "isothermal":
-                        t_gp[:] = T_REF if abs(self.t_nodes[0] - T_REF) < 1e-9 else self.t_nodes[0]
-                    t_gp_start = t_gp.copy()
-                    adiabatic = mode == "adiabatic"
-                    k_use = 0.0 if mode != "coupled" else self.k_cond
-                    u_new, aux, it, nr = self._newton(u_guess, u_end, t_gp, adv, adiabatic)
-                    if u_new is None:
+                    payload = self._attempt_step(u_guess, u_end, adv, mode, stagger_tol, max_stagger)
+                    if payload is None:
+                        self.restore(snap)
+                        u_prev = u_prev_snap
                         adv *= 0.5
-                        failures.append({"t": t_cursor, "reason": "newton", "dt": adv})
+                        failures.append({"t": t_cursor, "reason": "rejected_unconverged", "dt_next": adv})
                         continue
-                    balance = {"stored_Nmm": 0.0, "plastic_Nmm": 0.0, "boundary_out_Nmm": 0.0, "imbalance_Nmm": 0.0}
-                    ep_n = self.ep.copy()
-                    if mode == "coupled":
-                        t_nodes_start = self.t_nodes.copy()
-                        for _s in range(max_stagger):
-                            aux["dg"] = np.maximum(aux["ep"] - ep_n, 0.0)
-                            t_nodes, t_gp2, balance = _heat_step(
-                                self.xy, self.conn, self.ref, aux, t_nodes_start, adv, self.card, k_use, T_GRIP, self.end
-                            )
-                            delta_t = float(np.max(np.abs(t_gp2 - t_gp)))
-                            self.t_nodes = t_nodes
-                            t_gp = t_gp2
-                            if delta_t < 0.25 or _s == max_stagger - 1:
-                                break
-                            u2, aux2, it2, nr2 = self._newton(u_new, u_end, t_gp, adv, False)
-                            if u2 is None:
-                                failures.append({"t": t_cursor, "reason": "stagger-newton", "dt": adv})
-                                break
-                            u_new, aux, it, nr = u2, aux2, it2, nr2
-                    elif mode == "adiabatic":
-                        self.tgp = aux["T"].copy()
-                        t_gp = self.tgp
-                        dg = np.maximum(aux["ep"] - ep_n, 0.0)
-                        plastic = 0.0
-                        stored = 0.0
-                        for g in range(4):
-                            w0 = 2.0 * math.pi * self.ref[g]["R"] * self.ref[g]["detJ0"]
-                            plastic += float(np.sum(w0 * self.card.chi * aux["q"][:, g] * dg[:, g]))
-                            stored += float(np.sum(w0 * self.card.rho_c * (aux["T"][:, g] - t_gp_start[:, g])))
-                        balance = {
-                            "stored_Nmm": stored,
-                            "plastic_Nmm": plastic,
-                            "boundary_out_Nmm": 0.0,
-                            "imbalance_Nmm": stored - plastic,
-                        }
-                    # commit
-                    u_prev = self.u.copy()
-                    self.u = u_new
-                    self.be = aux["be"]
-                    self.fn2 = aux["Fn2"]
-                    self.fnth = aux["Fnth"]
-                    self.ep = aux["ep"]
-                    fint, _, _ = self._assemble(self.u, t_gp if mode != "adiabatic" else aux["T"], adv, mode == "adiabatic", False)
-                    force = float(np.sum(fint[2 * self.end + 1]))
-                    obs = self._observe(self.u, aux["T"] if mode == "adiabatic" else self._tgp_from_nodes(self.t_nodes), self.ep)
+                    self._commit_step(payload["u"], payload["aux"], payload["t_nodes"], payload["t_gp"], payload["adiabatic"])
+                    # The Newton residual is the equilibrium residual at the start-of-step state.
+                    # Reassembling after the Finger tensor is updated would apply the step twice.
+                    force = float(payload["force_N"])
+                    obs = self._observe(self.u, self.tgp, self.ep)
                     obs.update({
                         "t_s": t_cursor + adv,
                         "u_end_mm": u_end,
                         "force_N": force,
-                        "newton_iter": int(it),
-                        "residual_N": float(nr),
+                        "newton_iter": payload["it"],
+                        "residual_N": payload["nr"],
+                        "post_residual_N": payload["nr"],
                         "dt_s": adv,
+                        "stagger_passes": payload["stagger_passes"],
+                        "stagger_delta_K": payload["stagger_delta_K"],
+                        "coupling_converged": True,
+                        "heat_imbalance_step_Nmm": payload["balance"]["imbalance_Nmm"],
+                        "accepted": True,
                     })
-                    heat_stored += balance["stored_Nmm"]
-                    heat_plastic += balance["plastic_Nmm"]
-                    heat_boundary += balance["boundary_out_Nmm"]
-                    obs["heat_imbalance_step_Nmm"] = balance["imbalance_Nmm"]
+                    heat_stored += payload["balance"]["stored_Nmm"]
+                    heat_plastic += payload["balance"]["plastic_Nmm"]
+                    heat_boundary += payload["balance"]["boundary_out_Nmm"]
                     hist.append(obs)
-                    extrema["force_N"] = max(extrema["force_N"], force)
-                    extrema["T_neck_K"] = max(extrema["T_neck_K"], obs["T_neck_K"])
-                    extrema["T_shoulder_K"] = max(extrema["T_shoulder_K"], obs["T_shoulder_K"])
-                    extrema["r_min_mm"] = min(extrema["r_min_mm"], obs["r_min_mm"])
-                    extrema["ep_max"] = max(extrema["ep_max"], obs["ep_max"])
-                    extrema["ep_neck"] = max(extrema["ep_neck"], obs["ep_neck"])
+                    self._track_extrema(extrema, obs)
+                    u_prev = snap["u"]
                     t_cursor += adv
                     remaining = t_target - t_cursor
                     ok = True
                     break
                 if not ok:
-                    jmin = float(np.min([np.min(pk["J"]) for pk in _kinematics(self.xe, self.u[self.conn], self.ref)]))
                     raise RuntimeError(
                         f"newton failed at t={t_cursor:.4f} u_end={schedule.u_end(t_cursor):.4f} "
-                        f"Jmin={jmin:.3e} T=[{self.t_nodes.min():.1f},{self.t_nodes.max():.1f}] ep={self.ep.max():.3f}"
+                        f"T=[{self.t_nodes.min():.1f},{self.t_nodes.max():.1f}] ep={self.ep.max():.3f}"
                     )
                 if verbose:
-                    print(f"t={t_cursor:.4f} F={force:.1f} g={obs['gauge_mm']:.4f} Tn={obs['T_neck_K']:.2f} r={obs['r_min_mm']:.4f}", flush=True)
-        final = hist[-1]
+                    print(
+                        f"t={t_cursor:.4f} F={force:.1f} g={obs['gauge_mm']:.4f} Tn={obs['T_neck_K']:.2f} "
+                        f"r={obs['r_min_mm']:.4f} dT={obs['stagger_delta_K']:.3f}",
+                        flush=True,
+                    )
         return {
             "history": hist,
             "extrema": extrema,
-            "final": final,
+            "final": hist[-1],
             "heat": {
                 "stored_Nmm": heat_stored,
                 "plastic_Nmm": heat_plastic,
                 "boundary_out_Nmm": heat_boundary,
                 "imbalance_Nmm": heat_stored - heat_plastic + heat_boundary,
+                "balance_is": "internal discrete residual of the same heat operator, not an external flux audit",
             },
             "failures": failures,
             "ep_field_max": float(self.ep.max()),
+            "settings": {
+                "mode": mode, "nsub": nsub, "max_stagger": max_stagger, "stagger_tol_K": stagger_tol,
+                "k_cond": self.k_cond, "newton_residual_factor": 1e-6, "newton_iteration_cap": 16,
+                "end_dirichlet": "T_grip on Z=L for every k, including k=0",
+            },
         }
+
+    @staticmethod
+    def _track_extrema(extrema, obs):
+        if obs["force_N"] >= extrema["force_N"]:
+            extrema["force_N"] = obs["force_N"]
+            extrema["force_t_s"] = obs["t_s"]
+        if obs["T_neck_K"] >= extrema["T_neck_K"]:
+            extrema["T_neck_K"] = obs["T_neck_K"]
+            extrema["T_neck_t_s"] = obs["t_s"]
+        if obs["T_shoulder_K"] >= extrema["T_shoulder_K"]:
+            extrema["T_shoulder_K"] = obs["T_shoulder_K"]
+            extrema["T_shoulder_t_s"] = obs["t_s"]
+        if obs["r_min_mm"] <= extrema["r_min_mm"]:
+            extrema["r_min_mm"] = obs["r_min_mm"]
+            extrema["r_min_t_s"] = obs["t_s"]
+        extrema["ep_max"] = max(extrema["ep_max"], obs["ep_max"])
+        extrema["ep_neck"] = max(extrema["ep_neck"], obs["ep_neck"])
 
 
 def make_solver(card, dR, t_init, nr, nz, k_cond=K_COND, L=L_HALF, R0=R0):

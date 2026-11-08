@@ -1,0 +1,24 @@
+{
+  "supersedes": "results/gate_verdicts.json and the PASS table in individualreport.md",
+  "previous_file_preserved": "results/precorrection_immutable/gate_verdicts.json",
+  "overall": "SIMPLE_PROPORTIONAL_FAMILY_PASSES__FOUR_VARIABLE_HARDENING_NOT_DEMONSTRATED",
+  "recommendation": "Reconsider this redesign as a difficulty mechanism. Do not tighten the 8 s cap or the other limits to exclude tau = 4 to 7 s with h = 0.",
+  "frontier_difficulty": "UNVERIFIED",
+  "gates": [
+    {"id": "precorrection_proportional_reproduction", "verdict": "PASS", "detail": "12/12, zero retries, warm tau=4 neck 340.24 K. results/precorrection_immutable/proportional_family.json"},
+    {"id": "corrected_acceptance_and_same_base_labels", "verdict": "PASS", "detail": "Rollback tests passed. Corrected 4x8/8 family is also 12/12 at the same 340.24 K."},
+    {"id": "simple_no_hold_family", "verdict": "PASS", "detail": "tau=4,5,6,7 proportional, h=0, all three scenarios, base mesh."},
+    {"id": "four_variable_schedule_required", "verdict": "FAIL", "detail": "Not demonstrated. M2/M3 were manual. No schedule optimizer was run. A one-variable duration works."},
+    {"id": "p4_refinement_mesh_time_combined_coupling", "verdict": "PASS", "detail": "Warm P4 neck 339.39 to 340.99 K. Combined 5x12/16 is 339.75 K. Gauge and radius stay inside the limits."},
+    {"id": "m2_nsub4_nominal", "verdict": "FAIL", "detail": "Newton stopped at u_end=1.45 mm. Not retuned. 8 and 16 substeps pass."},
+    {"id": "same_integrator_k_only_warm_P4_P7", "verdict": "PASS", "detail": "P4 warm 340.24 K at k=45 passes, 376.09 K at k=0 fails. P7 warm 333.00 vs 378.59 K. End Dirichlet remains 293 K."},
+    {"id": "primary_M2_k0", "verdict": "FAIL", "detail": "All three scenarios stop at the hold. Independent solver completed warm M2 at k=0 and it fails 345 K (368.92 K)."},
+    {"id": "independent_conducting_warm_flip", "verdict": "PASS", "detail": "Independent P4 warm: 339.36 K passes at k=45, 371.31 K fails at k=0."},
+    {"id": "shared_node_gauge_gap", "verdict": "PASS", "detail": "Same nodes, warm P4, k=45: independent nsub=4 gauge 2.712 mm and 340.04 K; primary nsub=8 gauge 2.749 mm and 340.24 K. The old 0.174 mm gap was a coarse adiabatic mismatch."},
+    {"id": "coarse_independent_k0_gauge_vs_floor", "verdict": "FAIL", "detail": "Independent 3x6 P4 nominal k=0 gauge 2.377 mm is under 2.40 mm. Not adjusted. Not the conducting design point."},
+    {"id": "local_fits_do_not_flip_P4", "verdict": "PASS", "detail": "Starts 0 and 2, standardized RMS 0.743 and 0.746, warm P4 340.23 K and 340.24 K, all scenarios pass."},
+    {"id": "full_uncertainty_ensemble", "verdict": "UNVERIFIED", "detail": "Starts 1 and 3 returned only the solver-failure penalty. No profile or bootstrap. Slow-test force RMS is dominated by the t=1 s sample."},
+    {"id": "continuous_interstep_extrema", "verdict": "UNVERIFIED", "detail": "Extrema are accepted steps, now including t=0. Refinement bounds the step-size effect. No continuous certificate."},
+    {"id": "frontier_difficulty", "verdict": "UNVERIFIED", "detail": "No fresh probes."}
+  ]
+}

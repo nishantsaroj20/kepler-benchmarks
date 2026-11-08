@@ -1,5 +1,9 @@
 # Scientific specification: thermomechanical schedule design
 
+> Section 11 below is the original pilot's validation claim. It is amended by `SPECIFICATION_AMENDMENT.md`. The proportional no-hold family at 4–7 s passes, so that section must not be read as proof that a four-variable search is required.
+
+
+
 Status: Stage-2 specification exercised by the Stage-3 pilot in this directory. Numerical limits below are the candidates the pilot actually ran. A limit is **validated** only when `results/gate_verdicts.json` and `results/pilot_results.csv` support it. Anything not backed by those files remains **proposed**. This document is not `instruction.md`. The human author writes that file.
 
 ## 1. Decision the task would ask for

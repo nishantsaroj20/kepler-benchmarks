@@ -1,0 +1,163 @@
+18:45:45 corrected pilot start
+18:45:45 python 3.12.3 numpy 2.1.3
+18:45:45 scipy 1.14.1 platform Linux-6.12.113+-x86_64-with-glibc2.39
+18:45:48 acceptance tests passed
+18:45:49 base P4 S0_nominal m4x8 n8 k=45 T=319.82 g=2.5178 r=2.4315 pass=True rej=0 1.7s
+18:45:51 base P4 S1_warm m4x8 n8 k=45 T=340.24 g=2.7493 r=2.3356 pass=True rej=0 1.8s
+18:45:53 base P4 S2_imperfection m4x8 n8 k=45 T=320.75 g=2.6267 r=2.3703 pass=True rej=0 1.7s
+18:45:54 base P5 S0_nominal m4x8 n8 k=45 T=317.79 g=2.5458 r=2.4177 pass=True rej=0 1.7s
+18:45:56 base P5 S1_warm m4x8 n8 k=45 T=333.77 g=2.7490 r=2.3333 pass=True rej=0 1.7s
+18:45:58 base P5 S2_imperfection m4x8 n8 k=45 T=318.52 g=2.6535 r=2.3565 pass=True rej=0 1.7s
+18:46:00 base P6 S0_nominal m4x8 n8 k=45 T=315.94 g=2.5595 r=2.4100 pass=True rej=0 1.8s
+18:46:01 base P6 S1_warm m4x8 n8 k=45 T=333.00 g=2.7419 r=2.3341 pass=True rej=0 1.8s
+18:46:03 base P6 S2_imperfection m4x8 n8 k=45 T=316.53 g=2.6670 r=2.3484 pass=True rej=0 1.7s
+18:46:05 base P7 S0_nominal m4x8 n8 k=45 T=314.26 g=2.5611 r=2.4077 pass=True rej=0 1.8s
+18:46:07 base P7 S1_warm m4x8 n8 k=45 T=333.00 g=2.7280 r=2.3382 pass=True rej=0 1.8s
+18:46:08 base P7 S2_imperfection m4x8 n8 k=45 T=314.78 g=2.6730 r=2.3438 pass=True rej=0 1.7s
+18:46:10 base M2_manual S0_nominal m4x8 n8 k=45 T=316.07 g=2.5254 r=2.4281 pass=True rej=0 1.9s
+18:46:12 base M2_manual S1_warm m4x8 n8 k=45 T=334.45 g=2.7474 r=2.3367 pass=True rej=0 1.9s
+18:46:14 base M2_manual S2_imperfection m4x8 n8 k=45 T=316.73 g=2.6339 r=2.3670 pass=True rej=0 1.8s
+18:46:16 mesh P4 S0_nominal m3x6 n8 k=45 T=318.94 g=2.4831 r=2.4516 pass=True rej=0 1.5s
+18:46:18 mesh P4 S0_nominal m5x12 n8 k=45 T=319.94 g=2.5440 r=2.4141 pass=True rej=0 2.2s
+18:46:19 time P4 S0_nominal m4x8 n4 k=45 T=320.17 g=2.5731 r=2.3994 pass=True rej=0 1.2s
+18:46:22 time P4 S0_nominal m4x8 n16 k=45 T=319.78 g=2.4967 r=2.4450 pass=True rej=0 3.5s
+18:46:24 mesh P4 S1_warm m3x6 n8 k=45 T=339.39 g=2.7182 r=2.3605 pass=True rej=0 1.5s
+18:46:26 mesh P4 S1_warm m5x12 n8 k=45 T=340.06 g=2.7767 r=2.3120 pass=True rej=0 2.0s
+18:46:27 time P4 S1_warm m4x8 n4 k=45 T=340.99 g=2.8114 r=2.2927 pass=True rej=0 1.3s
+18:46:31 time P4 S1_warm m4x8 n16 k=45 T=339.90 g=2.7272 r=2.3520 pass=True rej=0 3.8s
+18:46:33 mesh P4 S2_imperfection m3x6 n8 k=45 T=319.88 g=2.5930 r=2.3933 pass=True rej=0 1.5s
+18:46:35 mesh P4 S2_imperfection m5x12 n8 k=45 T=320.77 g=2.6536 r=2.3497 pass=True rej=0 2.1s
+18:46:36 time P4 S2_imperfection m4x8 n4 k=45 T=321.17 g=2.6972 r=2.3279 pass=True rej=0 1.2s
+18:46:40 time P4 S2_imperfection m4x8 n16 k=45 T=320.66 g=2.6059 r=2.3849 pass=True rej=0 3.8s
+18:46:41 mesh P7 S0_nominal m3x6 n8 k=45 T=313.66 g=2.5201 r=2.4321 pass=True rej=0 1.6s
+18:46:43 mesh P7 S0_nominal m5x12 n8 k=45 T=314.29 g=2.5926 r=2.3857 pass=True rej=0 2.1s
+18:46:45 time P7 S0_nominal m4x8 n4 k=45 T=314.37 g=2.6128 r=2.3759 pass=True rej=0 1.3s
+18:46:47 time P7 S0_nominal m4x8 n16 k=45 T=314.23 g=2.5419 r=2.4206 pass=True rej=0 2.7s
+18:46:49 mesh P7 S1_warm m3x6 n8 k=45 T=333.00 g=2.6938 r=2.3647 pass=True rej=0 1.7s
+18:46:51 mesh P7 S1_warm m5x12 n8 k=45 T=333.00 g=2.7567 r=2.3131 pass=True rej=0 2.1s
+18:46:52 time P7 S1_warm m4x8 n4 k=45 T=333.00 g=2.7783 r=2.3018 pass=True rej=0 1.3s
+18:46:56 time P7 S1_warm m4x8 n16 k=45 T=333.00 g=2.7078 r=2.3533 pass=True rej=0 3.3s
+18:46:57 mesh P7 S2_imperfection m3x6 n8 k=45 T=314.23 g=2.6375 r=2.3696 pass=True rej=0 1.5s
+18:46:59 mesh P7 S2_imperfection m5x12 n8 k=45 T=314.72 g=2.7033 r=2.3191 pass=True rej=0 1.9s
+18:47:01 time P7 S2_imperfection m4x8 n4 k=45 T=314.83 g=2.7195 r=2.3103 pass=True rej=0 1.4s
+18:47:04 time P7 S2_imperfection m4x8 n16 k=45 T=314.77 g=2.6556 r=2.3572 pass=True rej=3 3.2s
+18:47:05 mesh M2_manual S0_nominal m3x6 n8 k=45 T=315.32 g=2.4892 r=2.4490 pass=True rej=0 1.7s
+18:47:08 mesh M2_manual S0_nominal m5x12 n8 k=45 T=316.14 g=2.5521 r=2.4102 pass=True rej=0 2.4s
+18:47:09 FAIL time M2_manual S0_nominal newton failed at t=3.1000 u_end=1.4500 T=[293.0,308.9] ep=0.208
+18:47:12 time M2_manual S0_nominal m4x8 n16 k=45 T=316.01 g=2.5048 r=2.4412 pass=True rej=0 3.1s
+18:47:14 mesh M2_manual S1_warm m3x6 n8 k=45 T=334.23 g=2.7152 r=2.3620 pass=True rej=0 1.6s
+18:47:16 mesh M2_manual S1_warm m5x12 n8 k=45 T=334.48 g=2.7738 r=2.3134 pass=True rej=0 2.2s
+18:47:18 time M2_manual S1_warm m4x8 n4 k=45 T=335.37 g=2.8101 r=2.2936 pass=True rej=1 1.9s
+18:47:21 time M2_manual S1_warm m4x8 n16 k=45 T=334.61 g=2.7257 r=2.3529 pass=True rej=0 3.3s
+18:47:23 mesh M2_manual S2_imperfection m3x6 n8 k=45 T=316.00 g=2.5995 r=2.3904 pass=True rej=0 1.6s
+18:47:25 mesh M2_manual S2_imperfection m5x12 n8 k=45 T=316.71 g=2.6613 r=2.3458 pass=True rej=0 2.4s
+18:47:27 time M2_manual S2_imperfection m4x8 n4 k=45 T=316.92 g=2.7033 r=2.3251 pass=True rej=0 1.6s
+18:47:30 time M2_manual S2_imperfection m4x8 n16 k=45 T=316.66 g=2.6134 r=2.3814 pass=True rej=0 3.0s
+18:47:34 combined P4 S0_nominal m5x12 n16 k=45 T=319.90 g=2.5255 r=2.4279 pass=True rej=0 4.1s
+18:47:39 combined P4 S1_warm m5x12 n16 k=45 T=339.75 g=2.7539 r=2.3306 pass=True rej=0 5.3s
+18:47:43 combined P4 S2_imperfection m5x12 n16 k=45 T=320.70 g=2.6329 r=2.3659 pass=True rej=0 4.3s
+18:47:47 combined P7 S1_warm m5x12 n16 k=45 T=333.00 g=2.7380 r=2.3293 pass=True rej=0 4.0s
+18:47:51 combined M2_manual S1_warm m5x12 n16 k=45 T=334.66 g=2.7531 r=2.3310 pass=True rej=0 4.1s
+18:47:53 coupling_tol P4 S1_warm m4x8 n8 k=45 T=340.24 g=2.7488 r=2.3359 pass=True rej=0 1.7s
+18:47:55 coupling_tol P4 S1_warm m4x8 n8 k=45 T=340.25 g=2.7510 r=2.3347 pass=True rej=0 1.8s
+18:47:57 coupling_tol M2_manual S1_warm m4x8 n8 k=45 T=334.45 g=2.7474 r=2.3367 pass=True rej=0 1.9s
+18:47:59 coupling_tol M2_manual S1_warm m4x8 n8 k=45 T=334.45 g=2.7495 r=2.3357 pass=True rej=0 2.0s
+18:48:00 k0 P4 S0_nominal m4x8 n8 k=0 T=336.24 g=2.4815 r=2.4361 pass=True rej=0 1.7s
+18:48:02 k0 P4 S1_warm m4x8 n8 k=0 T=376.09 g=2.5686 r=2.4136 pass=False rej=0 1.7s
+18:48:04 k0 P4 S2_imperfection m4x8 n8 k=0 T=340.63 g=2.6124 r=2.3626 pass=True rej=0 1.7s
+18:48:05 FAIL k0 M2_manual S0_nominal newton failed at t=3.1000 u_end=1.4500 T=[293.0,314.7] ep=0.191
+18:48:06 FAIL k0 M2_manual S1_warm newton failed at t=3.1000 u_end=1.4500 T=[293.0,355.2] ep=0.204
+18:48:07 FAIL k0 M2_manual S2_imperfection newton failed at t=3.1000 u_end=1.4500 T=[293.0,318.2] ep=0.219
+18:48:09 k0 P7 S0_nominal m4x8 n8 k=0 T=338.76 g=2.5503 r=2.3971 pass=True rej=0 1.7s
+18:48:11 k0 P7 S1_warm m4x8 n8 k=0 T=378.59 g=2.6373 r=2.3728 pass=False rej=0 1.7s
+18:48:13 k0 P7 S2_imperfection m4x8 n8 k=0 T=343.39 g=2.6858 r=2.3184 pass=True rej=0 1.7s
+18:48:57 indep_coarse P4 S0_nominal k=45 T=317.77 g=2.4211 r=2.4898 F=11894 pass=True 44.1s
+18:49:41 indep_coarse P4 S0_nominal k=0 T=328.88 g=2.3773 r=2.5017 F=11845 pass=False 44.2s
+18:50:27 indep_coarse P4 S1_warm k=45 T=337.50 g=2.6434 r=2.4138 F=11560 pass=True 46.6s
+18:51:20 indep_coarse P4 S1_warm k=0 T=368.58 g=2.4601 r=2.4830 F=11304 pass=False 52.7s
+18:52:13 indep_coarse P4 S2_imperfection k=45 T=318.45 g=2.5259 r=2.4386 F=11813 pass=True 52.4s
+18:53:03 indep_coarse P4 S2_imperfection k=0 T=331.77 g=2.5031 r=2.4417 F=11764 pass=True 50.4s
+18:53:45 indep_coarse M2_manual S0_nominal k=45 T=314.33 g=2.4279 r=2.4875 F=11892 pass=True 42.3s
+18:54:25 indep_coarse M2_manual S0_nominal k=0 T=329.38 g=2.3962 r=2.4923 F=11837 pass=False 39.4s
+18:55:07 indep_coarse M2_manual S1_warm k=45 T=334.24 g=2.6397 r=2.4158 F=11568 pass=True 42.7s
+18:55:55 indep_coarse M2_manual S1_warm k=0 T=368.92 g=2.4733 r=2.4769 F=11299 pass=False 47.3s
+18:56:40 indep_coarse M2_manual S2_imperfection k=45 T=314.88 g=2.5336 r=2.4358 F=11806 pass=True 45.4s
+18:57:26 indep_coarse M2_manual S2_imperfection k=0 T=332.12 g=2.5167 r=2.4358 F=11758 pass=True 46.1s
+18:58:31 indep_finer P4 S1_warm k=45 T=339.36 g=2.7027 r=2.3876 F=11557 pass=True 65.2s
+18:59:44 indep_finer P4 S1_warm k=0 T=371.31 g=2.4810 r=2.4712 F=11300 pass=False 72.6s
+19:00:41 same-nodes k=45 {'tag': 'same_nodes_as_primary', 'name': 'P4', 'scenario': 'S1_warm', 'k': 45.0, 'mesh_r': 4, 'mesh_z': 8, 'nsub': 4, 'T_neck_max_K': 340.0392696566186, 'gauge_mm': 2.7124974339902375, 'r_min_mm': 2.3620214103431127, 'force_max_N': 11556.845542242996, 'n_steps': 73, 'wall_s': 56.62052581599983, 'error': ''}
+19:01:29 same-nodes k=0 {'tag': 'same_nodes_as_primary', 'name': 'P4', 'scenario': 'S1_warm', 'k': 0.0, 'mesh_r': 4, 'mesh_z': 8, 'nsub': 4, 'T_neck_max_K': 374.6527255321638, 'gauge_mm': 2.5373264326746634, 'r_min_mm': 2.43348389815989, 'force_max_N': 11301.40081127327, 'n_steps': 55, 'wall_s': 48.14311940099924, 'error': ''}
+19:01:31 cal gen_5x12 CAL_SLOW Tn=306.18
+19:01:35 cal gen_5x12 CAL_FAST Tn=326.63
+19:01:40 cal gen_5x12 CAL_HOLD Tn=314.13
+19:01:42 cal fitmesh_4x8 CAL_SLOW Tn=305.94
+19:01:44 cal fitmesh_4x8 CAL_FAST Tn=326.73
+19:01:47 cal fitmesh_4x8 CAL_HOLD Tn=314.27
+19:01:48 cal coarse_3x6 CAL_SLOW Tn=305.88
+19:01:49 cal coarse_3x6 CAL_FAST Tn=326.00
+19:01:50 cal coarse_3x6 CAL_HOLD Tn=314.18
+19:01:50 joint fit start 0
+19:06:42 fit start 0 rms=0.743 nfev=6 K=683.5 alpha=0.408 C=0.0135 m=0.784
+19:06:42 joint fit start 1
+19:07:11 fit start 1 rms=20.000 nfev=1 K=600.0 alpha=0.700 C=0.0100 m=1.000
+19:07:11 joint fit start 2
+19:16:35 fit start 2 rms=0.746 nfev=10 K=743.8 alpha=0.330 C=0.0137 m=0.777
+19:16:35 joint fit start 3
+19:17:27 FATAL
+Traceback (most recent call last):
+  File "/agent/repos/kepler-benchmarks/pilots/swift-thermomechanical-schedule/src/run_corrected_pilot.py", line 463, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/agent/repos/kepler-benchmarks/pilots/swift-thermomechanical-schedule/src/run_corrected_pilot.py", line 428, in main
+    cal = calibration()
+          ^^^^^^^^^^^^^
+  File "/agent/repos/kepler-benchmarks/pilots/swift-thermomechanical-schedule/src/run_corrected_pilot.py", line 334, in calibration
+    fit = least_squares(resid, x0, bounds=(lo, hi), max_nfev=18, diff_step=0.08, xtol=1e-3, ftol=1e-3)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/scipy/optimize/_lsq/least_squares.py", line 941, in least_squares
+    result = trf(fun_wrapped, jac_wrapped, x0, f0, J0, lb, ub, ftol, xtol,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/scipy/optimize/_lsq/trf.py", line 123, in trf
+    return trf_bounds(
+           ^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/scipy/optimize/_lsq/trf.py", line 374, in trf_bounds
+    J = jac(x, f)
+        ^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/scipy/optimize/_lsq/least_squares.py", line 898, in jac_wrapped
+    J = approx_derivative(fun, x, rel_step=diff_step, method=jac,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/scipy/optimize/_numdiff.py", line 519, in approx_derivative
+    return _dense_difference(fun_wrapped, x0, f0, h,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/scipy/optimize/_numdiff.py", line 592, in _dense_difference
+    df = fun(x1) - f0
+         ~~~~~~~~^~~~
+ValueError: operands could not be broadcast together with shapes (135,) (80,) 
+
+19:20:42 cal gen_5x12 CAL_SLOW Tn=306.18
+19:20:47 cal gen_5x12 CAL_FAST Tn=326.63
+19:20:52 cal gen_5x12 CAL_HOLD Tn=314.13
+19:20:53 cal fitmesh_4x8 CAL_SLOW Tn=305.94
+19:20:56 cal fitmesh_4x8 CAL_FAST Tn=326.73
+19:20:58 cal fitmesh_4x8 CAL_HOLD Tn=314.27
+19:21:00 cal coarse_3x6 CAL_SLOW Tn=305.88
+19:21:01 cal coarse_3x6 CAL_FAST Tn=326.00
+19:21:02 cal coarse_3x6 CAL_HOLD Tn=314.18
+19:21:02 joint fit start 0
+19:25:55 fit start 0 rms=0.743 nfev=6 K=683.5 alpha=0.408 C=0.0135 m=0.784
+19:25:55 joint fit start 2
+19:35:22 fit start 2 rms=0.746 nfev=10 K=743.8 alpha=0.330 C=0.0137 m=0.777
+19:35:22 joint fit start 3
+19:36:47 fit start 3 rms=20.000 nfev=3 K=636.2 alpha=0.901 C=0.0005 m=0.300
+19:36:48 card_replay card_truth S0_nominal m4x8 n8 k=45 T=319.82 g=2.5178 r=2.4315 pass=True rej=0 1.6s
+19:36:50 card_replay card_truth S1_warm m4x8 n8 k=45 T=340.24 g=2.7493 r=2.3356 pass=True rej=0 1.7s
+19:36:52 card_replay card_truth S2_imperfection m4x8 n8 k=45 T=320.75 g=2.6267 r=2.3703 pass=True rej=0 1.6s
+19:36:53 card_replay card_fit0 S0_nominal m4x8 n8 k=45 T=319.89 g=2.5279 r=2.4250 pass=True rej=0 1.7s
+19:36:55 card_replay card_fit0 S1_warm m4x8 n8 k=45 T=340.23 g=2.7623 r=2.3264 pass=True rej=0 1.8s
+19:36:57 card_replay card_fit0 S2_imperfection m4x8 n8 k=45 T=320.78 g=2.6336 r=2.3644 pass=True rej=0 1.6s
+19:36:58 card_replay card_fit2 S0_nominal m4x8 n8 k=45 T=319.92 g=2.5288 r=2.4240 pass=True rej=0 1.7s
+19:37:00 card_replay card_fit2 S1_warm m4x8 n8 k=45 T=340.24 g=2.7638 r=2.3247 pass=True rej=0 1.7s
+19:37:02 card_replay card_fit2 S2_imperfection m4x8 n8 k=45 T=320.79 g=2.6333 r=2.3636 pass=True rej=0 1.7s
+19:37:04 card_replay card_fit3 S0_nominal m4x8 n8 k=45 T=316.29 g=3.4073 r=2.0027 pass=False rej=0 2.2s
+19:37:06 card_replay card_fit3 S1_warm m4x8 n8 k=45 T=335.82 g=3.5522 r=1.9434 pass=False rej=0 2.3s
+19:37:09 card_replay card_fit3 S2_imperfection m4x8 n8 k=45 T=316.35 g=3.4647 r=1.9529 pass=False rej=0 2.2s

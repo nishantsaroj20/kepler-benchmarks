@@ -1,5 +1,9 @@
 # Stage 1–3 report: thermomechanical schedule pilot
 
+> Superseded. The PASS table in this file overstated what the runs showed. The corrected record is `correction.md` and `results/corrected/`. This file is kept so the earlier claims are not erased.
+
+
+
 The v1 notch-forecast task was solved by the work it asked for. A redesign that still only asks for an inverse fit will not add difficulty. This pilot changed the decision to a four-variable loading schedule under coupled force, temperature, gauge and time constraints, then ran that decision. Two schedules pass every public scenario with margin. The fastest ramp, the fastest proportional ramp, and a short hold at full actuator speed do not. Conduction is what makes the moderate schedule legal on a warm start: the same durations are 334.5 K with conduction and 373.8 K if the bar is adiabatic.
 
 Frontier difficulty is **UNVERIFIED**. No Harbor run and no model probe were started. Stages 4–8 were not started. No `instruction.md` and no submission ZIP were written.

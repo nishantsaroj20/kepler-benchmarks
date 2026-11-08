@@ -42,7 +42,9 @@ SHA-256 of the files that define the executed study:
 
 ## Read first
 
-- `individualreport.md` — diagnosis, tables, gates
-- `specification.md` — equations, units, schedule, what was validated
-- `REQUIREMENTS_INVENTORY.md` — list for a later human-written instruction
-- `results/gate_verdicts.json` — PASS / FAIL / UNVERIFIED with the numbers
+`correction.md` supersedes the PASS table in `individualreport.md`. The old report and `results/gate_verdicts.json` are kept. Corrected runs are in `results/corrected/`. The proportional family was also run on the pre-correction solver and saved at `results/precorrection_immutable/proportional_family.json`.
+
+- `SPECIFICATION_AMENDMENT.md` — what the corrected runs change about the specification's status
+- `specification.md` — equations and limits, with section 11 marked as amended
+- `REQUIREMENTS_INVENTORY.md` — still not an instruction
+

@@ -101,7 +101,7 @@ def _bisect(q, ep, T, dt, card, adiabatic):
         return dg, tout
     qa, epa, Ta = q[on], ep[on], T[on]
     lo, hi = np.zeros_like(qa), qa / (3.0 * card.mu)
-    for _ in range(46):
+    for _ in range(22):
         mid = 0.5 * (lo + hi)
         yv, _ = _yield_T(card, epa, mid, Ta, dt, adiabatic)
         f = qa - 3.0 * card.mu * mid - yv
@@ -135,6 +135,8 @@ class PK1Model:
         self.ep = np.zeros((self.ne, 4))
         self.u = np.zeros_like(xy)
         self.t_gp = np.full((self.ne, 4), float(t_init))
+        self.tn = np.full(self.nn, float(t_init))
+        self._q = np.zeros((self.ne, 4))
         zmax = float(xy[:, 1].max())
         self.end = np.where(np.abs(xy[:, 1] - zmax) < 1e-10)[0]
         self.axis = np.where(xy[:, 0] < 1e-12)[0]
@@ -206,11 +208,13 @@ class PK1Model:
             cp_new[:, g] = np.einsum("eij,ejk,elk->eil", fbi, be_n, fbi)
             ep_new[:, g] = self.ep[:, g] + dg
             t_new[:, g] = tnew
+            self._q[:, g] = np.where(dg > 0.0, np.maximum(q - 3.0 * self.card.mu * dg, 0.0), 0.0)
         return fe, ep_new, cp_new, t_new
 
     def residual(self, u, dt, need_k):
         ue = u[self.conn]
         fe, ep_new, cp_new, t_new = self.element_force(ue, dt)
+        q_base = self._q.copy()
         fint = np.zeros(2 * self.nn)
         np.add.at(fint, self.dofs.ravel(), fe.ravel())
         kg = None
@@ -226,22 +230,27 @@ class PK1Model:
             rows = np.repeat(self.dofs, 8, 1).ravel()
             cols = np.tile(self.dofs, (1, 8)).ravel()
             kg = sparse.csr_matrix((ke.ravel(), (rows, cols)), shape=(2 * self.nn, 2 * self.nn))
+        self._q = q_base
         return fint, kg, ep_new, cp_new, t_new
 
     def step(self, u_end, dt):
+        """Commit mechanics only when the free residual meets the tolerance."""
         u = self.u.copy()
         u[self.end, 1] = u_end
         u[self.axis, 0] = 0.0
         u[self.mid, 1] = 0.0
-        for it in range(12):
+        for _it in range(12):
             fint, kg, ep_new, cp_new, t_new = self.residual(u, dt, True)
-            if not np.all(np.isfinite(fint)):
+            if not np.all(np.isfinite(fint)) or kg is None:
                 return False
             scale = max(1.0, float(np.sum(np.abs(fint[2 * self.end + 1]))))
             rhs = -fint[self.free]
             nr = float(np.linalg.norm(rhs))
             if nr < 1e-5 * scale:
-                self.u, self.ep, self.cp, self.t_gp = u, ep_new, cp_new, t_new
+                self.u, self.ep, self.cp = u, ep_new, cp_new
+                self._last_force = float(np.sum(fint[2 * self.end + 1]))
+                if self.adiabatic:
+                    self.t_gp = t_new
                 return True
             du = spsolve(kg[self.free][:, self.free].tocsc(), rhs)
             if not np.all(np.isfinite(du)):
@@ -256,7 +265,7 @@ class PK1Model:
                 trial[self.axis, 0] = 0.0
                 trial[self.mid, 1] = 0.0
                 f2, _, ep2, cp2, t2 = self.residual(trial, dt, False)
-                if float(np.linalg.norm(f2[self.free])) < nr:
+                if np.all(np.isfinite(f2)) and float(np.linalg.norm(f2[self.free])) < nr:
                     u, ep_new, cp_new, t_new = trial, ep2, cp2, t2
                     ok = True
                     break
@@ -264,6 +273,103 @@ class PK1Model:
             if not ok:
                 return False
         return False
+
+    def _heat(self, ep_old, tn_start, k, dt, t_grip):
+        """Lumped backward Euler. End nodes stay at t_grip for every conductivity, including zero."""
+        nn = self.nn
+        ke_all = np.zeros((self.ne, 4, 4))
+        me_all = np.zeros((self.ne, 4, 4))
+        se = np.zeros((self.ne, 4))
+        ue = self.u[self.conn]
+        dg = np.maximum(self.ep - ep_old, 0.0)
+        rate = 1.0 / dt if dt > 0.0 else 0.0
+        for g, geo in enumerate(self.gp):
+            ur = np.einsum("a,ea->e", geo["N"], ue[:, :, 0])
+            fth = (geo["R"] + ur) / geo["R"]
+            f2 = np.einsum("eai,eaj->eij", ue, geo["dN"]) + np.eye(2)
+            j = (f2[:, 0, 0] * f2[:, 1, 1] - f2[:, 0, 1] * f2[:, 1, 0]) * fth
+            c2 = np.einsum("eji,ejk->eik", f2, f2)
+            kappa = (k * j)[:, None, None] * np.linalg.inv(c2)
+            dN = geo["dN"]
+            w0 = 2.0 * math.pi * geo["R"] * geo["det"]
+            dn_k = np.einsum("eai,eij->eaj", dN, kappa)
+            ke_all += np.einsum("eai,ebi,e->eab", dn_k, dN, w0)
+            me_all += self.card.rho_c * np.einsum("a,b,e->eab", geo["N"], geo["N"], w0)
+            se += np.einsum("a,e->ea", geo["N"], w0 * self.card.chi * self._q[:, g] * dg[:, g] * rate)
+        nodes = self.conn
+        rr = np.repeat(nodes, 4, axis=1).ravel()
+        cc = np.tile(nodes, (1, 4)).ravel()
+        kmat = sparse.coo_matrix((ke_all.ravel(), (rr, cc)), shape=(nn, nn)).tocsr()
+        lump = np.asarray(sparse.coo_matrix((me_all.ravel(), (rr, cc)), shape=(nn, nn)).sum(axis=1)).ravel()
+        mmat = sparse.diags(lump, format="csr")
+        source = np.zeros(nn)
+        np.add.at(source, nodes.ravel(), se.ravel())
+        a = mmat / dt + kmat
+        rhs = (mmat / dt) @ tn_start + source
+        free = np.ones(nn, dtype=bool)
+        free[self.end] = False
+        rhs = rhs - a[:, ~free] @ np.full((~free).sum(), t_grip)
+        t_new = np.full(nn, t_grip)
+        t_new[free] = spsolve(a[free][:, free].tocsc(), rhs[free])
+        if not np.all(np.isfinite(t_new)):
+            raise RuntimeError("independent heat solve was non-finite")
+        tgp = np.zeros_like(self.t_gp)
+        for g, geo in enumerate(self.gp):
+            tgp[:, g] = t_new[self.conn] @ geo["N"]
+        stored = float(lump @ (t_new - tn_start))
+        plastic = 0.0
+        for g, geo in enumerate(self.gp):
+            w0 = 2.0 * math.pi * geo["R"] * geo["det"]
+            plastic += float(np.sum(w0 * self.card.chi * self._q[:, g] * dg[:, g]))
+        full = a @ t_new - ((mmat / dt) @ tn_start + source)
+        boundary_in = float(np.sum(full[~free])) * dt
+        balance = {"stored_Nmm": stored, "plastic_Nmm": plastic, "boundary_in_Nmm": boundary_in,
+                   "imbalance_Nmm": stored - plastic - boundary_in}
+        return t_new, tgp, balance
+
+    def _conducting_attempt(self, u_end, dt, k, t_grip, stagger_tol, max_stagger):
+        snap = (self.u.copy(), self.ep.copy(), self.cp.copy(), self.t_gp.copy(), self.tn.copy())
+        t_used = self.t_gp.copy()
+        for _s in range(max_stagger):
+            self.u, self.ep, self.cp, self.tn = snap[0].copy(), snap[1].copy(), snap[2].copy(), snap[4].copy()
+            self.t_gp = t_used.copy()
+            ep_old = self.ep.copy()
+            tn_start = self.tn.copy()
+            if not self.step(u_end, dt):
+                self.u, self.ep, self.cp, self.t_gp, self.tn = (x.copy() for x in snap)
+                return False
+            tn_new, tgp_new, balance = self._heat(ep_old, tn_start, k, dt, t_grip)
+            delta = float(np.max(np.abs(tgp_new - t_used)))
+            self._last_balance = balance
+            self._last_delta = delta
+            if delta <= stagger_tol:
+                self.tn = tn_new
+                self.t_gp = tgp_new
+                return True
+            t_used = tgp_new
+        self.u, self.ep, self.cp, self.t_gp, self.tn = (x.copy() for x in snap)
+        return False
+
+    def observe_fast(self, t_init_if_zero):
+        gauge = 2.0 * float(np.interp(Z_GAUGE, self.xy[self.surf, 1], self.u[self.surf, 1]))
+        rmin = float(np.min(self.xy[self.surf, 0] + self.u[self.surf, 0]))
+        if t_init_if_zero is not None and float(np.max(np.abs(self.u))) == 0.0:
+            force = 0.0
+            tneck = float(t_init_if_zero)
+        else:
+            # reaction from a residual at the frozen mechanical temperature would
+            # double-count the incremental state, so use the stored last reaction if present
+            force = float(getattr(self, "_last_force", 0.0))
+            neck_n = neck_d = 0.0
+            for g, geo in enumerate(self.gp):
+                z = self.xy[self.conn, 1] @ geo["N"]
+                w0 = 2.0 * math.pi * geo["R"] * geo["det"]
+                neck = z <= NECK_Z
+                neck_n += float(np.sum(w0[neck] * self.t_gp[neck, g]))
+                neck_d += float(np.sum(w0[neck]))
+            tneck = neck_n / max(neck_d, 1e-30)
+        return {"force_N": force, "gauge_mm": gauge, "r_min_mm": rmin, "ep_max": float(self.ep.max()), "T_neck_K": tneck,
+                "stagger_delta_K": float(getattr(self, "_last_delta", 0.0))}
 
     def observe(self):
         gauge = 2.0 * float(np.interp(Z_GAUGE, self.xy[self.surf, 1], self.u[self.surf, 1]))
@@ -283,6 +389,49 @@ class PK1Model:
             "ep_max": float(self.ep.max()),
             "T_neck_K": neck_n / max(neck_d, 1e-30),
         }
+
+
+def run_conducting(card, schedule, dR, t_init, nr, nz, nsub, k, t_grip=293.0, stagger_tol=0.25, max_stagger=3, xy=None, conn=None):
+    """Same PK1 mechanics at frozen Gauss temperature, then this file's own heat operator.
+
+    End Dirichlet is t_grip for every k, including k=0. A step is kept only when the
+    mechanical residual converged and the stagger change is within stagger_tol.
+    """
+    if xy is None:
+        xy, conn = mesh_uniform(dR, nr, nz)
+    model = PK1Model(card, xy, conn, t_init, adiabatic=False)
+    model.tn[:] = t_init
+    model.tn[model.end] = t_grip
+    model.t_gp = model._tgp_from_nodes() if hasattr(model, "_tgp_from_nodes") else model.t_gp
+    for g, geo in enumerate(model.gp):
+        model.t_gp[:, g] = model.tn[model.conn] @ geo["N"]
+    hist = []
+    obs0 = model.observe_fast(t_init)
+    obs0["t_s"] = 0.0
+    hist.append(obs0)
+    cursor = 0.0
+    for kind, t0, dur, _a, _b in schedule.stages():
+        n = nsub if kind == "ramp" else max(2, nsub // 2)
+        if dur <= 0.0:
+            continue
+        for i in range(1, n + 1):
+            target = t0 + dur * i / n
+            while cursor < target - 1e-12:
+                adv = target - cursor
+                ok = False
+                step = adv
+                while step >= adv / 32.0 - 1e-15:
+                    if model._conducting_attempt(schedule.u_end(cursor + step), step, k, t_grip, stagger_tol, max_stagger):
+                        cursor += step
+                        obs = model.observe_fast(None)
+                        obs["t_s"] = cursor
+                        hist.append(obs)
+                        ok = True
+                        break
+                    step *= 0.5
+                if not ok:
+                    raise RuntimeError(f"independent conducting step failed at t={cursor}")
+    return hist
 
 
 def run_frozen(card, schedule, dR, t_init, nr, nz, nsub, adiabatic=False):

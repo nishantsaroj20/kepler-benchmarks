@@ -1,0 +1,9 @@
+{
+  "n": 79,
+  "failures": [
+    "FAIL time M2_manual S0_nominal newton failed at t=3.1000 u_end=1.4500 T=[293.0,308.9] ep=0.208",
+    "FAIL k0 M2_manual S0_nominal newton failed at t=3.1000 u_end=1.4500 T=[293.0,314.7] ep=0.191",
+    "FAIL k0 M2_manual S1_warm newton failed at t=3.1000 u_end=1.4500 T=[293.0,355.2] ep=0.204",
+    "FAIL k0 M2_manual S2_imperfection newton failed at t=3.1000 u_end=1.4500 T=[293.0,318.2] ep=0.219"
+  ]
+}
