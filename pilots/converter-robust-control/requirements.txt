@@ -1,0 +1,17 @@
+# Lock of the research environment actually imported and tested.
+# python-control is not listed: PyPI marks the project quarantined and serves no files.
+# Generated after installation on Python 3.12.3, Linux x86_64.
+cffi==2.1.1
+clarabel==0.11.1
+cloudpickle==3.1.2
+cvxpy==1.7.3
+Jinja2==3.1.6
+joblib==1.6.0
+MarkupSafe==3.0.4
+numpy==2.2.6
+osqp==1.0.5
+pycparser==3.12
+scipy==1.16.2
+scs==3.2.7
+setuptools==84.2.1
+slycot==0.7.1
