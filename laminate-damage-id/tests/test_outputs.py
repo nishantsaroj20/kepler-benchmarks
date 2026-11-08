@@ -1,4 +1,5 @@
 """Outcome-only checks. No participant code, numerical model, or input imports."""
+import itertools
 import json
 import math
 import os
@@ -11,8 +12,8 @@ IDS = {"plate_01"}
 BOUNDS = {
     "xc": (0.06, 0.44),
     "yc": (0.055, 0.345),
-    "a": (0.026, 0.055),
-    "b": (0.01, 0.024),
+    "a": (0.014, 0.04),
+    "b": (0.008, 0.02),
     "theta_deg": (-90.0, 90.0),
     "d": (0.4, 0.95),
 }
@@ -65,7 +66,7 @@ def test_regular_bounded_unique_json():
 
 def test_schema_bounds_and_forecast_shape():
     for pid, entry in entries().items():
-        assert isinstance(entry.get("zones"), list) and len(entry["zones"]) == 2, pid + " needs exactly two zones"
+        assert isinstance(entry.get("zones"), list) and len(entry["zones"]) == 3, pid + " needs exactly three zones"
         for zone in entry["zones"]:
             assert isinstance(zone, dict)
             for key, (lo, hi) in BOUNDS.items():
@@ -116,9 +117,11 @@ def test_preparations_snap_and_open_branch_forecast():
         entry = by[plate["plate_id"]]
         reported = entry["zones"]
         authored = plate["zones"]
-        paired = (zone_matches(reported[0], authored[0], tol) and zone_matches(reported[1], authored[1], tol)) or (
-            zone_matches(reported[0], authored[1], tol) and zone_matches(reported[1], authored[0], tol)
-        )
+        paired = False
+        for order in itertools.permutations(range(len(authored))):
+            if all(zone_matches(reported[i], authored[order[i]], tol) for i in range(len(authored))):
+                paired = True
+                break
         assert paired, plate["plate_id"] + " zones do not match the physical patches"
         for key in ("x0_multiplier", "yL_multiplier"):
             assert abs(finite(entry["fixture"][key]) - plate["fixture"][key]) <= tol["fixture_absolute"] + 1e-12, (

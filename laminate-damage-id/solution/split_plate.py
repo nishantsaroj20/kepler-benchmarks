@@ -65,10 +65,10 @@ class SplitPlate:
         return 1.0 - remain
 
     def bending(self, p, open_branch):
-        sep = self.separated(p) if open_branch else np.zeros(len(self.lin.xy))
+        retain = 1.0 if open_branch else float(self.s["damage_model"]["closed_bending_retain"])
+        sep = self.separated(p) * retain
         T = np.einsum("qci,cd,qdj,q->ij", self.B, self.D_intact, self.B, self.wt)
-        if open_branch:
-            T = T + np.einsum("qci,cd,qdj,q,q->ij", self.B, self.delta, self.B, sep, self.wt)
+        T = T + np.einsum("qci,cd,qdj,q,q->ij", self.B, self.delta, self.B, sep, self.wt)
         fx, fy = p[-2], p[-1]
         springs = self.lin.edge[0] * fx + self.lin.edge[1] + self.lin.edge[2] + self.lin.edge[3] * fy
         return T + springs

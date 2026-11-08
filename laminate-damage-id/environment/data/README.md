@@ -10,15 +10,23 @@ $ u_j=\cos\theta_j(x-x_{c,j})+\sin\theta_j(y-y_{c,j}) $,
 $ v_j=-\sin\theta_j(x-x_{c,j})+\cos\theta_j(y-y_{c,j}) $,
 $ g_j=\left(\max\left(0,\,1-(u_j/a_j)^2-(v_j/b_j)^2\right)\right)^2 $.
 
-`g_j` is identically zero outside that ellipse. Angles are periodic modulo 180 degrees. `a` and `b` are support semi-axes, not e-fold radii, diameters or standard deviations. There is no further clipping and no rule that the two ellipses must be disjoint. Evaluate the profiles only on the plate. The separated fraction is
+`g_j` is identically zero outside that ellipse. Angles are periodic modulo 180 degrees. `a` and `b` are support semi-axes, not e-fold radii, diameters or standard deviations. There is no further clipping and no rule that the ellipses must be disjoint. Evaluate the profiles only on the plate. The separated fraction is
 
-$ s=1-\prod_{j=1}^{2}(1-d_j g_j) $.
+$ s=1-\prod_{j=1}^{3}(1-d_j g_j) $.
 
-This product is not a cross-ply or angle-ply knockdown, and it does not multiply the extensional stiffness. Membrane `A` is the intact eight-ply laminate on every preparation. `D_intact` is the bending stiffness of that intact laminate about the plate midplane. `D_split` is the bending stiffness of the lower four plies about their own centroid plus the bending stiffness of the upper four plies about their own centroid. On a preparation with `q11>0` the split is open and
+This product is not a cross-ply or angle-ply knockdown. `D_intact` is the bending stiffness of the intact laminate about the plate midplane. `D_split` is the bending stiffness of the lower four plies about their own centroid plus the bending stiffness of the upper four plies about their own centroid. `A_intact` is the intact extensional stiffness. On a preparation with `q11>0` the split is open:
 
-$ D(x,y)=D_{\mathrm{intact}}+s(x,y)\,(D_{\mathrm{split}}-D_{\mathrm{intact}}) $.
+$ D(x,y)=D_{\mathrm{intact}}+s(x,y)\,(D_{\mathrm{split}}-D_{\mathrm{intact}}) $,
 
-On a preparation with `q11<0` the split is closed and `D=D_intact` everywhere. Build both tensors from the given unidirectional constants with the engineering shear strain `(exx, eyy, 2exy)` and reciprocal Poisson ratio `nu21=nu12*E2/E1`. Density and Poisson ratios do not change. Retain the `D16` and `D26` couplings.
+$ A(x,y)=A_{\mathrm{intact}}\,(1-\texttt{open\_membrane\_loss}\,s(x,y)) $.
+
+On a preparation with `q11<0` the interface keeps a partial bending change and the membrane stays intact:
+
+$ D(x,y)=D_{\mathrm{intact}}+\texttt{closed\_bending\_retain}\,s(x,y)\,(D_{\mathrm{split}}-D_{\mathrm{intact}}) $,
+
+$ A(x,y)=A_{\mathrm{intact}} $.
+
+`closed_bending_retain` and `open_membrane_loss` are the numbers in `plate_specs.json`. Build both tensors from the given unidirectional constants with the engineering shear strain `(exx, eyy, 2exy)` and reciprocal Poisson ratio `nu21=nu12*E2/E1`. Density and Poisson ratios do not change. Retain the `D16` and `D26` couplings. A bending-only map, or a closed preparation treated as fully intact, does not reproduce the holds.
 
 ## Reduced displacement space
 

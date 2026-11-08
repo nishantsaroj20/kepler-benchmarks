@@ -24,19 +24,21 @@
   },
   "rotational_springs_N": {"x0": 42.0, "xL": 120.0, "y0": 78.0, "yL": 210.0},
   "damage_model": {
-    "zones_per_plate": 2,
+    "zones_per_plate": 3,
     "interface": "single midplane split between ply 4 and ply 5, counted from the bottom",
     "profile": "g_j=(max(0, 1-(u_j/a_j)^2-(v_j/b_j)^2))^2 with u_j=cos(theta_j)*(x-xc_j)+sin(theta_j)*(y-yc_j) and v_j=-sin(theta_j)*(x-xc_j)+cos(theta_j)*(y-yc_j). g_j is identically zero outside the ellipse.",
-    "separated_fraction": "s(x,y)=1-product_j(1-d_j*g_j). s is not a ply-group knockdown and it does not scale A.",
+    "separated_fraction": "s(x,y)=1-product_j(1-d_j*g_j). s is not a ply-group knockdown. It scales bending on both preparations and the membrane only on the open preparation, using the two factors below.",
     "axes": "a and b are the semi-axes of the elliptical support, not e-fold radii, diameters, or standard deviations. theta is CCW degrees from +x to the major axis, periodic modulo 180 degrees. Bounds keep a>b.",
-    "breathing": "On a preparation with q11>0 the split is open and D(x)=D_intact+s(x)*(D_split-D_intact). On a preparation with q11<0 the split is closed and D(x)=D_intact. Membrane A is the intact laminate on both preparations.",
-    "overlap": "The product for s applies at every point, including overlapping tails. Profiles are evaluated only on the plate. No hard ellipse, clipping, or non-overlap rule. Both zones are one interface field, not separate cross-ply and angle-ply severities.",
+    "closed_bending_retain": 1.0,
+    "open_membrane_loss": 0.9,
+    "breathing": "On a preparation with q11>0 the split is open: D(x)=D_intact+s(x)*(D_split-D_intact) and the membrane stiffness is A(x)=A_intact*(1-open_membrane_loss*s(x)). On a preparation with q11<0 the split keeps a partial bending change D(x)=D_intact+closed_bending_retain*s(x)*(D_split-D_intact) and the membrane stays A_intact.",
+    "overlap": "The product for s applies at every point, including overlapping tails. Profiles are evaluated only on the plate. No hard ellipse, clipping, or non-overlap rule. The three zones are one interface field, not separate cross-ply and angle-ply severities.",
     "zone_order": "Zones are physically unordered; either output order is accepted.",
     "bounds": {
       "xc": [0.06, 0.44],
       "yc": [0.055, 0.345],
-      "a": [0.026, 0.055],
-      "b": [0.01, 0.024],
+      "a": [0.014, 0.04],
+      "b": [0.008, 0.02],
       "theta_deg": [-90.0, 90.0],
       "d": [0.4, 0.95]
     }

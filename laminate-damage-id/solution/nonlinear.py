@@ -36,6 +36,7 @@ class Nonlinear:
   self.G=np.einsum('qi,qj,q->ij',X,X,self.w)+.35*np.einsum('qi,qj,q->ij',Y,Y,self.w)
   # Compression is specified once from the nominal undamaged model, then held fixed.
   self.N=float(s['precompression_N_m']);self.l=self.N*np.einsum('q,qi,q->i',gx,X,self.w)+.35*self.N*np.einsum('q,qi,q->i',gy,Y,self.w)
+  self.bias=self.l/self.E0
   self.force=self.h*np.array([4/(m*n*np.pi**2) if m%2 and n%2 else 0 for m,n in self.lin.mn])/self.E0
  def assemble(self,p,deriv=False):
   gs=[self.lin.field(p[7*j:7*j+7]) for j in range((len(p)-2)//7)];f=np.prod([1-p[7*j+5:7*j+7,None]*gs[j] for j in range((len(p)-2)//7)],axis=0)
@@ -55,6 +56,15 @@ class Nonlinear:
    self.dS=np.einsum('qai,pqab,qbj->pij',Z,da,Z,optimize=True)/self.E0
    self.dK=self.lin.stiffness(p,True)[1]*self.mass*self.h**2/self.E0
   return self
+ def damage_membrane(self, separated, loss):
+  """Scale the intact membrane stiffness by 1-loss*s and rebuild the condensation."""
+  At=self.A.sum(axis=0)
+  factor=(1.0-float(loss)*np.asarray(separated,float))*self.w
+  a=At[None,:,:]*factor[:,None,None]
+  C=np.einsum('qai,qab,qbj->ij',self.B,a,self.B,optimize=True)
+  D=np.einsum('qai,qab,qbj->ij',self.B,a,self.R,optimize=True)
+  S=np.einsum('qai,qab,qbj->ij',self.R,a,self.R,optimize=True)-D.T@solve(C,D,assume_a='pos')
+  self.S=S/self.E0
  def features(self,q):
   t=np.r_[q,[q[i]*q[j] for i,j in self.pairs]];dt=np.vstack([np.eye(9),[(np.eye(9)[i]*q[j]+np.eye(9)[j]*q[i]) for i,j in self.pairs]])
   return t,dt

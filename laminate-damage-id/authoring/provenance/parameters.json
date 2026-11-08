@@ -3,8 +3,9 @@
   "plate": {
     "plate_id": "plate_01",
     "zones": [
-      {"xc": 0.18, "yc": 0.16, "a": 0.03, "b": 0.014, "theta_deg": 25.0, "d": 0.8},
-      {"xc": 0.33, "yc": 0.27, "a": 0.028, "b": 0.013, "theta_deg": -50.0, "d": 0.7}
+      {"xc": 0.148, "yc": 0.132, "a": 0.024, "b": 0.013, "theta_deg": 18.0, "d": 0.91},
+      {"xc": 0.262, "yc": 0.214, "a": 0.022, "b": 0.0125, "theta_deg": -42.0, "d": 0.84},
+      {"xc": 0.358, "yc": 0.286, "a": 0.025, "b": 0.014, "theta_deg": 63.0, "d": 0.73}
     ],
     "fixture": {"x0_multiplier": 1.18, "yL_multiplier": 0.79},
     "branches": {"record_01": 1, "record_02": -1, "record_03": 1, "record_04": -1}

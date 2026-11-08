@@ -48,14 +48,14 @@ body = artifact(spec, p, signs, snap, forecast)
 truth = {
     "plates": body["plates"],
     "tolerances": {
-        "snap_relative": 0.0005,
-        "forecast_relative": 0.0005,
-        "zone_centre_m": 0.02,
-        "zone_a_m": 0.01,
+        "snap_relative": 0.0008,
+        "forecast_relative": 0.0008,
+        "zone_centre_m": 0.018,
+        "zone_a_m": 0.012,
         "zone_b_m": 0.008,
         "zone_theta_deg": 90.0,
-        "zone_d": 0.28,
-        "fixture_absolute": 0.05,
+        "zone_d": 0.22,
+        "fixture_absolute": 0.07,
     },
 }
 (root / "tests" / "ground_truth.json").write_text(json.dumps(truth, indent=2) + "\n")

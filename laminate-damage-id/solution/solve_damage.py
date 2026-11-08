@@ -1,4 +1,4 @@
-"""Identify two breathing delamination zones and forecast the closed-branch snap."""
+"""Identify three breathing delamination zones and forecast the closed-branch snap."""
 import os
 import json
 from pathlib import Path
@@ -25,8 +25,11 @@ class Campaign:
         self.model = Nonlinear(spec, sensors)
 
     def apply(self, p, branch):
-        self.model.assemble(membrane_parameter(p[-2:]))
-        Kb = self.plate.bending(np.asarray(p, float), branch > 0)
+        p = np.asarray(p, float)
+        open_branch = branch > 0
+        loss = float(self.spec["damage_model"]["open_membrane_loss"]) if open_branch else 0.0
+        self.model.damage_membrane(self.plate.separated(p), loss)
+        Kb = self.plate.bending(p, open_branch)
         m = self.model
         m.K = (Kb * m.mass * m.h**2 - m.N * m.G) / m.E0
 
@@ -92,40 +95,91 @@ class Campaign:
         residual, signs = self.match(p, obs)
         return 0.5 * float(residual @ residual), signs
 
-    def fit(self, obs):
-        """Scan one elliptical support at a time, then polish the best pair.
+    def _place_centres(self, found, obs, zone, xs, ys):
+        """Best centre for one zone. Parked zones (severity at its lower bound) do not repel."""
+        n_zones = (len(found) - 2) // 6
+        best = None
+        for yc in ys:
+            for xc in xs:
+                if any(
+                    z != zone and found[6 * z + 5] > 0.5 and np.hypot(xc - found[6 * z], yc - found[6 * z + 1]) < 0.07
+                    for z in range(n_zones)
+                ):
+                    continue
+                trial = found.copy()
+                trial[6 * zone] = xc
+                trial[6 * zone + 1] = yc
+                trial[6 * zone + 5] = 0.85
+                cost = self._cost_of(trial, obs)[0]
+                if best is None or cost < best[0]:
+                    best = (cost, float(xc), float(yc))
+        return best
 
-        A trial zone does not change the plate until its ellipse overlaps the split,
-        so random multistart stays in decoys whose residual is several times the noise.
+    def _polish_free(self, found, obs, free_idx, max_nfev):
+        """Bounded least squares on a subset of the parameter vector."""
+        low, high = bounds(self.spec)
+        free_idx = np.asarray(free_idx, int)
+        scale = (high - low)[free_idx]
+        start = np.clip((found[free_idx] - low[free_idx]) / scale, 0.0, 1.0)
+
+        def residual(t):
+            trial = found.copy()
+            trial[free_idx] = low[free_idx] + t * scale
+            return self.residual(trial, obs)
+
+        sol = least_squares(
+            residual,
+            start,
+            bounds=(np.zeros(len(free_idx)), np.ones(len(free_idx))),
+            max_nfev=max_nfev,
+            diff_step=0.02,
+            ftol=1e-14,
+            xtol=1e-14,
+        )
+        polished = found.copy()
+        polished[free_idx] = low[free_idx] + sol.x * scale
+        return polished, float(sol.cost)
+
+    def fit(self, obs):
+        """Place one ellipse at a time, updating the shared springs before the next search.
+
+        Closed-branch bending still carries the split, so the springs are not a separate
+        intact-plate fit. A centre scan at the wrong springs prefers a compromise blob;
+        refitting the springs on the patches found so far moves the next scan onto a real patch.
         """
         low, high = bounds(self.spec)
         scale = high - low
-        xs = np.linspace(0.09, 0.41, 9)
-        ys = np.linspace(0.09, 0.31, 7)
-        base = np.array([0.20, 0.16, 0.034, 0.015, 0.0, 0.78, 0.30, 0.22, 0.030, 0.014, 0.0, 0.0, 1.05, 0.90])
-        ranked = []
-        for yc in ys:
-            for xc in xs:
-                trial = base.copy()
-                trial[0], trial[1] = xc, yc
-                cost, _signs = self._cost_of(trial, obs)
-                ranked.append((cost, xc, yc))
-        ranked.sort()
-        anchors = []
-        for _cost, xc, yc in ranked:
-            if all(np.hypot(xc - ax, yc - ay) > 0.06 for ax, ay in anchors):
-                anchors.append((xc, yc))
-            if len(anchors) == 2:
-                break
-        (x1, y1), (x2, y2) = anchors
-        seeds = []
-        for xc1, yc1, xc2, yc2 in ((x1, y1, x2, y2), (x2, y2, x1, y1)):
-            for th1, th2 in ((15.0, -40.0), (40.0, -15.0), (-20.0, 30.0)):
-                guess = base.copy()
-                guess[11] = 0.72
-                guess[0], guess[1], guess[6], guess[7] = xc1, yc1, xc2, yc2
-                guess[4], guess[10] = th1, th2
-                seeds.append(guess)
+        n_zones = int(self.spec["damage_model"]["zones_per_plate"])
+        xs = np.arange(0.08, 0.44, 0.012)
+        ys = np.arange(0.08, 0.33, 0.012)
+        found = np.zeros(6 * n_zones + 2)
+        for zone in range(n_zones):
+            found[6 * zone] = 0.06
+            found[6 * zone + 1] = 0.055
+            found[6 * zone + 2] = 0.024
+            found[6 * zone + 3] = 0.013
+            found[6 * zone + 5] = 0.4
+        found[-2], found[-1] = 1.0, 1.0
+        for zone in range(n_zones):
+            _cost, xc, yc = self._place_centres(found, obs, zone, xs, ys)
+            found[6 * zone] = xc
+            found[6 * zone + 1] = yc
+            found[6 * zone + 5] = 0.85
+            free = [6 * z + k for z in range(zone + 1) for k in (2, 3, 4, 5)]
+            free += [len(found) - 2, len(found) - 1]
+            found, _cost = self._polish_free(found, obs, free, max_nfev=18)
+        for zone in range(n_zones):
+            wx = np.arange(found[6 * zone] - 0.018, found[6 * zone] + 0.019, 0.004)
+            wy = np.arange(found[6 * zone + 1] - 0.018, found[6 * zone + 1] + 0.019, 0.004)
+            _cost, xc, yc = self._place_centres(found, obs, zone, wx, wy)
+            found[6 * zone] = xc
+            found[6 * zone + 1] = yc
+            found[6 * zone + 5] = max(found[6 * zone + 5], 0.7)
+        seeds = [found]
+        shifted = found.copy()
+        for zone in range(n_zones):
+            shifted[6 * zone + 4] = float(np.clip(shifted[6 * zone + 4] + 30.0, -90.0, 90.0))
+        seeds.append(shifted)
         best = None
         for guess in seeds:
             v0 = np.clip((guess - low) / scale, 0.0, 1.0)
@@ -133,8 +187,8 @@ class Campaign:
                 lambda t: self.residual(low + t * scale, obs),
                 v0,
                 bounds=(np.zeros(len(low)), np.ones(len(low))),
-                max_nfev=16,
-                diff_step=0.012,
+                max_nfev=48,
+                diff_step=0.01,
                 ftol=1e-14,
                 xtol=1e-14,
             )
@@ -158,8 +212,9 @@ class Campaign:
 
 def bounds(spec):
     b = spec["damage_model"]["bounds"]
-    low = [b[k][0] for k in KEYS] * 2 + [spec["fixture_model"]["bounds"][0]] * 2
-    high = [b[k][1] for k in KEYS] * 2 + [spec["fixture_model"]["bounds"][1]] * 2
+    n_zones = int(spec["damage_model"]["zones_per_plate"])
+    low = [b[k][0] for k in KEYS] * n_zones + [spec["fixture_model"]["bounds"][0]] * 2
+    high = [b[k][1] for k in KEYS] * n_zones + [spec["fixture_model"]["bounds"][1]] * 2
     return np.array(low, float), np.array(high, float)
 
 
@@ -176,8 +231,9 @@ def load_observations(data, spec):
 
 
 def artifact(spec, p, signs, snap, forecast):
+    n_zones = int(spec["damage_model"]["zones_per_plate"])
     zones = []
-    for j in range(2):
+    for j in range(n_zones):
         zones.append({k: float(p[6 * j + i]) for i, k in enumerate(KEYS)})
     return {
         "plates": [
@@ -205,7 +261,7 @@ def main():
     pts, obs = load_observations(data, spec)
     camp = Campaign(spec, pts)
     cost, p, signs, nfev = camp.fit(obs)
-    if cost > 8e-6:
+    if cost > 1.2e-5:
         raise RuntimeError(f"modal records unresolved (cost {cost})")
     snap = camp.snap_load(p, branch=-1)
     forecast = camp.forecast(p)

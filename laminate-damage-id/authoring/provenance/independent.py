@@ -100,7 +100,8 @@ class DirectPlate:
 
     def separated(self, p):
         remain = np.ones(len(self.xy))
-        for j in range(2):
+        n_zones = (len(p) - 2) // 6
+        for j in range(n_zones):
             xc, yc, a, b, theta, severity = p[6 * j : 6 * j + 6]
             c, t = np.cos(np.deg2rad(theta)), np.sin(np.deg2rad(theta))
             dx, dy = self.xy[:, 0] - xc, self.xy[:, 1] - yc
@@ -112,8 +113,14 @@ class DirectPlate:
     def prepare(self, p, open_branch):
         self.p = np.asarray(p, float)
         self.open_branch = bool(open_branch)
-        s = self.separated(self.p) if open_branch else np.zeros(len(self.xy))
+        damage = self.spec["damage_model"]
+        retain = 1.0 if open_branch else float(damage["closed_bending_retain"])
+        membrane_loss = float(damage["open_membrane_loss"]) if open_branch else 0.0
+        raw = self.separated(self.p)
+        s = raw * retain
         d = self.D_intact + s[:, None, None] * self.delta
+        self.A_q = self.A * (1.0 - membrane_loss * raw)[:, None, None]
+        self.C = np.einsum("qai,qab,qbj,q->ij", self.Bm, self.A_q, self.Bm, self.wt, optimize=True)
         self.Kb = self.h**2 * np.einsum("qci,qcd,qdj,q->ij", self.curv, d, self.curv, self.wt, optimize=True)
         fx, fy = self.p[-2], self.p[-1]
         scale = {"x0": fx, "xL": 1.0, "y0": 1.0, "yL": fy}
@@ -144,10 +151,10 @@ class DirectPlate:
         den[:, 0, :] = (self.w0x + wx)[:, None] * self.wx
         den[:, 1, :] = (self.w0y + wy)[:, None] * self.wy
         den[:, 2, :] = (self.w0y + wy)[:, None] * self.wx + (self.w0x + wx)[:, None] * self.wy
-        membrane = np.einsum("qai,ab,qb,q->i", self.Bm, self.A, en, self.wt, optimize=True)
+        membrane = np.einsum("qai,qab,qb,q->i", self.Bm, self.A_q, en, self.wt, optimize=True)
         relaxed = -solve(self.C, membrane, assume_a="pos")
         strain = en + np.einsum("qai,i->qa", self.Bm, relaxed)
-        stress = np.einsum("ab,qb->qa", self.A, strain)
+        stress = np.einsum("qab,qb->qa", self.A_q, strain)
         membrane_grad = np.einsum("qci,qc,q->i", den, stress, self.wt, optimize=True)
         return (self.Kb @ q + self.Kspring @ q - self.Nx * self.Kg @ q - self.lin_geo + membrane_grad - force * self.load) / self.E0
 
