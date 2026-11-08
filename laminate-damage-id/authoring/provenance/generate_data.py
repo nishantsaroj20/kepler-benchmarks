@@ -50,11 +50,11 @@ truth = {
     "tolerances": {
         "snap_relative": 0.0008,
         "forecast_relative": 0.0008,
-        "zone_centre_m": 0.018,
+        "zone_centre_m": 0.013,
         "zone_a_m": 0.012,
         "zone_b_m": 0.008,
         "zone_theta_deg": 90.0,
-        "zone_d": 0.22,
+        "zone_d": 0.16,
         "fixture_absolute": 0.07,
     },
 }

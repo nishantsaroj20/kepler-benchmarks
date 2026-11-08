@@ -30,14 +30,34 @@
     "snap_relative": 5.26e-07,
     "refined_40x36_open_branch_at_-90N": 0.00514
   },
+  "independent_inverse": {
+    "pipeline": "DirectPlate Newton, finite-difference Hessian, sensor-projected eigenvectors, bounded least squares. No import of the reference condensation.",
+    "modal_cost": 4.710025281456375e-06,
+    "signs": [1, -1, 1, -1],
+    "snap_relative": 0.00020319835357215872,
+    "forecast_max_relative": 0.00020352606844445254,
+    "centre_m": 0.007768502391855225,
+    "a_m": 0.002534946812397555,
+    "b_m": 0.0030679775490062393,
+    "theta_deg": 66.21595124034425,
+    "d": 0.10862835512043978,
+    "x0": 0.0006766494001428,
+    "yL": 0.000494883768053,
+    "verifier": "tests/test_outputs.py passed"
+  },
+  "bound_midpoint": {
+    "zone": {"xc": 0.25, "yc": 0.20, "a": 0.027, "b": 0.014, "theta_deg": 0, "d": 0.675},
+    "matches_any_patch": false,
+    "middle_patch": {"dx_m": 0.012, "dy_m": 0.014, "da_m": 0.005, "db_m": 0.0015, "theta_deg": 42, "d": 0.165}
+  },
   "caps": {
     "snap_relative": 0.0008,
     "forecast_relative": 0.0008,
-    "zone_centre_m": 0.018,
+    "zone_centre_m": 0.013,
     "zone_a_m": 0.012,
     "zone_b_m": 0.008,
     "zone_theta_deg": 90.0,
-    "zone_d": 0.22,
+    "zone_d": 0.16,
     "fixture_absolute": 0.07
   }
 }
