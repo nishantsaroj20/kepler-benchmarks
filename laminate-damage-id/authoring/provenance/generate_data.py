@@ -7,6 +7,8 @@ import numpy as np
 
 root = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(root / "solution"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from independent import graded_forward
 from solve_damage import KEYS, Campaign, artifact
 
 spec = json.loads((root / "environment/data/plate_specs.json").read_text())
@@ -40,14 +42,13 @@ for rec in spec["records"]:
         w.writerow(["sensor_id"] + [f"resonance_{i+1}" for i in range(4)])
         w.writerows([(i + 1, *[format(v, ".14g") for v in row]) for i, row in enumerate(noisy_y)])
     print(rec["record_id"], "branch", branch, "modes", idx.tolist(), flush=True)
-snap = camp.snap_load(p, branch=-1)
-forecast = camp.forecast(p)
+snap, forecast = graded_forward(spec, p, quad=tuple(spec["model"]["gauss_orders"]))
 signs = [plate["branches"][rec["record_id"]] for rec in spec["records"]]
 body = artifact(spec, p, signs, snap, forecast)
 truth = {
     "plates": body["plates"],
     "tolerances": {
-        "snap_relative": 0.01,
+        "snap_relative": 0.0005,
         "forecast_relative": 0.0005,
     },
 }
