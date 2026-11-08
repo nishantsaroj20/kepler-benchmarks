@@ -59,8 +59,8 @@
     "zone_centre_m": 0.02,
     "zone_a_m": 0.01,
     "zone_b_m": 0.008,
-    "zone_theta_deg": 30.0,
-    "zone_d": 0.12,
+    "zone_theta_deg": 90.0,
+    "zone_d": 0.28,
     "fixture_absolute": 0.05
   }
 }
