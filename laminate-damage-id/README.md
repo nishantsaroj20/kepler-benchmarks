@@ -31,7 +31,7 @@ Five further polishes were started from the reference fit, from the authored par
 
 A polished compromise-blob placement, the search that appears when the springs are not updated, has forecast relative error 1.70e-3 and centres more than 0.06 m off. Refitting the same records with an intact closed branch, or with the membrane left whole, leaves forecast relative errors 0.00284 and 0.00319. Both miss 0.0008. Parking one real patch at a corner misses the 0.018 m centre cap. The counts are in `authoring/evidence/zone-calibration.json`.
 
-The artifact must be a regular file of at most 1 MiB, with unique keys, one plate, three in-bound zones (`a>b`), two in-bound multipliers, numeric branch signs and a positive snap load. The forecast must be two rows at the requested forces with four positive frequencies each. Branch signs must match. Each zone is matched, in either order, to the authored patch inside the caps above. The snap relative error and each forecast-frequency relative error must be at most 0.0008. A 1e-12 allowance is included.
+The artifact must be a regular file of at most 1 MiB, with unique keys, one plate, three in-bound zones (`a>b`), two in-bound multipliers, numeric branch signs and a positive snap load. The forecast must be two rows at the requested forces with four positive frequencies each. Branch signs must match. Each zone is matched, in any order, to the authored patch inside the caps above. The snap relative error and each forecast-frequency relative error must be at most 0.0008. A 1e-12 allowance is included.
 
 ```sh
 LDI_ARTIFACT=/tmp/damage.json pytest tests/test_outputs.py -q

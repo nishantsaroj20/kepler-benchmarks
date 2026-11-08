@@ -4,7 +4,7 @@ All records are synthetic. Units are metres, seconds, newtons, kilograms and deg
 
 ## Breathing split
 
-One interface is open to separation: the midplane between ply 4 and ply 5, counted from the bottom. It is the same interface in both zones. Each zone has centre `(xc,yc)`, elliptical-support semi-axes `a,b` with `a>b`, counterclockwise major-axis angle `theta_deg`, and one severity `d`. Set
+One interface is open to separation: the midplane between ply 4 and ply 5, counted from the bottom. It is the same interface in all three zones. Each zone has centre `(xc,yc)`, elliptical-support semi-axes `a,b` with `a>b`, counterclockwise major-axis angle `theta_deg`, and one severity `d`. Set
 
 $ u_j=\cos\theta_j(x-x_{c,j})+\sin\theta_j(y-y_{c,j}) $,
 $ v_j=-\sin\theta_j(x-x_{c,j})+\cos\theta_j(y-y_{c,j}) $,
@@ -20,13 +20,13 @@ $ D(x,y)=D_{\mathrm{intact}}+s(x,y)\,(D_{\mathrm{split}}-D_{\mathrm{intact}}) $,
 
 $ A(x,y)=A_{\mathrm{intact}}\,(1-\texttt{open\_membrane\_loss}\,s(x,y)) $.
 
-On a preparation with `q11<0` the interface keeps a partial bending change and the membrane stays intact:
+On a preparation with `q11<0` the bending change is `closed_bending_retain` times the open-branch bending change, and the membrane stays intact:
 
 $ D(x,y)=D_{\mathrm{intact}}+\texttt{closed\_bending\_retain}\,s(x,y)\,(D_{\mathrm{split}}-D_{\mathrm{intact}}) $,
 
 $ A(x,y)=A_{\mathrm{intact}} $.
 
-`closed_bending_retain` and `open_membrane_loss` are the numbers in `plate_specs.json`. Build both tensors from the given unidirectional constants with the engineering shear strain `(exx, eyy, 2exy)` and reciprocal Poisson ratio `nu21=nu12*E2/E1`. Density and Poisson ratios do not change. Retain the `D16` and `D26` couplings. A bending-only map, or a closed preparation treated as fully intact, does not reproduce the holds.
+`closed_bending_retain` and `open_membrane_loss` are the numbers in `plate_specs.json`. With the published value 1, the closed and open bending fields are the same function of `s`. Build both tensors from the given unidirectional constants with the engineering shear strain `(exx, eyy, 2exy)` and reciprocal Poisson ratio `nu21=nu12*E2/E1`. `G13` and `G23` do not enter this Kirchhoff plate. Density and Poisson ratios do not change. Retain the `D16` and `D26` couplings. A bending-only map, or a closed preparation treated as fully intact, does not reproduce the holds.
 
 ## Reduced displacement space
 
