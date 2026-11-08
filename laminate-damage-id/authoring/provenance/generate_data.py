@@ -54,7 +54,7 @@ truth = {
         "zone_a_m": 0.012,
         "zone_b_m": 0.008,
         "zone_theta_deg": 90.0,
-        "zone_d": 0.16,
+        "zone_d": 0.55,
         "fixture_absolute": 0.07,
     },
 }
