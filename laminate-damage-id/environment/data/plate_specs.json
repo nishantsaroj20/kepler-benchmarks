@@ -33,7 +33,7 @@
     "open_membrane_loss": 0.9,
     "breathing": "On a preparation with q11>0 the split is open: D(x)=D_intact+s(x)*(D_split-D_intact) and the membrane stiffness is A(x)=A_intact*(1-open_membrane_loss*s(x)). On a preparation with q11<0 the bending change is closed_bending_retain times that open-branch change, D(x)=D_intact+closed_bending_retain*s(x)*(D_split-D_intact), and the membrane stays A_intact. The published closed_bending_retain is 1, so the two bending fields are the same function of s.",
     "overlap": "The product for s applies at every point, including overlapping tails. Profiles are evaluated only on the plate. No hard ellipse, clipping, or non-overlap rule. The three zones are one interface field, not separate cross-ply and angle-ply severities.",
-    "zone_order": "Zones are physically unordered; either output order is accepted.",
+    "zone_order": "Zones are physically unordered; any output order is the same report.",
     "bounds": {
       "xc": [0.06, 0.44],
       "yc": [0.055, 0.345],
