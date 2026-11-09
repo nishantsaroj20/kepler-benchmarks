@@ -1,14 +1,15 @@
 {
-  "generation_seed": 77491,
+  "generation_seed": 90317,
   "plate": {
     "plate_id": "plate_01",
     "zones": [
-      {"xc": 0.148, "yc": 0.132, "a": 0.024, "b": 0.013, "theta_deg": 18.0, "d": 0.91},
-      {"xc": 0.262, "yc": 0.214, "a": 0.022, "b": 0.0125, "theta_deg": -42.0, "d": 0.84},
-      {"xc": 0.358, "yc": 0.286, "a": 0.025, "b": 0.014, "theta_deg": 63.0, "d": 0.73}
+      {"xc": 0.132, "yc": 0.118, "a": 0.026, "b": 0.013, "theta_deg": 22.0, "d": 0.90},
+      {"xc": 0.268, "yc": 0.236, "a": 0.023, "b": 0.012, "theta_deg": -38.0, "d": 0.82},
+      {"xc": 0.358, "yc": 0.292, "a": 0.027, "b": 0.014, "theta_deg": 61.0, "d": 0.74},
+      {"xc": 0.118, "yc": 0.308, "a": 0.026, "b": 0.013, "theta_deg": 35.0, "d": 0.88}
     ],
-    "fixture": {"x0_multiplier": 1.18, "yL_multiplier": 0.79},
-    "branches": {"record_01": 1, "record_02": -1, "record_03": 1, "record_04": -1}
+    "fixture": {"x0_multiplier": 1.24, "yL_multiplier": 0.76},
+    "branches": {"record_01": -1, "record_02": 1, "record_03": -1, "record_04": 1}
   },
   "sensor_coordinates_m": [
     [0.073, 0.061],

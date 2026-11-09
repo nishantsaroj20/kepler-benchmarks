@@ -1,16 +1,12 @@
 {
-  "snap_direct_N": 70.56915657222271,
-  "snap_reference_N": 70.56911945343018,
-  "snap_relative_difference": 5.2599172695178e-07,
-  "frequency_comparisons": [
-    {"force_N": 80.0, "branch": 1, "direct_vs_reference_max_relative": 3.4778158131132386e-10},
-    {"force_N": -90.0, "branch": 1, "direct_vs_reference_max_relative": 4.6110959495138104e-10, "refined_40x36_max_relative": 0.005136270053857417},
-    {"force_N": -60.0, "branch": -1, "direct_vs_reference_max_relative": 1.241943214935759e-10},
-    {"force_N": 45.0, "branch": -1, "direct_vs_reference_max_relative": 7.771389087807279e-10}
-  ],
-  "reference_inverse": {
-    "artifact": "/tmp/damage-hard.json",
-    "forecast_max_relative_vs_direct": 0.0003217194283409164,
-    "snap_relative_vs_direct": 0.00016686227072870707
-  }
+  "frequency_max_relative": 6.30e-10,
+  "snap_direct_N": 71.04247270524502,
+  "snap_reference_N": 71.04244887828827,
+  "snap_relative": 3.35e-07,
+  "cases": [
+    {"force_N": 80.0, "branch": 1, "direct_vs_reference_max_relative": 2.19e-10},
+    {"force_N": -90.0, "branch": 1, "direct_vs_reference_max_relative": 3.85e-10},
+    {"force_N": -60.0, "branch": -1, "direct_vs_reference_max_relative": 6.30e-10},
+    {"force_N": 45.0, "branch": 1, "direct_vs_reference_max_relative": 6.97e-11}
+  ]
 }

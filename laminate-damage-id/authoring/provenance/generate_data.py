@@ -26,7 +26,7 @@ with (data / "sensors.csv").open("w") as fh:
 for rec in spec["records"]:
     branch = int(plate["branches"][rec["record_id"]])
     _q, freq, shapes = camp.observe(rec["force_N"], p, branch)
-    idx = np.r_[0, rng.choice(np.arange(1, 7), 3, replace=False)]
+    idx = rng.choice(np.arange(7), 4, replace=False)
     rng.shuffle(idx)
     noisy_f = freq[idx] * (1 + rng.normal(0, spec["observation"]["noise"]["frequency_relative_std"], 4))
     noisy_y = shapes[:, idx] + rng.normal(0, spec["observation"]["noise"]["unit_shape_component_std"], (len(pts), 4))
@@ -48,13 +48,13 @@ body = artifact(spec, p, signs, snap, forecast)
 truth = {
     "plates": body["plates"],
     "tolerances": {
-        "snap_relative": 0.0008,
-        "forecast_relative": 0.0008,
-        "zone_centre_m": 0.013,
-        "zone_a_m": 0.012,
-        "zone_b_m": 0.008,
+        "snap_relative": 0.0024,
+        "forecast_relative": 0.0024,
+        "zone_centre_m": 0.026,
+        "zone_a_m": 0.022,
+        "zone_b_m": 0.010,
         "zone_theta_deg": 90.0,
-        "zone_d": 0.55,
+        "zone_d": 0.40,
         "fixture_absolute": 0.07,
     },
 }

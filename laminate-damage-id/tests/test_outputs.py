@@ -66,7 +66,7 @@ def test_regular_bounded_unique_json():
 
 def test_schema_bounds_and_forecast_shape():
     for pid, entry in entries().items():
-        assert isinstance(entry.get("zones"), list) and len(entry["zones"]) == 3, pid + " needs exactly three zones"
+        assert isinstance(entry.get("zones"), list) and len(entry["zones"]) == 4, pid + " needs exactly four zones"
         for zone in entry["zones"]:
             assert isinstance(zone, dict)
             for key, (lo, hi) in BOUNDS.items():

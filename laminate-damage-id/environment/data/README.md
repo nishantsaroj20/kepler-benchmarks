@@ -4,7 +4,7 @@ All records are synthetic. Units are metres, seconds, newtons, kilograms and deg
 
 ## Breathing split
 
-One interface is open to separation: the midplane between ply 4 and ply 5, counted from the bottom. It is the same interface in all three zones. Each zone has centre `(xc,yc)`, elliptical-support semi-axes `a,b` with `a>b`, counterclockwise major-axis angle `theta_deg`, and one severity `d`. Set
+One interface is open to separation: the midplane between ply 4 and ply 5, counted from the bottom. It is the same interface in all four zones. Each zone has centre `(xc,yc)`, elliptical-support semi-axes `a,b` with `a>b`, counterclockwise major-axis angle `theta_deg`, and one severity `d`. Set
 
 $ u_j=\cos\theta_j(x-x_{c,j})+\sin\theta_j(y-y_{c,j}) $,
 $ v_j=-\sin\theta_j(x-x_{c,j})+\cos\theta_j(y-y_{c,j}) $,
@@ -12,7 +12,7 @@ $ g_j=\left(\max\left(0,\,1-(u_j/a_j)^2-(v_j/b_j)^2\right)\right)^2 $.
 
 `g_j` is identically zero outside that ellipse. Angles are periodic modulo 180 degrees. `a` and `b` are support semi-axes, not e-fold radii, diameters or standard deviations. There is no further clipping and no rule that the ellipses must be disjoint. Evaluate the profiles only on the plate. The separated fraction is
 
-$ s=1-\prod_{j=1}^{3}(1-d_j g_j) $.
+$ s=1-\prod_{j=1}^{4}(1-d_j g_j) $.
 
 This product is not a cross-ply or angle-ply knockdown. `D_intact` is the bending stiffness of the intact laminate about the plate midplane. `D_split` is the bending stiffness of the lower four plies about their own centroid plus the bending stiffness of the upper four plies about their own centroid. `A_intact` is the intact extensional stiffness. On a preparation with `q11>0` the split is open:
 

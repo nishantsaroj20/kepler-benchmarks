@@ -1,74 +1,48 @@
 {
-  "reference_fit": {
-    "modal_cost": 4.3706715767681426e-06,
-    "signs": [1, -1, 1, -1],
-    "snap_relative": 0.00016686227072870707,
-    "forecast_max_relative": 0.0003217194283409164,
-    "centre_m": 0.00775,
-    "a_m": 0.00634,
-    "b_m": 0.00383,
-    "theta_deg": 87.63,
-    "d": 0.10829,
-    "x0": 0.02129,
-    "yL": 0.00122
-  },
-  "noise_level_polishes": [
-    {"start": "artifact", "cost": 4.371e-06, "forecast_max_relative": 3.217e-04, "centre_m": 0.0078, "a_m": 0.0063, "b_m": 0.0038, "theta_deg": 87.6, "d": 0.108, "x0": 0.0213, "yL": 0.0012},
-    {"start": "longer polish of the artifact", "cost": 4.371e-06, "forecast_max_relative": 3.217e-04, "centre_m": 0.0078, "a_m": 0.0063, "b_m": 0.0038, "theta_deg": 87.6, "d": 0.108, "x0": 0.0213, "yL": 0.0012},
-    {"start": "angles plus 35 deg", "cost": 4.762e-06, "forecast_max_relative": 2.993e-04, "centre_m": 0.0090, "a_m": 0.0064, "b_m": 0.0037, "theta_deg": 89.9, "d": 0.107, "x0": 0.0043, "yL": 0.0014},
-    {"start": "authored parameters", "cost": 3.428e-06, "forecast_max_relative": 5.846e-05, "centre_m": 0.0004, "a_m": 0.0005, "b_m": 0.0001, "theta_deg": 0.8, "d": 0.007, "x0": 0.0326, "yL": 0.0034},
-    {"start": "centres shifted 4 mm", "cost": 4.282e-06, "forecast_max_relative": 3.722e-04, "centre_m": 0.0099, "a_m": 0.0064, "b_m": 0.0038, "theta_deg": 85.4, "d": 0.105, "x0": 0.0170, "yL": 0.0012},
-    {"start": "severities shifted", "cost": 4.371e-06, "forecast_max_relative": 3.217e-04, "centre_m": 0.0079, "a_m": 0.0064, "b_m": 0.0037, "theta_deg": 88.0, "d": 0.133, "x0": 0.0213, "yL": 0.0012}
-  ],
-  "rejected_shortcuts": [
-    {"model": "compromise centres, springs refit, correct breathing law", "cost": 8.155e-05, "forecast_max_relative": 0.001696},
-    {"model": "intact closed branch and no membrane loss, refit from the authored parameters", "cost": 2.769e-04, "forecast_max_relative": 0.002837},
-    {"model": "membrane left whole, closed bending retained, refit from the authored parameters", "cost": 1.425e-05, "forecast_max_relative": 0.003187}
-  ],
-  "direct_versus_reference": {
-    "frequency_max_relative": 7.77e-10,
-    "snap_relative": 5.26e-07,
-    "refined_40x36_open_branch_at_-90N": 0.00514
-  },
-  "independent_inverse": {
-    "pipeline": "DirectPlate Newton, finite-difference Hessian, sensor-projected eigenvectors, bounded least squares. No import of the reference condensation.",
-    "modal_cost": 4.710025281456375e-06,
-    "signs": [1, -1, 1, -1],
-    "snap_relative": 0.00020319835357215872,
-    "forecast_max_relative": 0.00020352606844445254,
-    "centre_m": 0.007768502391855225,
-    "a_m": 0.002534946812397555,
-    "b_m": 0.0030679775490062393,
-    "theta_deg": 66.21595124034425,
-    "d": 0.10862835512043978,
-    "x0": 0.0006766494001428,
-    "yL": 0.000494883768053,
+  "plate": "four elliptical patches; upper-left patch included so a three-patch search leaves a centre unmatched",
+  "reference_search": {
+    "modal_cost": 1.4036181390033535e-05,
+    "signs": [-1, 1, -1, 1],
+    "centre_x_m": 0.0186,
+    "centre_y_m": 0.0145,
+    "a_m": 0.0168,
+    "b_m": 0.0059,
+    "theta_deg": 75.57,
+    "d": 0.0711,
+    "x0": 0.00667,
+    "yL": 0.00401,
+    "snap_relative": 0.00164465,
+    "forecast_max_relative": 0.00118009,
     "verifier": "tests/test_outputs.py passed"
+  },
+  "authored_start_polish": {
+    "note": "Unweighted residual polished from the authored parameters. Not the reference search.",
+    "modal_cost": 4.296069832759583e-06,
+    "centre_m": 0.0009,
+    "d": 0.010,
+    "theta_deg": 4.8,
+    "x0": 0.0116,
+    "snap_relative": 0.0002127,
+    "forecast_max_relative": 0.0001369
+  },
+  "direct_versus_reference": {
+    "frequency_max_relative": 6.30e-10,
+    "snap_relative": 3.35e-07
   },
   "bound_midpoint": {
-    "zone": {"xc": 0.25, "yc": 0.20, "a": 0.027, "b": 0.014, "theta_deg": 0, "d": 0.675},
+    "zone": {"xc": 0.25, "yc": 0.20},
     "matches_any_patch": false,
-    "rejected_by": "zone_centre_m",
-    "middle_patch": {"dx_m": 0.012, "dy_m": 0.014, "da_m": 0.005, "db_m": 0.0015, "theta_deg": 42, "d": 0.165}
-  },
-  "severity_equivalent": {
-    "change": "weak patch angle set to 60 degrees and severity set to 0.45, centres and axes held at the reference fit",
-    "noise_weighted_chi_square": 127,
-    "reference_fit_chi_square": 119,
-    "weights": {"frequency_relative_std": 8e-5, "unit_shape_component_std": 0.0003},
-    "severity_error": 0.46,
-    "snap_relative": 3.44e-5,
-    "forecast_max_relative": 2.31e-4,
-    "verifier": "tests/test_outputs.py passed"
+    "nearest_patch": {"xc": 0.268, "yc": 0.236, "dx_m": 0.018, "dy_m": 0.036},
+    "rejected_by": "zone_centre_m 0.026"
   },
   "caps": {
-    "snap_relative": 0.0008,
-    "forecast_relative": 0.0008,
-    "zone_centre_m": 0.013,
-    "zone_a_m": 0.012,
-    "zone_b_m": 0.008,
+    "snap_relative": 0.0024,
+    "forecast_relative": 0.0024,
+    "zone_centre_m": 0.026,
+    "zone_a_m": 0.022,
+    "zone_b_m": 0.010,
     "zone_theta_deg": 90.0,
-    "zone_d": 0.55,
+    "zone_d": 0.40,
     "fixture_absolute": 0.07
   }
 }
