@@ -5,7 +5,10 @@ Centres are scanned on the direct-model frequency and shape residual. Bounded
 least squares then polishes axes, angles, severities and both spring multipliers
 on that same direct residual. The JSON this writes is what the verifier scores.
 """
+import itertools
 import json
+import os
+import subprocess
 from pathlib import Path
 import numpy as np
 from scipy.linalg import eigh
@@ -209,9 +212,109 @@ def main():
             }
         ]
     }
-    out = ROOT / "authoring/evidence/independent-inverse.json"
-    out.write_text(json.dumps({"modal_cost": cost, "artifact": artifact}, indent=2) + "\n")
+    publish(cost, artifact)
     print("completed", cost, "signs", signs, "snap", snap, flush=True)
+
+
+def angle_gap(left, right):
+    return abs((left - right + 90.0) % 180.0 - 90.0)
+
+
+def matched_errors(artifact):
+    """Largest miss of each field after the same one-to-one zone pairing the verifier uses."""
+    truth = json.loads((ROOT / "tests/ground_truth.json").read_text())
+    plate = truth["plates"][0]
+    tol = truth["tolerances"]
+    got = artifact["plates"][0]
+    best = None
+    for order in itertools.permutations(range(len(plate["zones"]))):
+        rows = []
+        for i, j in enumerate(order):
+            left, right = got["zones"][i], plate["zones"][j]
+            rows.append(
+                {
+                    "dx": abs(left["xc"] - right["xc"]),
+                    "dy": abs(left["yc"] - right["yc"]),
+                    "a": abs(left["a"] - right["a"]),
+                    "b": abs(left["b"] - right["b"]),
+                    "theta": angle_gap(left["theta_deg"], right["theta_deg"]),
+                    "d": abs(left["d"] - right["d"]),
+                }
+            )
+        ok = all(
+            row["dx"] <= tol["zone_centre_m"]
+            and row["dy"] <= tol["zone_centre_m"]
+            and row["a"] <= tol["zone_a_m"]
+            and row["b"] <= tol["zone_b_m"]
+            and row["theta"] <= tol["zone_theta_deg"]
+            and row["d"] <= tol["zone_d"]
+            for row in rows
+        )
+        score = sum(row["dx"] + row["dy"] for row in rows)
+        if best is None or (ok and not best[0]) or (ok == best[0] and score < best[1]):
+            best = (ok, score, rows)
+    rows = best[2]
+    forecast = [
+        abs(a / b - 1.0)
+        for got_row, true_row in zip(got["open_branch_forecast_Hz"], plate["open_branch_forecast_Hz"])
+        for a, b in zip(got_row["frequencies_Hz"], true_row["frequencies_Hz"])
+    ]
+    return {
+        "inside_caps": bool(best[0]),
+        "centre_x_m": max(row["dx"] for row in rows),
+        "centre_y_m": max(row["dy"] for row in rows),
+        "a_m": max(row["a"] for row in rows),
+        "b_m": max(row["b"] for row in rows),
+        "theta_deg": max(row["theta"] for row in rows),
+        "d": max(row["d"] for row in rows),
+        "x0": abs(got["fixture"]["x0_multiplier"] - plate["fixture"]["x0_multiplier"]),
+        "yL": abs(got["fixture"]["yL_multiplier"] - plate["fixture"]["yL_multiplier"]),
+        "snap_relative": abs(got["snap_load_N"] / plate["snap_load_N"] - 1.0),
+        "forecast_max_relative": max(forecast),
+    }
+
+
+def score_artifact(artifact, path):
+    path.write_text(json.dumps(artifact, indent=2) + "\n")
+    proc = subprocess.run(
+        ["pytest", "tests/test_outputs.py", "-q", "--tb=line"],
+        cwd=ROOT,
+        env={**os.environ, "LDI_ARTIFACT": str(path)},
+        capture_output=True,
+        text=True,
+    )
+    tail = "\n".join((proc.stdout + proc.stderr).strip().splitlines()[-3:])
+    return {"returncode": proc.returncode, "summary": tail}
+
+
+def publish(cost, artifact):
+    """Write the direct inverse and the real-verifier scores of that JSON."""
+    passed = score_artifact(artifact, Path("/tmp/damage-independent.json"))
+    midpoint = json.loads(json.dumps(artifact))
+    for zone in midpoint["plates"][0]["zones"]:
+        zone.update({"xc": 0.25, "yc": 0.20, "a": 0.027, "b": 0.014, "theta_deg": 0.0, "d": 0.67})
+    rejected = score_artifact(midpoint, Path("/tmp/damage-midpoint.json"))
+    out = ROOT / "authoring/evidence/independent-inverse.json"
+    out.write_text(
+        json.dumps(
+            {
+                "method": (
+                    "Full inverse on the direct Newton plate only. Strains are integrated on the "
+                    "30 by 26 Gauss rule and equilibria are continued by Newton. The residual is "
+                    "that model's frequencies and shapes. The script does not import the reference "
+                    "condensation, its residual, or its least-squares fit, and it does not start "
+                    "from the authored parameters."
+                ),
+                "modal_cost": cost,
+                "matched_errors": matched_errors(artifact),
+                "verifier": passed,
+                "rejected_interval_midpoint": rejected,
+                "artifact": artifact,
+            },
+            indent=2,
+        )
+        + "\n"
+    )
 
 
 if __name__ == "__main__":
