@@ -1,3 +1,0 @@
-{
-  "note": "Replaced for the four-patch plate. Severity is no longer scored at 0.16. The sequential search misses severity by 0.071 and one angle by 75.6 degrees, so the caps are 0.40 and 90 degrees. See zone-calibration.json."
-}
