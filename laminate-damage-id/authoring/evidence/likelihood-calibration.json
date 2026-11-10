@@ -1,0 +1,456 @@
+{
+  "method": "Condensed forward, noise-scaled relative frequency and profiled shape projection, with direct Newton snap and forecasts. One public-data inverse warm start and four seeded perturbations.",
+  "selected_by_lowest_residual": 0,
+  "fits": [
+    {
+      "chi_square": 127.29476807676303,
+      "verifier_exit": 0,
+      "verifier_output": "......                                                                   [100%]\n6 passed in 0.02s\n",
+      "artifact": {
+        "plates": [
+          {
+            "plate_id": "plate_01",
+            "zones": [
+              {
+                "xc": 0.25941088248340594,
+                "yc": 0.23383258460178497,
+                "a": 0.037655532483157374,
+                "b": 0.008264465669553443,
+                "theta_deg": -18.649430597038943,
+                "d": 0.7581382337182319
+              },
+              {
+                "xc": 0.35944596172567583,
+                "yc": 0.29255092999865434,
+                "a": 0.03602107707274467,
+                "b": 0.009795196544813747,
+                "theta_deg": 75.27920584383301,
+                "d": 0.5549644285991372
+              },
+              {
+                "xc": 0.13590946693279188,
+                "yc": 0.12724938782893377,
+                "a": 0.035565464143218414,
+                "b": 0.017157529076007746,
+                "theta_deg": -1.5823810976012993,
+                "d": 0.9437142043438026
+              },
+              {
+                "xc": 0.12079175187975744,
+                "yc": 0.29441124470228697,
+                "a": 0.03594974087585982,
+                "b": 0.013444806631727873,
+                "theta_deg": -9.211264109020405,
+                "d": 0.8451029378605837
+              }
+            ],
+            "fixture": {
+              "x0_multiplier": 1.25679824058785,
+              "yL_multiplier": 0.7579323124713283
+            },
+            "branches": {
+              "record_01": -1,
+              "record_02": 1,
+              "record_03": -1,
+              "record_04": 1
+            },
+            "snap_load_N": 71.05875313282013,
+            "open_branch_forecast_Hz": [
+              {
+                "force_N": 80.0,
+                "frequencies_Hz": [
+                  85.14840432042345,
+                  117.56945332472222,
+                  149.75358045932353,
+                  207.65448445347386
+                ]
+              },
+              {
+                "force_N": -90.0,
+                "frequencies_Hz": [
+                  46.527660246002064,
+                  90.84819927575933,
+                  125.03700867530151,
+                  187.93868130228475
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "matched_errors": {
+        "inside_caps": true,
+        "centre_x_m": 0.00858911751659408,
+        "centre_y_m": 0.013588755297713029,
+        "a_m": 0.014655532483157374,
+        "b_m": 0.004204803455186253,
+        "theta_deg": 44.211264109020405,
+        "d": 0.1850355714008628,
+        "x0": 0.016798240587849955,
+        "yL": 0.0020676875286717022,
+        "snap_relative": 0.00022916470887301976,
+        "forecast_max_relative": 0.0002098464974911174
+      }
+    },
+    {
+      "chi_square": 1099.5190181523585,
+      "verifier_exit": 1,
+      "verifier_output": "...F..                                                                   [100%]\n=================================== FAILURES ===================================\n________________________ test_fixture_and_preparations _________________________\ntests/test_outputs.py:154: in test_fixture_and_preparations\n    assert error <= tol[\"fixture_absolute\"] + 1e-12, (\nE   AssertionError: plate_01 x0_multiplier error 0.0781185 exceeds 0.07\nE   assert 0.07811847523208404 <= (0.07 + 1e-12)\n=========================== short test summary info ============================\nFAILED tests/test_outputs.py::test_fixture_and_preparations - AssertionError:...\n1 failed, 5 passed in 0.06s\n",
+      "artifact": {
+        "plates": [
+          {
+            "plate_id": "plate_01",
+            "zones": [
+              {
+                "xc": 0.24244704633955058,
+                "yc": 0.2308291880293183,
+                "a": 0.03729440961832968,
+                "b": 0.00864416440795028,
+                "theta_deg": -21.19675503041836,
+                "d": 0.7977648274282374
+              },
+              {
+                "xc": 0.3595158989908798,
+                "yc": 0.2909198441939921,
+                "a": 0.036921201342287206,
+                "b": 0.0084323480807849,
+                "theta_deg": 75.89273281601115,
+                "d": 0.5813969538876889
+              },
+              {
+                "xc": 0.13963236584355015,
+                "yc": 0.12731848529450568,
+                "a": 0.0372255607700842,
+                "b": 0.01765203562827576,
+                "theta_deg": 12.165839808626714,
+                "d": 0.7832619315692454
+              },
+              {
+                "xc": 0.11683402781355949,
+                "yc": 0.293488153768001,
+                "a": 0.0364292159863263,
+                "b": 0.011567897283434651,
+                "theta_deg": -18.597841831694097,
+                "d": 0.841817472777888
+              }
+            ],
+            "fixture": {
+              "x0_multiplier": 1.318118475232084,
+              "yL_multiplier": 0.7533546636591842
+            },
+            "branches": {
+              "record_01": -1,
+              "record_02": 1,
+              "record_03": -1,
+              "record_04": 1
+            },
+            "snap_load_N": 71.05537520349026,
+            "open_branch_forecast_Hz": [
+              {
+                "force_N": 80.0,
+                "frequencies_Hz": [
+                  85.14324285186544,
+                  117.56217052952225,
+                  149.75739993249138,
+                  207.68561184601208
+                ]
+              },
+              {
+                "force_N": -90.0,
+                "frequencies_Hz": [
+                  46.51033735984699,
+                  90.84506943313342,
+                  125.04002255894372,
+                  187.9929600360878
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "matched_errors": {
+        "inside_caps": true,
+        "centre_x_m": 0.025552953660449435,
+        "centre_y_m": 0.01451184623199897,
+        "a_m": 0.01429440961832968,
+        "b_m": 0.0055676519192151,
+        "theta_deg": 53.5978418316941,
+        "d": 0.15860304611231113,
+        "x0": 0.07811847523208404,
+        "yL": 0.006645336340815766,
+        "snap_relative": 0.00018161668300553657,
+        "forecast_max_relative": 0.000498717972107432
+      }
+    },
+    {
+      "chi_square": 3625.307254313857,
+      "verifier_exit": 1,
+      "verifier_output": "..F..F                                                                   [100%]\n=================================== FAILURES ===================================\n______________________________ test_zone_pairing _______________________________\ntests/test_outputs.py:143: in test_zone_pairing\n    assert ratio <= 1, (\nE   AssertionError: plate_01 has no valid one-to-one zone pairing. In the closest pairing, reported zone 3 exceeds the d limit (1.243 times the allowed error).\nE   assert 1.243049495713915 <= 1\n__________________________ test_open_branch_forecast ___________________________\ntests/test_outputs.py:179: in test_open_branch_forecast\n    assert error <= tol[\"forecast_relative\"] + 1e-12, (\nE   AssertionError: Open-branch forecast at 80.0 N, mode 4: relative error 0.00120086 exceeds 0.0008\nE   assert 0.001200855410241397 <= (0.0008 + 1e-12)\n=========================== short test summary info ============================\nFAILED tests/test_outputs.py::test_zone_pairing - AssertionError: plate_01 ha...\nFAILED tests/test_outputs.py::test_open_branch_forecast - AssertionError: Ope...\n2 failed, 4 passed in 0.06s\n",
+      "artifact": {
+        "plates": [
+          {
+            "plate_id": "plate_01",
+            "zones": [
+              {
+                "xc": 0.25198238268132134,
+                "yc": 0.23964712451465695,
+                "a": 0.03781635128427817,
+                "b": 0.008000000000786508,
+                "theta_deg": -21.64754822208792,
+                "d": 0.9329730766329757
+              },
+              {
+                "xc": 0.3424211446681263,
+                "yc": 0.26049367717954736,
+                "a": 0.023531350519303357,
+                "b": 0.009485727950324067,
+                "theta_deg": 50.28744285743639,
+                "d": 0.5476011146580247
+              },
+              {
+                "xc": 0.12901943650740125,
+                "yc": 0.13479010192674779,
+                "a": 0.03628984799688812,
+                "b": 0.01680320299050172,
+                "theta_deg": -45.00057513677735,
+                "d": 0.4027802017131909
+              },
+              {
+                "xc": 0.1240527730298907,
+                "yc": 0.3041163108271858,
+                "a": 0.024624068064241673,
+                "b": 0.009146399254572096,
+                "theta_deg": -7.417180279821864,
+                "d": 0.7074489483468335
+              }
+            ],
+            "fixture": {
+              "x0_multiplier": 1.2202192194223618,
+              "yL_multiplier": 0.7669076272534724
+            },
+            "branches": {
+              "record_01": -1,
+              "record_02": 1,
+              "record_03": -1,
+              "record_04": 1
+            },
+            "snap_load_N": 71.0034726858139,
+            "open_branch_forecast_Hz": [
+              {
+                "force_N": 80.0,
+                "frequencies_Hz": [
+                  85.13981188931021,
+                  117.61118854075147,
+                  149.82820870886283,
+                  207.87273655410527
+                ]
+              },
+              {
+                "force_N": -90.0,
+                "frequencies_Hz": [
+                  46.52573186311323,
+                  90.8997402919202,
+                  125.1680510583713,
+                  188.17987696018886
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "matched_errors": {
+        "inside_caps": false,
+        "centre_x_m": 0.01601761731867868,
+        "centre_y_m": 0.031506322820452626,
+        "a_m": 0.014816351284278169,
+        "b_m": 0.004514272049675933,
+        "theta_deg": 67.00057513677734,
+        "d": 0.4972197982868091,
+        "x0": 0.019780780577638213,
+        "yL": 0.0069076272534723815,
+        "snap_relative": 0.0005489676519696562,
+        "forecast_max_relative": 0.0014934900257763672
+      }
+    },
+    {
+      "chi_square": 3783.2043267701147,
+      "verifier_exit": 1,
+      "verifier_output": "..F..F                                                                   [100%]\n=================================== FAILURES ===================================\n______________________________ test_zone_pairing _______________________________\ntests/test_outputs.py:143: in test_zone_pairing\n    assert ratio <= 1, (\nE   AssertionError: plate_01 has no valid one-to-one zone pairing. In the closest pairing, reported zone 2 exceeds the yc limit (1.524 times the allowed error).\nE   assert 1.5237629697395194 <= 1\n__________________________ test_open_branch_forecast ___________________________\ntests/test_outputs.py:179: in test_open_branch_forecast\n    assert error <= tol[\"forecast_relative\"] + 1e-12, (\nE   AssertionError: Open-branch forecast at 80.0 N, mode 4: relative error 0.0010095 exceeds 0.0008\nE   assert 0.0010094966520000082 <= (0.0008 + 1e-12)\n=========================== short test summary info ============================\nFAILED tests/test_outputs.py::test_zone_pairing - AssertionError: plate_01 ha...\nFAILED tests/test_outputs.py::test_open_branch_forecast - AssertionError: Ope...\n2 failed, 4 passed in 0.06s\n",
+      "artifact": {
+        "plates": [
+          {
+            "plate_id": "plate_01",
+            "zones": [
+              {
+                "xc": 0.24586519609379281,
+                "yc": 0.22517005905533338,
+                "a": 0.038669161176336786,
+                "b": 0.008491603844927873,
+                "theta_deg": -34.665863105256754,
+                "d": 0.7962723208884
+              },
+              {
+                "xc": 0.33227174397575276,
+                "yc": 0.2523821627852487,
+                "a": 0.038364592622144915,
+                "b": 0.008315179941612174,
+                "theta_deg": 79.10959487422858,
+                "d": 0.6803242509922356
+              },
+              {
+                "xc": 0.1404967940440376,
+                "yc": 0.14654134317873488,
+                "a": 0.033999740828870424,
+                "b": 0.017809549953812294,
+                "theta_deg": -9.01019699482977,
+                "d": 0.9488581630499634
+              },
+              {
+                "xc": 0.11291964066864317,
+                "yc": 0.29336258471871457,
+                "a": 0.03669641003734871,
+                "b": 0.013221098615477829,
+                "theta_deg": -13.831841502140207,
+                "d": 0.7995407325052541
+              }
+            ],
+            "fixture": {
+              "x0_multiplier": 1.2218226978466624,
+              "yL_multiplier": 0.7986644290676433
+            },
+            "branches": {
+              "record_01": -1,
+              "record_02": 1,
+              "record_03": -1,
+              "record_04": 1
+            },
+            "snap_load_N": 71.0717161744833,
+            "open_branch_forecast_Hz": [
+              {
+                "force_N": 80.0,
+                "frequencies_Hz": [
+                  85.1230198785854,
+                  117.48545271482249,
+                  149.78490965349064,
+                  207.83300599602168
+                ]
+              },
+              {
+                "force_N": -90.0,
+                "frequencies_Hz": [
+                  46.557604852755446,
+                  90.78605206065328,
+                  125.17877544777133,
+                  188.1804552466451
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "matched_errors": {
+        "inside_caps": false,
+        "centre_x_m": 0.02572825602424722,
+        "centre_y_m": 0.03961783721475126,
+        "a_m": 0.015669161176336786,
+        "b_m": 0.005684820058387826,
+        "theta_deg": 48.83184150214021,
+        "d": 0.08045926749474586,
+        "x0": 0.01817730215333757,
+        "yL": 0.038664429067643336,
+        "snap_relative": 0.0004116336062740533,
+        "forecast_max_relative": 0.0014965676668643457
+      }
+    },
+    {
+      "chi_square": 2697.481172007705,
+      "verifier_exit": 1,
+      "verifier_output": "..F..F                                                                   [100%]\n=================================== FAILURES ===================================\n______________________________ test_zone_pairing _______________________________\ntests/test_outputs.py:143: in test_zone_pairing\n    assert ratio <= 1, (\nE   AssertionError: plate_01 has no valid one-to-one zone pairing. In the closest pairing, reported zone 2 exceeds the xc limit (1.167 times the allowed error).\nE   assert 1.1667544712971936 <= 1\n__________________________ test_open_branch_forecast ___________________________\ntests/test_outputs.py:179: in test_open_branch_forecast\n    assert error <= tol[\"forecast_relative\"] + 1e-12, (\nE   AssertionError: Open-branch forecast at -90.0 N, mode 3: relative error 0.0010182 exceeds 0.0008\nE   assert 0.0010181961021769048 <= (0.0008 + 1e-12)\n=========================== short test summary info ============================\nFAILED tests/test_outputs.py::test_zone_pairing - AssertionError: plate_01 ha...\nFAILED tests/test_outputs.py::test_open_branch_forecast - AssertionError: Ope...\n2 failed, 4 passed in 0.06s\n",
+      "artifact": {
+        "plates": [
+          {
+            "plate_id": "plate_01",
+            "zones": [
+              {
+                "xc": 0.266056619512206,
+                "yc": 0.21591094856440882,
+                "a": 0.037399676074437345,
+                "b": 0.008574031311351298,
+                "theta_deg": -12.66621907171475,
+                "d": 0.7757540065852495
+              },
+              {
+                "xc": 0.38833561625489377,
+                "yc": 0.30621589597466176,
+                "a": 0.03697655423580363,
+                "b": 0.00812332292887657,
+                "theta_deg": 75.50111031869426,
+                "d": 0.5664579122170936
+              },
+              {
+                "xc": 0.14889582292212855,
+                "yc": 0.13326302368023346,
+                "a": 0.035516577126553546,
+                "b": 0.017706831964189398,
+                "theta_deg": 0.7655312124643388,
+                "d": 0.9248178631064642
+              },
+              {
+                "xc": 0.12595360076151726,
+                "yc": 0.3089020560731824,
+                "a": 0.034683063239877535,
+                "b": 0.013483604277896109,
+                "theta_deg": -14.044801196161089,
+                "d": 0.8441913260134348
+              }
+            ],
+            "fixture": {
+              "x0_multiplier": 1.2248649352278482,
+              "yL_multiplier": 0.7757049136576024
+            },
+            "branches": {
+              "record_01": -1,
+              "record_02": 1,
+              "record_03": -1,
+              "record_04": 1
+            },
+            "snap_load_N": 71.07450470328331,
+            "open_branch_forecast_Hz": [
+              {
+                "force_N": 80.0,
+                "frequencies_Hz": [
+                  85.14541008982435,
+                  117.51412956642592,
+                  149.79723140905827,
+                  207.69679345774384
+                ]
+              },
+              {
+                "force_N": -90.0,
+                "frequencies_Hz": [
+                  46.55756419841544,
+                  90.80292647566868,
+                  125.15920097308229,
+                  187.99746755093506
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "matched_errors": {
+        "inside_caps": false,
+        "centre_x_m": 0.030335616254893782,
+        "centre_y_m": 0.02008905143559117,
+        "a_m": 0.014399676074437345,
+        "b_m": 0.00587667707112343,
+        "theta_deg": 49.04480119616109,
+        "d": 0.17354208778290636,
+        "x0": 0.015135064772151763,
+        "yL": 0.015704913657602404,
+        "snap_relative": 0.0004508851792250912,
+        "forecast_max_relative": 0.0010181961021769048
+      }
+    }
+  ]
+}

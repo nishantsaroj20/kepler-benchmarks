@@ -16,11 +16,11 @@
   },
   "verifier": {
     "returncode": 0,
-    "summary": "...                                                                      [100%]\n3 passed in 0.01s"
+    "summary": "......                                                                   [100%]\n6 passed in 0.01s"
   },
   "rejected_interval_midpoint": {
     "returncode": 1,
-    "summary": "=========================== short test summary info ============================\nFAILED tests/test_outputs.py::test_preparations_snap_and_open_branch_forecast\n1 failed, 2 passed in 0.01s"
+    "summary": "=========================== short test summary info ============================\nFAILED tests/test_outputs.py::test_zone_pairing - AssertionError: plate_01 ha...\n1 failed, 5 passed in 0.01s"
   },
   "artifact": {
     "plates": [

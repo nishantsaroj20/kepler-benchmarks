@@ -91,53 +91,92 @@ def test_schema_bounds_and_forecast_shape():
             finite(row["force_N"])
             freqs = row["frequencies_Hz"]
             assert isinstance(freqs, list) and len(freqs) == 4, pid + " needs four forecast frequencies"
-            assert all(finite(value) > 0 for value in freqs)
+            values = [finite(value) for value in freqs]
+            assert all(value > 0 for value in values)
+            assert values == sorted(values), "Forecast frequencies must be sorted from low to high"
 
 
 def angle_gap(left, right):
     return abs((left - right + 90.0) % 180.0 - 90.0)
 
 
-def zone_matches(got, target, tol):
-    return (
-        abs(finite(got["xc"]) - target["xc"]) <= tol["zone_centre_m"] + 1e-12
-        and abs(finite(got["yc"]) - target["yc"]) <= tol["zone_centre_m"] + 1e-12
-        and abs(finite(got["a"]) - target["a"]) <= tol["zone_a_m"] + 1e-12
-        and abs(finite(got["b"]) - target["b"]) <= tol["zone_b_m"] + 1e-12
-        and angle_gap(finite(got["theta_deg"]), target["theta_deg"]) <= tol["zone_theta_deg"] + 1e-12
-        and abs(finite(got["d"]) - target["d"]) <= tol["zone_d"] + 1e-12
-    )
+ZONE_LIMITS = {
+    "xc": "zone_centre_m",
+    "yc": "zone_centre_m",
+    "a": "zone_a_m",
+    "b": "zone_b_m",
+    "theta_deg": "zone_theta_deg",
+    "d": "zone_d",
+}
 
 
-def test_preparations_snap_and_open_branch_forecast():
-    by = entries()
+def zone_error(got, target, key):
+    if key == "theta_deg":
+        return angle_gap(finite(got[key]), target[key])
+    return abs(finite(got[key]) - target[key])
+
+
+def scored_plates():
+    by_id = entries()
     truth = json.loads(GT.read_text())
-    tol = truth["tolerances"]
-    for plate in truth["plates"]:
-        entry = by[plate["plate_id"]]
+    for target in truth["plates"]:
+        yield by_id[target["plate_id"]], target, truth["tolerances"]
+
+
+def test_zone_pairing():
+    for entry, plate, tol in scored_plates():
         reported = entry["zones"]
         authored = plate["zones"]
-        paired = False
+        limits = {key: tol[name] + 1e-12 for key, name in ZONE_LIMITS.items()}
+        # Minimize the worst normalized error over complete one-to-one pairings.
+        # The same all-attribute limits apply to every zone in the chosen pairing.
+        worst = None
         for order in itertools.permutations(range(len(authored))):
-            if all(zone_matches(reported[i], authored[order[i]], tol) for i in range(len(authored))):
-                paired = True
-                break
-        assert paired, plate["plate_id"] + " zones do not match the physical patches"
+            candidate = max(
+                (zone_error(zone, authored[j], key) / limit, i, key)
+                for i, (zone, j) in enumerate(zip(reported, order))
+                for key, limit in limits.items()
+            )
+            if worst is None or candidate < worst:
+                worst = candidate
+        ratio, index, key = worst
+        assert ratio <= 1, (
+            f"{plate['plate_id']} has no valid one-to-one zone pairing. "
+            f"In the closest pairing, reported zone {index + 1} exceeds the {key} limit "
+            f"({ratio:.3f} times the allowed error)."
+        )
+
+
+def test_fixture_and_preparations():
+    for entry, plate, tol in scored_plates():
         for key in ("x0_multiplier", "yL_multiplier"):
-            assert abs(finite(entry["fixture"][key]) - plate["fixture"][key]) <= tol["fixture_absolute"] + 1e-12, (
-                plate["plate_id"] + " spring multiplier " + key + " is outside its limit"
+            error = abs(finite(entry["fixture"][key]) - plate["fixture"][key])
+            assert error <= tol["fixture_absolute"] + 1e-12, (
+                f"{plate['plate_id']} {key} error {error:.6g} exceeds {tol['fixture_absolute']}"
             )
         assert all(
             abs(finite(entry["branches"][key]) - plate["branches"][key]) <= 1e-12
             for key in plate["branches"]
         ), plate["plate_id"] + " has incorrect prepared equilibrium signs"
-        assert abs(finite(entry["snap_load_N"]) / plate["snap_load_N"] - 1) <= tol["snap_relative"] + 1e-12, (
-            plate["plate_id"] + " has an inaccurate closed-branch snap load"
+
+
+def test_snap_load():
+    for entry, plate, tol in scored_plates():
+        error = abs(finite(entry["snap_load_N"]) / plate["snap_load_N"] - 1)
+        assert error <= tol["snap_relative"] + 1e-12, (
+            f"{plate['plate_id']} closed-branch snap relative error {error:.6g} "
+            f"exceeds {tol['snap_relative']}"
         )
+
+
+def test_open_branch_forecast():
+    for entry, plate, tol in scored_plates():
         reported = entry["open_branch_forecast_Hz"]
         for got, target in zip(reported, plate["open_branch_forecast_Hz"]):
             assert abs(finite(got["force_N"]) - target["force_N"]) <= 1e-12, "Forecast forces must be the requested values"
-            for left, right in zip(got["frequencies_Hz"], target["frequencies_Hz"]):
-                assert abs(finite(left) / right - 1) <= tol["forecast_relative"] + 1e-12, (
-                    "Open-branch frequency forecast is outside its relative limit"
+            for mode, (left, right) in enumerate(zip(got["frequencies_Hz"], target["frequencies_Hz"]), 1):
+                error = abs(finite(left) / right - 1)
+                assert error <= tol["forecast_relative"] + 1e-12, (
+                    f"Open-branch forecast at {got['force_N']} N, mode {mode}: "
+                    f"relative error {error:.6g} exceeds {tol['forecast_relative']}"
                 )
