@@ -1,0 +1,12 @@
+{
+  "frequency_max_relative": 6.30e-10,
+  "snap_direct_N": 71.04247270524502,
+  "snap_reference_N": 71.04244887828827,
+  "snap_relative": 3.35e-07,
+  "cases": [
+    {"force_N": 80.0, "branch": 1, "direct_vs_reference_max_relative": 2.19e-10},
+    {"force_N": -90.0, "branch": 1, "direct_vs_reference_max_relative": 3.85e-10},
+    {"force_N": -60.0, "branch": -1, "direct_vs_reference_max_relative": 6.30e-10},
+    {"force_N": 45.0, "branch": 1, "direct_vs_reference_max_relative": 6.97e-11}
+  ]
+}

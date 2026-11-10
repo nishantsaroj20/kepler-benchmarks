@@ -1,0 +1,68 @@
+{
+  "plate": "four elliptical patches; upper-left patch included so a three-patch search leaves a centre unmatched",
+  "reference_search": {
+    "modal_cost": 4.240138075120544e-06,
+    "signs": [
+      -1,
+      1,
+      -1,
+      1
+    ],
+    "centre_x_m": 0.0158,
+    "centre_y_m": 0.0125,
+    "a_m": 0.0165,
+    "b_m": 0.0058,
+    "theta_deg": 55.37,
+    "d": 0.0555,
+    "x0": 0.00826,
+    "yL": 0.00063,
+    "snap_relative": 0.00025746,
+    "forecast_max_relative": 0.00019998,
+    "verifier": "tests/test_outputs.py passed"
+  },
+  "continuous_polish_without_ellipse_restart": {
+    "note": "Same sequential centres and a continuous polish, with no grid over major axis, severity and angle. Rejected by the snap cap.",
+    "modal_cost": 1.269025549096545e-05,
+    "snap_relative": 0.00146418,
+    "forecast_max_relative": 0.0009854,
+    "verifier": "tests/test_outputs.py failed test_snap_load"
+  },
+  "authored_start_polish": {
+    "note": "Unweighted residual polished from the authored parameters. Not the reference search.",
+    "modal_cost": 4.296069832759583e-06,
+    "centre_m": 0.0009,
+    "d": 0.01,
+    "theta_deg": 4.8,
+    "x0": 0.0116,
+    "snap_relative": 0.0002127,
+    "forecast_max_relative": 0.0001369
+  },
+  "direct_versus_reference": {
+    "frequency_max_relative": 6.3e-10,
+    "snap_relative": 3.35e-07
+  },
+  "bound_midpoint": {
+    "zone": {
+      "xc": 0.25,
+      "yc": 0.2
+    },
+    "matches_any_patch": false,
+    "nearest_patch": {
+      "xc": 0.268,
+      "yc": 0.236,
+      "dx_m": 0.018,
+      "dy_m": 0.036
+    },
+    "rejected_by": "zone_centre_m 0.026"
+  },
+  "caps": {
+    "snap_relative": 0.00115,
+    "forecast_relative": 0.0008,
+    "zone_centre_m": 0.026,
+    "zone_a_m": 0.022,
+    "zone_b_m": 0.01,
+    "zone_theta_deg": 90.0,
+    "zone_d": 0.4,
+    "fixture_absolute": 0.07
+  }
+}

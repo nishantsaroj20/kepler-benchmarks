@@ -1,0 +1,82 @@
+{
+  "plates": [
+    {
+      "plate_id": "plate_01",
+      "zones": [
+        {
+          "xc": 0.132,
+          "yc": 0.118,
+          "a": 0.026,
+          "b": 0.013,
+          "theta_deg": 22.0,
+          "d": 0.9
+        },
+        {
+          "xc": 0.268,
+          "yc": 0.236,
+          "a": 0.023,
+          "b": 0.012,
+          "theta_deg": -38.0,
+          "d": 0.82
+        },
+        {
+          "xc": 0.358,
+          "yc": 0.292,
+          "a": 0.027,
+          "b": 0.014,
+          "theta_deg": 61.0,
+          "d": 0.74
+        },
+        {
+          "xc": 0.118,
+          "yc": 0.308,
+          "a": 0.026,
+          "b": 0.013,
+          "theta_deg": 35.0,
+          "d": 0.88
+        }
+      ],
+      "fixture": {
+        "x0_multiplier": 1.24,
+        "yL_multiplier": 0.76
+      },
+      "branches": {
+        "record_01": -1,
+        "record_02": 1,
+        "record_03": -1,
+        "record_04": 1
+      },
+      "snap_load_N": 71.04247270524502,
+      "open_branch_forecast_Hz": [
+        {
+          "force_N": 80.0,
+          "frequencies_Hz": [
+            85.14704397066502,
+            117.5640138951981,
+            149.75275737825044,
+            207.6234108578838
+          ]
+        },
+        {
+          "force_N": -90.0,
+          "frequencies_Hz": [
+            46.52035597056321,
+            90.83831327572463,
+            125.03189398597797,
+            187.8992513025177
+          ]
+        }
+      ]
+    }
+  ],
+  "tolerances": {
+    "snap_relative": 0.00115,
+    "forecast_relative": 0.00080,
+    "zone_centre_m": 0.026,
+    "zone_a_m": 0.022,
+    "zone_b_m": 0.010,
+    "zone_theta_deg": 90.0,
+    "zone_d": 0.40,
+    "fixture_absolute": 0.07
+  }
+}
