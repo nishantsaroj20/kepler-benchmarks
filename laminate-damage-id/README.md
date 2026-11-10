@@ -25,24 +25,24 @@ On the seeded records this search finishes at cost 4.24e-6, with the authored si
 
 The isolated checks read only the JSON artifact and `tests/ground_truth.json`. Zone geometry, severities, fixture multipliers and preparation signs in that file are the authored generator inputs. The snap and the eight forecast frequencies come from `authoring/provenance/independent.py` on the published 30 by 26 rule. `generate_data.py` writes them into the truth file.
 
-On the authored parameters the direct model and the reference condensation differ by at most 6.3e-10 relative in frequency and by 3.4e-7 relative in the snap. A polish of the same unweighted residual, started at the authored parameters, stays inside 1 mm on the centres and 0.01 on severity, with snap relative error 2.1e-4 and forecast relative error 1.4e-4. The geometry caps stay wide enough for both of the inverses below, not only for a polish started at the authored parameters: centres 0.026 m, `a` 0.022 m, `b` 0.010 m, severity 0.40, angle 90 degrees, and each multiplier 0.07. The snap cap is 0.00115 and the forecast cap is 0.00080. The angle cap stays at the half-period because the reference still misses one angle by 55 degrees. The severity cap stays wide because the direct inverse misses one severity by 0.195, and a 0.16 cap is what rejected noise-level inversions when only three patches were scored. A continuous polish that does not retry major axis, severity and angle finishes at snap relative error 1.46e-3 and forecast relative error 9.85e-4. `pytest tests/test_outputs.py` rejects that artifact on the snap.
+On the authored parameters the direct model and the reference condensation differ by at most 6.3e-10 relative in frequency and by 3.4e-7 relative in the snap. A polish of the same unweighted residual, started at the authored parameters, stays inside 1 mm on the centres and 0.01 on severity, with snap relative error 2.1e-4 and forecast relative error 1.4e-4.
 
-A second inverse, `authoring/provenance/independent_inverse.py`, does not import the reference condensation, that condensation's residual, or its least-squares fit. It integrates strains on the 30 by 26 Gauss rule, continues equilibria by Newton, and matches each hold on that direct model's frequencies and shapes. The search starts from corner-parked patches, not from the authored parameters. The real verifier scored the JSON it wrote: `LDI_ARTIFACT` pointed at that file and `pytest tests/test_outputs.py -q` reported 3 passed. The misses below sit inside the caps. The reference misses a centre by 15.8 mm and an angle by 55 degrees; this direct inverse misses a centre by 13.8 mm, an angle by 49 degrees and a severity by 0.195.
+Every cap is set from two inverses that do not share a residual, and from a case that must fail when one was measured. The reference search retries major axis, severity and angle. The direct Newton inverse in `authoring/provenance/independent_inverse.py` integrates strains on the 30 by 26 rule, does not import the reference residual, and does not start from the authored parameters. `pytest tests/test_outputs.py` passed on that JSON. Angle acceptance is 90 degrees because a 180-degree flip is the same major axis; both inverses are inside that half-period. Severity acceptance stays at 0.40 because the direct inverse misses one severity by 0.195, and a 0.16 cap rejected noise-level inversions when only three patches were scored. Semi-axis caps sit above both inverses because area still trades with severity. A multiplier of 0.07 rejects a nominal value of 1, which is 0.24 away from 1.24 and from 0.76, while both inverses are within 0.009. Snap acceptance of 0.00115 and forecast acceptance of 0.00080 sit above both inverses and below the continuous polish that does not retry the ellipse. That polish is at snap relative error 1.46e-3 and forecast relative error 9.85e-4, and the same tests reject it on the snap. The 1e-12 allowance is only for inclusive endpoints and for equality of a reported forecast force with the requested force.
 
-| quantity | direct Newton inverse | acceptance cap |
-|---|---|---|
-| centre x | 0.0099 m | 0.026 m |
-| centre y | 0.0138 m | 0.026 m |
-| semi-axis a | 0.0145 m | 0.022 m |
-| semi-axis b | 0.0060 m | 0.010 m |
-| angle | 49.1 degrees | 90 degrees |
-| severity | 0.195 | 0.40 |
-| x = 0 spring | 0.0089 | 0.07 |
-| y = Ly spring | 0.0018 | 0.07 |
-| snap, relative | 0.000873 | 0.00115 |
-| forecast, relative | 0.000622 | 0.00080 |
+| quantity | reference | direct Newton | cap | outside the cap |
+|---|---|---|---|---|
+| centre x | 0.0158 m | 0.0099 m | 0.026 m | a patch moved to a corner |
+| centre y | 0.0125 m | 0.0138 m | 0.026 m | interval midpoint, 0.036 m off |
+| semi-axis a | 0.0165 m | 0.0145 m | 0.022 m | above both inverses |
+| semi-axis b | 0.0058 m | 0.0060 m | 0.010 m | above both inverses |
+| angle | 55.4 degrees | 49.1 degrees | 90 degrees | half-period identity |
+| severity | 0.056 | 0.195 | 0.40 | a 0.16 cap rejected noise-level inversions |
+| x = 0 spring | 0.0083 | 0.0089 | 0.07 | nominal 1 misses 1.24 by 0.24 |
+| y = Ly spring | 0.0006 | 0.0018 | 0.07 | nominal 1 misses 0.76 by 0.24 |
+| snap, relative | 0.000257 | 0.000873 | 0.00115 | continuous polish 0.00146 |
+| forecast, relative | 0.000200 | 0.000622 | 0.00080 | continuous polish 0.000985 |
 
-The midpoint of every search interval, centre (0.25 m, 0.20 m), matches none of the four patches. Against the nearest patch the y error is 0.036 m, outside the 0.026 m centre cap. The same verifier rejects that plate: `test_preparations_snap_and_open_branch_forecast` fails and the other two tests pass. Moving any one recovered patch to a corner fails that same centre cap. The reference-search counts are in `authoring/evidence/zone-calibration.json`, and the direct-inverse artifact plus both pytest summaries are in `authoring/evidence/independent-inverse.json`.
+The midpoint of every search interval, centre (0.25 m, 0.20 m), matches none of the four patches. The same tests reject that plate on the zone match, and they reject a corner-moved patch on the centre cap. The reference-search counts are in `authoring/evidence/zone-calibration.json`, and the direct-inverse artifact plus both pytest summaries are in `authoring/evidence/independent-inverse.json`.
 
 The artifact must be a regular file of at most 1 MiB, with unique keys. `plates` is a JSON array of one object. That object has four in-bound zones (`a>b`), two in-bound multipliers, numeric branch signs and a positive snap load. The forecast must be two rows at the requested forces with four positive frequencies each. Branch signs must match. Each zone is matched, in any order, to the authored patch inside the caps above. The snap relative error must be at most 0.00115, and each forecast-frequency relative error must be at most 0.00080. A 1e-12 allowance is included.
 
