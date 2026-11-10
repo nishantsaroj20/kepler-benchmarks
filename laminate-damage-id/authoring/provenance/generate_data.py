@@ -48,8 +48,8 @@ body = artifact(spec, p, signs, snap, forecast)
 truth = {
     "plates": body["plates"],
     "tolerances": {
-        "snap_relative": 0.0024,
-        "forecast_relative": 0.0024,
+        "snap_relative": 0.00115,
+        "forecast_relative": 0.00080,
         "zone_centre_m": 0.026,
         "zone_a_m": 0.022,
         "zone_b_m": 0.010,

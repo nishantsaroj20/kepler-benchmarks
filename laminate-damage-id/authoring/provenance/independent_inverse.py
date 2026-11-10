@@ -143,6 +143,31 @@ class DirectSearch:
         found[free] = low[free] + sol.x * scale
         return found, float(sol.cost)
 
+    def restart_ellipses(self, found):
+        """Discrete major-axis, severity and angle trials on the direct residual."""
+        best_cost = self.cost(found)[0]
+        best = np.array(found, float)
+        n_zones = (len(best) - 2) // 6
+        for zone in range(n_zones):
+            local_cost, local = best_cost, best
+            for theta in np.arange(-90.0, 91.0, 15.0):
+                for severity in (0.55, 0.70, 0.85, 0.95):
+                    for major in (0.018, 0.024, 0.030, 0.036):
+                        trial = best.copy()
+                        minor = min(float(trial[6 * zone + 3]), major - 0.001)
+                        if minor < 0.008:
+                            continue
+                        trial[6 * zone + 2] = major
+                        trial[6 * zone + 3] = minor
+                        trial[6 * zone + 4] = float(theta)
+                        trial[6 * zone + 5] = severity
+                        cost = self.cost(trial)[0]
+                        if cost < local_cost:
+                            local_cost, local = cost, trial
+            best_cost, best = local_cost, local
+            print("direct ellipse", zone, round(best_cost, 8), flush=True)
+        return best
+
 
 def main():
     spec, obs, sensors, low, high = load()
@@ -194,6 +219,8 @@ def main():
             best = (cost, polished)
         print("polish", cost, flush=True)
     cost, found = best
+    found = search.restart_ellipses(found)
+    found, cost = search.polish(found, low, high, list(range(len(found))), 120, 0.008)
     _score, signs = search.cost(found)
     snap = float(search.model.snap(found))
     forecast = search.model.forecast(found)

@@ -133,12 +133,42 @@ class Campaign:
             bounds=(np.zeros(len(free_idx)), np.ones(len(free_idx))),
             max_nfev=max_nfev,
             diff_step=0.02,
-            ftol=1e-14,
-            xtol=1e-14,
+            ftol=1e-11,
+            xtol=1e-11,
+            gtol=1e-11,
         )
         polished = found.copy()
         polished[free_idx] = low[free_idx] + sol.x * scale
         return polished, float(sol.cost)
+
+    def restart_ellipses(self, found, obs):
+        """Try other major-axis, severity and angle combinations on each patch.
+
+        A continuous polish stays on the angle it was given. Area, severity and
+        angle trade, so the lower residual can sit on a different angle.
+        """
+        best_cost, _signs = self._cost_of(found, obs)
+        best = np.array(found, float)
+        n_zones = (len(best) - 2) // 6
+        for zone in range(n_zones):
+            local_cost, local = best_cost, best
+            for theta in np.arange(-90.0, 91.0, 15.0):
+                for severity in (0.55, 0.70, 0.85, 0.95):
+                    for major in (0.018, 0.024, 0.030, 0.036):
+                        trial = best.copy()
+                        minor = min(float(trial[6 * zone + 3]), major - 0.001)
+                        if minor < 0.008:
+                            continue
+                        trial[6 * zone + 2] = major
+                        trial[6 * zone + 3] = minor
+                        trial[6 * zone + 4] = float(theta)
+                        trial[6 * zone + 5] = severity
+                        cost = self._cost_of(trial, obs)[0]
+                        if cost < local_cost:
+                            local_cost, local = cost, trial
+            best_cost, best = local_cost, local
+            print("ellipse", zone, round(best_cost, 8), flush=True)
+        return best
 
     def fit(self, obs):
         """Place one ellipse at a time, updating the shared springs before the next search.
@@ -168,7 +198,7 @@ class Campaign:
             print("placed", zone, round(xc, 4), round(yc, 4), flush=True)
             free = [6 * z + k for z in range(zone + 1) for k in (2, 3, 4, 5)]
             free += [len(found) - 2, len(found) - 1]
-            found, _cost = self._polish_free(found, obs, free, max_nfev=max(20, 2 * (len(free) + 1)))
+            found, _cost = self._polish_free(found, obs, free, max_nfev=max(60, 6 * (len(free) + 1)))
         for zone in range(n_zones):
             wx = np.arange(found[6 * zone] - 0.018, found[6 * zone] + 0.019, 0.004)
             wy = np.arange(found[6 * zone + 1] - 0.018, found[6 * zone + 1] + 0.019, 0.004)
@@ -176,6 +206,9 @@ class Campaign:
             found[6 * zone] = xc
             found[6 * zone + 1] = yc
             found[6 * zone + 5] = max(found[6 * zone + 5], 0.7)
+        centre_free = [6 * z + k for z in range(n_zones) for k in (0, 1)]
+        centre_free += [len(found) - 2, len(found) - 1]
+        found, _cost = self._polish_free(found, obs, centre_free, max_nfev=8 * (len(centre_free) + 1))
         seeds = [found]
         shifted = found.copy()
         for zone in range(n_zones):
@@ -188,17 +221,30 @@ class Campaign:
                 lambda t: self.residual(low + t * scale, obs),
                 v0,
                 bounds=(np.zeros(len(low)), np.ones(len(low))),
-                max_nfev=80,
-                diff_step=0.01,
-                ftol=1e-14,
-                xtol=1e-14,
+                max_nfev=14 * (len(low) + 1),
+                diff_step=0.004,
+                ftol=1e-12,
+                xtol=1e-12,
             )
             polished = low + sol.x * scale
             if best is None or sol.cost < best[0]:
                 best = (float(sol.cost), polished, int(sol.nfev))
         _cost, p, nfev = best
+        p = self.restart_ellipses(p, obs)
+        v0 = np.clip((p - low) / scale, 0.0, 1.0)
+        sol = least_squares(
+            lambda t: self.residual(low + t * scale, obs),
+            v0,
+            bounds=(np.zeros(len(low)), np.ones(len(low))),
+            max_nfev=10 * (len(low) + 1),
+            diff_step=0.004,
+            ftol=1e-12,
+            xtol=1e-12,
+            gtol=1e-12,
+        )
+        p = low + sol.x * scale
         _residual, signs = self.match(p, obs)
-        return best[0], p, signs, nfev
+        return float(sol.cost), p, signs, int(sol.nfev)
 
     def forecast(self, p):
         """Lowest four frequencies of the positive preparation at the requested forces."""
