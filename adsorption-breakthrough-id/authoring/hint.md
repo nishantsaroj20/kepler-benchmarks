@@ -1,0 +1,1 @@
+Fit the Langmuir pair from the two different feed concentrations first (capacity versus affinity), then resolve the poorly conditioned `k_LDF`–`D_ax` pair from front shape using both outlet and mid-bed ports. The design length binary search is unreliable unless those transport parameters are jointly consistent with both experiments.

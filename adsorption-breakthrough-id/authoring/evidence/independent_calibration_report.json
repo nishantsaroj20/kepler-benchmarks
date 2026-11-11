@@ -1,0 +1,10 @@
+{
+  "reference_L_min_m": 0.14549707859754568,
+  "independent_max_outlet_at_L_ref": 0.04056520165111983,
+  "c_limit": 0.0425,
+  "margin_at_L_ref": 0.0019347983488801762,
+  "independent_max_outlet_at_0.92_L_ref": 0.1978315767280246,
+  "naive_constant_isotherm_would_fail_params": true,
+  "naive_lab_length_copy_L_error": 1.0618970696299639,
+  "undersized_bed_exceeds_limit": true
+}
