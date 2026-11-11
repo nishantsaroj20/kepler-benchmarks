@@ -1,0 +1,6 @@
+{
+  "numpy_generator": "np.random.default_rng",
+  "seed": 20261111,
+  "rate_sigma_relative": 0.011,
+  "draws": "one normal draw per rate run, then one per effectiveness aliquot, in file order"
+}

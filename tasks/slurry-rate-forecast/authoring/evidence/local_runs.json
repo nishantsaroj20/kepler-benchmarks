@@ -1,0 +1,41 @@
+{
+  "oracle": {
+    "reward": 1,
+    "repeat_identical": true,
+    "junit_tests": 19,
+    "junit_failures": 0
+  },
+  "independent_hanes_newton": {
+    "reward": 1,
+    "matches_saved_predictions": true,
+    "junit_tests": 19,
+    "junit_failures": 0
+  },
+  "nop": {
+    "reward": 0,
+    "junit_tests": 19,
+    "junit_failures": 19,
+    "junit_errors": 0,
+    "pytest_collected": true
+  },
+  "baselines_reward_0_and_no_case_passed_both_tests": [
+    "constant_0",
+    "constant_1",
+    "mean_of_true_values",
+    "median_of_true_values",
+    "constant_equal_to_truth_rate_H1",
+    "constant_equal_to_truth_rate_L1",
+    "constant_equal_to_truth_rate_T1",
+    "constant_equal_to_truth_rate_W1",
+    "constant_equal_to_truth_rate_D1",
+    "constant_equal_to_truth_rate_F1",
+    "constant_equal_to_truth_rate_X1",
+    "constant_equal_to_truth_rate_K1",
+    "copy_bath_C",
+    "copy_P_total_barg",
+    "copy_N_rps",
+    "copy_m_cat_g",
+    "copy_dp_um"
+  ],
+  "edge_reward_0": ["symlink", "empty_cases", "duplicate_case_id", "extra_case", "nan", "infinity"]
+}

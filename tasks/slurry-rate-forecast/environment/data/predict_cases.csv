@@ -1,0 +1,9 @@
+case_id,bath_C,P_total_barg,N_rps,m_cat_g,dp_um,catalyst_state
+H1,75.0000,11.5000,12,40.0000,40.0,conditioned
+L1,75.0000,0.2500,12,22.0000,80.0,conditioned
+T1,114.0000,1.5500,12,10.0000,80.0,conditioned
+W1,75.0000,2.0000,6,85.0000,80.0,conditioned
+D1,60.0000,5.5000,9,36.0000,150.0,conditioned
+F1,75.0000,4.5000,16,10.0000,40.0,fresh
+X1,108.0000,6.5000,6,78.0000,150.0,fresh
+K1,60.0000,0.8500,16,7.0000,40.0,conditioned

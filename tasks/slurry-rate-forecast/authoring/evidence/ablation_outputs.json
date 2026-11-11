@@ -1,0 +1,921 @@
+{
+  "no_thermocouple_calibration": {
+    "max_rel_rate_error": 0.24130622895256337,
+    "max_fraction_abs_error": 0.07549182572129931,
+    "cases_passed": [
+      "T1",
+      "W1",
+      "X1"
+    ],
+    "cases_failed": [
+      "H1",
+      "L1",
+      "D1",
+      "F1",
+      "K1"
+    ],
+    "every_case_fails": false,
+    "cases": [
+      {
+        "case_id": "H1",
+        "abs_rate_error": 0.053980902176438694,
+        "rel_rate_error": 0.24130622895256337,
+        "rate_tolerance": 0.008948115829542122,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.032377219608430124,
+          "resistance_fraction_liquid_solid": 0.007676274329863994,
+          "resistance_fraction_kinetic": 0.04005349393829405
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "L1",
+        "abs_rate_error": 0.0020765334684118494,
+        "rel_rate_error": 0.06238755061360832,
+        "rate_tolerance": 0.0013313768198868218,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.016191360788395753,
+          "resistance_fraction_liquid_solid": 0.01974133828745578,
+          "resistance_fraction_kinetic": 0.03593269907585167
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "T1",
+        "abs_rate_error": 0.0010064145157961876,
+        "rel_rate_error": 0.022196406521648854,
+        "rate_tolerance": 0.0018136530610296758,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.004296022462800919,
+          "resistance_fraction_liquid_solid": 0.011523448488454324,
+          "resistance_fraction_kinetic": 0.015819470951255243
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "W1",
+        "abs_rate_error": 0.0030725125574717904,
+        "rel_rate_error": 0.021289582091841657,
+        "rate_tolerance": 0.0057728001314768925,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.014753813887430689,
+          "resistance_fraction_liquid_solid": 0.0037296813052324906,
+          "resistance_fraction_kinetic": 0.018483495192663152
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "D1",
+        "abs_rate_error": 0.017453147559524443,
+        "rel_rate_error": 0.2117994427380889,
+        "rate_tolerance": 0.003296164963211352,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.027504011186397434,
+          "resistance_fraction_liquid_solid": 0.04798781453490178,
+          "resistance_fraction_kinetic": 0.07549182572129931
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "F1",
+        "abs_rate_error": 0.014269259513134652,
+        "rel_rate_error": 0.2197476240401211,
+        "rate_tolerance": 0.0025973904519721947,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.015882095001980852,
+          "resistance_fraction_liquid_solid": 0.01651425979455088,
+          "resistance_fraction_kinetic": 0.0323963547965318
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "X1",
+        "abs_rate_error": 0.0009484744555853797,
+        "rel_rate_error": 0.00289775421650472,
+        "rate_tolerance": 0.01309254525705679,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.0016130479189442326,
+          "resistance_fraction_liquid_solid": 0.001140881823288864,
+          "resistance_fraction_kinetic": 0.0027539297422331105
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "K1",
+        "abs_rate_error": 0.0019396111868237005,
+        "rel_rate_error": 0.20119906063717297,
+        "rate_tolerance": 0.0006,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.0071913912453136705,
+          "resistance_fraction_liquid_solid": 0.010682335159322258,
+          "resistance_fraction_kinetic": 0.017873726404636248
+        },
+        "case_passes": false
+      }
+    ]
+  },
+  "spreadsheet_rates": {
+    "max_rel_rate_error": 0.23837901766844732,
+    "max_fraction_abs_error": 0.13729664397573382,
+    "cases_passed": [
+      "T1",
+      "F1",
+      "X1"
+    ],
+    "cases_failed": [
+      "H1",
+      "L1",
+      "W1",
+      "D1",
+      "K1"
+    ],
+    "every_case_fails": false,
+    "cases": [
+      {
+        "case_id": "H1",
+        "abs_rate_error": 0.011515392081936832,
+        "rel_rate_error": 0.05147627635269929,
+        "rate_tolerance": 0.008948115829542122,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.006906820177009804,
+          "resistance_fraction_liquid_solid": 0.0016375293097557059,
+          "resistance_fraction_kinetic": 0.008544349486765523
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "L1",
+        "abs_rate_error": 0.007934307461779047,
+        "rel_rate_error": 0.23837901766844732,
+        "rate_tolerance": 0.0013313768198868218,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.06186619861075232,
+          "resistance_fraction_liquid_solid": 0.0754304453649815,
+          "resistance_fraction_kinetic": 0.13729664397573382
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "T1",
+        "abs_rate_error": 0.0001876558592248459,
+        "rel_rate_error": 0.0041387377389214,
+        "rate_tolerance": 0.0018136530610296758,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.000801035682812784,
+          "resistance_fraction_liquid_solid": 0.002148660419780235,
+          "resistance_fraction_kinetic": 0.0029496961025929913
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "W1",
+        "abs_rate_error": 0.010029576390016559,
+        "rel_rate_error": 0.06949540023275066,
+        "rate_tolerance": 0.0057728001314768925,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.04816075013833676,
+          "resistance_fraction_liquid_solid": 0.012174766230351408,
+          "resistance_fraction_kinetic": 0.06033551636868821
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "D1",
+        "abs_rate_error": 0.004974781219814303,
+        "rel_rate_error": 0.06037053697661451,
+        "rate_tolerance": 0.003296164963211352,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.007839643021224918,
+          "resistance_fraction_liquid_solid": 0.013678271098687106,
+          "resistance_fraction_kinetic": 0.021517914119911996
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "F1",
+        "abs_rate_error": 0.0011131936474873122,
+        "rel_rate_error": 0.017143262333039932,
+        "rate_tolerance": 0.0025973904519721947,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.001239016342310273,
+          "resistance_fraction_liquid_solid": 0.0012883337025260816,
+          "resistance_fraction_kinetic": 0.002527350044836285
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "X1",
+        "abs_rate_error": 0.0017942376765325285,
+        "rel_rate_error": 0.005481707769741555,
+        "rate_tolerance": 0.01309254525705679,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.0030514163620193324,
+          "resistance_fraction_liquid_solid": 0.002158216325928719,
+          "resistance_fraction_kinetic": 0.005209632687948079
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "K1",
+        "abs_rate_error": 0.0020109353936049734,
+        "rel_rate_error": 0.2085976379925571,
+        "rate_tolerance": 0.0006,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.007455836229269069,
+          "resistance_fraction_liquid_solid": 0.011075150700893356,
+          "resistance_fraction_kinetic": 0.018530986930162197
+        },
+        "case_passes": false
+      }
+    ]
+  },
+  "no_solvent_vapor_pressure": {
+    "max_rel_rate_error": 0.29577554766418407,
+    "max_fraction_abs_error": 0.1906363482976729,
+    "cases_passed": [
+      "D1",
+      "F1",
+      "K1"
+    ],
+    "cases_failed": [
+      "H1",
+      "L1",
+      "T1",
+      "W1",
+      "X1"
+    ],
+    "every_case_fails": false,
+    "cases": [
+      {
+        "case_id": "H1",
+        "abs_rate_error": 0.022830187219164633,
+        "rel_rate_error": 0.10205584127014083,
+        "rate_tolerance": 0.008948115829542122,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.009843914915179275,
+          "resistance_fraction_liquid_solid": 0.0023338814407300873,
+          "resistance_fraction_kinetic": 0.01217779635590932
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "L1",
+        "abs_rate_error": 0.0040005084310153,
+        "rel_rate_error": 0.12019162032144669,
+        "rate_tolerance": 0.0013313768198868218,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.04377517763908137,
+          "resistance_fraction_liquid_solid": 0.05337294385941471,
+          "resistance_fraction_kinetic": 0.09714812149849616
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "T1",
+        "abs_rate_error": 0.013410855684971905,
+        "rel_rate_error": 0.29577554766418407,
+        "rate_tolerance": 0.0018136530610296758,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.051770254330038984,
+          "resistance_fraction_liquid_solid": 0.13886609396763389,
+          "resistance_fraction_kinetic": 0.1906363482976729
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "W1",
+        "abs_rate_error": 0.008237108577447194,
+        "rel_rate_error": 0.057075307579303576,
+        "rate_tolerance": 0.0057728001314768925,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.0396414030588661,
+          "resistance_fraction_liquid_solid": 0.010021123714372415,
+          "resistance_fraction_kinetic": 0.049662526773238486
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "D1",
+        "abs_rate_error": 0.0003334362333470564,
+        "rel_rate_error": 0.004046353711887038,
+        "rate_tolerance": 0.003296164963211352,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.004204056196186856,
+          "resistance_fraction_liquid_solid": 0.007335056581672855,
+          "resistance_fraction_kinetic": 0.011539112777859795
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "F1",
+        "abs_rate_error": 0.0024859070087013962,
+        "rel_rate_error": 0.03828314694564078,
+        "rate_tolerance": 0.0025973904519721947,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.0016669671238396383,
+          "resistance_fraction_liquid_solid": 0.0017333184155382958,
+          "resistance_fraction_kinetic": 0.0034002855393779896
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "X1",
+        "abs_rate_error": 0.027040876275514658,
+        "rel_rate_error": 0.0826145741552883,
+        "rate_tolerance": 0.01309254525705679,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.029402807427561073,
+          "resistance_fraction_liquid_solid": 0.02079612598913927,
+          "resistance_fraction_kinetic": 0.05019893341670034
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "K1",
+        "abs_rate_error": 0.00014544774002096805,
+        "rel_rate_error": 0.015087533451454796,
+        "rate_tolerance": 0.0006,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.0040393947111443465,
+          "resistance_fraction_liquid_solid": 0.0060002531651261945,
+          "resistance_fraction_kinetic": 0.010039647876270541
+        },
+        "case_passes": true
+      }
+    ]
+  },
+  "no_uptake_scaling": {
+    "max_rel_rate_error": 0.2602537721287667,
+    "max_fraction_abs_error": 0.03836798494983462,
+    "cases_passed": [
+      "L1",
+      "W1",
+      "X1"
+    ],
+    "cases_failed": [
+      "H1",
+      "T1",
+      "D1",
+      "F1",
+      "K1"
+    ],
+    "every_case_fails": false,
+    "cases": [
+      {
+        "case_id": "H1",
+        "abs_rate_error": 0.009203233988423737,
+        "rel_rate_error": 0.041140432974903364,
+        "rate_tolerance": 0.008948115829542122,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.005520010267996256,
+          "resistance_fraction_liquid_solid": 0.0013087322897309024,
+          "resistance_fraction_kinetic": 0.006828742557727141
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "L1",
+        "abs_rate_error": 0.0008450872620303501,
+        "rel_rate_error": 0.0253898745841824,
+        "rate_tolerance": 0.0013313768198868218,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.006589401117479965,
+          "resistance_fraction_liquid_solid": 0.00803413612184728,
+          "resistance_fraction_kinetic": 0.014623537239327244
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "T1",
+        "abs_rate_error": 0.002136302281348,
+        "rel_rate_error": 0.04711600751546483,
+        "rate_tolerance": 0.0018136530610296758,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.009119107345122557,
+          "resistance_fraction_liquid_solid": 0.024460664408093413,
+          "resistance_fraction_kinetic": 0.03357977175321597
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "W1",
+        "abs_rate_error": 0.003952747258877537,
+        "rel_rate_error": 0.02738876918550984,
+        "rate_tolerance": 0.0057728001314768925,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.018980588923171005,
+          "resistance_fraction_liquid_solid": 0.004798186234760693,
+          "resistance_fraction_kinetic": 0.023778775157931753
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "D1",
+        "abs_rate_error": 0.008097378007823591,
+        "rel_rate_error": 0.09826423250290926,
+        "rate_tolerance": 0.003296164963211352,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.012760470347881095,
+          "resistance_fraction_liquid_solid": 0.022263919474436095,
+          "resistance_fraction_kinetic": 0.03502438982231726
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "F1",
+        "abs_rate_error": 0.016899516570425148,
+        "rel_rate_error": 0.2602537721287667,
+        "rate_tolerance": 0.0025973904519721947,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.018809646509646692,
+          "resistance_fraction_liquid_solid": 0.019558338440187867,
+          "resistance_fraction_kinetic": 0.03836798494983462
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "X1",
+        "abs_rate_error": 0.008734129853844752,
+        "rel_rate_error": 0.026684283864933347,
+        "rate_tolerance": 0.01309254525705679,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.014853916049848426,
+          "resistance_fraction_liquid_solid": 0.010505932787970351,
+          "resistance_fraction_kinetic": 0.025359848837818805
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "K1",
+        "abs_rate_error": 0.0022278422828037065,
+        "rel_rate_error": 0.23109774659627347,
+        "rate_tolerance": 0.0006,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.008260050148081594,
+          "resistance_fraction_liquid_solid": 0.012269757188538587,
+          "resistance_fraction_kinetic": 0.02052980733662002
+        },
+        "case_passes": false
+      }
+    ]
+  },
+  "no_film_resistances": {
+    "max_rel_rate_error": 4.754197633188717,
+    "max_fraction_abs_error": 0.950366344468468,
+    "cases_passed": [],
+    "cases_failed": [
+      "H1",
+      "L1",
+      "T1",
+      "W1",
+      "D1",
+      "F1",
+      "X1",
+      "K1"
+    ],
+    "every_case_fails": true,
+    "cases": [
+      {
+        "case_id": "H1",
+        "abs_rate_error": 0.03588503855883465,
+        "rel_rate_error": 0.16041383121287067,
+        "rate_tolerance": 0.008948115829542122,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.13417481114417604,
+          "resistance_fraction_liquid_solid": 0.03181133178657318,
+          "resistance_fraction_kinetic": 0.1659861429307492
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "L1",
+        "abs_rate_error": 0.007073651118088529,
+        "rel_rate_error": 0.21252138425212627,
+        "rate_tolerance": 0.0013313768198868218,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.2595287002038215,
+          "resistance_fraction_liquid_solid": 0.3164307168378502,
+          "resistance_fraction_kinetic": 0.5759594170416716
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "T1",
+        "abs_rate_error": 0.012366517193097969,
+        "rel_rate_error": 0.27274273032301016,
+        "rate_tolerance": 0.0018136530610296758,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.19354583391498703,
+          "resistance_fraction_liquid_solid": 0.5191582567465185,
+          "resistance_fraction_kinetic": 0.7127040906615055
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "W1",
+        "abs_rate_error": 0.14854564414086927,
+        "rel_rate_error": 1.0292796615694773,
+        "rate_tolerance": 0.0057728001314768925,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.6930062539080966,
+          "resistance_fraction_liquid_solid": 0.17518805056739706,
+          "resistance_fraction_kinetic": 0.8681943044754936
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "D1",
+        "abs_rate_error": 0.006300655425861668,
+        "rel_rate_error": 0.07646043806889001,
+        "rate_tolerance": 0.003296164963211352,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.12985874747609005,
+          "resistance_fraction_liquid_solid": 0.22657195400926322,
+          "resistance_fraction_kinetic": 0.35643070148535316
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "F1",
+        "abs_rate_error": 0.007545807167095804,
+        "rel_rate_error": 0.11620597375132852,
+        "rate_tolerance": 0.0025973904519721947,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.07227424706166899,
+          "resistance_fraction_liquid_solid": 0.07515102361210889,
+          "resistance_fraction_kinetic": 0.14742527067377798
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "X1",
+        "abs_rate_error": 1.5561136918378888,
+        "rel_rate_error": 4.754197633188717,
+        "rate_tolerance": 0.01309254525705679,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.5566540519107194,
+          "resistance_fraction_liquid_solid": 0.39371229255774864,
+          "resistance_fraction_kinetic": 0.950366344468468
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "K1",
+        "abs_rate_error": 0.003439331125142501,
+        "rel_rate_error": 0.35676747809031906,
+        "rate_tolerance": 0.0006,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.03574266687132367,
+          "resistance_fraction_liquid_solid": 0.0530933639179162,
+          "resistance_fraction_kinetic": 0.08883603078923996
+        },
+        "case_passes": false
+      }
+    ]
+  },
+  "first_order": {
+    "max_rel_rate_error": 1.1305058830211516,
+    "max_fraction_abs_error": 0.22538820239487534,
+    "cases_passed": [
+      "D1",
+      "X1"
+    ],
+    "cases_failed": [
+      "H1",
+      "L1",
+      "T1",
+      "W1",
+      "F1",
+      "K1"
+    ],
+    "every_case_fails": false,
+    "cases": [
+      {
+        "case_id": "H1",
+        "abs_rate_error": 0.2528974396813015,
+        "rel_rate_error": 1.1305058830211516,
+        "rate_tolerance": 0.008948115829542122,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.15168542149900813,
+          "resistance_fraction_liquid_solid": 0.035962906137968216,
+          "resistance_fraction_kinetic": 0.18764832763697636
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "L1",
+        "abs_rate_error": 0.01302507644424716,
+        "rel_rate_error": 0.3913265200262207,
+        "rate_tolerance": 0.0013313768198868218,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.10156046710323297,
+          "resistance_fraction_liquid_solid": 0.12382773529164234,
+          "resistance_fraction_kinetic": 0.22538820239487534
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "T1",
+        "abs_rate_error": 0.005653892075901078,
+        "rel_rate_error": 0.12469622106647367,
+        "rate_tolerance": 0.0018136530610296758,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.02413443577604421,
+          "resistance_fraction_liquid_solid": 0.0647370747875069,
+          "resistance_fraction_kinetic": 0.08887151056355114
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "W1",
+        "abs_rate_error": 0.024926450287879626,
+        "rel_rate_error": 0.17271653076617105,
+        "rate_tolerance": 0.0057728001314768925,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.11969364219003509,
+          "resistance_fraction_liquid_solid": 0.03025787902028612,
+          "resistance_fraction_kinetic": 0.14995152121032126
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "D1",
+        "abs_rate_error": 0.0001876344358071047,
+        "rel_rate_error": 0.002277002976505135,
+        "rate_tolerance": 0.003296164963211352,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.00029568913053173995,
+          "resistance_fraction_liquid_solid": 0.0005159052633229855,
+          "resistance_fraction_kinetic": 0.0008115943938546977
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "F1",
+        "abs_rate_error": 0.01925347262682653,
+        "rel_rate_error": 0.29650486490712086,
+        "rate_tolerance": 0.0025973904519721947,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.021429666882813017,
+          "resistance_fraction_liquid_solid": 0.022282645157311542,
+          "resistance_fraction_kinetic": 0.04371231204012438
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "X1",
+        "abs_rate_error": 0.0037357080470529214,
+        "rel_rate_error": 0.011413236994661222,
+        "rate_tolerance": 0.01309254525705679,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.006353226661826916,
+          "resistance_fraction_liquid_solid": 0.004493532812700873,
+          "resistance_fraction_kinetic": 0.010846759474527803
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "K1",
+        "abs_rate_error": 0.00489532775893153,
+        "rel_rate_error": 0.5078004052044199,
+        "rate_tolerance": 0.0006,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.018150141408274558,
+          "resistance_fraction_liquid_solid": 0.026960832378677378,
+          "resistance_fraction_kinetic": 0.04511097378695206
+        },
+        "case_passes": false
+      }
+    ]
+  },
+  "power_law": {
+    "max_rel_rate_error": 0.3306682247455857,
+    "max_fraction_abs_error": 0.2356686051593693,
+    "cases_passed": [
+      "F1"
+    ],
+    "cases_failed": [
+      "H1",
+      "L1",
+      "T1",
+      "W1",
+      "D1",
+      "X1",
+      "K1"
+    ],
+    "every_case_fails": false,
+    "cases": [
+      {
+        "case_id": "H1",
+        "abs_rate_error": 0.04128592676569656,
+        "rel_rate_error": 0.18455696172099811,
+        "rate_tolerance": 0.008948115829542122,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.02476289669586318,
+          "resistance_fraction_liquid_solid": 0.005871004098573204,
+          "resistance_fraction_kinetic": 0.030633900794436397
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "L1",
+        "abs_rate_error": 0.005737893579878035,
+        "rel_rate_error": 0.172389769572999,
+        "rate_tolerance": 0.0013313768198868218,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.04474009419583258,
+          "resistance_fraction_liquid_solid": 0.05454941966122906,
+          "resistance_fraction_kinetic": 0.09928951385706158
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "T1",
+        "abs_rate_error": 0.01499293594987701,
+        "rel_rate_error": 0.3306682247455857,
+        "rate_tolerance": 0.0018136530610296758,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.06399946146500443,
+          "resistance_fraction_liquid_solid": 0.17166914369436492,
+          "resistance_fraction_kinetic": 0.2356686051593693
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "W1",
+        "abs_rate_error": 0.010177970530543368,
+        "rel_rate_error": 0.07052363011874774,
+        "rate_tolerance": 0.0057728001314768925,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.04887331991958621,
+          "resistance_fraction_liquid_solid": 0.012354899858817547,
+          "resistance_fraction_kinetic": 0.06122821977840372
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "D1",
+        "abs_rate_error": 0.004033978188727708,
+        "rel_rate_error": 0.04895359587582688,
+        "rate_tolerance": 0.003296164963211352,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.006357053285215047,
+          "resistance_fraction_liquid_solid": 0.011091512381458973,
+          "resistance_fraction_kinetic": 0.017448565666673965
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "F1",
+        "abs_rate_error": 5.158088003946737e-05,
+        "rel_rate_error": 0.0007943492669775865,
+        "rate_tolerance": 0.0025973904519721947,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 5.741089835382962e-05,
+          "resistance_fraction_liquid_solid": 5.969608843198193e-05,
+          "resistance_fraction_kinetic": 0.00011710698678579767
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "X1",
+        "abs_rate_error": 0.015544651196945591,
+        "rel_rate_error": 0.04749160958925732,
+        "rate_tolerance": 0.01309254525705679,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.026436402132440473,
+          "resistance_fraction_liquid_solid": 0.01869803474486681,
+          "resistance_fraction_kinetic": 0.04513443687730722
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "K1",
+        "abs_rate_error": 0.0008432992649091038,
+        "rel_rate_error": 0.08747682065784676,
+        "rate_tolerance": 0.0006,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.0031266549420050707,
+          "resistance_fraction_liquid_solid": 0.004644438717950755,
+          "resistance_fraction_kinetic": 0.007771093659955874
+        },
+        "case_passes": false
+      }
+    ]
+  },
+  "adsorption_coefficient_independent_of_temperature": {
+    "max_rel_rate_error": 0.2091626855926404,
+    "max_fraction_abs_error": 0.14907110741040874,
+    "cases_passed": [
+      "H1",
+      "L1",
+      "W1",
+      "F1",
+      "X1",
+      "K1"
+    ],
+    "cases_failed": [
+      "T1",
+      "D1"
+    ],
+    "every_case_fails": false,
+    "cases": [
+      {
+        "case_id": "H1",
+        "abs_rate_error": 0.008850217144165423,
+        "rel_rate_error": 0.03956237184568628,
+        "rate_tolerance": 0.008948115829542122,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.005308274202439317,
+          "resistance_fraction_liquid_solid": 0.0012585320518075822,
+          "resistance_fraction_kinetic": 0.006566806254246993
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "L1",
+        "abs_rate_error": 0.00028163587989685906,
+        "rel_rate_error": 0.008461492665038301,
+        "rate_tolerance": 0.0013313768198868218,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.0021960000000197932,
+          "resistance_fraction_liquid_solid": 0.002677475935852991,
+          "resistance_fraction_kinetic": 0.004873475935872673
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "T1",
+        "abs_rate_error": 0.009483713624456998,
+        "rel_rate_error": 0.2091626855926404,
+        "rate_tolerance": 0.0018136530610296758,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.040482569105063065,
+          "resistance_fraction_liquid_solid": 0.10858853830534576,
+          "resistance_fraction_kinetic": 0.14907110741040874
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "W1",
+        "abs_rate_error": 0.0004478077065192543,
+        "rel_rate_error": 0.0031028803791596973,
+        "rate_tolerance": 0.0057728001314768925,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.0021503160973171953,
+          "resistance_fraction_liquid_solid": 0.0005435875736077012,
+          "resistance_fraction_kinetic": 0.0026939036709248965
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "D1",
+        "abs_rate_error": 0.004305130653589978,
+        "rel_rate_error": 0.05224411644004154,
+        "rate_tolerance": 0.003296164963211352,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.006784356182862272,
+          "resistance_fraction_liquid_solid": 0.011837052073619903,
+          "resistance_fraction_kinetic": 0.018621408256482175
+        },
+        "case_passes": false
+      },
+      {
+        "case_id": "F1",
+        "abs_rate_error": 0.0019435839995984028,
+        "rel_rate_error": 0.029931333552452883,
+        "rate_tolerance": 0.0025973904519721947,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.0021632648090778583,
+          "resistance_fraction_liquid_solid": 0.0022493705435902706,
+          "resistance_fraction_kinetic": 0.004412635352668226
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "X1",
+        "abs_rate_error": 0.009414475328124616,
+        "rel_rate_error": 0.028762857468223088,
+        "rate_tolerance": 0.01309254525705679,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.016010964726522303,
+          "resistance_fraction_liquid_solid": 0.011324293177317979,
+          "resistance_fraction_kinetic": 0.027335257903840237
+        },
+        "case_passes": true
+      },
+      {
+        "case_id": "K1",
+        "abs_rate_error": 0.0004535928558370098,
+        "rel_rate_error": 0.047051933462803966,
+        "rate_tolerance": 0.0006,
+        "fraction_abs_error": {
+          "resistance_fraction_gas_liquid": 0.0016817616074320182,
+          "resistance_fraction_liquid_solid": 0.0024981454108354076,
+          "resistance_fraction_kinetic": 0.004179907018267537
+        },
+        "case_passes": true
+      }
+    ]
+  }
+}

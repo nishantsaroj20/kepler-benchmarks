@@ -1,0 +1,60 @@
+{
+  "cases": [
+    {
+      "case_id": "H1",
+      "rate_mol_m3_s": 0.22370289573855304,
+      "resistance_fraction_gas_liquid": 0.13417481861769517,
+      "resistance_fraction_liquid_solid": 0.03181133926009231,
+      "resistance_fraction_kinetic": 0.8340138421222125
+    },
+    {
+      "case_id": "L1",
+      "rate_mol_m3_s": 0.03328442049717054,
+      "resistance_fraction_gas_liquid": 0.25952871001374034,
+      "resistance_fraction_liquid_solid": 0.316430726647769,
+      "resistance_fraction_kinetic": 0.4240405633384906
+    },
+    {
+      "case_id": "T1",
+      "rate_mol_m3_s": 0.045341326525741896,
+      "resistance_fraction_gas_liquid": 0.1935458457390223,
+      "resistance_fraction_liquid_solid": 0.5191582685705538,
+      "resistance_fraction_kinetic": 0.28729588569042386
+    },
+    {
+      "case_id": "W1",
+      "rate_mol_m3_s": 0.14432000328692232,
+      "resistance_fraction_gas_liquid": 0.6930062921443843,
+      "resistance_fraction_liquid_solid": 0.17518808880368478,
+      "resistance_fraction_kinetic": 0.13180561905193097
+    },
+    {
+      "case_id": "D1",
+      "rate_mol_m3_s": 0.0824041240802838,
+      "resistance_fraction_gas_liquid": 0.12985875277590583,
+      "resistance_fraction_liquid_solid": 0.226571959309079,
+      "resistance_fraction_kinetic": 0.6435692879150151
+    },
+    {
+      "case_id": "F1",
+      "rate_mol_m3_s": 0.06493476129930487,
+      "resistance_fraction_gas_liquid": 0.07227425094340201,
+      "resistance_fraction_liquid_solid": 0.07515102749384191,
+      "resistance_fraction_kinetic": 0.852574721562756
+    },
+    {
+      "case_id": "X1",
+      "rate_mol_m3_s": 0.3273136314264197,
+      "resistance_fraction_gas_liquid": 0.556654139000432,
+      "resistance_fraction_liquid_solid": 0.3937123796474613,
+      "resistance_fraction_kinetic": 0.049633481352106656
+    },
+    {
+      "case_id": "K1",
+      "rate_mol_m3_s": 0.009640259654698127,
+      "resistance_fraction_gas_liquid": 0.0357426682684831,
+      "resistance_fraction_liquid_solid": 0.05309336531507563,
+      "resistance_fraction_kinetic": 0.9111639664164412
+    }
+  ]
+}

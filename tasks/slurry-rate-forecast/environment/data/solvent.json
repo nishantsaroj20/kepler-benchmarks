@@ -1,0 +1,9 @@
+{
+  "name": "toluene",
+  "antoine_form": "log10(P_sat_bar) = A - B / (T_K + C)",
+  "A": 4.07827,
+  "B": 1343.943,
+  "C": -53.773,
+  "T_unit": "kelvin",
+  "P_unit": "bar"
+}
