@@ -1,0 +1,193 @@
+{
+  "seed": 20241111,
+  "integrator": "scipy.integrate.solve_ivp method=Radau rtol=1e-8 atol=1e-10",
+  "parameters": {
+    "mu_max": 0.5,
+    "K_S": 0.8,
+    "K_I": 22.0,
+    "P_crit": 30.0,
+    "t_switch": 12.0,
+    "alpha": 0.5,
+    "beta": 0.1,
+    "gamma": 1.0
+  },
+  "graded_keys": [
+    "mu_max",
+    "K_S",
+    "K_I",
+    "P_crit",
+    "t_switch",
+    "alpha",
+    "beta"
+  ],
+  "known_constants_in_specs": [
+    "gamma"
+  ],
+  "tolerances": {
+    "relative_error_primary": 0.1,
+    "relative_error_haldane": 0.2,
+    "primary_keys": [
+      "mu_max",
+      "P_crit",
+      "alpha",
+      "beta"
+    ],
+    "haldane_keys": [
+      "K_S",
+      "K_I"
+    ],
+    "t_switch_abs_h": 0.5,
+    "S_constraint_g_per_L": 15.0,
+    "S_constraint_slack_g_per_L": 0.5,
+    "CL_fraction_of_Cstar": 0.15,
+    "min_product_mass_g": 249.32906549157215,
+    "n_feed_intervals": 10
+  },
+  "reference_feed": {
+    "interval_hours": 3.0,
+    "feed_rates_L_per_h": [
+      0.24194303004608872,
+      0.24195023860784665,
+      0.24195024066061166,
+      0.24194329086444988,
+      0.2419485258992405,
+      0.241931061784731,
+      0.23876961474157463,
+      0.15874355436524024,
+      0.15874355468630924,
+      0.158743555010395
+    ],
+    "intervals": [
+      {
+        "index": 0,
+        "t_start": 0.0,
+        "t_end": 3.0,
+        "F": 0.24194303004608872
+      },
+      {
+        "index": 1,
+        "t_start": 3.0,
+        "t_end": 6.0,
+        "F": 0.24195023860784665
+      },
+      {
+        "index": 2,
+        "t_start": 6.0,
+        "t_end": 9.0,
+        "F": 0.24195024066061166
+      },
+      {
+        "index": 3,
+        "t_start": 9.0,
+        "t_end": 12.0,
+        "F": 0.24194329086444988
+      },
+      {
+        "index": 4,
+        "t_start": 12.0,
+        "t_end": 15.0,
+        "F": 0.2419485258992405
+      },
+      {
+        "index": 5,
+        "t_start": 15.0,
+        "t_end": 18.0,
+        "F": 0.241931061784731
+      },
+      {
+        "index": 6,
+        "t_start": 18.0,
+        "t_end": 21.0,
+        "F": 0.23876961474157463
+      },
+      {
+        "index": 7,
+        "t_start": 21.0,
+        "t_end": 24.0,
+        "F": 0.15874355436524024
+      },
+      {
+        "index": 8,
+        "t_start": 24.0,
+        "t_end": 27.0,
+        "F": 0.15874355468630924
+      },
+      {
+        "index": 9,
+        "t_start": 27.0,
+        "t_end": 30.0,
+        "F": 0.158743555010395
+      }
+    ],
+    "reference_metrics": {
+      "product_mass": 277.0322949906357,
+      "V_final": 9.99999999651026,
+      "P_final": 27.70322950873128,
+      "S_max": 14.810884834734825,
+      "CL_min": 0.004838792423155181,
+      "feasible_hard": true
+    }
+  },
+  "identification_runs": {
+    "run01": {
+      "y0": [
+        1.0,
+        9.0,
+        0.2,
+        0.007,
+        3.2
+      ],
+      "feed_breakpoints_h": [
+        0.0,
+        3.0,
+        7.0,
+        11.0,
+        15.0,
+        20.0,
+        24.0
+      ],
+      "feed_rates_L_per_h": [
+        0.0,
+        0.12,
+        0.18,
+        0.09,
+        0.05,
+        0.04,
+        0.02
+      ],
+      "t_final_h": 28.0,
+      "n_samples": 41
+    },
+    "run02": {
+      "y0": [
+        1.2,
+        4.5,
+        0.5,
+        0.007,
+        4.0
+      ],
+      "feed_breakpoints_h": [
+        0.0,
+        3.5,
+        7.0,
+        11.0,
+        15.0,
+        19.0,
+        24.0,
+        28.0
+      ],
+      "feed_rates_L_per_h": [
+        0.04,
+        0.11,
+        0.17,
+        0.09,
+        0.06,
+        0.1,
+        0.04,
+        0.02
+      ],
+      "t_final_h": 30.0,
+      "n_samples": 44
+    }
+  }
+}
