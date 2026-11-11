@@ -80,6 +80,11 @@ def test_parameter_accuracy(gt):
     primary_keys = tol.get("primary_keys", ["mu_max", "P_crit", "alpha", "beta"])
     haldane_keys = tol.get("haldane_keys", ["K_S", "K_I"])
 
+    for key in REQUIRED_PARAM_KEYS:
+        assert key in est
+        assert isinstance(est[key], (int, float))
+        assert math.isfinite(float(est[key])), f"{key} must be finite before tolerance checks"
+
     for key in primary_keys:
         tv = float(truth[key])
         ev = float(est[key])
@@ -102,8 +107,9 @@ def test_optimal_feed_schema(gt, specs):
     rates = feed["feed_rates_L_per_h"]
     assert isinstance(rates, list)
     assert len(rates) == n, f"feed profile must have length {n}"
+    assert len(rates) > 0
     assert all(isinstance(x, (int, float)) for x in rates)
-    assert all(math.isfinite(float(x)) for x in rates)
+    assert all(math.isfinite(float(x)) for x in rates), "feed rates must be finite before tolerance checks"
     assert all(float(x) >= 0.0 for x in rates)
     fmax = float(specs["max_pump_rate"])
     assert all(float(x) <= fmax + 1e-9 for x in rates)
@@ -113,7 +119,10 @@ def test_optimal_feed_schema(gt, specs):
         assert isinstance(intervals, list)
         assert len(intervals) == n
         for i, item in enumerate(intervals):
+            assert "index" in item and "t_start" in item and "t_end" in item and "F" in item
             assert int(item["index"]) == i
+            assert math.isfinite(float(item["t_start"]))
+            assert math.isfinite(float(item["t_end"]))
             assert math.isfinite(float(item["F"]))
             assert float(item["F"]) >= 0.0
 

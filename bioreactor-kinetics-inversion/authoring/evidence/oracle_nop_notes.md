@@ -4,9 +4,8 @@ Local Python validation (Docker daemon unavailable in this environment; images/D
 
 ## Oracle
 
-- Ran `solution/solver.py` against `environment/data/*`.
-- Wrote `/workspace`-style outputs under `output/estimated_parameters.json` and `output/optimal_feed.json`.
-- `pytest tests/test_evaluation.py`: **5 passed** → reward **1**.
+- Outputs from the reference solver path under `output/`.
+- `pytest tests/test_evaluation.py`: **5 passed** → score **1**.
 
 Representative recovered parameters vs ground truth:
 
@@ -22,12 +21,13 @@ Representative recovered parameters vs ground truth:
 
 ## Nop
 
-- Empty `output/` (missing JSON artifacts): **5 failed** → reward **0**.
+- Empty `output/` (missing JSON artifacts): failures → score **0**.
 
 ## Naive baselines
 
-- Zero feed + far-off parameters: fails parameter gates and product-mass gate (mass ≈ 31 g vs min 249.33 g).
-- Constant feed 0.12 L/h with oracle parameters: fails mass gate (mass ≈ 154 g).
+- Zero feed + far-off parameters: fails parameter gates and product-mass gate.
+- NaN parameter values: rejected by finite-value checks before tolerances.
+- Constant feed 0.12 L/h: fails mass gate (mass ≈ 154 g vs min 249.33 g).
 - Independent calibration (`independent_calibration.py`): reference feed mass 277.03 g (≥ 249.33); constant-feed mass 154.24 g fails; CSV-mean fake kinetics fail primary relative-error gates.
 
 ## Independent reimplementation
