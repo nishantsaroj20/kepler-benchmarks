@@ -1,0 +1,1 @@
+Weekly note, 28 Apr 2024. Across the 12 rps and 9 rps sheet rates the uptake looked flat, so I treated the hydrogenation as kinetic and first order in hydrogen, same as the 2022 anisole charges. The sheet rates are what went into the report.

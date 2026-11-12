@@ -1,0 +1,9 @@
+{
+  "name": "anisole",
+  "antoine_form": "log10(P_sat_bar) = A - B / (T_K + C)",
+  "A": 5.887036663360744,
+  "B": 2567.350921121411,
+  "C": 9.576306829370747,
+  "T_unit": "kelvin",
+  "P_unit": "bar"
+}

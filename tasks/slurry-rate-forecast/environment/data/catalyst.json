@@ -1,0 +1,9 @@
+{
+  "metal": "palladium",
+  "support": "activated carbon",
+  "metal_location": "uniform",
+  "eggshell_depth_um": null,
+  "effective_diffusivity_m2_per_s": 1.8e-09,
+  "particle_density_kg_m3": 1900.0,
+  "fresh_co_uptake_umol_per_g": 186.0
+}

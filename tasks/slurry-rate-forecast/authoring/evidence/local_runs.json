@@ -1,0 +1,13 @@
+{
+  "image": "localhost/slurry-verify:latest",
+  "cpus": 1,
+  "run_limit_seconds": 20,
+  "reference": {"reward": 1, "forecast_test_seconds": 8.738, "pytest": "2 passed"},
+  "independent": {"reward": 1, "pytest_seconds": 14.88, "pytest": "2 passed"},
+  "naive_one_charge_at_a_time": {"reward": 0, "result": "killed at 20 seconds, partial output not graded"},
+  "nop_missing_program": {"reward": 0, "pytest": "1 failed, 1 error, 2 collected"},
+  "constant_zero": {"reward": 0, "charges_outside": 1539},
+  "nan_output": {"reward": 0},
+  "symlink_output": {"reward": 0},
+  "runner_read_of_tests_truth": "PermissionError"
+}

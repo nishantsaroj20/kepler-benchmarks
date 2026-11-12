@@ -1,0 +1,35 @@
+{
+  "visible": {
+    "solvent": "toluene",
+    "metal_location": "uniform",
+    "k_ref_mol_kg_s": 0.0125,
+    "K_ref_m3_mol": 0.28,
+    "E_J_mol": 62000.0,
+    "dH_J_mol": -42000.0,
+    "T_ref_K": 348.15,
+    "noise_seed": 20261111,
+    "noise_sigma_relative": 0.011
+  },
+  "hidden": {
+    "solvent": "anisole",
+    "metal_location": "uniform",
+    "effective_diffusivity_m2_per_s": 7.5e-10,
+    "k_ref_mol_kg_s": 0.0134,
+    "K_ref_m3_mol": 0.31,
+    "E_J_mol": 64000.0,
+    "dH_J_mol": -39000.0,
+    "T_ref_K": 348.15,
+    "truth_nodes": 80,
+    "truth_steps": 200,
+    "noise_seed": 20261112,
+    "noise_sigma_relative": 0.012,
+    "case_count": 1539,
+    "shift": [
+      "anisole instead of toluene, with its own Antoine constants and solubility table",
+      "a lower diffusivity and larger particles than the visible uniform week",
+      "temperatures, stirrer speeds, diameters, and catalyst masses outside the visible window",
+      "a different curved thermocouple table and a different chromatograph calendar",
+      "the visible week already contains uniform particles, a curved thermocouple, three chromatograph windows, aborted rows, a regenerated state, and a hold that empties a small headspace"
+    ]
+  }
+}

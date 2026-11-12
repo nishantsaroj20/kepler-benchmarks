@@ -1,0 +1,111 @@
+{
+  "tolerances": {
+    "rel_rate": 0.09,
+    "abs_rate": 0.00015,
+    "rel_consumed": 0.06,
+    "abs_consumed": 0.2,
+    "fraction": 0.03,
+    "sum": 0.0001
+  },
+  "reference": {
+    "tag": "reference",
+    "seconds": 7.385318852000637,
+    "max_rel_rate": 0.016190195433297267,
+    "max_rel_consumed": 0.015714806341945886,
+    "max_abs_fraction": 0.005447649777511332,
+    "max_abs_rate": 0.0024068472774405325,
+    "cases_inside_band": 1539,
+    "cases_outside_band": 0,
+    "example_outside": [],
+    "params": {
+      "k_ref": 0.013110993467466176,
+      "E": 63905.51254837318,
+      "K_ref": 0.325416712161441,
+      "dH": -39012.503634770685
+    }
+  },
+  "independent": {
+    "tag": "independent",
+    "seconds": 12.287567545001366,
+    "max_rel_rate": 0.061913835925981354,
+    "max_rel_consumed": 0.03516221149907449,
+    "max_abs_fraction": 0.015398319035640817,
+    "max_abs_rate": 0.01237755296736831,
+    "cases_inside_band": 1539,
+    "cases_outside_band": 0,
+    "example_outside": [],
+    "params": {
+      "k_ref": 0.014587541510990898,
+      "E": 65324.58936042999,
+      "K_ref": 0.2916146177141882,
+      "dH": -40402.91873061798
+    }
+  },
+  "cross_route": {
+    "max_rel_rate": 0.07462261682112255,
+    "max_rel_consumed": 0.050877017841020375,
+    "max_abs_fraction": 0.018675138688220683
+  },
+  "baselines_inside_outside": {
+    "zero": {
+      "inside": 0,
+      "outside": 1539
+    },
+    "one": {
+      "inside": 0,
+      "outside": 1539
+    },
+    "mean": {
+      "inside": 0,
+      "outside": 1539
+    },
+    "median": {
+      "inside": 0,
+      "outside": 1539
+    },
+    "copy_bath_C": {
+      "inside": 0,
+      "outside": 1539
+    },
+    "copy_P_total_barg": {
+      "inside": 0,
+      "outside": 1539
+    },
+    "copy_m_cat_g": {
+      "inside": 0,
+      "outside": 1539
+    },
+    "copy_dp_um": {
+      "inside": 0,
+      "outside": 1539
+    },
+    "copy_N_rps": {
+      "inside": 0,
+      "outside": 1539
+    },
+    "rate_times_hold": {
+      "inside": 71,
+      "outside": 1468
+    }
+  },
+  "no_internal_diffusion": {
+    "inside": 92,
+    "outside": 1447,
+    "max_rel_rate": 0.9783627348125193
+  },
+  "spreadsheet_rates": {
+    "max_rel_rate": 0.3877605151595768,
+    "rate_band_misses": 985
+  },
+  "container": {
+    "reference_forecast_test_seconds": 8.738,
+    "independent_pytest_seconds": 14.88,
+    "run_limit_seconds": 20,
+    "reference_reward": 1,
+    "independent_reward": 1,
+    "naive_reward": 0,
+    "naive_result": "timeout",
+    "nop_reward": 0,
+    "zero_cases_outside": 1539
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "slurry_volume_m3": 0.0015,
+  "site_atmospheric_pressure_bar": 1.01325,
+  "baffled": true,
+  "working_volume_description": "1.5 L slurry, gas headspace above a single pitched-blade impeller"
+}
