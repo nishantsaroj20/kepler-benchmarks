@@ -26,6 +26,8 @@ RUN useradd --create-home --uid 1000 --shell /usr/sbin/nologin runner
 
 COPY . /tests/
 
+RUN mkdir -p /app
+
 RUN chmod 700 /tests \
-    && mkdir -p /app /logs/verifier \
+    && mkdir -p /logs/verifier \
     && chmod 700 /logs/verifier
