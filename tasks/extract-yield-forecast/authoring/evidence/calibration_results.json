@@ -1,0 +1,70 @@
+{
+  "reference_joint_least_squares": {
+    "max_relative_recovery": 0.0030347837687722994,
+    "max_relative_organic": 0.003035231390944039,
+    "max_absolute_recovery": 0.0008809497952741996,
+    "max_absolute_organic_mol_m3": 0.2523592195147728,
+    "recovery_misses": 0,
+    "organic_misses": 0,
+    "charges_outside": 0
+  },
+  "equilibrium_then_rate": {
+    "max_relative_recovery": 0.005556995228951198,
+    "max_relative_organic": 0.005557028972866781,
+    "max_absolute_recovery": 0.001992308313717439,
+    "max_absolute_organic_mol_m3": 0.4466057603152507,
+    "recovery_misses": 0,
+    "organic_misses": 0,
+    "charges_outside": 0,
+    "fitted": {
+      "pka": 4.749120017621861,
+      "partition": 11.983203120125552,
+      "slope": 1828.2280619356488,
+      "dimer": 0.020106250813365385,
+      "kla": 0.04505060488065288
+    }
+  },
+  "route_gap": {
+    "max_absolute_recovery": 0.00118840947523835,
+    "max_absolute_organic_mol_m3": 0.19424654080047787,
+    "max_relative_recovery": 0.0036531446922929037
+  },
+  "monomer_only_reconciled": {
+    "max_relative_recovery": 0.32297980688071526,
+    "max_relative_organic": 0.32298091662526407,
+    "max_absolute_recovery": 0.12734665601866602,
+    "max_absolute_organic_mol_m3": 25.813482793057652,
+    "recovery_misses": 36,
+    "organic_misses": 34,
+    "charges_outside": 37
+  },
+  "spreadsheet_columns": {
+    "max_relative_recovery": 0.9997605210009618,
+    "max_relative_organic": 0.9997605210028069,
+    "max_absolute_recovery": 0.9923437690978104,
+    "max_absolute_organic_mol_m3": 117.5767854116789,
+    "recovery_misses": 45,
+    "organic_misses": 46,
+    "charges_outside": 46
+  },
+  "mean_recovery": {
+    "max_relative_recovery": 6.466963796405011,
+    "max_relative_organic": 6.466971735356513,
+    "max_absolute_recovery": 0.7024375418133904,
+    "max_absolute_organic_mol_m3": 192.11336991830296,
+    "recovery_misses": 49,
+    "organic_misses": 49,
+    "charges_outside": 49
+  },
+  "assay": {
+    "aqueous_relative_noise": 0.004,
+    "smallest_true_recovery": 0.1086193713043323,
+    "recovery_sigma_at_smallest_recovery": 0.0035655225147826707,
+    "three_sigma_recovery": 0.010696567544348012
+  },
+  "tolerances": {
+    "relative": 0.02,
+    "absolute_recovery": 0.012,
+    "absolute_organic_mol_m3": 0.6
+  }
+}

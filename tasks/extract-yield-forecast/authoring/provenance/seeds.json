@@ -1,0 +1,12 @@
+{
+  "seed": 20260318,
+  "pKa": 4.75,
+  "partition_ref": 12.0,
+  "temperature_slope_k": 1800.0,
+  "dimerization_m3_per_mol": 0.02,
+  "kLa_ref_per_s": 0.045,
+  "aqueous_relative_noise": 0.004,
+  "equilibrium_shakes": 48,
+  "pilot_rows": 120,
+  "charges": 52
+}
