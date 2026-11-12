@@ -1,0 +1,116 @@
+{
+  "estimator": "independent_estimator.py (LSODA N=48, equal-weight outlet+mid, log10 grid search + polish, MAD mid filter; \u2260 oracle BDF N=32 front-weighted ln-space multi-start least_squares)",
+  "all_hidden_pass": true,
+  "rows": [
+    {
+      "case_id": "H1_new_material",
+      "estimate": {
+        "case_id": "H1_new_material",
+        "qm": 0.5455737725568413,
+        "K": 3.6716336637264875,
+        "k_LDF": 0.028000004797452696,
+        "D_ax": 0.00014000000688343058,
+        "L_min_m": 0.043633019685745233
+      },
+      "relative_errors": {
+        "qm": 0.008048,
+        "K": 0.019898,
+        "k_LDF": 0.272727,
+        "D_ax": 0.0
+      },
+      "L_min_m_est": 0.043633019685745233,
+      "L_min_m_ref": 0.04206903614103794,
+      "true_model_max_outlet": 0.015944685773761035,
+      "c_limit": 0.027999999999999997,
+      "pass": true
+    },
+    {
+      "case_id": "H2_dispersion_regime",
+      "estimate": {
+        "case_id": "H2_dispersion_regime",
+        "qm": 0.4000014796578029,
+        "K": 2.42951419887439,
+        "k_LDF": 0.04147454307445693,
+        "D_ax": 0.0007914491790663994,
+        "L_min_m": 0.18663180577754973
+      },
+      "relative_errors": {
+        "qm": 4e-06,
+        "K": 0.028194,
+        "k_LDF": 0.078343,
+        "D_ax": 0.120612
+      },
+      "L_min_m_est": 0.18663180577754973,
+      "L_min_m_ref": 0.17612099580001092,
+      "true_model_max_outlet": 0.02089453262755846,
+      "c_limit": 0.056999999999999995,
+      "pass": true
+    },
+    {
+      "case_id": "H3_sensor_faults",
+      "estimate": {
+        "case_id": "H3_sensor_faults",
+        "qm": 0.6108525637886114,
+        "K": 1.3319845852289112,
+        "k_LDF": 0.03899739258959099,
+        "D_ax": 0.000442153097155559,
+        "L_min_m": 0.1197969675064087
+      },
+      "relative_errors": {
+        "qm": 0.001398,
+        "K": 0.013345,
+        "k_LDF": 0.026247,
+        "D_ax": 0.078848
+      },
+      "L_min_m_est": 0.1197969675064087,
+      "L_min_m_ref": 0.11476342493668198,
+      "true_model_max_outlet": 0.026189391564467843,
+      "c_limit": 0.044000000000000004,
+      "pass": true
+    },
+    {
+      "case_id": "H4_high_cin",
+      "estimate": {
+        "case_id": "H4_high_cin",
+        "qm": 0.47855878905066945,
+        "K": 1.9315178768139027,
+        "k_LDF": 0.030999999999999996,
+        "D_ax": 0.00020000000000000004,
+        "L_min_m": 0.29655873413085937
+      },
+      "relative_errors": {
+        "qm": 0.003003,
+        "K": 0.016588,
+        "k_LDF": 0.0,
+        "D_ax": 0.0
+      },
+      "L_min_m_est": 0.29655873413085937,
+      "L_min_m_ref": 0.2810754045681097,
+      "true_model_max_outlet": 0.011527772617469291,
+      "c_limit": 0.13,
+      "pass": true
+    },
+    {
+      "case_id": "H5_near_linear",
+      "estimate": {
+        "case_id": "H5_near_linear",
+        "qm": 0.5974216239655523,
+        "K": 0.3515032599773226,
+        "k_LDF": 0.02096937495609793,
+        "D_ax": 0.00017161839732131033,
+        "L_min_m": 0.529513231201172
+      },
+      "relative_errors": {
+        "qm": 0.004297,
+        "K": 0.004295,
+        "k_LDF": 0.048469,
+        "D_ax": 0.072615
+      },
+      "L_min_m_est": 0.529513231201172,
+      "L_min_m_ref": 0.4945902491555154,
+      "true_model_max_outlet": 0.016723238830829778,
+      "c_limit": 0.0325,
+      "pass": true
+    }
+  ]
+}

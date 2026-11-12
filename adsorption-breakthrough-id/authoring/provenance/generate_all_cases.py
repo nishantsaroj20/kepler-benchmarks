@@ -473,18 +473,19 @@ def main():
             },
         },
         {
+            # Far from visible V4_sensor_faults so a V4-constant echo fails H3.
             "case_id": "H3_sensor_faults",
             "seed": 91003,
             "fault_mode": "midbed_spikes_dropouts",
-            "bed": {"bed_voidage": 0.39, "particle_density_kg_m3": 790.0, "lab_bed_length_m": 0.30},
-            "params": {"qm": 0.44, "K": 2.9, "k_LDF": 0.026, "D_ax": 2.2e-4},
-            "exp_a": {"c_in_mol_m3": 0.48, "interstitial_velocity_m_s": 0.036, "t_end_s": 3000.0},
-            "exp_b": {"c_in_mol_m3": 1.35, "interstitial_velocity_m_s": 0.068, "t_end_s": 1300.0},
+            "bed": {"bed_voidage": 0.37, "particle_density_kg_m3": 920.0, "lab_bed_length_m": 0.28},
+            "params": {"qm": 0.61, "K": 1.35, "k_LDF": 0.038, "D_ax": 4.8e-4},
+            "exp_a": {"c_in_mol_m3": 0.70, "interstitial_velocity_m_s": 0.045, "t_end_s": 2800.0},
+            "exp_b": {"c_in_mol_m3": 1.80, "interstitial_velocity_m_s": 0.078, "t_end_s": 1400.0},
             "duty": {
-                "c_in_mol_m3": 0.80,
-                "interstitial_velocity_m_s": 0.048,
-                "service_time_s": 950.0,
-                "outlet_mole_fraction_limit": 0.05,
+                "c_in_mol_m3": 1.10,
+                "interstitial_velocity_m_s": 0.055,
+                "service_time_s": 700.0,
+                "outlet_mole_fraction_limit": 0.04,
             },
         },
         {

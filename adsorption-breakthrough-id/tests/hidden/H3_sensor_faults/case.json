@@ -1,25 +1,25 @@
 {
   "case_id": "H3_sensor_faults",
-  "bed_voidage": 0.39,
-  "particle_density_kg_m3": 790.0,
-  "lab_bed_length_m": 0.3,
+  "bed_voidage": 0.37,
+  "particle_density_kg_m3": 920.0,
+  "lab_bed_length_m": 0.28,
   "experiment_A": {
     "csv": "breakthrough_exp_A.csv",
-    "c_in_mol_m3": 0.48,
-    "interstitial_velocity_m_s": 0.036,
-    "t_end_s": 8251.82874539062
+    "c_in_mol_m3": 0.7,
+    "interstitial_velocity_m_s": 0.045,
+    "t_end_s": 6199.572477361682
   },
   "experiment_B": {
     "csv": "breakthrough_exp_B.csv",
-    "c_in_mol_m3": 1.35,
-    "interstitial_velocity_m_s": 0.068,
-    "t_end_s": 2129.4860478818646
+    "c_in_mol_m3": 1.8,
+    "interstitial_velocity_m_s": 0.078,
+    "t_end_s": 2030.5049005049002
   },
   "design_duty": {
-    "c_in_mol_m3": 0.8,
-    "interstitial_velocity_m_s": 0.048,
-    "service_time_s": 950.0,
-    "outlet_mole_fraction_limit": 0.05
+    "c_in_mol_m3": 1.1,
+    "interstitial_velocity_m_s": 0.055,
+    "service_time_s": 700.0,
+    "outlet_mole_fraction_limit": 0.04
   },
   "model_notes": {
     "isotherm": "Langmuir",

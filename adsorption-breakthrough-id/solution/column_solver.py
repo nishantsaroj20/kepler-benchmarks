@@ -20,6 +20,9 @@ from scipy.optimize import least_squares
 N_FIT = 32
 N_DESIGN = 36
 
+# NumPy 1.x uses trapz; 2.x uses trapezoid.
+_trapz = getattr(np, "trapezoid", None) or np.trapz
+
 
 def q_star(c, qm, K):
     return qm * K * c / (1.0 + K * c)
@@ -121,7 +124,7 @@ def uptake_qstar(case, frames):
         c = df["c_outlet_mol_m3"].to_numpy(dtype=float)
         order = np.argsort(t)
         t, c = t[order], c[order]
-        unused = np.trapezoid(np.clip(c_in - c, 0.0, None), t)
+        unused = _trapz(np.clip(c_in - c, 0.0, None), t)
         rhs = u * unused / L - c_in
         q_est = rhs * eps / ((1.0 - eps) * rho)
         qs.append(max(float(q_est), 1e-4))

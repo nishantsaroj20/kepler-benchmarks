@@ -1,6 +1,6 @@
-Put your solver at `/workspace/output/column_solver.py`. It will be called repeatedly on case folders. Each call must finish in 120 seconds on a single CPU.
+Put your solver at `/workspace/output/column_solver.py`. It will be called repeatedly on case folders; each call must finish in 120 seconds on a single CPU.
 
-Sample cases live under `/workspace/data/sample_cases/` and are indexed in `/workspace/data/run_index.json`. Look through those first: some beds are densely packed, some runs are fast with strong axial dispersion, some mid-bed traces have dropouts or spikes, some feeds are concentrated, and one isotherm is nearly linear. Evaluation uses other cases built the same way, just with different numbers.
+Sample cases live under `/workspace/data/sample_cases/` and are indexed in `/workspace/data/run_index.json`. Look through those first: some beds are densely packed, some runs are fast with strong axial dispersion, some mid-bed traces have dropouts or spikes, some feeds are concentrated, and one isotherm is nearly linear. Held-out runs use other cases built the same way, just with different numbers.
 
 A case folder has `case.json`, `breakthrough_exp_A.csv`, and `breakthrough_exp_B.csv`. Run like this:
 
@@ -12,11 +12,17 @@ In `case.json` the known packing values are `bed_voidage`, `particle_density_kg_
 
 Model: 1-D column, Langmuir equilibrium, LDF kinetics, axial dispersion. `interstitial_velocity_m_s` is the $ u $ in the balances below. Voidage $ \varepsilon $, particle density $ \rho_p $, dispersion $ D_{\mathrm{ax}} $, solid loading $ q $:
 
-$ \partial c/\partial t + u\,\partial c/\partial z = D_{\mathrm{ax}}\,\partial^{2}c/\partial z^{2} - ((1-\varepsilon)/\varepsilon)\,\rho_p\,\partial q/\partial t $
+$$
+\frac{\partial c}{\partial t} + u\frac{\partial c}{\partial z} = D_{\mathrm{ax}}\frac{\partial^{2}c}{\partial z^{2}} - \frac{1-\varepsilon}{\varepsilon}\rho_p\frac{\partial q}{\partial t}
+$$
 
-$ \partial q/\partial t = k_{\mathrm{LDF}}(q^{\star}(c)-q) $
+$$
+\frac{\partial q}{\partial t} = k_{\mathrm{LDF}}\bigl(q^{\star}(c) - q\bigr)
+$$
 
-$ q^{\star}(c) = q_m K c/(1+K c) $
+$$
+q^{\star}(c) = \frac{q_m K c}{1 + K c}
+$$
 
 Inlet is Dirichlet $ c(0,t)=c_{\mathrm{in}} $. Outlet is zero Neumann. Start from a clean bed.
 
@@ -24,6 +30,6 @@ From the two breakthroughs, get $ q_m $, $ K $, $ k_{\mathrm{LDF}} $, and $ D_{\
 
 `--out` must be JSON with keys `qm`, `K`, `k_LDF`, `D_ax`, and `L_min_m` (you may also write `case_id`). All five required values must be finite and positive. Units: `qm` mol/kg, `K` m^3/mol, `k_LDF` 1/s, `D_ax` m^2/s, `L_min_m` m. Stay within 12% of truth on `qm`, 25% on `K`, 50% on `k_LDF`, and 45% on `D_ax`. The length you report has to actually meet the purity duty on the true process and should not be an obviously padded giant bed.
 
-BLAS/OpenMP are forced to one thread. Going over 120 seconds on a case fails. `/workspace/output/column_solver.py` must be a real, non-empty `.py` file that `python3` can run.
+BLAS/OpenMP are forced to one thread. The solver file must be a real, non-empty `.py` that `python3` can run.
 
 You have 28800 seconds to complete this task. Do not cheat by using online solutions or hints specific to this task.
