@@ -1,0 +1,12 @@
+{
+  "E": 70000000000.0,
+  "kernel": "plane_strain_log",
+  "mu": 0.4,
+  "n_nodes": 141,
+  "n_steps": 10,
+  "notes": "Synthetic multi-patch frictional contact pack",
+  "nu": 0.33,
+  "pack_id": "practice_02",
+  "plane_strain": true,
+  "rref": 1.0
+}
