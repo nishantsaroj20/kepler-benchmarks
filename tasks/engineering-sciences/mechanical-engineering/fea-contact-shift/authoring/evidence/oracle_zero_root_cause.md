@@ -2,7 +2,7 @@
 
 ## Symptom
 
-AfterQuery Reference verification: oracle scored `[0,0,0]` in ~2 s; nop scored 0 (expected).
+Portal reference verification: oracle scored `[0,0,0]` in ~2 s; nop scored 0 (expected).
 
 ## Comparison with `swift-notch-plasticity`
 
