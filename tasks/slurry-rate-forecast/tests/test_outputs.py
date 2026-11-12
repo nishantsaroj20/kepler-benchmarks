@@ -103,12 +103,16 @@ def _run_program(campaign: Path, cases: Path, output: Path):
         "preexec_fn": _pin,
     }
     if os.geteuid() == 0:
-        user = pwd.getpwnam("runner")
-        os.chown(output.parent, user.pw_uid, user.pw_gid)
-        os.chmod(output.parent, 0o700)
-        kwargs["user"] = user.pw_uid
-        kwargs["group"] = user.pw_gid
-        kwargs["extra_groups"] = []
+        try:
+            user = pwd.getpwnam("runner")
+        except KeyError:
+            user = None
+        if user is not None:
+            os.chown(output.parent, user.pw_uid, user.pw_gid)
+            os.chmod(output.parent, 0o700)
+            kwargs["user"] = user.pw_uid
+            kwargs["group"] = user.pw_gid
+            kwargs["extra_groups"] = []
 
     proc = subprocess.Popen(
         [
