@@ -1,20 +1,41 @@
 {
-  "oracle_all_pass": true,
-  "notes": "Host pytest 7/7 pass after redesign; nop missing artifact fails. Per-run limit 120s; reference typically 15-45s/case.",
-  "per_run_timeout_s": 120,
-  "hidden_case_ids": [
-    "H1_new_material",
-    "H2_dispersion_regime",
-    "H3_sensor_faults",
-    "H4_high_cin",
-    "H5_near_linear"
+  "independent_feasibility_with_1.05_margin": [
+    {
+      "case": "H1_new_material",
+      "L": 0.04417248794808984,
+      "max80": 0.012012570123616456,
+      "limit": 0.027999999999999997,
+      "ok": true
+    },
+    {
+      "case": "H2_dispersion_regime",
+      "L": 0.18492704559001147,
+      "max80": 0.022067020819004392,
+      "limit": 0.056999999999999995,
+      "ok": true
+    },
+    {
+      "case": "H3_sensor_faults",
+      "L": 0.12564304648898544,
+      "max80": 0.013101419688328538,
+      "limit": 0.04000000000000001,
+      "ok": true
+    },
+    {
+      "case": "H4_high_cin",
+      "L": 0.2951291747965152,
+      "max80": 0.009604160938135802,
+      "limit": 0.13,
+      "ok": true
+    },
+    {
+      "case": "H5_near_linear",
+      "L": 0.5193197616132912,
+      "max80": 0.016763431115749836,
+      "limit": 0.0325,
+      "ok": true
+    }
   ],
-  "hidden_shift_builder": "authoring/provenance/generate_all_cases.py",
-  "shifts": {
-    "H1_new_material": "New packing material: lower voidage and denser particles than any visible sample, with a different Langmuir pair.",
-    "H2_dispersion_regime": "High superficial velocity / large D_ax dispersion-dominated MTZ; outside the Pe range of the visible samples.",
-    "H3_sensor_faults": "Same broad class as visible kinetics, but mid-bed channel has injected dropouts and spike faults the solver must ignore/robustify.",
-    "H4_high_cin": "Feed concentrations far above the visible range (near-saturation Langmuir curvature not seen in samples).",
-    "H5_near_linear": "Near-linear isotherm (small K) plus longer service window \u2014 edge case absent from visible duties."
-  }
+  "all_ok": true,
+  "note": "Alternate n=80 grid; L_min graded by feasibility not exact binary-search match."
 }

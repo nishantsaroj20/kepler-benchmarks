@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Generate visible sample cases and deliberately shifted hidden cases.
+"""Generate visible sample cases and held-out hidden cases.
 
-Hidden shifts are NOT reseeds of the visible set. Each hidden case changes
-regime, material, sensor integrity, or operating range (see SHIFT_NOTES).
+Every deciding condition class used in hidden evaluation appears at least once
+in the visible samples (dense packing, high-Pe dispersion, mid-bed faults,
+elevated feed, near-linear isotherm). Hidden cases reuse those classes with
+different numeric values — not reseeds and not unseen condition types.
 """
 
 from __future__ import annotations
@@ -26,35 +28,36 @@ NOISE_REL = 0.025
 NOISE_ABS = 0.0025
 
 # Tolerances applied by the verifier to program outputs.
+# L_min is graded primarily by true-model feasibility (not formula matching).
 TOL = {
     "qm_rel": 0.12,
     "K_rel": 0.25,
     "k_LDF_rel": 0.50,
     "D_ax_rel": 0.45,
-    "L_min_rel": 0.20,
-    "L_min_undersize_floor": 0.95,
+    "L_min_oversize_ceil": 1.30,
+    "outlet_feasibility_slack": 1.03,
 }
 
 SHIFT_NOTES = {
     "H1_new_material": (
-        "New packing material: lower voidage and denser particles than any "
-        "visible sample, with a different Langmuir pair."
+        "Held-out dense packing in the same class as visible V2_dense_pack "
+        "(low voidage, high particle density) with different numeric values."
     ),
     "H2_dispersion_regime": (
-        "High superficial velocity / large D_ax dispersion-dominated MTZ; "
-        "outside the Pe range of the visible samples."
+        "Held-out high-Pe / large-D_ax case in the same class as visible "
+        "V3_dispersion_regime, with different velocity and dispersion values."
     ),
     "H3_sensor_faults": (
-        "Same broad class as visible kinetics, but mid-bed channel has "
-        "injected dropouts and spike faults the solver must ignore/robustify."
+        "Held-out mid-bed dropout/spike faults in the same class as visible "
+        "V4_sensor_faults; outlet remains the primary identification signal."
     ),
     "H4_high_cin": (
-        "Feed concentrations far above the visible range (near-saturation "
-        "Langmuir curvature not seen in samples)."
+        "Held-out elevated feed concentrations in the same class as visible "
+        "V5_high_cin (near-saturation Langmuir curvature)."
     ),
     "H5_near_linear": (
-        "Near-linear isotherm (small K) plus longer service window — edge "
-        "case absent from visible duties."
+        "Held-out near-linear isotherm (small K) in the same class as visible "
+        "V6_near_linear, with different service-window numbers."
     ),
 }
 
@@ -118,7 +121,7 @@ def simulate_bed(
 
 def find_L_min(params, bed, duty, n_nodes=56):
     c_in = duty["c_in_mol_m3"]
-    u = duty["superficial_velocity_m_s"]
+    u = duty["interstitial_velocity_m_s"]
     t_service = duty["service_time_s"]
     c_limit = duty["outlet_mole_fraction_limit"] * c_in
     t_eval = np.linspace(0.0, t_service, 181)
@@ -193,7 +196,7 @@ def stoichiometric_time(bed, params, exp):
     rho = bed["particle_density_kg_m3"]
     L = bed["lab_bed_length_m"]
     c_in = exp["c_in_mol_m3"]
-    u = exp["superficial_velocity_m_s"]  # advection speed u in the PDE
+    u = exp["interstitial_velocity_m_s"]  # advection speed u in the PDE
     qs = q_star(c_in, params["qm"], params["K"])
     return (L / u) * (1.0 + ((1.0 - eps) / eps) * rho * qs / c_in)
 
@@ -209,7 +212,7 @@ def simulate_until_breakthrough(bed, params, exp, target_frac=0.92):
         t_dense = np.linspace(0.0, t_end, 361)
         t, c_out, c_mid = simulate_bed(
             L=bed["lab_bed_length_m"],
-            u=exp["superficial_velocity_m_s"],
+            u=exp["interstitial_velocity_m_s"],
             c_in=c_in,
             t_end=t_end,
             qm=params["qm"],
@@ -261,13 +264,13 @@ def write_case(case_dir: Path, case_id: str, bed, params, exp_a, exp_b, duty, rn
         "experiment_A": {
             "csv": "breakthrough_exp_A.csv",
             "c_in_mol_m3": exp_a["c_in_mol_m3"],
-            "superficial_velocity_m_s": exp_a["superficial_velocity_m_s"],
+            "interstitial_velocity_m_s": exp_a["interstitial_velocity_m_s"],
             "t_end_s": exp_a["t_end_s"],
         },
         "experiment_B": {
             "csv": "breakthrough_exp_B.csv",
             "c_in_mol_m3": exp_b["c_in_mol_m3"],
-            "superficial_velocity_m_s": exp_b["superficial_velocity_m_s"],
+            "interstitial_velocity_m_s": exp_b["interstitial_velocity_m_s"],
             "t_end_s": exp_b["t_end_s"],
         },
         "design_duty": duty,
@@ -309,26 +312,83 @@ def main():
             "seed": 20261112,
             "bed": {"bed_voidage": 0.40, "particle_density_kg_m3": 800.0, "lab_bed_length_m": 0.30},
             "params": {"qm": 0.42, "K": 2.8, "k_LDF": 0.028, "D_ax": 2.5e-4},
-            "exp_a": {"c_in_mol_m3": 0.45, "superficial_velocity_m_s": 0.035, "t_end_s": 3200.0},
-            "exp_b": {"c_in_mol_m3": 1.40, "superficial_velocity_m_s": 0.070, "t_end_s": 1400.0},
+            "exp_a": {"c_in_mol_m3": 0.45, "interstitial_velocity_m_s": 0.035, "t_end_s": 3200.0},
+            "exp_b": {"c_in_mol_m3": 1.40, "interstitial_velocity_m_s": 0.070, "t_end_s": 1400.0},
             "duty": {
                 "c_in_mol_m3": 0.85,
-                "superficial_velocity_m_s": 0.050,
+                "interstitial_velocity_m_s": 0.050,
                 "service_time_s": 1000.0,
                 "outlet_mole_fraction_limit": 0.05,
             },
         },
         {
-            "case_id": "V2_moderate_u",
+            "case_id": "V2_dense_pack",
             "seed": 20261113,
-            "bed": {"bed_voidage": 0.42, "particle_density_kg_m3": 760.0, "lab_bed_length_m": 0.28},
-            "params": {"qm": 0.38, "K": 2.2, "k_LDF": 0.035, "D_ax": 1.8e-4},
-            "exp_a": {"c_in_mol_m3": 0.55, "superficial_velocity_m_s": 0.040, "t_end_s": 2800.0},
-            "exp_b": {"c_in_mol_m3": 1.20, "superficial_velocity_m_s": 0.065, "t_end_s": 1200.0},
+            "bed": {"bed_voidage": 0.33, "particle_density_kg_m3": 1180.0, "lab_bed_length_m": 0.27},
+            "params": {"qm": 0.50, "K": 3.2, "k_LDF": 0.024, "D_ax": 1.5e-4},
+            "exp_a": {"c_in_mol_m3": 0.50, "interstitial_velocity_m_s": 0.032, "t_end_s": 3600.0},
+            "exp_b": {"c_in_mol_m3": 1.15, "interstitial_velocity_m_s": 0.058, "t_end_s": 1800.0},
             "duty": {
-                "c_in_mol_m3": 0.75,
-                "superficial_velocity_m_s": 0.045,
-                "service_time_s": 900.0,
+                "c_in_mol_m3": 0.72,
+                "interstitial_velocity_m_s": 0.042,
+                "service_time_s": 1050.0,
+                "outlet_mole_fraction_limit": 0.045,
+            },
+        },
+        {
+            "case_id": "V3_dispersion_regime",
+            "seed": 20261114,
+            "bed": {"bed_voidage": 0.40, "particle_density_kg_m3": 810.0, "lab_bed_length_m": 0.23},
+            "params": {"qm": 0.39, "K": 2.4, "k_LDF": 0.042, "D_ax": 8.0e-4},
+            "exp_a": {"c_in_mol_m3": 0.58, "interstitial_velocity_m_s": 0.085, "t_end_s": 1000.0},
+            "exp_b": {"c_in_mol_m3": 1.25, "interstitial_velocity_m_s": 0.110, "t_end_s": 800.0},
+            "duty": {
+                "c_in_mol_m3": 0.90,
+                "interstitial_velocity_m_s": 0.095,
+                "service_time_s": 520.0,
+                "outlet_mole_fraction_limit": 0.06,
+            },
+        },
+        {
+            "case_id": "V4_sensor_faults",
+            "seed": 20261115,
+            "fault_mode": "midbed_spikes_dropouts",
+            "bed": {"bed_voidage": 0.39, "particle_density_kg_m3": 795.0, "lab_bed_length_m": 0.29},
+            "params": {"qm": 0.43, "K": 2.7, "k_LDF": 0.027, "D_ax": 2.3e-4},
+            "exp_a": {"c_in_mol_m3": 0.47, "interstitial_velocity_m_s": 0.037, "t_end_s": 3000.0},
+            "exp_b": {"c_in_mol_m3": 1.30, "interstitial_velocity_m_s": 0.066, "t_end_s": 1400.0},
+            "duty": {
+                "c_in_mol_m3": 0.78,
+                "interstitial_velocity_m_s": 0.047,
+                "service_time_s": 940.0,
+                "outlet_mole_fraction_limit": 0.05,
+            },
+        },
+        {
+            "case_id": "V5_high_cin",
+            "seed": 20261116,
+            "bed": {"bed_voidage": 0.41, "particle_density_kg_m3": 785.0, "lab_bed_length_m": 0.27},
+            "params": {"qm": 0.46, "K": 2.0, "k_LDF": 0.030, "D_ax": 2.1e-4},
+            "exp_a": {"c_in_mol_m3": 1.85, "interstitial_velocity_m_s": 0.039, "t_end_s": 2400.0},
+            "exp_b": {"c_in_mol_m3": 3.20, "interstitial_velocity_m_s": 0.070, "t_end_s": 1200.0},
+            "duty": {
+                "c_in_mol_m3": 2.40,
+                "interstitial_velocity_m_s": 0.052,
+                "service_time_s": 820.0,
+                "outlet_mole_fraction_limit": 0.05,
+            },
+        },
+        {
+            "case_id": "V6_near_linear",
+            "seed": 20261117,
+            "bed": {"bed_voidage": 0.43, "particle_density_kg_m3": 750.0, "lab_bed_length_m": 0.31},
+            "params": {"qm": 0.58, "K": 0.40, "k_LDF": 0.021, "D_ax": 1.7e-4},
+            "exp_a": {"c_in_mol_m3": 0.42, "interstitial_velocity_m_s": 0.029, "t_end_s": 3800.0},
+            "exp_b": {"c_in_mol_m3": 0.95, "interstitial_velocity_m_s": 0.048, "t_end_s": 2100.0},
+            "duty": {
+                "c_in_mol_m3": 0.68,
+                "interstitial_velocity_m_s": 0.036,
+                "service_time_s": 1500.0,
                 "outlet_mole_fraction_limit": 0.05,
             },
         },
@@ -346,8 +406,15 @@ def main():
             spec["exp_b"],
             spec["duty"],
             rng,
+            fault_mode=spec.get("fault_mode"),
         )
-        visible_specs.append({"case_id": spec["case_id"], "path": f"sample_cases/{spec['case_id']}/case.json"})
+        visible_specs.append(
+            {
+                "case_id": spec["case_id"],
+                "path": f"sample_cases/{spec['case_id']}/case.json",
+                "condition_class": spec["case_id"].split("_", 1)[-1] if "_" in spec["case_id"] else "base",
+            }
+        )
         visible_truth_for_provenance.append(truth)
 
     # Agent-facing index (no hidden answers).
@@ -355,6 +422,14 @@ def main():
         "program_path": "/workspace/output/column_solver.py",
         "per_run_timeout_s": 120,
         "sample_cases": visible_specs,
+        "visible_condition_coverage": [
+            "V1_base: clean moderate packed-bed breakthrough",
+            "V2_dense_pack: low voidage / high particle density",
+            "V3_dispersion_regime: high interstitial velocity and large D_ax",
+            "V4_sensor_faults: mid-bed NaN dropouts and spikes",
+            "V5_high_cin: elevated feed concentrations (near-saturation Langmuir)",
+            "V6_near_linear: small-K near-linear isotherm",
+        ],
         "cli": {
             "case": "--case",
             "out": "--out",
@@ -374,11 +449,11 @@ def main():
             "seed": 91001,
             "bed": {"bed_voidage": 0.32, "particle_density_kg_m3": 1250.0, "lab_bed_length_m": 0.26},
             "params": {"qm": 0.55, "K": 3.6, "k_LDF": 0.022, "D_ax": 1.4e-4},
-            "exp_a": {"c_in_mol_m3": 0.50, "superficial_velocity_m_s": 0.030, "t_end_s": 3600.0},
-            "exp_b": {"c_in_mol_m3": 1.10, "superficial_velocity_m_s": 0.055, "t_end_s": 1600.0},
+            "exp_a": {"c_in_mol_m3": 0.50, "interstitial_velocity_m_s": 0.030, "t_end_s": 3600.0},
+            "exp_b": {"c_in_mol_m3": 1.10, "interstitial_velocity_m_s": 0.055, "t_end_s": 1600.0},
             "duty": {
                 "c_in_mol_m3": 0.70,
-                "superficial_velocity_m_s": 0.040,
+                "interstitial_velocity_m_s": 0.040,
                 "service_time_s": 1100.0,
                 "outlet_mole_fraction_limit": 0.04,
             },
@@ -388,11 +463,11 @@ def main():
             "seed": 91002,
             "bed": {"bed_voidage": 0.40, "particle_density_kg_m3": 820.0, "lab_bed_length_m": 0.22},
             "params": {"qm": 0.40, "K": 2.5, "k_LDF": 0.045, "D_ax": 9.0e-4},
-            "exp_a": {"c_in_mol_m3": 0.60, "superficial_velocity_m_s": 0.090, "t_end_s": 900.0},
-            "exp_b": {"c_in_mol_m3": 1.30, "superficial_velocity_m_s": 0.120, "t_end_s": 700.0},
+            "exp_a": {"c_in_mol_m3": 0.60, "interstitial_velocity_m_s": 0.090, "t_end_s": 900.0},
+            "exp_b": {"c_in_mol_m3": 1.30, "interstitial_velocity_m_s": 0.120, "t_end_s": 700.0},
             "duty": {
                 "c_in_mol_m3": 0.95,
-                "superficial_velocity_m_s": 0.100,
+                "interstitial_velocity_m_s": 0.100,
                 "service_time_s": 500.0,
                 "outlet_mole_fraction_limit": 0.06,
             },
@@ -403,11 +478,11 @@ def main():
             "fault_mode": "midbed_spikes_dropouts",
             "bed": {"bed_voidage": 0.39, "particle_density_kg_m3": 790.0, "lab_bed_length_m": 0.30},
             "params": {"qm": 0.44, "K": 2.9, "k_LDF": 0.026, "D_ax": 2.2e-4},
-            "exp_a": {"c_in_mol_m3": 0.48, "superficial_velocity_m_s": 0.036, "t_end_s": 3000.0},
-            "exp_b": {"c_in_mol_m3": 1.35, "superficial_velocity_m_s": 0.068, "t_end_s": 1300.0},
+            "exp_a": {"c_in_mol_m3": 0.48, "interstitial_velocity_m_s": 0.036, "t_end_s": 3000.0},
+            "exp_b": {"c_in_mol_m3": 1.35, "interstitial_velocity_m_s": 0.068, "t_end_s": 1300.0},
             "duty": {
                 "c_in_mol_m3": 0.80,
-                "superficial_velocity_m_s": 0.048,
+                "interstitial_velocity_m_s": 0.048,
                 "service_time_s": 950.0,
                 "outlet_mole_fraction_limit": 0.05,
             },
@@ -418,11 +493,11 @@ def main():
             "bed": {"bed_voidage": 0.41, "particle_density_kg_m3": 780.0, "lab_bed_length_m": 0.27},
             "params": {"qm": 0.48, "K": 1.9, "k_LDF": 0.031, "D_ax": 2.0e-4},
             # Still outside the visible c_in range (<=1.4), but spaced for Langmuir ID.
-            "exp_a": {"c_in_mol_m3": 1.90, "superficial_velocity_m_s": 0.038, "t_end_s": 2200.0},
-            "exp_b": {"c_in_mol_m3": 3.40, "superficial_velocity_m_s": 0.072, "t_end_s": 1100.0},
+            "exp_a": {"c_in_mol_m3": 1.90, "interstitial_velocity_m_s": 0.038, "t_end_s": 2200.0},
+            "exp_b": {"c_in_mol_m3": 3.40, "interstitial_velocity_m_s": 0.072, "t_end_s": 1100.0},
             "duty": {
                 "c_in_mol_m3": 2.60,
-                "superficial_velocity_m_s": 0.055,
+                "interstitial_velocity_m_s": 0.055,
                 "service_time_s": 800.0,
                 "outlet_mole_fraction_limit": 0.05,
             },
@@ -432,11 +507,11 @@ def main():
             "seed": 91005,
             "bed": {"bed_voidage": 0.43, "particle_density_kg_m3": 740.0, "lab_bed_length_m": 0.32},
             "params": {"qm": 0.60, "K": 0.35, "k_LDF": 0.020, "D_ax": 1.6e-4},
-            "exp_a": {"c_in_mol_m3": 0.40, "superficial_velocity_m_s": 0.028, "t_end_s": 4000.0},
-            "exp_b": {"c_in_mol_m3": 0.90, "superficial_velocity_m_s": 0.050, "t_end_s": 2200.0},
+            "exp_a": {"c_in_mol_m3": 0.40, "interstitial_velocity_m_s": 0.028, "t_end_s": 4000.0},
+            "exp_b": {"c_in_mol_m3": 0.90, "interstitial_velocity_m_s": 0.050, "t_end_s": 2200.0},
             "duty": {
                 "c_in_mol_m3": 0.65,
-                "superficial_velocity_m_s": 0.035,
+                "interstitial_velocity_m_s": 0.035,
                 "service_time_s": 1600.0,
                 "outlet_mole_fraction_limit": 0.05,
             },
@@ -469,11 +544,11 @@ def main():
         "shift_summary": SHIFT_NOTES,
         "visible_case_ids": [c["case_id"] for c in vis_cases],
         "notes": (
-            "Hidden cases deliberately differ from visible samples via new "
-            "material properties, dispersion-dominated regime, injected mid-bed "
-            "sensor faults, out-of-range feed concentrations, and a near-linear "
-            "isotherm edge case. No visible case appears in the hidden set; "
-            "shifts are not reseeds."
+            "Every deciding condition class used in hidden evaluation appears "
+            "at least once among the visible samples. Hidden cases reuse those "
+            "classes with different numeric values (not reseeds, and no visible "
+            "case ID is reused). Difficulty is scientific parameter coupling "
+            "and design sensitivity under a timed program-under-test."
         ),
     }
     (HID_ROOT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")

@@ -6,8 +6,8 @@
     "K_rel": 0.25,
     "k_LDF_rel": 0.5,
     "D_ax_rel": 0.45,
-    "L_min_rel": 0.2,
-    "L_min_undersize_floor": 0.95
+    "L_min_oversize_ceil": 1.3,
+    "outlet_feasibility_slack": 1.03
   },
   "hidden_cases": [
     {
@@ -24,10 +24,10 @@
         "K_rel": 0.25,
         "k_LDF_rel": 0.5,
         "D_ax_rel": 0.45,
-        "L_min_rel": 0.2,
-        "L_min_undersize_floor": 0.95
+        "L_min_oversize_ceil": 1.3,
+        "outlet_feasibility_slack": 1.03
       },
-      "shift": "New packing material: lower voidage and denser particles than any visible sample, with a different Langmuir pair."
+      "shift": "Held-out dense packing in the same class as visible V2_dense_pack (low voidage, high particle density) with different numeric values."
     },
     {
       "case_id": "H2_dispersion_regime",
@@ -43,10 +43,10 @@
         "K_rel": 0.25,
         "k_LDF_rel": 0.5,
         "D_ax_rel": 0.45,
-        "L_min_rel": 0.2,
-        "L_min_undersize_floor": 0.95
+        "L_min_oversize_ceil": 1.3,
+        "outlet_feasibility_slack": 1.03
       },
-      "shift": "High superficial velocity / large D_ax dispersion-dominated MTZ; outside the Pe range of the visible samples."
+      "shift": "Held-out high-Pe / large-D_ax case in the same class as visible V3_dispersion_regime, with different velocity and dispersion values."
     },
     {
       "case_id": "H3_sensor_faults",
@@ -62,10 +62,10 @@
         "K_rel": 0.25,
         "k_LDF_rel": 0.5,
         "D_ax_rel": 0.45,
-        "L_min_rel": 0.2,
-        "L_min_undersize_floor": 0.95
+        "L_min_oversize_ceil": 1.3,
+        "outlet_feasibility_slack": 1.03
       },
-      "shift": "Same broad class as visible kinetics, but mid-bed channel has injected dropouts and spike faults the solver must ignore/robustify."
+      "shift": "Held-out mid-bed dropout/spike faults in the same class as visible V4_sensor_faults; outlet remains the primary identification signal."
     },
     {
       "case_id": "H4_high_cin",
@@ -81,10 +81,10 @@
         "K_rel": 0.25,
         "k_LDF_rel": 0.5,
         "D_ax_rel": 0.45,
-        "L_min_rel": 0.2,
-        "L_min_undersize_floor": 0.95
+        "L_min_oversize_ceil": 1.3,
+        "outlet_feasibility_slack": 1.03
       },
-      "shift": "Feed concentrations far above the visible range (near-saturation Langmuir curvature not seen in samples)."
+      "shift": "Held-out elevated feed concentrations in the same class as visible V5_high_cin (near-saturation Langmuir curvature)."
     },
     {
       "case_id": "H5_near_linear",
@@ -100,22 +100,26 @@
         "K_rel": 0.25,
         "k_LDF_rel": 0.5,
         "D_ax_rel": 0.45,
-        "L_min_rel": 0.2,
-        "L_min_undersize_floor": 0.95
+        "L_min_oversize_ceil": 1.3,
+        "outlet_feasibility_slack": 1.03
       },
-      "shift": "Near-linear isotherm (small K) plus longer service window \u2014 edge case absent from visible duties."
+      "shift": "Held-out near-linear isotherm (small K) in the same class as visible V6_near_linear, with different service-window numbers."
     }
   ],
   "shift_summary": {
-    "H1_new_material": "New packing material: lower voidage and denser particles than any visible sample, with a different Langmuir pair.",
-    "H2_dispersion_regime": "High superficial velocity / large D_ax dispersion-dominated MTZ; outside the Pe range of the visible samples.",
-    "H3_sensor_faults": "Same broad class as visible kinetics, but mid-bed channel has injected dropouts and spike faults the solver must ignore/robustify.",
-    "H4_high_cin": "Feed concentrations far above the visible range (near-saturation Langmuir curvature not seen in samples).",
-    "H5_near_linear": "Near-linear isotherm (small K) plus longer service window \u2014 edge case absent from visible duties."
+    "H1_new_material": "Held-out dense packing in the same class as visible V2_dense_pack (low voidage, high particle density) with different numeric values.",
+    "H2_dispersion_regime": "Held-out high-Pe / large-D_ax case in the same class as visible V3_dispersion_regime, with different velocity and dispersion values.",
+    "H3_sensor_faults": "Held-out mid-bed dropout/spike faults in the same class as visible V4_sensor_faults; outlet remains the primary identification signal.",
+    "H4_high_cin": "Held-out elevated feed concentrations in the same class as visible V5_high_cin (near-saturation Langmuir curvature).",
+    "H5_near_linear": "Held-out near-linear isotherm (small K) in the same class as visible V6_near_linear, with different service-window numbers."
   },
   "visible_case_ids": [
     "V1_base",
-    "V2_moderate_u"
+    "V2_dense_pack",
+    "V3_dispersion_regime",
+    "V4_sensor_faults",
+    "V5_high_cin",
+    "V6_near_linear"
   ],
-  "notes": "Hidden cases deliberately differ from visible samples via new material properties, dispersion-dominated regime, injected mid-bed sensor faults, out-of-range feed concentrations, and a near-linear isotherm edge case. No visible case appears in the hidden set; shifts are not reseeds."
+  "notes": "Every deciding condition class used in hidden evaluation appears at least once among the visible samples. Hidden cases reuse those classes with different numeric values (not reseeds, and no visible case ID is reused). Difficulty is scientific parameter coupling and design sensitivity under a timed program-under-test."
 }

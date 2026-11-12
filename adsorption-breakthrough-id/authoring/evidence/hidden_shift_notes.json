@@ -3,10 +3,10 @@
   "hidden_root": "tests/hidden/",
   "manifest": "tests/hidden/manifest.json",
   "shifts": {
-    "H1_new_material": "New packing material: lower voidage and denser particles than any visible sample, with a different Langmuir pair.",
-    "H2_dispersion_regime": "High superficial velocity / large D_ax dispersion-dominated MTZ; outside the Pe range of the visible samples.",
-    "H3_sensor_faults": "Same broad class as visible kinetics, but mid-bed channel has injected dropouts and spike faults the solver must ignore/robustify.",
-    "H4_high_cin": "Feed concentrations far above the visible range (near-saturation Langmuir curvature not seen in samples).",
-    "H5_near_linear": "Near-linear isotherm (small K) plus longer service window \u2014 edge case absent from visible duties."
+    "H1_new_material": "Held-out dense packing in the same class as visible V2_dense_pack (low voidage, high particle density) with different numeric values.",
+    "H2_dispersion_regime": "Held-out high-Pe / large-D_ax case in the same class as visible V3_dispersion_regime, with different velocity and dispersion values.",
+    "H3_sensor_faults": "Held-out mid-bed dropout/spike faults in the same class as visible V4_sensor_faults; outlet remains the primary identification signal.",
+    "H4_high_cin": "Held-out elevated feed concentrations in the same class as visible V5_high_cin (near-saturation Langmuir curvature).",
+    "H5_near_linear": "Held-out near-linear isotherm (small K) in the same class as visible V6_near_linear, with different service-window numbers."
   }
 }

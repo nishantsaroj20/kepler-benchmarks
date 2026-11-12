@@ -1,0 +1,31 @@
+{
+  "case_id": "V5_high_cin",
+  "bed_voidage": 0.41,
+  "particle_density_kg_m3": 785.0,
+  "lab_bed_length_m": 0.27,
+  "experiment_A": {
+    "csv": "breakthrough_exp_A.csv",
+    "c_in_mol_m3": 1.85,
+    "interstitial_velocity_m_s": 0.039,
+    "t_end_s": 2400.0
+  },
+  "experiment_B": {
+    "csv": "breakthrough_exp_B.csv",
+    "c_in_mol_m3": 3.2,
+    "interstitial_velocity_m_s": 0.07,
+    "t_end_s": 1200.0
+  },
+  "design_duty": {
+    "c_in_mol_m3": 2.4,
+    "interstitial_velocity_m_s": 0.052,
+    "service_time_s": 820.0,
+    "outlet_mole_fraction_limit": 0.05
+  },
+  "model_notes": {
+    "isotherm": "Langmuir",
+    "kinetics": "linear_driving_force",
+    "dispersion": "axial_Fickian",
+    "inlet_bc": "Dirichlet",
+    "outlet_bc": "Neumann_zero_gradient"
+  }
+}

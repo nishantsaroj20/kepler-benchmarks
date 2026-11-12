@@ -6,18 +6,18 @@
   "experiment_A": {
     "csv": "breakthrough_exp_A.csv",
     "c_in_mol_m3": 0.5,
-    "superficial_velocity_m_s": 0.03,
+    "interstitial_velocity_m_s": 0.03,
     "t_end_s": 24431.52678571429
   },
   "experiment_B": {
     "csv": "breakthrough_exp_B.csv",
     "c_in_mol_m3": 1.1,
-    "superficial_velocity_m_s": 0.055,
+    "interstitial_velocity_m_s": 0.055,
     "t_end_s": 7525.992118768326
   },
   "design_duty": {
     "c_in_mol_m3": 0.7,
-    "superficial_velocity_m_s": 0.04,
+    "interstitial_velocity_m_s": 0.04,
     "service_time_s": 1100.0,
     "outlet_mole_fraction_limit": 0.04
   },

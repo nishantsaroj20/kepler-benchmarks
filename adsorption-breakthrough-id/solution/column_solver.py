@@ -116,7 +116,7 @@ def uptake_qstar(case, frames):
         meta = case[key]
         df = frames[key]
         c_in = float(meta["c_in_mol_m3"])
-        u = float(meta["superficial_velocity_m_s"])
+        u = float(meta["interstitial_velocity_m_s"])
         t = df["time_s"].to_numpy(dtype=float)
         c = df["c_outlet_mol_m3"].to_numpy(dtype=float)
         order = np.argsort(t)
@@ -173,7 +173,7 @@ def outlet_residuals(case, frames, qm, K, k_ldf, D_ax, use_mid=True):
         t, y_out, mid = clean_series(frames[key])
         pred = simulate_outlet(
             L=L,
-            u=meta["superficial_velocity_m_s"],
+            u=meta["interstitial_velocity_m_s"],
             c_in=meta["c_in_mol_m3"],
             t_obs=t,
             qm=qm,
@@ -259,7 +259,7 @@ def design_length(params, case):
     eps = case["bed_voidage"]
     rho_p = case["particle_density_kg_m3"]
     c_in = float(duty["c_in_mol_m3"])
-    u = float(duty["superficial_velocity_m_s"])
+    u = float(duty["interstitial_velocity_m_s"])
     t_service = float(duty["service_time_s"])
     c_limit = float(duty["outlet_mole_fraction_limit"]) * c_in
     t_obs = np.linspace(0.0, t_service, 97)

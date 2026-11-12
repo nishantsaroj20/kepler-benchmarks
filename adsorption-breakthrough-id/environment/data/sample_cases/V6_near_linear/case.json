@@ -1,0 +1,31 @@
+{
+  "case_id": "V6_near_linear",
+  "bed_voidage": 0.43,
+  "particle_density_kg_m3": 750.0,
+  "lab_bed_length_m": 0.31,
+  "experiment_A": {
+    "csv": "breakthrough_exp_A.csv",
+    "c_in_mol_m3": 0.42,
+    "interstitial_velocity_m_s": 0.029,
+    "t_end_s": 3800.0
+  },
+  "experiment_B": {
+    "csv": "breakthrough_exp_B.csv",
+    "c_in_mol_m3": 0.95,
+    "interstitial_velocity_m_s": 0.048,
+    "t_end_s": 2100.0
+  },
+  "design_duty": {
+    "c_in_mol_m3": 0.68,
+    "interstitial_velocity_m_s": 0.036,
+    "service_time_s": 1500.0,
+    "outlet_mole_fraction_limit": 0.05
+  },
+  "model_notes": {
+    "isotherm": "Langmuir",
+    "kinetics": "linear_driving_force",
+    "dispersion": "axial_Fickian",
+    "inlet_bc": "Dirichlet",
+    "outlet_bc": "Neumann_zero_gradient"
+  }
+}

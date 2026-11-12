@@ -13,26 +13,98 @@
       "K_rel": 0.25,
       "k_LDF_rel": 0.5,
       "D_ax_rel": 0.45,
-      "L_min_rel": 0.2,
-      "L_min_undersize_floor": 0.95
+      "L_min_oversize_ceil": 1.3,
+      "outlet_feasibility_slack": 1.03
     }
   },
   {
-    "case_id": "V2_moderate_u",
+    "case_id": "V2_dense_pack",
     "parameters": {
-      "qm": 0.38,
-      "K": 2.2,
-      "k_LDF": 0.035,
-      "D_ax": 0.00018
+      "qm": 0.5,
+      "K": 3.2,
+      "k_LDF": 0.024,
+      "D_ax": 0.00015
     },
-    "L_min_m": 0.14999596575275068,
+    "L_min_m": 0.05216323249042035,
     "tolerances": {
       "qm_rel": 0.12,
       "K_rel": 0.25,
       "k_LDF_rel": 0.5,
       "D_ax_rel": 0.45,
-      "L_min_rel": 0.2,
-      "L_min_undersize_floor": 0.95
+      "L_min_oversize_ceil": 1.3,
+      "outlet_feasibility_slack": 1.03
+    }
+  },
+  {
+    "case_id": "V3_dispersion_regime",
+    "parameters": {
+      "qm": 0.39,
+      "K": 2.4,
+      "k_LDF": 0.042,
+      "D_ax": 0.0008
+    },
+    "L_min_m": 0.17725824446138,
+    "tolerances": {
+      "qm_rel": 0.12,
+      "K_rel": 0.25,
+      "k_LDF_rel": 0.5,
+      "D_ax_rel": 0.45,
+      "L_min_oversize_ceil": 1.3,
+      "outlet_feasibility_slack": 1.03
+    }
+  },
+  {
+    "case_id": "V4_sensor_faults",
+    "parameters": {
+      "qm": 0.43,
+      "K": 2.7,
+      "k_LDF": 0.027,
+      "D_ax": 0.00023
+    },
+    "L_min_m": 0.12049636986106638,
+    "tolerances": {
+      "qm_rel": 0.12,
+      "K_rel": 0.25,
+      "k_LDF_rel": 0.5,
+      "D_ax_rel": 0.45,
+      "L_min_oversize_ceil": 1.3,
+      "outlet_feasibility_slack": 1.03
+    }
+  },
+  {
+    "case_id": "V5_high_cin",
+    "parameters": {
+      "qm": 0.46,
+      "K": 2.0,
+      "k_LDF": 0.03,
+      "D_ax": 0.00021
+    },
+    "L_min_m": 0.2637510344664567,
+    "tolerances": {
+      "qm_rel": 0.12,
+      "K_rel": 0.25,
+      "k_LDF_rel": 0.5,
+      "D_ax_rel": 0.45,
+      "L_min_oversize_ceil": 1.3,
+      "outlet_feasibility_slack": 1.03
+    }
+  },
+  {
+    "case_id": "V6_near_linear",
+    "parameters": {
+      "qm": 0.58,
+      "K": 0.4,
+      "k_LDF": 0.021,
+      "D_ax": 0.00017
+    },
+    "L_min_m": 0.4383216477306281,
+    "tolerances": {
+      "qm_rel": 0.12,
+      "K_rel": 0.25,
+      "k_LDF_rel": 0.5,
+      "D_ax_rel": 0.45,
+      "L_min_oversize_ceil": 1.3,
+      "outlet_feasibility_slack": 1.03
     }
   }
 ]
