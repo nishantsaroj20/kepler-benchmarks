@@ -1,6 +1,7 @@
 {
-  "numpy_generator": "np.random.default_rng",
-  "seed": 20261111,
-  "rate_sigma_relative": 0.011,
-  "draws": "one normal draw per rate run, then one per effectiveness aliquot, in file order"
+  "visible_noise_seed": 20261111,
+  "hidden_noise_seed": 20261112,
+  "hidden_is_not_a_reseed": true,
+  "hidden_design": "explicit factorial plus four edge charges in generate_campaign.py hidden_campaign()",
+  "truth": "latent parameters on the fine finite-volume grid, not the reference least-squares fit"
 }

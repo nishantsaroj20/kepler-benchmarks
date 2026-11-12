@@ -1,9 +1,9 @@
-Every naive answer was run through the verifier image on the shipped truth. The reward was 0 in each case, and no charge passed both its rate test and its fraction test.
+# Baselines and ablations
 
-Constant 0, constant 1, the mean of the latent values, and the median of the latent values each failed 16 tests. A constant equal to one latent rate, copied into the rate and into all three fractions, failed 15 tests: the matching charge can meet the rate tolerance and still misses the fraction tolerances. Copying `bath_C`, `P_total_barg`, `N_rps`, `m_cat_g`, or `dp_um` into every numeric field failed 16 tests.
+Tolerances are an absolute rate error of at most the larger of 0.090 times the latent rate and 0.00015 mol m^{-3} s^{-1}, an absolute consumption error of at most the larger of 0.060 times the latent consumption and 0.20 mol m^{-3}, and an absolute fraction error of at most 0.030. Counts are in `calibration_results.json`.
 
-The do-nothing run, with `/app/output` empty, wrote reward 0. Pytest collected 19 tests in junitxml (19 failures, 0 errors). The CTRF file is the pytest-json-ctrf plugin output; that plugin merges the parametrized tests, so the count used here is the junit count.
+Constant 0, constant 1, the mean of the latent values, the median of the latent values, and copying bath temperature, gauge pressure, catalyst mass, particle diameter, or stirrer speed into every numeric field are outside the band on all 1539 charges. The container run of a program that writes zeros reported the same 1539 misses.
 
-Symlink, empty `cases`, a duplicate `case_id`, an extra case, NaN, and Infinity each wrote reward 0.
+Leaving out internal diffusion, while keeping the reference parameters and integrating the algebraic two-film rate, leaves 1447 charges outside. Maximum relative rate error 0.9783627348125193. Replacing consumption with the initial rate times the hold, using the reference initial state, leaves 1468 charges outside. Refitting on the spreadsheet rate column misses the rate band on 985 charges. Maximum relative rate error 0.3877605151595768.
 
-Per-baseline verifier output is summarized in `local_runs.json`. Per-case tolerance arithmetic is in `baseline_failures.json`.
+`naive_forecast.py` is the reference particle balance run one charge at a time. On two charges it matches the batched reference. On the full map the verifier killed it at 20 seconds, discarded the partial output, and recorded reward 0.

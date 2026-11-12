@@ -3,6 +3,7 @@
   "support": "activated carbon",
   "metal_location": "eggshell",
   "eggshell_depth_um": 3.0,
+  "effective_diffusivity_m2_per_s": 2.5e-09,
   "particle_density_kg_m3": 1900.0,
   "fresh_co_uptake_umol_per_g": 186.0
 }

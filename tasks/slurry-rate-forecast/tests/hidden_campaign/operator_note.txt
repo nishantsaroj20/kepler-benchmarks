@@ -1,0 +1,1 @@
+Week of 30 Jun 2025. The anisole charges were logged from the spreadsheet rate. Internal gradients were ignored because the toluene week had matched a crushed aliquot, and the hold was treated as the initial rate times the clock time.

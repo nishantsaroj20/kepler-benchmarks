@@ -1,29 +1,40 @@
-"""Check the slurry-rate predictions against the latent campaign truth."""
+"""Run the forecast program on the held-out campaign and compare it with the latent truth."""
 
 from __future__ import annotations
 
 import json
 import math
+import os
+import pwd
+import shutil
+import signal
+import subprocess
+import sys
+import tempfile
 from pathlib import Path
 
 import pytest
 
-OUT = Path("/app/output/predictions.json")
-TRUTH = json.loads(Path("/tests/truth/expected.json").read_text())
-REL_TOL = 0.040
-ABS_TOL = 0.0006
+PROGRAM = Path("/app/forecast.py")
+CAMPAIGN = Path("/tests/hidden_campaign")
+TRUTH_PATH = Path("/tests/truth/expected.json")
+RUN_LIMIT_SECONDS = 20
+REL_RATE = 0.090
+ABS_RATE = 0.00015
+REL_CONSUMED = 0.060
+ABS_CONSUMED = 0.20
 FRAC_TOL = 0.030
 SUM_TOL = 0.0001
-MAX_BYTES = 65536
+MAX_BYTES = 2_000_000
 NUMERIC_KEYS = (
     "rate_mol_m3_s",
+    "hydrogen_consumed_mol_m3",
     "resistance_fraction_gas_liquid",
     "resistance_fraction_liquid_solid",
     "resistance_fraction_kinetic",
 )
 REQUIRED_KEYS = ("case_id",) + NUMERIC_KEYS
-CASE_IDS = [row["case_id"] for row in TRUTH["cases"]]
-TRUTH_BY_ID = {row["case_id"]: row for row in TRUTH["cases"]}
+FRACTION_KEYS = NUMERIC_KEYS[2:]
 
 
 def _reject_constant(token: str):
@@ -39,35 +50,14 @@ def _pairs(pairs):
     return obj
 
 
-def load_document():
-    assert not OUT.is_symlink()
-    assert OUT.is_file()
-    raw = OUT.read_bytes()
+def load_document(path: Path):
+    assert not path.is_symlink()
+    assert path.is_file()
+    resolved = path.resolve()
+    assert resolved.parent == path.parent.resolve()
+    raw = path.read_bytes()
     assert 0 < len(raw) <= MAX_BYTES
     return json.loads(raw.decode("utf-8"), object_pairs_hook=_pairs, parse_constant=_reject_constant)
-
-
-def case_map(document):
-    assert isinstance(document, dict)
-    assert set(document.keys()) == {"cases"}
-    rows = document["cases"]
-    assert isinstance(rows, list)
-    assert rows, "cases is empty"
-    seen = []
-    mapped = {}
-    for row in rows:
-        assert isinstance(row, dict)
-        assert set(row.keys()) == set(REQUIRED_KEYS)
-        assert len(row.keys()) == len(REQUIRED_KEYS)
-        case_id = row["case_id"]
-        assert isinstance(case_id, str)
-        assert case_id not in mapped
-        seen.append(case_id)
-        mapped[case_id] = row
-    assert seen == CASE_IDS or set(seen) == set(CASE_IDS)
-    assert set(seen) == set(CASE_IDS)
-    assert len(seen) == len(CASE_IDS)
-    return mapped
 
 
 def finite_number(value):
@@ -78,40 +68,128 @@ def finite_number(value):
     return number
 
 
-def test_predictions_file_is_regular_and_bounded():
-    assert not OUT.is_symlink()
-    assert OUT.is_file()
-    size = OUT.stat().st_size
-    assert 0 < size <= MAX_BYTES
+def _discard(path: Path):
+    if path.is_symlink() or path.is_file():
+        path.unlink()
+    elif path.exists():
+        shutil.rmtree(path)
 
 
-def test_document_parses_without_nonfinite_tokens():
-    document = load_document()
-    assert isinstance(document, dict)
+def _run_program(campaign: Path, cases: Path, output: Path):
+    user = pwd.getpwnam("runner")
+    env = os.environ.copy()
+    env["OMP_NUM_THREADS"] = "1"
+    env["OPENBLAS_NUM_THREADS"] = "1"
+    env["MKL_NUM_THREADS"] = "1"
+    env["NUMEXPR_NUM_THREADS"] = "1"
+    env["HOME"] = "/tmp"
+    env.pop("PYTHONPATH", None)
+
+    def _pin():
+        os.sched_setaffinity(0, {0})
+
+    proc = subprocess.Popen(
+        [
+            sys.executable,
+            str(PROGRAM),
+            "--campaign",
+            str(campaign),
+            "--cases",
+            str(cases),
+            "--output",
+            str(output),
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        env=env,
+        start_new_session=True,
+        user=user.pw_uid,
+        group=user.pw_gid,
+        extra_groups=[],
+        preexec_fn=_pin,
+    )
+    timed_out = False
+    try:
+        proc.communicate(timeout=RUN_LIMIT_SECONDS)
+    except subprocess.TimeoutExpired:
+        timed_out = True
+        try:
+            os.killpg(proc.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        proc.communicate()
+    if timed_out:
+        _discard(output)
+        pytest.fail(f"python3 /app/forecast.py exceeded {RUN_LIMIT_SECONDS} seconds")
+    if proc.returncode != 0:
+        _discard(output)
+        pytest.fail(f"python3 /app/forecast.py exited {proc.returncode}")
 
 
-def test_case_ids_match_exactly():
-    mapped = case_map(load_document())
-    assert set(mapped) == set(CASE_IDS)
-    assert len(mapped) == len(CASE_IDS)
+@pytest.fixture(scope="session")
+def forecast_document():
+    assert PROGRAM.is_file()
+    assert not PROGRAM.is_symlink()
+    assert CAMPAIGN.is_dir()
+    work = Path(tempfile.mkdtemp(prefix="slurry-campaign-"))
+    shutil.copytree(CAMPAIGN, work, dirs_exist_ok=True)
+    out_dir = Path(tempfile.mkdtemp(prefix="slurry-out-"))
+    user = pwd.getpwnam("runner")
+    os.chown(out_dir, user.pw_uid, user.pw_gid)
+    os.chmod(out_dir, 0o700)
+    output = out_dir / "predictions.json"
+    _run_program(work, work / "predict_cases.csv", output)
+    return load_document(output)
 
 
-@pytest.mark.parametrize("case_id", CASE_IDS)
-def test_rate(case_id: str):
-    row = case_map(load_document())[case_id]
-    predicted = finite_number(row["rate_mol_m3_s"])
-    truth = float(TRUTH_BY_ID[case_id]["rate_mol_m3_s"])
-    tolerance = max(REL_TOL * abs(truth), ABS_TOL)
-    assert abs(predicted - truth) <= tolerance
+def test_program_is_a_file():
+    assert PROGRAM.is_file()
+    assert not PROGRAM.is_symlink()
+    text = PROGRAM.read_text(encoding="utf-8")
+    assert "--campaign" in text and "--cases" in text and "--output" in text
 
 
-@pytest.mark.parametrize("case_id", CASE_IDS)
-def test_fractions(case_id: str):
-    row = case_map(load_document())[case_id]
-    values = []
-    for key in NUMERIC_KEYS[1:]:
-        predicted = finite_number(row[key])
-        truth = float(TRUTH_BY_ID[case_id][key])
-        assert abs(predicted - truth) <= FRAC_TOL
-        values.append(predicted)
-    assert abs(sum(values) - 1.0) <= SUM_TOL
+def test_hidden_forecast(forecast_document):
+    truth = json.loads(TRUTH_PATH.read_text(encoding="utf-8"))
+    assert set(forecast_document.keys()) == {"cases"}
+    rows = forecast_document["cases"]
+    assert isinstance(rows, list) and rows
+    truth_rows = truth["cases"]
+    truth_ids = [row["case_id"] for row in truth_rows]
+    assert len(truth_ids) == len(set(truth_ids))
+    seen = []
+    mapped = {}
+    for row in rows:
+        assert isinstance(row, dict)
+        assert set(row.keys()) == set(REQUIRED_KEYS)
+        case_id = row["case_id"]
+        assert isinstance(case_id, str) and case_id
+        assert case_id not in mapped
+        seen.append(case_id)
+        mapped[case_id] = row
+    assert seen
+    assert set(seen) == set(truth_ids)
+    assert len(seen) == len(truth_ids)
+    missed = []
+    for truth_row in truth_rows:
+        got = mapped[truth_row["case_id"]]
+        numbers = {key: finite_number(got[key]) for key in NUMERIC_KEYS}
+        rate = numbers["rate_mol_m3_s"]
+        consumed = numbers["hydrogen_consumed_mol_m3"]
+        true_rate = float(truth_row["rate_mol_m3_s"])
+        true_consumed = float(truth_row["hydrogen_consumed_mol_m3"])
+        fractions = [numbers[key] for key in FRACTION_KEYS]
+        if abs(sum(fractions) - 1.0) > SUM_TOL:
+            missed.append(truth_row["case_id"])
+            continue
+        if abs(rate - true_rate) > max(REL_RATE * abs(true_rate), ABS_RATE):
+            missed.append(truth_row["case_id"])
+            continue
+        if abs(consumed - true_consumed) > max(REL_CONSUMED * abs(true_consumed), ABS_CONSUMED):
+            missed.append(truth_row["case_id"])
+            continue
+        for key in FRACTION_KEYS:
+            if abs(numbers[key] - float(truth_row[key])) > FRAC_TOL:
+                missed.append(truth_row["case_id"])
+                break
+    assert not missed, f"{len(missed)} charges outside the stated limits, including {missed[:8]}"

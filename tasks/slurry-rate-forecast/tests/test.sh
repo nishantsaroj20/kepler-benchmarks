@@ -1,9 +1,15 @@
 #!/bin/bash
 set -u
 mkdir -p /logs/verifier
+chmod 700 /logs/verifier
+if [ -d /tests ]; then
+  chmod 700 /tests
+fi
 reward=0
 write_reward() {
+  chmod 700 /logs/verifier
   printf '%s\n' "$reward" > /logs/verifier/reward.txt
+  chmod 700 /logs/verifier/reward.txt || true
 }
 trap write_reward EXIT
 cd /tmp
