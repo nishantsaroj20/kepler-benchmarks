@@ -11,8 +11,12 @@ RUN pip install --no-cache-dir \
     pytest==8.4.1 \
     pytest-json-ctrf==0.3.5
 
-RUN useradd --create-home --shell /usr/sbin/nologin runner \
- && mkdir -p /app /app/output /app/solver /logs/verifier
+RUN useradd --create-home --shell /usr/sbin/nologin runner
+
+RUN mkdir -p /app
+RUN mkdir -p /app/output
+RUN mkdir -p /app/solver
+RUN mkdir -p /logs/verifier
 
 COPY . /tests/
 
