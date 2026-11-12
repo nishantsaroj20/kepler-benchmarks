@@ -1,0 +1,125 @@
+{
+  "per_run_timeout_s": 120,
+  "program_artifact": "/workspace/output/column_solver.py",
+  "tolerances": {
+    "qm_rel": 0.12,
+    "K_rel": 0.25,
+    "k_LDF_rel": 0.5,
+    "D_ax_rel": 0.45,
+    "L_min_oversize_ceil": 1.3,
+    "outlet_feasibility_slack": 1.03
+  },
+  "hidden_cases": [
+    {
+      "case_id": "H1_new_material",
+      "parameters": {
+        "qm": 0.7,
+        "K": 2.55,
+        "k_LDF": 0.033,
+        "D_ax": 0.00022
+      },
+      "L_min_m": 0.043813363611698145,
+      "tolerances": {
+        "qm_rel": 0.12,
+        "K_rel": 0.25,
+        "k_LDF_rel": 0.5,
+        "D_ax_rel": 0.45,
+        "L_min_oversize_ceil": 1.3,
+        "outlet_feasibility_slack": 1.03
+      },
+      "shift": "Held-out dense packing in the same class as visible V2_dense_pack (low voidage, high particle density) with different numeric values."
+    },
+    {
+      "case_id": "H2_dispersion_regime",
+      "parameters": {
+        "qm": 0.3,
+        "K": 1.6,
+        "k_LDF": 0.06,
+        "D_ax": 0.00095
+      },
+      "L_min_m": 0.27022121749506334,
+      "tolerances": {
+        "qm_rel": 0.12,
+        "K_rel": 0.25,
+        "k_LDF_rel": 0.5,
+        "D_ax_rel": 0.45,
+        "L_min_oversize_ceil": 1.3,
+        "outlet_feasibility_slack": 1.03
+      },
+      "shift": "Held-out high-Pe / large-D_ax case in the same class as visible V3_dispersion_regime, with different velocity and dispersion values."
+    },
+    {
+      "case_id": "H3_sensor_faults",
+      "parameters": {
+        "qm": 0.7,
+        "K": 1.1,
+        "k_LDF": 0.055,
+        "D_ax": 0.00065
+      },
+      "L_min_m": 0.12019531475380063,
+      "tolerances": {
+        "qm_rel": 0.12,
+        "K_rel": 0.25,
+        "k_LDF_rel": 0.5,
+        "D_ax_rel": 0.45,
+        "L_min_oversize_ceil": 1.3,
+        "outlet_feasibility_slack": 1.03
+      },
+      "shift": "Held-out mid-bed dropout/spike faults in the same class as visible V4_sensor_faults; outlet remains the primary identification signal."
+    },
+    {
+      "case_id": "H4_high_cin",
+      "parameters": {
+        "qm": 0.7,
+        "K": 1.05,
+        "k_LDF": 0.05,
+        "D_ax": 0.00038
+      },
+      "L_min_m": 0.229711454727687,
+      "tolerances": {
+        "qm_rel": 0.12,
+        "K_rel": 0.25,
+        "k_LDF_rel": 0.5,
+        "D_ax_rel": 0.45,
+        "L_min_oversize_ceil": 1.3,
+        "outlet_feasibility_slack": 1.03
+      },
+      "shift": "Held-out elevated feed concentrations in the same class as visible V5_high_cin (near-saturation Langmuir curvature)."
+    },
+    {
+      "case_id": "H5_near_linear",
+      "parameters": {
+        "qm": 0.8,
+        "K": 0.2,
+        "k_LDF": 0.026,
+        "D_ax": 0.00024
+      },
+      "L_min_m": 0.6141412370014638,
+      "tolerances": {
+        "qm_rel": 0.12,
+        "K_rel": 0.25,
+        "k_LDF_rel": 0.5,
+        "D_ax_rel": 0.45,
+        "L_min_oversize_ceil": 1.3,
+        "outlet_feasibility_slack": 1.03
+      },
+      "shift": "Held-out near-linear isotherm (small K) in the same class as visible V6_near_linear, with different service-window numbers."
+    }
+  ],
+  "shift_summary": {
+    "H1_new_material": "Held-out dense packing in the same class as visible V2_dense_pack (low voidage, high particle density) with different numeric values.",
+    "H2_dispersion_regime": "Held-out high-Pe / large-D_ax case in the same class as visible V3_dispersion_regime, with different velocity and dispersion values.",
+    "H3_sensor_faults": "Held-out mid-bed dropout/spike faults in the same class as visible V4_sensor_faults; outlet remains the primary identification signal.",
+    "H4_high_cin": "Held-out elevated feed concentrations in the same class as visible V5_high_cin (near-saturation Langmuir curvature).",
+    "H5_near_linear": "Held-out near-linear isotherm (small K) in the same class as visible V6_near_linear, with different service-window numbers."
+  },
+  "visible_case_ids": [
+    "V1_base",
+    "V2_dense_pack",
+    "V3_dispersion_regime",
+    "V4_sensor_faults",
+    "V5_high_cin",
+    "V6_near_linear"
+  ],
+  "notes": "Every deciding condition class used in hidden evaluation appears at least once among the visible samples. Hidden cases reuse those classes with different numeric values (not reseeds, and no visible case ID is reused). Difficulty is scientific parameter coupling and design sensitivity under a timed program-under-test."
+}

@@ -1,0 +1,31 @@
+{
+  "case_id": "V2_dense_pack",
+  "bed_voidage": 0.33,
+  "particle_density_kg_m3": 1180.0,
+  "lab_bed_length_m": 0.27,
+  "experiment_A": {
+    "csv": "breakthrough_exp_A.csv",
+    "c_in_mol_m3": 0.5,
+    "interstitial_velocity_m_s": 0.032,
+    "t_end_s": 18671.92198426573
+  },
+  "experiment_B": {
+    "csv": "breakthrough_exp_B.csv",
+    "c_in_mol_m3": 1.15,
+    "interstitial_velocity_m_s": 0.058,
+    "t_end_s": 5726.297926211718
+  },
+  "design_duty": {
+    "c_in_mol_m3": 0.72,
+    "interstitial_velocity_m_s": 0.042,
+    "service_time_s": 1050.0,
+    "outlet_mole_fraction_limit": 0.045
+  },
+  "model_notes": {
+    "isotherm": "Langmuir",
+    "kinetics": "linear_driving_force",
+    "dispersion": "axial_Fickian",
+    "inlet_bc": "Dirichlet",
+    "outlet_bc": "Neumann_zero_gradient"
+  }
+}

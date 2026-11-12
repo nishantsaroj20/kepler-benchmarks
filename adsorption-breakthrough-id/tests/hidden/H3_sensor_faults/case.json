@@ -1,0 +1,31 @@
+{
+  "case_id": "H3_sensor_faults",
+  "bed_voidage": 0.37,
+  "particle_density_kg_m3": 920.0,
+  "lab_bed_length_m": 0.28,
+  "experiment_A": {
+    "csv": "breakthrough_exp_A.csv",
+    "c_in_mol_m3": 0.7,
+    "interstitial_velocity_m_s": 0.045,
+    "t_end_s": 6369.681478088258
+  },
+  "experiment_B": {
+    "csv": "breakthrough_exp_B.csv",
+    "c_in_mol_m3": 1.8,
+    "interstitial_velocity_m_s": 0.078,
+    "t_end_s": 2184.8792364899746
+  },
+  "design_duty": {
+    "c_in_mol_m3": 1.1,
+    "interstitial_velocity_m_s": 0.055,
+    "service_time_s": 700.0,
+    "outlet_mole_fraction_limit": 0.04
+  },
+  "model_notes": {
+    "isotherm": "Langmuir",
+    "kinetics": "linear_driving_force",
+    "dispersion": "axial_Fickian",
+    "inlet_bc": "Dirichlet",
+    "outlet_bc": "Neumann_zero_gradient"
+  }
+}

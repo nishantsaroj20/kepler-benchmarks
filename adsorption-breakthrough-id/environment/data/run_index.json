@@ -1,0 +1,49 @@
+{
+  "program_path": "/workspace/output/column_solver.py",
+  "per_run_timeout_s": 120,
+  "sample_cases": [
+    {
+      "case_id": "V1_base",
+      "path": "sample_cases/V1_base/case.json",
+      "condition_class": "base"
+    },
+    {
+      "case_id": "V2_dense_pack",
+      "path": "sample_cases/V2_dense_pack/case.json",
+      "condition_class": "dense_pack"
+    },
+    {
+      "case_id": "V3_dispersion_regime",
+      "path": "sample_cases/V3_dispersion_regime/case.json",
+      "condition_class": "dispersion_regime"
+    },
+    {
+      "case_id": "V4_sensor_faults",
+      "path": "sample_cases/V4_sensor_faults/case.json",
+      "condition_class": "sensor_faults"
+    },
+    {
+      "case_id": "V5_high_cin",
+      "path": "sample_cases/V5_high_cin/case.json",
+      "condition_class": "high_cin"
+    },
+    {
+      "case_id": "V6_near_linear",
+      "path": "sample_cases/V6_near_linear/case.json",
+      "condition_class": "near_linear"
+    }
+  ],
+  "visible_condition_coverage": [
+    "V1_base: clean moderate packed-bed breakthrough",
+    "V2_dense_pack: low voidage / high particle density",
+    "V3_dispersion_regime: high interstitial velocity and large D_ax",
+    "V4_sensor_faults: mid-bed NaN dropouts and spikes",
+    "V5_high_cin: elevated feed concentrations (near-saturation Langmuir)",
+    "V6_near_linear: small-K near-linear isotherm"
+  ],
+  "cli": {
+    "case": "--case",
+    "out": "--out",
+    "example": "python3 /workspace/output/column_solver.py --case /workspace/data/sample_cases/V1_base/case.json --out /workspace/output/sample_V1_result.json"
+  }
+}

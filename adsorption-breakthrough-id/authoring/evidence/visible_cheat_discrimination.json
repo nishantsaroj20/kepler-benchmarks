@@ -1,0 +1,44 @@
+{
+  "all_visible_cheats_fail": true,
+  "n_checks": 90,
+  "L_scales": [
+    1.0,
+    1.1,
+    1.2
+  ],
+  "leaks": [],
+  "verifier_gates": "BDF N=64 feasibility + param relative tolerances + L_min oversize ceil 1.30",
+  "hidden_params": {
+    "H1_new_material": {
+      "qm": 0.7,
+      "K": 2.55,
+      "k_LDF": 0.033,
+      "D_ax": 0.00022
+    },
+    "H2_dispersion_regime": {
+      "qm": 0.3,
+      "K": 1.6,
+      "k_LDF": 0.06,
+      "D_ax": 0.00095
+    },
+    "H3_sensor_faults": {
+      "qm": 0.7,
+      "K": 1.1,
+      "k_LDF": 0.055,
+      "D_ax": 0.00065
+    },
+    "H4_high_cin": {
+      "qm": 0.7,
+      "K": 1.05,
+      "k_LDF": 0.05,
+      "D_ax": 0.00038
+    },
+    "H5_near_linear": {
+      "qm": 0.8,
+      "K": 0.2,
+      "k_LDF": 0.026,
+      "D_ax": 0.00024
+    }
+  },
+  "note": "Copying any visible sample parameters (and 1.1\u20131.2\u00d7 visible L) fails every hidden case under the real verifier gates."
+}
