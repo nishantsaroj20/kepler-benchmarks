@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Forecast weak-acid extraction recoveries from the plant log."""
+"""Forecast K-17 extraction charges from the plant log.
+
+The shake tests are equilibrium contacts. Their organic loading rises
+faster than the aqueous neutral concentration, which is the signature of
+dimerization of the extracted monomer in the ketone. Each pilot contact
+then approaches that equilibrium transfer on the plant stirrer law.
+"""
 
 from __future__ import annotations
 
@@ -13,8 +19,6 @@ import numpy as np
 from scipy.optimize import least_squares
 
 T_REF = 298.15
-N_REF = 3.2
-SPEED_POWER = 0.85
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -40,87 +44,116 @@ def broth_ph(day: str, millivolts: float, calibration: dict) -> float:
     return window["intercept"] - (millivolts - window["millivolt_offset"]) / window["slope_mv_per_ph"]
 
 
-def recovery_of(
-    ph: float,
-    temperature_c: float,
-    solvent_ratio: float,
-    stirrer_rps: float,
-    contact_s: float,
-    stages: int,
-    pka: float,
-    k_ref: float,
-    temperature_slope: float,
-    kla_ref: float,
-) -> float:
+def _neutral_alpha(ph: float, temperature_c: float, pka: float, partition: float, slope: float) -> float:
     kelvin = temperature_c + 273.15
     neutral = 1.0 / (1.0 + 10.0 ** (ph - pka))
-    distribution = k_ref * neutral * math.exp(temperature_slope * (1.0 / T_REF - 1.0 / kelvin))
-    approach = 1.0 - math.exp(-kla_ref * (stirrer_rps / N_REF) ** SPEED_POWER * contact_s)
+    monomer = partition * math.exp(slope * (1.0 / T_REF - 1.0 / kelvin))
+    return monomer * neutral
+
+
+def _aqueous_equilibrium(ca_in: float, solvent_portion: float, alpha: float, beta: float) -> float:
+    quad = solvent_portion * beta
+    linear = 1.0 + solvent_portion * alpha
+    if quad <= 1e-18:
+        return ca_in / linear
+    discriminant = linear * linear + 4.0 * quad * ca_in
+    return (-linear + math.sqrt(discriminant)) / (2.0 * quad)
+
+
+def _approach(stirrer_rps: float, contact_s: float, kla_ref: float, calibration: dict) -> float:
+    reference = calibration["stirrer_reference_rps"]
+    exponent = calibration["stirrer_exponent"]
+    kla = kla_ref * (stirrer_rps / reference) ** exponent
+    return 1.0 - math.exp(-kla * contact_s)
+
+
+def recovery_of(
+    feed: float,
+    solvent_ratio: float,
+    stages: int,
+    ph: float,
+    temperature_c: float,
+    stirrer_rps: float,
+    contact_s: float,
+    pka: float,
+    partition: float,
+    slope: float,
+    dimer: float,
+    kla_ref: float,
+    calibration: dict,
+    equilibrium: bool = False,
+) -> tuple[float, float]:
+    alpha = _neutral_alpha(ph, temperature_c, pka, partition, slope)
+    beta = 2.0 * dimer * alpha * alpha
     portion = solvent_ratio / stages
-    remaining = 1.0
+    aqueous = feed
     for _ in range(stages):
-        step = approach * (distribution * portion) / (1.0 + distribution * portion)
-        remaining *= 1.0 - step
-    return 1.0 - remaining
+        equilibrium_aqueous = _aqueous_equilibrium(aqueous, portion, alpha, beta)
+        if equilibrium:
+            aqueous = equilibrium_aqueous
+        else:
+            moved = _approach(stirrer_rps, contact_s, kla_ref, calibration)
+            aqueous = aqueous - moved * (aqueous - equilibrium_aqueous)
+    removed = 1.0 - aqueous / feed
+    organic = (feed - aqueous) / solvent_ratio
+    return removed, organic
 
 
-def usable(row: dict[str, str]) -> bool:
-    return row["status"] == "ok"
+def _observed(row: dict[str, str], calibration: dict) -> tuple[float, float, float, float, float, int, float, float]:
+    ph = broth_ph(row["date"], float(row["ph_mv"]), calibration)
+    temperature = broth_celsius(float(row["tic_c"]), calibration)
+    solvent_ratio = float(row["solvent_ratio"])
+    stirrer = float(row["stirrer_rps"])
+    contact = float(row["contact_s"])
+    stages = int(row["stage_count"])
+    feed = float(row["c_feed_mol_m3"])
+    aqueous = float(row["c_aq_mol_m3"])
+    return ph, temperature, solvent_ratio, stirrer, contact, stages, feed, 1.0 - aqueous / feed
 
 
-def fit_constants(runs: list[dict[str, str]], calibration: dict, start: np.ndarray | None = None) -> np.ndarray:
-    design = []
-    observed = []
-    for row in runs:
-        if not usable(row):
-            continue
-        ph = broth_ph(row["date"], float(row["ph_mv"]), calibration)
-        temperature = broth_celsius(float(row["tic_c"]), calibration)
-        solvent_ratio = float(row["solvent_ratio"])
-        stirrer = float(row["stirrer_rps"])
-        contact = float(row["contact_s"])
-        stages = int(row["stage_count"])
-        feed = float(row["c_feed_mol_m3"])
-        aqueous = float(row["c_aq_mol_m3"])
-        design.append([ph, temperature, solvent_ratio, stirrer, contact, stages])
-        observed.append(1.0 - aqueous / feed)
-    matrix = np.asarray(design, dtype=float)
-    target = np.asarray(observed, dtype=float)
+def fit_constants(runs: list[dict[str, str]], shakes: list[dict[str, str]], calibration: dict) -> np.ndarray:
+    rows = [row for row in runs if row["status"] == "ok"] + list(shakes)
+    observed = [_observed(row, calibration) for row in rows]
 
     def residual(theta: np.ndarray) -> np.ndarray:
-        pka, log_k, slope, log_kla = theta
-        predicted = np.empty(len(target))
-        for index, row in enumerate(matrix):
-            predicted[index] = recovery_of(
-                row[0], row[1], row[2], row[3], row[4], int(row[5]),
-                pka, math.exp(log_k), slope, math.exp(log_kla),
+        pka, log_partition, slope, log_dimer, log_kla = theta
+        partition = math.exp(log_partition)
+        dimer = math.exp(log_dimer)
+        kla_ref = math.exp(log_kla)
+        gap = np.empty(len(observed))
+        for index, row in enumerate(observed):
+            predicted, _organic = recovery_of(
+                row[6], row[2], row[5], row[0], row[1], row[3], row[4],
+                pka, partition, slope, dimer, kla_ref, calibration,
             )
-        return predicted - target
+            gap[index] = predicted - row[7]
+        return gap
 
-    if start is None:
-        start = np.array([4.4, math.log(40.0), 1800.0, math.log(0.04)])
+    start = np.array([4.4, math.log(8.0), 1200.0, math.log(0.002), math.log(0.03)])
     bounds = (
-        [3.2, math.log(8.0), 400.0, math.log(0.008)],
-        [6.2, math.log(300.0), 7000.0, math.log(0.4)],
+        [3.5, math.log(1.0), 200.0, math.log(1e-4), math.log(0.005)],
+        [6.0, math.log(80.0), 5000.0, math.log(0.05), math.log(0.3)],
     )
     fitted = least_squares(residual, start, bounds=bounds, xtol=1e-14, ftol=1e-14, gtol=1e-14)
     return fitted.x
 
 
 def forecasts(charges: list[dict[str, str]], calibration: dict, theta: np.ndarray) -> list[dict]:
-    pka, log_k, slope, log_kla = (float(theta[0]), float(theta[1]), float(theta[2]), float(theta[3]))
-    k_ref = math.exp(log_k)
-    kla_ref = math.exp(log_kla)
+    pka = float(theta[0])
+    partition = math.exp(float(theta[1]))
+    slope = float(theta[2])
+    dimer = math.exp(float(theta[3]))
+    kla_ref = math.exp(float(theta[4]))
     rows = []
     for row in charges:
         ph = broth_ph(row["date"], float(row["ph_mv"]), calibration)
         temperature = broth_celsius(float(row["tic_c"]), calibration)
         solvent_ratio = float(row["solvent_ratio"])
-        recovery = recovery_of(
-            ph, temperature, solvent_ratio, float(row["stirrer_rps"]), float(row["contact_s"]),
-            int(row["stage_count"]), pka, k_ref, slope, kla_ref,
+        recovery, organic = recovery_of(
+            float(row["c_feed_mol_m3"]), solvent_ratio, int(row["stage_count"]),
+            ph, temperature, float(row["stirrer_rps"]), float(row["contact_s"]),
+            pka, partition, slope, dimer, kla_ref, calibration,
         )
-        organic = recovery * float(row["c_feed_mol_m3"]) / solvent_ratio
         rows.append({
             "case_id": row["case_id"],
             "recovery": recovery,
@@ -132,8 +165,9 @@ def forecasts(charges: list[dict[str, str]], calibration: dict, theta: np.ndarra
 def build_predictions(data_dir: Path) -> dict:
     calibration = json.loads((data_dir / "calibration.json").read_text())
     runs = read_csv(data_dir / "runs.csv")
+    shakes = read_csv(data_dir / "shakes.csv")
     charges = read_csv(data_dir / "charges.csv")
-    theta = fit_constants(runs, calibration)
+    theta = fit_constants(runs, shakes, calibration)
     return {"charges": forecasts(charges, calibration, theta)}
 
 

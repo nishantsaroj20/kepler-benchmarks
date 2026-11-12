@@ -8,9 +8,9 @@ from pathlib import Path
 
 PREDICTIONS = Path("/app/output/predictions.json")
 TRUTH_PATH = Path("/tests/truth/expected.json")
-REL_TOL = 0.025
-ABS_RECOVERY = 0.006
-ABS_ORGANIC = 0.20
+REL_TOL = 0.02
+ABS_RECOVERY = 0.012
+ABS_ORGANIC = 0.60
 MAX_BYTES = 2_000_000
 
 

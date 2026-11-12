@@ -1,37 +1,17 @@
-K-17 is a monoprotic carboxylic acid recovered from aqueous broth into 4-methyl-2-pentanone. The campaign is synthetic. The numbers below are the plant conventions for this log, not a literature correlation to look up.
+K-17 is a monoprotic carboxylic acid recovered from aqueous broth into 4-methyl-2-pentanone. The campaign is synthetic. These notes are the plant record for this log, not a literature correlation to look up, and they do not write out the stage balance.
 
-Only the neutral acid distributes. With broth temperature T in kelvin and T_ref = 298.15 K,
+calibration.json is the meter record. thermocouple_celsius converts the controller reading tic_c to broth temperature in celsius as a0 + a1*tic_c + a2*tic_c^2. The extraction depends on the broth temperature. tic_c is only the controller reading.
 
-f = 1 / (1 + 10^(pH - pKa))
+ph_mv is the glass-electrode millivolt reading. Use the ph_windows entry whose start and end contain the row date: pH = intercept - (ph_mv - millivolt_offset) / slope_mv_per_ph. ph_sheet is the column the spreadsheet stored. Through 2024-05-18 that column was built with the slope sign reversed; sheet_slope_sign records the sign the sheet actually used, and the electrode was reset on 2024-05-19. ph_sheet is not the broth pH.
 
-K = K_ref * f * exp(B * (1/T_ref - 1/T))
+organic_assay_blank_mol_m3 sits inside c_org_assay_mol_m3. recovery_sheet was formed from that assay, so it still carries the blank. The aqueous residual does not. The removal measured on a historical contact is 1 - c_aq_mol_m3 / c_feed_mol_m3.
 
-pKa, K_ref, B, and kLa_ref are constant across the log and are not written down. Identify them from the historical contacts.
+temperature_reference_k, stirrer_reference_rps, and stirrer_exponent are the plant agitation reference. A contact held for t seconds at impeller speed N revolutions per second approaches its equilibrium transfer by the fraction 1 - exp(-kLa * t), with kLa = kLa_ref * (N / stirrer_reference_rps)^stirrer_exponent. kLa_ref was not written down.
 
-A contact of t seconds at impeller speed N revolutions per second approaches equilibrium by
+runs.csv is the pilot contact log. A row with status ok was an agitated contact. A row with status aborted was an export that was cut off. A row with status unmixed was a batch whose impeller never started. Those last two are not agitated contacts.
 
-phi = 1 - exp(-kLa_ref * (N / 3.2)^0.85 * t)
+shakes.csv is the equilibrium study. Those bottles were held long enough that the transfer was complete. At the same broth pH and temperature, a richer feed loads the ketone by more than a partition coefficient that does not change with concentration. The process chemist’s conclusion from that study is that the extracted neutral acid dimerizes in the ketone, and that a monomer-only distribution does not describe the shakes. Across this temperature window the dimerization equilibrium was treated as constant. The acid dissociation and the monomer partition were not.
 
-The reference speed 3.2 rps and the exponent 0.85 are fixed.
+stage_count is how many contacts were made. When it is 2, the solvent is split into two equal portions and the raffinate from the first contact is contacted with the fresh second portion. Both contacts see the same broth, the same impeller speed, and the same contact time. S in the tables is the combined organic volume divided by the aqueous volume. The organic concentration that goes on a charge sheet is the solute that left the aqueous phase, divided by that combined solvent volume, and it does not include the assay blank.
 
-When stage_count is 1, the solvent ratio S = V_org / V_aq is applied once. The fraction of feed solute that leaves the aqueous phase is
-
-recovery = phi * (K*S) / (1 + K*S)
-
-When stage_count is 2, the solvent is split into two equal portions. The raffinate from the first contact is contacted again with the fresh second portion. Each contact uses solvent ratio S/2, the same K, and the same phi. recovery is the fraction of feed solute removed after both contacts. In either case the organic concentration to report is the concentration in the combined solvent,
-
-organic_mol_m3 = recovery * c_feed_mol_m3 / S
-
-with no assay blank added.
-
-The broth temperature in celsius is a0 + a1*tic_c + a2*tic_c^2 using thermocouple_celsius in calibration.json. tic_c is the controller reading. Do not fit K against tic_c.
-
-ph_mv is the glass-electrode reading. Convert it with the ph_windows entry whose start and end contain the row date:
-
-pH = intercept - (ph_mv - millivolt_offset) / slope_mv_per_ph
-
-ph_sheet is the column the spreadsheet produced. Before 2024-05-19 that column was built with the slope sign reversed. Do not use ph_sheet.
-
-The measured recovery of a historical contact is 1 - c_aq_mol_m3 / c_feed_mol_m3. c_org_assay_mol_m3 still includes organic_assay_blank_mol_m3, and recovery_sheet was computed from that assay. Neither is the fitting target, and the blank is not part of organic_mol_m3.
-
-Drop every historical row whose status is aborted or unmixed. Those rows are not single agitated contacts. The charges to forecast all have status ok, and they still need the temperature and pH corrections above.
+charges.csv lists the contacts that have not been assayed. They use the same meters and the same split. Several of them lie outside the pilot ranges of controller temperature, solvent ratio, stirrer speed, and contact time.
