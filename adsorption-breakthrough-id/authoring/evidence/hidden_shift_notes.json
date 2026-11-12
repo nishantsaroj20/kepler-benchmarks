@@ -1,0 +1,12 @@
+{
+  "built_by": "authoring/provenance/generate_all_cases.py",
+  "hidden_root": "tests/hidden/",
+  "manifest": "tests/hidden/manifest.json",
+  "shifts": {
+    "H1_new_material": "New packing material: lower voidage and denser particles than any visible sample, with a different Langmuir pair.",
+    "H2_dispersion_regime": "High superficial velocity / large D_ax dispersion-dominated MTZ; outside the Pe range of the visible samples.",
+    "H3_sensor_faults": "Same broad class as visible kinetics, but mid-bed channel has injected dropouts and spike faults the solver must ignore/robustify.",
+    "H4_high_cin": "Feed concentrations far above the visible range (near-saturation Langmuir curvature not seen in samples).",
+    "H5_near_linear": "Near-linear isotherm (small K) plus longer service window \u2014 edge case absent from visible duties."
+  }
+}

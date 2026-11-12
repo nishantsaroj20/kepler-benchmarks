@@ -1,0 +1,31 @@
+{
+  "case_id": "H4_high_cin",
+  "bed_voidage": 0.41,
+  "particle_density_kg_m3": 780.0,
+  "lab_bed_length_m": 0.27,
+  "experiment_A": {
+    "csv": "breakthrough_exp_A.csv",
+    "c_in_mol_m3": 1.9,
+    "superficial_velocity_m_s": 0.038,
+    "t_end_s": 2377.275534015188
+  },
+  "experiment_B": {
+    "csv": "breakthrough_exp_B.csv",
+    "c_in_mol_m3": 3.4,
+    "superficial_velocity_m_s": 0.072,
+    "t_end_s": 1100.0
+  },
+  "design_duty": {
+    "c_in_mol_m3": 2.6,
+    "superficial_velocity_m_s": 0.055,
+    "service_time_s": 800.0,
+    "outlet_mole_fraction_limit": 0.05
+  },
+  "model_notes": {
+    "isotherm": "Langmuir",
+    "kinetics": "linear_driving_force",
+    "dispersion": "axial_Fickian",
+    "inlet_bc": "Dirichlet",
+    "outlet_bc": "Neumann_zero_gradient"
+  }
+}

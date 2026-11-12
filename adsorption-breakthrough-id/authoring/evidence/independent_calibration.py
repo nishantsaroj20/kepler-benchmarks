@@ -1,83 +1,73 @@
 #!/usr/bin/env python3
-"""Independent reimplementation used to justify verifier tolerances.
-
-Re-integrates the true Langmuir–LDF–dispersion model with a separate MOL
-grid, confirms the reference L_min margin, and shows that naive baselines
-violate parameter or design gates.
-"""
+"""Independent checks for hidden-shift oracle margins and timeout headroom."""
 
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
 
-import numpy as np
-from scipy.integrate import solve_ivp
-
 ROOT = Path(__file__).resolve().parents[2]
-GT = json.loads((ROOT / "tests" / "ground_truth_params.json").read_text())
-SPECS = json.loads((ROOT / "environment" / "data" / "bed_specs.json").read_text())
-
-
-def q_star(c, qm, K):
-    return qm * K * c / (1.0 + K * c)
-
-
-def max_outlet(L, qm, K, k_ldf, D_ax, n_nodes=64):
-    duty = SPECS["design_duty"]
-    eps = SPECS["bed_voidage"]
-    rho = SPECS["particle_density_kg_m3"]
-    c_in = duty["c_in_mol_m3"]
-    u = duty["superficial_velocity_m_s"]
-    t_service = duty["service_time_s"]
-    dz = L / n_nodes
-    factor = ((1.0 - eps) / eps) * rho
-    y0 = np.zeros(2 * n_nodes)
-
-    def rhs(_t, y):
-        c = y[:n_nodes]
-        q = y[n_nodes:]
-        dqdt = k_ldf * (q_star(c, qm, K) - q)
-        dc = np.empty(n_nodes)
-        dc[0] = u * (c[0] - c_in) / dz
-        dc[1:] = u * (c[1:] - c[:-1]) / dz
-        c_im1 = np.empty(n_nodes)
-        c_ip1 = np.empty(n_nodes)
-        c_im1[0] = c_in
-        c_im1[1:] = c[:-1]
-        c_ip1[:-1] = c[1:]
-        c_ip1[-1] = c[-1]
-        d2 = (c_ip1 - 2.0 * c + c_im1) / (dz * dz)
-        return np.concatenate([-dc + D_ax * d2 - factor * dqdt, dqdt])
-
-    sol = solve_ivp(
-        rhs,
-        (0.0, t_service),
-        y0,
-        method="BDF",
-        t_eval=np.linspace(0.0, t_service, 241),
-        rtol=1e-7,
-        atol=1e-10,
-    )
-    assert sol.success, sol.message
-    return float(np.max(sol.y[n_nodes - 1, :]))
+MANIFEST = ROOT / "tests" / "hidden" / "manifest.json"
+SOLVER = ROOT / "solution" / "column_solver.py"
 
 
 def main() -> None:
-    p = GT["parameters"]
-    L_ref = GT["design"]["L_min_m"]
-    c_limit = GT["design"]["c_limit_mol_m3"]
-    max_ref = max_outlet(L_ref, p["qm"], p["K"], p["k_LDF"], p["D_ax"])
-    max_short = max_outlet(0.92 * L_ref, p["qm"], p["K"], p["k_LDF"], p["D_ax"])
+    import subprocess
+    import sys
+
+    manifest = json.loads(MANIFEST.read_text())
+    timeout_s = float(manifest["per_run_timeout_s"])
+    rows = []
+    for entry in manifest["hidden_cases"]:
+        case_id = entry["case_id"]
+        case_path = ROOT / "tests" / "hidden" / case_id / "case.json"
+        out_path = Path("/tmp") / f"calib_{case_id}.json"
+        t0 = time.monotonic()
+        proc = subprocess.run(
+            [sys.executable, str(SOLVER), "--case", str(case_path), "--out", str(out_path)],
+            capture_output=True,
+            text=True,
+            env={
+                **dict(**{k: "1" for k in (
+                    "OMP_NUM_THREADS",
+                    "OPENBLAS_NUM_THREADS",
+                    "MKL_NUM_THREADS",
+                    "NUMEXPR_NUM_THREADS",
+                )})
+            },
+        )
+        elapsed = time.monotonic() - t0
+        assert proc.returncode == 0, proc.stderr
+        payload = json.loads(out_path.read_text())
+        tol = entry["tolerances"]
+        ok = True
+        for key, rel in (
+            ("qm", tol["qm_rel"]),
+            ("K", tol["K_rel"]),
+            ("k_LDF", tol["k_LDF_rel"]),
+            ("D_ax", tol["D_ax_rel"]),
+        ):
+            err = abs(payload[key] - entry["parameters"][key]) / abs(entry["parameters"][key])
+            ok = ok and err <= rel
+        Lerr = abs(payload["L_min_m"] - entry["L_min_m"]) / abs(entry["L_min_m"])
+        ok = ok and Lerr <= tol["L_min_rel"] and payload["L_min_m"] >= tol["L_min_undersize_floor"] * entry["L_min_m"]
+        rows.append(
+            {
+                "case_id": case_id,
+                "elapsed_s": round(elapsed, 2),
+                "timeout_s": timeout_s,
+                "headroom_s": round(timeout_s - elapsed, 2),
+                "pass": ok,
+                "L_min_rel_err": round(Lerr, 4),
+                "shift": entry.get("shift"),
+            }
+        )
     report = {
-        "reference_L_min_m": L_ref,
-        "independent_max_outlet_at_L_ref": max_ref,
-        "c_limit": c_limit,
-        "margin_at_L_ref": c_limit - max_ref,
-        "independent_max_outlet_at_0.92_L_ref": max_short,
-        "naive_constant_isotherm_would_fail_params": True,
-        "naive_lab_length_copy_L_error": abs(0.30 - L_ref) / L_ref,
-        "undersized_bed_exceeds_limit": max_short > c_limit,
+        "oracle_all_pass": all(r["pass"] for r in rows),
+        "min_headroom_s": min(r["headroom_s"] for r in rows),
+        "rows": rows,
+        "hidden_shift_builder": "authoring/provenance/generate_all_cases.py",
     }
     out = Path(__file__).with_name("independent_calibration_report.json")
     out.write_text(json.dumps(report, indent=2) + "\n")

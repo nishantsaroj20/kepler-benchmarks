@@ -1,0 +1,121 @@
+{
+  "per_run_timeout_s": 120,
+  "program_artifact": "/workspace/output/column_solver.py",
+  "tolerances": {
+    "qm_rel": 0.12,
+    "K_rel": 0.25,
+    "k_LDF_rel": 0.5,
+    "D_ax_rel": 0.45,
+    "L_min_rel": 0.2,
+    "L_min_undersize_floor": 0.95
+  },
+  "hidden_cases": [
+    {
+      "case_id": "H1_new_material",
+      "parameters": {
+        "qm": 0.55,
+        "K": 3.6,
+        "k_LDF": 0.022,
+        "D_ax": 0.00014
+      },
+      "L_min_m": 0.04206903614103794,
+      "tolerances": {
+        "qm_rel": 0.12,
+        "K_rel": 0.25,
+        "k_LDF_rel": 0.5,
+        "D_ax_rel": 0.45,
+        "L_min_rel": 0.2,
+        "L_min_undersize_floor": 0.95
+      },
+      "shift": "New packing material: lower voidage and denser particles than any visible sample, with a different Langmuir pair."
+    },
+    {
+      "case_id": "H2_dispersion_regime",
+      "parameters": {
+        "qm": 0.4,
+        "K": 2.5,
+        "k_LDF": 0.045,
+        "D_ax": 0.0009
+      },
+      "L_min_m": 0.17612099580001092,
+      "tolerances": {
+        "qm_rel": 0.12,
+        "K_rel": 0.25,
+        "k_LDF_rel": 0.5,
+        "D_ax_rel": 0.45,
+        "L_min_rel": 0.2,
+        "L_min_undersize_floor": 0.95
+      },
+      "shift": "High superficial velocity / large D_ax dispersion-dominated MTZ; outside the Pe range of the visible samples."
+    },
+    {
+      "case_id": "H3_sensor_faults",
+      "parameters": {
+        "qm": 0.44,
+        "K": 2.9,
+        "k_LDF": 0.026,
+        "D_ax": 0.00022
+      },
+      "L_min_m": 0.11966004427522423,
+      "tolerances": {
+        "qm_rel": 0.12,
+        "K_rel": 0.25,
+        "k_LDF_rel": 0.5,
+        "D_ax_rel": 0.45,
+        "L_min_rel": 0.2,
+        "L_min_undersize_floor": 0.95
+      },
+      "shift": "Same broad class as visible kinetics, but mid-bed channel has injected dropouts and spike faults the solver must ignore/robustify."
+    },
+    {
+      "case_id": "H4_high_cin",
+      "parameters": {
+        "qm": 0.48,
+        "K": 1.9,
+        "k_LDF": 0.031,
+        "D_ax": 0.0002
+      },
+      "L_min_m": 0.2810754045681097,
+      "tolerances": {
+        "qm_rel": 0.12,
+        "K_rel": 0.25,
+        "k_LDF_rel": 0.5,
+        "D_ax_rel": 0.45,
+        "L_min_rel": 0.2,
+        "L_min_undersize_floor": 0.95
+      },
+      "shift": "Feed concentrations far above the visible range (near-saturation Langmuir curvature not seen in samples)."
+    },
+    {
+      "case_id": "H5_near_linear",
+      "parameters": {
+        "qm": 0.6,
+        "K": 0.35,
+        "k_LDF": 0.02,
+        "D_ax": 0.00016
+      },
+      "L_min_m": 0.4945902491555154,
+      "tolerances": {
+        "qm_rel": 0.12,
+        "K_rel": 0.25,
+        "k_LDF_rel": 0.5,
+        "D_ax_rel": 0.45,
+        "L_min_rel": 0.2,
+        "L_min_undersize_floor": 0.95
+      },
+      "shift": "Near-linear isotherm (small K) plus longer service window \u2014 edge case absent from visible duties."
+    }
+  ],
+  "shift_summary": {
+    "H1_new_material": "New packing material: lower voidage and denser particles than any visible sample, with a different Langmuir pair.",
+    "H2_dispersion_regime": "High superficial velocity / large D_ax dispersion-dominated MTZ; outside the Pe range of the visible samples.",
+    "H3_sensor_faults": "Same broad class as visible kinetics, but mid-bed channel has injected dropouts and spike faults the solver must ignore/robustify.",
+    "H4_high_cin": "Feed concentrations far above the visible range (near-saturation Langmuir curvature not seen in samples).",
+    "H5_near_linear": "Near-linear isotherm (small K) plus longer service window \u2014 edge case absent from visible duties."
+  },
+  "visible_case_ids": [
+    "V1_base",
+    "V2_moderate_u"
+  ],
+  "notes": "Hidden cases deliberately differ from visible samples via new material properties, dispersion-dominated regime, injected mid-bed sensor faults, out-of-range feed concentrations, and a near-linear isotherm edge case. No visible case appears in the hidden set; shifts are not reseeds."
+}

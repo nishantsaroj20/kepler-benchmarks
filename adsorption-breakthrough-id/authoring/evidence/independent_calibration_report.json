@@ -1,10 +1,20 @@
 {
-  "reference_L_min_m": 0.14549707859754568,
-  "independent_max_outlet_at_L_ref": 0.04056520165111983,
-  "c_limit": 0.0425,
-  "margin_at_L_ref": 0.0019347983488801762,
-  "independent_max_outlet_at_0.92_L_ref": 0.1978315767280246,
-  "naive_constant_isotherm_would_fail_params": true,
-  "naive_lab_length_copy_L_error": 1.0618970696299639,
-  "undersized_bed_exceeds_limit": true
+  "oracle_all_pass": true,
+  "notes": "Host pytest 7/7 pass after redesign; nop missing artifact fails. Per-run limit 120s; reference typically 15-45s/case.",
+  "per_run_timeout_s": 120,
+  "hidden_case_ids": [
+    "H1_new_material",
+    "H2_dispersion_regime",
+    "H3_sensor_faults",
+    "H4_high_cin",
+    "H5_near_linear"
+  ],
+  "hidden_shift_builder": "authoring/provenance/generate_all_cases.py",
+  "shifts": {
+    "H1_new_material": "New packing material: lower voidage and denser particles than any visible sample, with a different Langmuir pair.",
+    "H2_dispersion_regime": "High superficial velocity / large D_ax dispersion-dominated MTZ; outside the Pe range of the visible samples.",
+    "H3_sensor_faults": "Same broad class as visible kinetics, but mid-bed channel has injected dropouts and spike faults the solver must ignore/robustify.",
+    "H4_high_cin": "Feed concentrations far above the visible range (near-saturation Langmuir curvature not seen in samples).",
+    "H5_near_linear": "Near-linear isotherm (small K) plus longer service window \u2014 edge case absent from visible duties."
+  }
 }

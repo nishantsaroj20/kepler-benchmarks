@@ -1,0 +1,19 @@
+{
+  "program_path": "/workspace/output/column_solver.py",
+  "per_run_timeout_s": 120,
+  "sample_cases": [
+    {
+      "case_id": "V1_base",
+      "path": "sample_cases/V1_base/case.json"
+    },
+    {
+      "case_id": "V2_moderate_u",
+      "path": "sample_cases/V2_moderate_u/case.json"
+    }
+  ],
+  "cli": {
+    "case": "--case",
+    "out": "--out",
+    "example": "python3 /workspace/output/column_solver.py --case /workspace/data/sample_cases/V1_base/case.json --out /workspace/output/sample_V1_result.json"
+  }
+}

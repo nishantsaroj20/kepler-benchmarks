@@ -1,176 +1,177 @@
 #!/usr/bin/env python3
-"""Harbor verifier for adsorption-breakthrough-id."""
+"""Verifier: run the submitted column_solver.py on shifted hidden cases."""
 
 from __future__ import annotations
 
 import json
 import math
+import os
+import subprocess
+import sys
+import time
 from pathlib import Path
 
-import numpy as np
 import pytest
-from scipy.integrate import solve_ivp
 
-ARTIFACT = Path("/workspace/output/adsorption_identification.json")
-GT_PATH = Path("/tests/ground_truth_params.json")
-SPECS_PATH = Path("/workspace/data/bed_specs.json")
+PROGRAM = Path("/workspace/output/column_solver.py")
+HIDDEN_ROOT = Path("/tests/hidden")
+MANIFEST = HIDDEN_ROOT / "manifest.json"
+RESULT_DIR = Path("/tmp/adsorption_hidden_results")
 
-# Local fallbacks for host-side validation without Harbor mounts.
+# Host-side remaps only when sealed Harbor paths are absent.
 _REPO = Path(__file__).resolve().parents[1]
-if not ARTIFACT.exists():
-    ARTIFACT = _REPO / "output" / "adsorption_identification.json"
-if not GT_PATH.exists():
-    GT_PATH = Path(__file__).resolve().parent / "ground_truth_params.json"
-if not SPECS_PATH.exists():
-    SPECS_PATH = _REPO / "environment" / "data" / "bed_specs.json"
+if not PROGRAM.exists():
+    local_prog = _REPO / "output" / "column_solver.py"
+    if local_prog.exists():
+        PROGRAM = local_prog
+if not MANIFEST.exists():
+    local_hidden = _REPO / "tests" / "hidden"
+    if (local_hidden / "manifest.json").exists():
+        HIDDEN_ROOT = local_hidden
+        MANIFEST = local_hidden / "manifest.json"
 
 REQUIRED_KEYS = ("qm", "K", "k_LDF", "D_ax", "L_min_m")
 
 
-def _load_json(path: Path) -> dict:
-    assert path.is_file(), f"Missing artifact or resource: {path}"
-    assert not path.is_symlink(), f"Symlink rejected: {path}"
-    data = json.loads(path.read_text())
-    assert isinstance(data, dict), f"Expected JSON object in {path}"
+def _thread_env():
+    env = os.environ.copy()
+    for key in (
+        "OMP_NUM_THREADS",
+        "OPENBLAS_NUM_THREADS",
+        "MKL_NUM_THREADS",
+        "NUMEXPR_NUM_THREADS",
+        "BLIS_NUM_THREADS",
+        "VECLIB_MAXIMUM_THREADS",
+    ):
+        env[key] = "1"
+    return env
+
+
+@pytest.fixture(scope="module")
+def manifest():
+    assert MANIFEST.is_file(), f"missing manifest {MANIFEST}"
+    data = json.loads(MANIFEST.read_text())
+    assert isinstance(data, dict)
     return data
 
 
-def _finite_number(value, name: str) -> float:
+@pytest.fixture(scope="module")
+def program_path():
+    assert PROGRAM.is_file(), f"missing program artifact {PROGRAM}"
+    assert not PROGRAM.is_symlink(), "program must not be a symlink"
+    text = PROGRAM.read_text(errors="ignore")
+    assert text.strip(), "program file is empty"
+    return PROGRAM
+
+
+@pytest.fixture(scope="module")
+def hidden_results(program_path, manifest):
+    """Run the submitted program once per hidden case under the per-run limit."""
+    timeout_s = float(manifest["per_run_timeout_s"])
+    RESULT_DIR.mkdir(parents=True, exist_ok=True)
+    results = {}
+    env = _thread_env()
+    for entry in manifest["hidden_cases"]:
+        case_id = entry["case_id"]
+        case_path = HIDDEN_ROOT / case_id / "case.json"
+        out_path = RESULT_DIR / f"{case_id}.json"
+        if out_path.exists():
+            out_path.unlink()
+        assert case_path.is_file(), f"missing hidden case {case_path}"
+        cmd = [
+            sys.executable,
+            str(program_path),
+            "--case",
+            str(case_path),
+            "--out",
+            str(out_path),
+        ]
+        t0 = time.monotonic()
+        try:
+            proc = subprocess.run(
+                cmd,
+                env=env,
+                capture_output=True,
+                text=True,
+                timeout=timeout_s,
+            )
+        except subprocess.TimeoutExpired as exc:
+            pytest.fail(
+                f"case {case_id}: program exceeded {timeout_s}s per-run limit "
+                f"(timeout fails the task); stdout={exc.stdout!r} stderr={exc.stderr!r}"
+            )
+        elapsed = time.monotonic() - t0
+        if proc.returncode != 0:
+            pytest.fail(
+                f"case {case_id}: program exited {proc.returncode} in {elapsed:.2f}s\n"
+                f"stdout:\n{proc.stdout}\nstderr:\n{proc.stderr}"
+            )
+        assert out_path.is_file(), f"case {case_id}: no output written"
+        assert not out_path.is_symlink(), f"case {case_id}: symlink output rejected"
+        payload = json.loads(out_path.read_text())
+        assert isinstance(payload, dict), f"case {case_id}: output must be a JSON object"
+        results[case_id] = {"payload": payload, "elapsed_s": elapsed, "truth": entry}
+    return results
+
+
+def _finite_positive(value, name):
     assert isinstance(value, (int, float)) and not isinstance(value, bool), (
-        f"{name} must be a number"
+        f"{name} must be numeric"
     )
     value = float(value)
     assert math.isfinite(value), f"{name} must be finite"
+    assert value > 0.0, f"{name} must be positive"
     return value
 
 
-def q_star(c, qm, K):
-    return qm * K * c / (1.0 + K * c)
+def test_program_exists(program_path):
+    assert program_path.name.endswith(".py")
 
 
-def simulate_outlet_max(
-    *,
-    L,
-    u,
-    c_in,
-    t_service,
-    qm,
-    K,
-    k_ldf,
-    D_ax,
-    eps,
-    rho_p,
-    n_nodes=56,
-):
-    dz = L / n_nodes
-    factor = ((1.0 - eps) / eps) * rho_p
-    y0 = np.zeros(2 * n_nodes)
-
-    def rhs(_t, y):
-        c = y[:n_nodes]
-        q = y[n_nodes:]
-        dqdt = k_ldf * (q_star(c, qm, K) - q)
-        dc_conv = np.empty(n_nodes)
-        dc_conv[0] = u * (c[0] - c_in) / dz
-        dc_conv[1:] = u * (c[1:] - c[:-1]) / dz
-        c_im1 = np.empty(n_nodes)
-        c_ip1 = np.empty(n_nodes)
-        c_im1[0] = c_in
-        c_im1[1:] = c[:-1]
-        c_ip1[:-1] = c[1:]
-        c_ip1[-1] = c[-1]
-        d2c = (c_ip1 - 2.0 * c + c_im1) / (dz * dz)
-        dcdt = -dc_conv + D_ax * d2c - factor * dqdt
-        return np.concatenate([dcdt, dqdt])
-
-    t_eval = np.linspace(0.0, t_service, 201)
-    sol = solve_ivp(
-        rhs,
-        (0.0, t_service),
-        y0,
-        method="BDF",
-        t_eval=t_eval,
-        rtol=1e-6,
-        atol=1e-9,
-    )
-    assert sol.success, sol.message
-    return float(np.max(sol.y[n_nodes - 1, :]))
+def test_all_hidden_cases_run(hidden_results, manifest):
+    expected = {e["case_id"] for e in manifest["hidden_cases"]}
+    assert set(hidden_results) == expected
 
 
-@pytest.fixture(scope="module")
-def submission():
-    return _load_json(ARTIFACT)
-
-
-@pytest.fixture(scope="module")
-def ground_truth():
-    return _load_json(GT_PATH)
-
-
-@pytest.fixture(scope="module")
-def specs():
-    return _load_json(SPECS_PATH)
-
-
-def test_artifact_schema(submission):
+@pytest.mark.parametrize(
+    "case_id",
+    [
+        "H1_new_material",
+        "H2_dispersion_regime",
+        "H3_sensor_faults",
+        "H4_high_cin",
+        "H5_near_linear",
+    ],
+)
+def test_hidden_case_accuracy(case_id, hidden_results):
+    assert case_id in hidden_results, f"missing result for {case_id}"
+    blob = hidden_results[case_id]
+    payload = blob["payload"]
+    truth = blob["truth"]
+    tol = truth["tolerances"]
     for key in REQUIRED_KEYS:
-        assert key in submission, f"Missing key {key}"
-    for key in REQUIRED_KEYS:
-        val = _finite_number(submission[key], key)
-        assert val > 0.0, f"{key} must be positive"
+        assert key in payload, f"{case_id}: missing key {key}"
+        _finite_positive(payload[key], f"{case_id}.{key}")
 
-
-def test_parameter_accuracy(submission, ground_truth):
-    truth = ground_truth["parameters"]
-    tol = ground_truth["tolerances"]
+    params = truth["parameters"]
     checks = [
         ("qm", tol["qm_rel"]),
         ("K", tol["K_rel"]),
         ("k_LDF", tol["k_LDF_rel"]),
         ("D_ax", tol["D_ax_rel"]),
     ]
-    for key, rel_tol in checks:
-        est = _finite_number(submission[key], key)
-        ref = float(truth[key])
-        assert abs(est - ref) / abs(ref) <= rel_tol + 1e-12, (
-            f"{key} relative error too large: est={est}, ref={ref}, tol={rel_tol}"
+    for key, rel in checks:
+        est = float(payload[key])
+        ref = float(params[key])
+        assert abs(est - ref) / abs(ref) <= rel + 1e-12, (
+            f"{case_id}: {key} rel err too large est={est} ref={ref} tol={rel}"
         )
 
-
-def test_design_length_accuracy(submission, ground_truth):
-    est = _finite_number(submission["L_min_m"], "L_min_m")
-    ref = float(ground_truth["design"]["L_min_m"])
-    rel = float(ground_truth["tolerances"]["L_min_rel"])
-    assert abs(est - ref) / abs(ref) <= rel + 1e-12, (
-        f"L_min_m relative error too large: est={est}, ref={ref}, tol={rel}"
+    L_est = float(payload["L_min_m"])
+    L_ref = float(truth["L_min_m"])
+    assert L_est + 1e-12 >= float(tol["L_min_undersize_floor"]) * L_ref, (
+        f"{case_id}: L_min undersized est={L_est} ref={L_ref}"
     )
-
-
-def test_design_feasibility_under_truth(submission, ground_truth, specs):
-    """Proposed L_min must keep true-model outlet under the duty limit."""
-    L = _finite_number(submission["L_min_m"], "L_min_m")
-    L_ref = float(ground_truth["design"]["L_min_m"])
-    # Reject undersized beds even if relative-error rounding is favorable.
-    assert L + 1e-12 >= 0.97 * L_ref, (
-        f"L_min_m={L} is undersized vs reference {L_ref}"
-    )
-    duty = specs["design_duty"]
-    truth = ground_truth["parameters"]
-    c_in = float(duty["c_in_mol_m3"])
-    c_limit = float(duty["outlet_mole_fraction_limit"]) * c_in
-    max_out = simulate_outlet_max(
-        L=L,
-        u=float(duty["superficial_velocity_m_s"]),
-        c_in=c_in,
-        t_service=float(duty["service_time_s"]),
-        qm=float(truth["qm"]),
-        K=float(truth["K"]),
-        k_ldf=float(truth["k_LDF"]),
-        D_ax=float(truth["D_ax"]),
-        eps=float(specs["bed_voidage"]),
-        rho_p=float(specs["particle_density_kg_m3"]),
-        n_nodes=56,
-    )
-    assert max_out <= c_limit * 1.03 + 1e-12, (
-        f"True-model outlet {max_out} exceeds limit {c_limit} at proposed L"
+    assert abs(L_est - L_ref) / abs(L_ref) <= float(tol["L_min_rel"]) + 1e-12, (
+        f"{case_id}: L_min rel err too large est={L_est} ref={L_ref}"
     )

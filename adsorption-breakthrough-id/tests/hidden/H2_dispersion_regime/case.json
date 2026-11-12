@@ -1,0 +1,31 @@
+{
+  "case_id": "H2_dispersion_regime",
+  "bed_voidage": 0.4,
+  "particle_density_kg_m3": 820.0,
+  "lab_bed_length_m": 0.22,
+  "experiment_A": {
+    "csv": "breakthrough_exp_A.csv",
+    "c_in_mol_m3": 0.6,
+    "superficial_velocity_m_s": 0.09,
+    "t_end_s": 1807.6666666666663
+  },
+  "experiment_B": {
+    "csv": "breakthrough_exp_B.csv",
+    "c_in_mol_m3": 1.3,
+    "superficial_velocity_m_s": 0.12,
+    "t_end_s": 798.6323529411764
+  },
+  "design_duty": {
+    "c_in_mol_m3": 0.95,
+    "superficial_velocity_m_s": 0.1,
+    "service_time_s": 500.0,
+    "outlet_mole_fraction_limit": 0.06
+  },
+  "model_notes": {
+    "isotherm": "Langmuir",
+    "kinetics": "linear_driving_force",
+    "dispersion": "axial_Fickian",
+    "inlet_bc": "Dirichlet",
+    "outlet_bc": "Neumann_zero_gradient"
+  }
+}

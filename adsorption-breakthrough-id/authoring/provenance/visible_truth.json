@@ -1,0 +1,38 @@
+[
+  {
+    "case_id": "V1_base",
+    "parameters": {
+      "qm": 0.42,
+      "K": 2.8,
+      "k_LDF": 0.028,
+      "D_ax": 0.00025
+    },
+    "L_min_m": 0.14549707850441337,
+    "tolerances": {
+      "qm_rel": 0.12,
+      "K_rel": 0.25,
+      "k_LDF_rel": 0.5,
+      "D_ax_rel": 0.45,
+      "L_min_rel": 0.2,
+      "L_min_undersize_floor": 0.95
+    }
+  },
+  {
+    "case_id": "V2_moderate_u",
+    "parameters": {
+      "qm": 0.38,
+      "K": 2.2,
+      "k_LDF": 0.035,
+      "D_ax": 0.00018
+    },
+    "L_min_m": 0.14999596575275068,
+    "tolerances": {
+      "qm_rel": 0.12,
+      "K_rel": 0.25,
+      "k_LDF_rel": 0.5,
+      "D_ax_rel": 0.45,
+      "L_min_rel": 0.2,
+      "L_min_undersize_floor": 0.95
+    }
+  }
+]

@@ -1,22 +1,19 @@
 {
+  "case_id": "V1_base",
   "bed_voidage": 0.4,
   "particle_density_kg_m3": 800.0,
   "lab_bed_length_m": 0.3,
-  "axial_ports": [
-    "outlet",
-    "midbed"
-  ],
   "experiment_A": {
-    "csv": "/workspace/data/breakthrough_exp_A.csv",
+    "csv": "breakthrough_exp_A.csv",
     "c_in_mol_m3": 0.45,
     "superficial_velocity_m_s": 0.035,
-    "t_end_s": 3200.0
+    "t_end_s": 8041.175726927939
   },
   "experiment_B": {
-    "csv": "/workspace/data/breakthrough_exp_B.csv",
+    "csv": "breakthrough_exp_B.csv",
     "c_in_mol_m3": 1.4,
     "superficial_velocity_m_s": 0.07,
-    "t_end_s": 1400.0
+    "t_end_s": 1850.3310104529612
   },
   "design_duty": {
     "c_in_mol_m3": 0.85,
