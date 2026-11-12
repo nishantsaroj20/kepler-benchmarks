@@ -1,0 +1,50 @@
+schema_version = "1.4"
+artifacts = ["/app/output/predictions.json"]
+
+[task]
+name = "afterquery/extract-yield-forecast"
+description = "Forecast weak-acid extraction recovery and organic concentration for mixer-settler charges."
+authors = [{ name = "Nishant Saroj", email = "nishantsaroj20@gmail.com" }]
+keywords = ["solvent extraction", "weak acid", "distribution coefficient", "mixer-settler", "pilot plant"]
+
+[metadata]
+author_name = "Nishant Saroj"
+author_email = "nishantsaroj20@gmail.com"
+author_organization = "Independent Researcher"
+author_profile = "https://www.linkedin.com/in/nishant-kumar-saroj-15b536170/"
+conflicts_of_interest = "None"
+domain = "engineering-sciences"
+field = "chemical-engineering"
+subfield = "pH-dependent solvent extraction"
+category = "Science"
+subcategory = "Chemical & Biomolecular Engineering"
+tags = ["solvent extraction", "weak acid", "distribution coefficient", "mixer-settler", "pilot plant"]
+expert_time_estimate_hours = 5.0
+relevant_experience = "Pilot solvent extraction of a weak acid: reconciling a glass-electrode log and a thermocouple polynomial with assayed aqueous residuals, then carrying a two-contact solvent split through to the combined organic concentration."
+difficulty_explanation = """
+A separations engineer who sets the next mixer-settler charges does this work. The campaign is synthetic. The visible log is K-17, a monoprotic carboxylic acid, extracted from aqueous broth into 4-methyl-2-pentanone. The records include a thermocouple polynomial, two pH windows, a spreadsheet pH column that used the wrong slope sign before 2024-05-19, an organic assay blank, a recovery column built from that blanked assay, aborted rows, and unmixed rows. Both pH windows, both stage counts, and the thermocouple correction are already in the historical contacts. The charges move outside that historical window in controller temperature, solvent ratio, stirrer speed, and contact time, and they include both stage counts and both pH windows. The campaign note states the neutral-species distribution, the temperature law, the approach to equilibrium, and the equal solvent split. The hard part is carrying that model out after the log is reconciled. Fitting the spreadsheet pH, the controller temperature, and the blanked recovery column misses 47 of the 56 charges. Copying the mean historical recovery misses 51. The forecast is the predictions file itself.
+"""
+solution_explanation = """
+Drop aborted and unmixed rows. Map tic_c through the thermocouple polynomial and ph_mv through the pH window that contains the row date. Form the measured recovery from the aqueous residual over the feed concentration. Those recoveries identify pKa, K_ref, B, and kLa_ref in the distribution and approach equations stated in the campaign note. A one-stage charge uses the solvent ratio once. A two-stage charge splits the solvent into equal portions and contacts the raffinate again. The organic concentration is the removed solute divided by the combined solvent volume, with no assay blank. The reference route estimates the four constants by nonlinear least squares from one start. An alternate start on the same reconciled recoveries lands on the same constants.
+"""
+verification_explanation = """
+The ground truth is the latent forward model in authoring/provenance/generate_campaign.py, applied to the charge inputs with the seeded constants in authoring/provenance/seeds.json. It is not a fit produced by the reference solution. tests/truth/expected.json stores that forward model on the 56 charges. A recovery is within tolerance when the absolute error is at most the larger of 0.025 times the true recovery and 0.006. An organic concentration is within tolerance when the absolute error is at most the larger of 0.025 times the true concentration and 0.20 mol m^{-3}. These bands were set from the reconciled fit. In authoring/evidence/calibration_results.json the reference route has maximum relative recovery error 0.0013197905695043824 and maximum relative organic error 0.001319111318516383, and it misses no charge. The alternate start has 0.0013197904725255846 and 0.0013191112215376094, and it misses no charge. The largest absolute recovery gap between the two starts is 6.323697121501937e-11. The relative tolerance 0.025 lies above 0.0013197905695043824 and above that gap. Fitting the spreadsheet pH, the controller temperature, and recovery_sheet misses 47 charges. Copying the mean historical recovery misses 51. tests/test_outputs.py reads /app/output/predictions.json and does not execute submitted code. A missing file, a value that is not finite, a duplicate key, and a symlink all fail the comparison.
+"""
+
+[verifier]
+timeout_sec = 600.0
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+timeout_sec = 28800.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+network_mode = "public"

@@ -1,0 +1,31 @@
+{
+  "solvent": "4-methyl-2-pentanone",
+  "solute": "K-17 carboxylic acid",
+  "temperature_reference_k": 298.15,
+  "stirrer_reference_rps": 3.2,
+  "stirrer_exponent": 0.85,
+  "organic_assay_blank_mol_m3": 1.8,
+  "thermocouple_celsius": {
+    "a0": -5.5,
+    "a1": 1.08,
+    "a2": -0.0008
+  },
+  "ph_windows": [
+    {
+      "start": "2024-02-01",
+      "end": "2024-05-18",
+      "intercept": 7.06,
+      "millivolt_offset": 4.0,
+      "slope_mv_per_ph": 61.4,
+      "sheet_slope_sign": -1
+    },
+    {
+      "start": "2024-05-19",
+      "end": "2024-09-30",
+      "intercept": 6.97,
+      "millivolt_offset": -1.2,
+      "slope_mv_per_ph": 58.6,
+      "sheet_slope_sign": 1
+    }
+  ]
+}

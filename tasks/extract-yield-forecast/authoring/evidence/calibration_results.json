@@ -1,0 +1,32 @@
+{
+  "reference": {
+    "max_relative_recovery": 0.0013197905695043824,
+    "max_relative_organic": 0.001319111318516383,
+    "recovery_misses": 0,
+    "organic_misses": 0
+  },
+  "alternate_start": {
+    "max_relative_recovery": 0.0013197904725255846,
+    "max_relative_organic": 0.0013191112215376094,
+    "recovery_misses": 0,
+    "organic_misses": 0
+  },
+  "spreadsheet_columns": {
+    "max_relative_recovery": 3.5410399709700093,
+    "max_relative_organic": 3.5410349301103623,
+    "recovery_misses": 47,
+    "organic_misses": 47
+  },
+  "mean_recovery": {
+    "max_relative_recovery": 3.8551547115732308,
+    "max_relative_organic": 3.8551493220251047,
+    "recovery_misses": 51,
+    "organic_misses": 51
+  },
+  "route_gap_max_abs_recovery": 6.323697121501937e-11,
+  "tolerances": {
+    "relative": 0.025,
+    "absolute_recovery": 0.006,
+    "absolute_organic_mol_m3": 0.2
+  }
+}

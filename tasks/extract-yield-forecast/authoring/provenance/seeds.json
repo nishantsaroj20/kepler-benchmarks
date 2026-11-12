@@ -1,0 +1,8 @@
+{
+  "seed": 20260318,
+  "pKa": 4.58,
+  "K_ref": 62.0,
+  "temperature_slope_k": 2450.0,
+  "kLa_ref_per_s": 0.055,
+  "aqueous_relative_noise": 0.004
+}
