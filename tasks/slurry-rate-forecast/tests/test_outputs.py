@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 import math
 import os
-import pwd
 import shutil
 import signal
 import subprocess
@@ -75,7 +74,35 @@ def _discard(path: Path):
         shutil.rmtree(path)
 
 
+def _program_copy() -> Path:
+    """Copy the artifact onto a normal file.
+
+    The harness may mount /app/forecast.py read-only and private. Reading
+    the bytes here and executing the copy does not depend on changing that
+    mount or switching users.
+    """
+    payload = PROGRAM.read_bytes()
+    directory = Path(tempfile.mkdtemp(prefix="slurry-program-"))
+    os.chmod(directory, 0o755)
+    destination = directory / "forecast.py"
+    destination.write_bytes(payload)
+    os.chmod(destination, 0o644)
+    return destination
+
+
+def _seal(path: Path):
+    """Remove grading data before the submitted program starts."""
+    try:
+        if path.is_symlink() or path.is_file():
+            path.unlink()
+        elif path.is_dir():
+            shutil.rmtree(path)
+    except OSError:
+        return
+
+
 def _run_program(campaign: Path, cases: Path, output: Path):
+    program = _program_copy()
     env = os.environ.copy()
     env["OMP_NUM_THREADS"] = "1"
     env["OPENBLAS_NUM_THREADS"] = "1"
@@ -83,11 +110,16 @@ def _run_program(campaign: Path, cases: Path, output: Path):
     env["NUMEXPR_NUM_THREADS"] = "1"
     env["HOME"] = "/tmp"
     env.pop("PYTHONPATH", None)
-    for path in (campaign, output.parent):
-        for root, dirs, files in os.walk(path):
-            os.chmod(root, 0o755)
-            for name in files:
-                os.chmod(Path(root) / name, 0o644)
+    command = [
+        sys.executable,
+        str(program),
+        "--campaign",
+        str(campaign),
+        "--cases",
+        str(cases),
+        "--output",
+        str(output),
+    ]
 
     def _pin():
         try:
@@ -95,51 +127,41 @@ def _run_program(campaign: Path, cases: Path, output: Path):
         except (AttributeError, OSError):
             return
 
-    kwargs = {
-        "stdout": subprocess.PIPE,
-        "stderr": subprocess.PIPE,
-        "env": env,
-        "start_new_session": True,
-        "preexec_fn": _pin,
-    }
-    if os.geteuid() == 0:
+    proc = None
+    grouped = False
+    launch_error = None
+    for options in (
+        {"start_new_session": True, "preexec_fn": _pin},
+        {"start_new_session": True},
+        {},
+    ):
         try:
-            user = pwd.getpwnam("runner")
-        except KeyError:
-            user = None
-        if user is not None:
-            if PROGRAM.is_file():
-                os.chmod(PROGRAM, 0o644)
-            os.chmod(PROGRAM.parent, 0o755)
-            os.chown(output.parent, user.pw_uid, user.pw_gid)
-            os.chmod(output.parent, 0o700)
-            kwargs["user"] = user.pw_uid
-            kwargs["group"] = user.pw_gid
-            kwargs["extra_groups"] = []
-
-    proc = subprocess.Popen(
-        [
-            sys.executable,
-            str(PROGRAM),
-            "--campaign",
-            str(campaign),
-            "--cases",
-            str(cases),
-            "--output",
-            str(output),
-        ],
-        **kwargs,
-    )
+            proc = subprocess.Popen(
+                command,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                env=env,
+                **options,
+            )
+            grouped = bool(options.get("start_new_session"))
+            break
+        except OSError as exc:
+            launch_error = exc
+    if proc is None:
+        pytest.fail(f"python3 /app/forecast.py could not start: {launch_error}")
     timed_out = False
     try:
-        stdout, stderr = proc.communicate(timeout=RUN_LIMIT_SECONDS)
+        _stdout, stderr = proc.communicate(timeout=RUN_LIMIT_SECONDS)
     except subprocess.TimeoutExpired:
         timed_out = True
-        try:
-            os.killpg(proc.pid, signal.SIGKILL)
-        except ProcessLookupError:
-            pass
-        stdout, stderr = proc.communicate()
+        if grouped:
+            try:
+                os.killpg(proc.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+        else:
+            proc.kill()
+        _stdout, stderr = proc.communicate()
     if timed_out:
         _discard(output)
         pytest.fail(f"python3 /app/forecast.py exceeded {RUN_LIMIT_SECONDS} seconds")
@@ -154,12 +176,15 @@ def forecast_document():
     assert PROGRAM.is_file()
     assert not PROGRAM.is_symlink()
     assert CAMPAIGN.is_dir()
+    assert TRUTH_PATH.is_file()
+    truth = json.loads(TRUTH_PATH.read_text(encoding="utf-8"))
+    _seal(TRUTH_PATH)
     work = Path(tempfile.mkdtemp(prefix="slurry-campaign-"))
     shutil.copytree(CAMPAIGN, work, dirs_exist_ok=True)
     out_dir = Path(tempfile.mkdtemp(prefix="slurry-out-"))
     output = out_dir / "predictions.json"
     _run_program(work, work / "predict_cases.csv", output)
-    return load_document(output)
+    return load_document(output), truth
 
 
 def test_program_is_a_file():
@@ -170,7 +195,7 @@ def test_program_is_a_file():
 
 
 def test_hidden_forecast(forecast_document):
-    truth = json.loads(TRUTH_PATH.read_text(encoding="utf-8"))
+    forecast_document, truth = forecast_document
     assert set(forecast_document.keys()) == {"cases"}
     rows = forecast_document["cases"]
     assert isinstance(rows, list) and rows
