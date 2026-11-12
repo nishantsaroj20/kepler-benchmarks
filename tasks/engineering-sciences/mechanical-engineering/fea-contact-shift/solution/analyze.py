@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Frictional multi-patch contact diagnostics on 2D plane-strain IC packs."""
+"""Approach-controlled plane-strain frictional contact diagnostics."""
 
 from __future__ import annotations
 
@@ -12,6 +12,7 @@ import numpy as np
 
 SCHEMA_VERSION = 1
 EPS = 1e-15
+CONTACT_FRAC = 1e-8
 
 
 def _load_pack(pack_dir: Path):
@@ -24,16 +25,16 @@ def _load_pack(pack_dir: Path):
         loads = loads.reshape(1, -1)
     x = interface[:, 0].astype(float)
     g0 = interface[:, 1].astype(float)
-    fn = loads[:, 1].astype(float)
-    ft = loads[:, 2].astype(float)
-    return meta, x, g0, fn, ft
+    # columns: step, delta_n, delta_t
+    dn = loads[:, 1].astype(float)
+    dt = loads[:, 2].astype(float)
+    return meta, x, g0, dn, dt
 
 
 def _edges_from_nodes(x: np.ndarray) -> np.ndarray:
     n = len(x)
     edges = np.empty(n + 1, dtype=float)
     if n == 1:
-        # degenerate; width from meta not available — unit width
         edges[0], edges[1] = x[0] - 0.5, x[0] + 0.5
         return edges
     edges[1:-1] = 0.5 * (x[:-1] + x[1:])
@@ -43,16 +44,15 @@ def _edges_from_nodes(x: np.ndarray) -> np.ndarray:
 
 
 def influence_matrix(x: np.ndarray, rref: float) -> tuple[np.ndarray, np.ndarray]:
-    """Integrated log kernel for piecewise-constant tractions (plane-strain)."""
     n = len(x)
     edges = _edges_from_nodes(x)
     w = edges[1:] - edges[:-1]
     K = np.zeros((n, n), dtype=float)
     log_r = float(np.log(rref))
     for i in range(n):
-        xi = x[i]
+        xi = float(x[i])
         for j in range(n):
-            L, R = edges[j], edges[j + 1]
+            L, R = float(edges[j]), float(edges[j + 1])
 
             def F(z: float) -> float:
                 az = abs(z)
@@ -73,99 +73,92 @@ def solve_history(
     g0: np.ndarray,
     A: float,
     mu: float,
-    fn_hist: np.ndarray,
-    ft_hist: np.ndarray,
+    dn_hist: np.ndarray,
+    dt_hist: np.ndarray,
     rref: float,
-    max_inner: int = 120,
+    max_inner: int = 160,
 ) -> dict:
+    """Prescribed rigid approach δ_n and shift δ_t; forces are unknowns."""
     K, w = influence_matrix(x, rref=rref)
     n = len(x)
     p = np.zeros(n)
     q = np.zeros(n)
-    uslip = np.zeros(n)
+    gamma = np.zeros(n)  # accumulated tangential slip (plastic)
     active = np.zeros(n, dtype=bool)
     stick = np.zeros(n, dtype=bool)
 
-    for Fn, Ft in zip(fn_hist, ft_hist):
-        Fn = float(Fn)
-        Ft = float(Ft)
+    for delta_n, delta_t in zip(dn_hist, dt_hist):
+        delta_n = float(delta_n)
+        delta_t = float(delta_t)
+        # seed contact where geometric interference is largest
+        interf = g0 - delta_n
         if not np.any(active):
-            seed = max(5, n // 12)
-            active[np.argsort(g0)[:seed]] = True
+            cand = np.flatnonzero(interf < 0.0)
+            if cand.size == 0:
+                p[:] = 0.0
+                q[:] = 0.0
+                active[:] = False
+                stick[:] = False
+                continue
+            active[:] = False
+            active[cand] = True
             stick[active] = True
 
-        c_n = 0.0
-        c_t = 0.0
         for _ in range(max_inner):
             idx = np.flatnonzero(active)
             if idx.size == 0:
-                # open all; try seeding again under load
-                seed = max(5, n // 12)
-                active[np.argsort(g0)[:seed]] = True
-                stick[active] = True
-                idx = np.flatnonzero(active)
-            stick_idx = np.flatnonzero(active & stick)
-            slip_idx = np.flatnonzero(active & ~stick)
-            m = idx.size
-            ms = stick_idx.size
+                break
+            st = np.flatnonzero(active & stick)
+            sl = np.flatnonzero(active & ~stick)
+            m, ms = idx.size, st.size
 
             slip_sign = np.zeros(n)
-            if slip_idx.size:
-                s = np.sign(q[slip_idx])
-                s[s == 0] = 1.0 if Ft >= 0 else -1.0
-                slip_sign[slip_idx] = s
+            if sl.size:
+                s = np.sign(q[sl])
+                # tendency from elastic predictor vs delta_t
+                pred = A * (K @ q) + gamma
+                s = np.sign(pred[sl] - delta_t)
+                s[s == 0] = 1.0 if delta_t >= 0 else -1.0
+                slip_sign[sl] = s
 
-            nv = m + ms + 2
+            # unknowns: p on active, q on stick
+            nv = m + ms
             M = np.zeros((nv, nv))
             rhs = np.zeros(nv)
+            st_map = {int(j): k for k, j in enumerate(st)}
 
-            # normal contact equations
+            # Normal: A K p = g0 - delta_n  on contact
             for a, i in enumerate(idx):
                 for b, j in enumerate(idx):
                     M[a, b] = A * K[i, j]
-                M[a, m + ms] = 1.0
-                rhs[a] = g0[i]
+                rhs[a] = g0[i] - delta_n
 
-            # stick tangential equations
-            stick_local = {int(j): s for s, j in enumerate(stick_idx)}
-            for s_a, i in enumerate(stick_idx):
-                row = m + s_a
+            # Stick: A K q + gamma = delta_t
+            for ka, i in enumerate(st):
+                row = m + ka
                 for b, j in enumerate(idx):
                     if stick[j]:
-                        M[row, m + stick_local[int(j)]] += A * K[i, j]
+                        M[row, m + st_map[int(j)]] += A * K[i, j]
                     else:
                         M[row, b] += A * K[i, j] * (slip_sign[j] * mu)
-                M[row, m + ms + 1] = 1.0
-                rhs[row] = -uslip[i]
+                rhs[row] = delta_t - gamma[i]
 
-            # forces
-            row_n = m + ms
-            row_t = m + ms + 1
-            for b, j in enumerate(idx):
-                M[row_n, b] = w[j]
-                if stick[j]:
-                    M[row_t, m + stick_local[int(j)]] = w[j]
-                else:
-                    M[row_t, b] += w[j] * (slip_sign[j] * mu)
-            rhs[row_n] = Fn
-            rhs[row_t] = Ft
-
+            if nv == 0:
+                break
             try:
                 sol = np.linalg.solve(M, rhs)
             except np.linalg.LinAlgError:
                 sol = np.linalg.lstsq(M, rhs, rcond=None)[0]
 
             pa = sol[:m]
-            qs = sol[m : m + ms]
-            c_n = float(sol[m + ms])
-            c_t = float(sol[m + ms + 1])
-
+            qs = sol[m:] if ms else np.zeros(0)
             p_new = np.zeros(n)
             q_new = np.zeros(n)
             p_new[idx] = pa
-            q_new[stick_idx] = qs
-            for i in slip_idx:
-                q_new[i] = slip_sign[i] * mu * p_new[i]
+            if ms:
+                q_new[st] = qs
+            for i in sl:
+                q_new[i] = slip_sign[i] * mu * max(p_new[i], 0.0)
 
             changed = False
             neg = pa < -1e-14
@@ -174,9 +167,8 @@ def solve_history(
                 stick[idx[neg]] = False
                 changed = True
 
-            p = p_new
-            q = q_new
-            gap = g0 - c_n - A * (K @ p)
+            p, q = p_new, q_new
+            gap = g0 - delta_n - A * (K @ p)
             add = (~active) & (gap < -1e-16)
             if np.any(add):
                 active[add] = True
@@ -187,22 +179,34 @@ def solve_history(
                 lim = mu * max(p[i], 0.0)
                 if abs(q[i]) > lim + 1e-9 * max(1.0, lim):
                     stick[i] = False
-                    q[i] = (1.0 if q[i] >= 0 else -1.0) * lim
+                    q[i] = np.copysign(lim, q[i] if q[i] != 0 else (delta_t - gamma[i]))
                     changed = True
 
-            # slip -> stick if traction below limit and incremental consistency
+            # try return-to-stick when clearly inside cone
+            u_t = A * (K @ q) + gamma
             for i in np.flatnonzero(active & ~stick):
                 lim = mu * max(p[i], 0.0)
-                # tentative stick residual using current uslip
-                # keep slip if |q| at limit is required by force; only stick if clearly inside
-                if abs(q[i]) < 0.98 * lim:
-                    # check if stick would be feasible next — conservative stay in slip
-                    pass
+                if lim <= 0:
+                    continue
+                # if tangential compatibility almost holds at |q|<lim, restore stick
+                if abs(q[i]) < 0.95 * lim and abs(u_t[i] - delta_t) < 1e-4 * max(1.0, abs(delta_t)):
+                    stick[i] = True
+                    changed = True
 
             if not changed:
                 break
 
-        uslip = -A * (K @ q) - c_t
+        # update plastic slip so stick residual uses accumulated state
+        # On slip nodes, gamma tracks so that A K q + gamma ≈ delta_t with q on bound
+        u_el = A * (K @ q)
+        for i in range(n):
+            if not active[i]:
+                gamma[i] = 0.0
+            elif stick[i]:
+                # keep gamma; compatibility already A K q + gamma = delta_t
+                pass
+            else:
+                gamma[i] = delta_t - u_el[i]
 
     return {
         "p": p,
@@ -210,9 +214,8 @@ def solve_history(
         "w": w,
         "active": active,
         "stick": stick,
+        "gamma": gamma,
         "K": K,
-        "c_n": c_n,
-        "c_t": c_t,
     }
 
 
@@ -220,45 +223,54 @@ def diagnostics(meta: dict, x: np.ndarray, sol: dict) -> dict:
     p = sol["p"]
     q = sol["q"]
     w = sol["w"]
+    gamma = sol["gamma"]
     mu = float(meta["mu"])
     pmax = float(np.max(p)) if p.size else 0.0
-    contact = p > 1e-8 * max(pmax, 1e-30)
+    contact = p > CONTACT_FRAC * max(pmax, 1e-30)
+    slip = contact & (np.abs(q) >= 0.99 * mu * np.maximum(p, 0.0) - 1e-30)
+    # prefer solver stick flags when available, refined by cone
+    stick = contact & (~slip)
+    if "stick" in sol:
+        stick = contact & sol["stick"] & (~slip)
+        slip = contact & (~stick)
+
     contact_length = float(np.sum(w[contact]))
+    slip_length = float(np.sum(w[slip]))
+    stick_fraction = float(np.sum(w[stick]) / contact_length) if contact_length > 0 else 0.0
     fn_total = float(np.sum(p * w))
     ft_total = float(np.sum(q * w))
-    if np.any(contact):
-        p_rms = float(np.sqrt(np.sum((p[contact] ** 2) * w[contact]) / max(contact_length, EPS)))
+    q_peak = float(np.max(np.abs(q))) if q.size else 0.0
+    cum_slip_l1 = float(np.sum(w * np.abs(gamma)))
+    if np.any(contact) and float(np.sum(np.abs(q[contact]) * w[contact])) > 0:
+        x_q_centroid = float(
+            np.sum(x[contact] * np.abs(q[contact]) * w[contact])
+            / np.sum(np.abs(q[contact]) * w[contact])
+        )
     else:
-        p_rms = 0.0
-    if np.any(contact) and abs(fn_total) > 0.0:
-        x_p_centroid = float(np.sum(x[contact] * p[contact] * w[contact]) / fn_total)
-    else:
-        x_p_centroid = 0.0
-    if abs(fn_total) > 0.0 and mu > 0.0:
-        mobilization = float(abs(ft_total) / (mu * abs(fn_total)))
-    else:
-        mobilization = 0.0
+        x_q_centroid = 0.0
 
     return {
         "schema_version": SCHEMA_VERSION,
         "p_peak": float(pmax),
-        "p_rms": p_rms,
         "fn_total": fn_total,
         "ft_total": ft_total,
         "contact_length": contact_length,
-        "x_p_centroid": x_p_centroid,
-        "mobilization": mobilization,
+        "q_peak": q_peak,
+        "stick_fraction": stick_fraction,
+        "slip_length": slip_length,
+        "x_q_centroid": x_q_centroid,
+        "cum_slip_l1": cum_slip_l1,
     }
 
 
 def analyze_pack(pack_dir: Path) -> dict:
-    meta, x, g0, fn, ft = _load_pack(pack_dir)
+    meta, x, g0, dn, dt = _load_pack(pack_dir)
     E = float(meta["E"])
     nu = float(meta["nu"])
     mu = float(meta["mu"])
     rref = float(meta.get("rref", 1.0))
     A = _kernel_coeff(E, nu)
-    sol = solve_history(x, g0, A, mu, fn, ft, rref=rref)
+    sol = solve_history(x, g0, A, mu, dn, dt, rref=rref)
     return diagnostics(meta, x, sol)
 
 
@@ -275,6 +287,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     result = analyze_pack(pack_dir)
+    # parent must already exist in verifier sandbox; oracle may create
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     return 0

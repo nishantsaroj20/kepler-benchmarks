@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sealed held-out pack family: geometry / friction / load-path shifts."""
+"""Sealed held-out pack family: shifted geometry / friction / approach paths."""
 
 from __future__ import annotations
 
@@ -9,9 +9,6 @@ from pathlib import Path
 
 import numpy as np
 
-# Import generator helpers without depending on authoring/ at runtime in the image:
-# a sealed copy of the pack builder lives here.
-
 
 def _gap_profile(x: np.ndarray, patches: list[dict]) -> np.ndarray:
     g = np.full_like(x, 1e3, dtype=float)
@@ -20,30 +17,31 @@ def _gap_profile(x: np.ndarray, patches: list[dict]) -> np.ndarray:
     return g
 
 
-def _load_history(kind: str, Fn: float, mu: float, n_steps: int, rng: np.random.Generator):
-    fn = np.zeros(n_steps)
-    ft = np.zeros(n_steps)
+def _approach_history(kind: str, delta_n_max: float, mu: float, n_steps: int, rng: np.random.Generator):
+    dn = np.zeros(n_steps)
+    dt = np.zeros(n_steps)
+    dt_scale = float(rng.uniform(0.35, 0.9)) * mu * delta_n_max
     if kind == "normal_then_shear":
         n1 = max(2, n_steps // 2)
-        fn[:n1] = np.linspace(Fn / n1, Fn, n1)
-        fn[n1:] = Fn
-        ft_max = float(rng.uniform(0.25, 0.75)) * mu * Fn
-        ft[n1:] = np.linspace(0.0, ft_max, n_steps - n1)
+        dn[:n1] = np.linspace(delta_n_max / n1, delta_n_max, n1)
+        dn[n1:] = delta_n_max
+        dt[n1:] = np.linspace(0.0, dt_scale, n_steps - n1)
     elif kind == "proportional":
-        ft_max = float(rng.uniform(0.2, 0.65)) * mu * Fn
-        fn[:] = np.linspace(Fn / n_steps, Fn, n_steps)
-        ft[:] = np.linspace(ft_max / n_steps, ft_max, n_steps)
+        dn[:] = np.linspace(delta_n_max / n_steps, delta_n_max, n_steps)
+        dt[:] = np.linspace(dt_scale / n_steps, dt_scale, n_steps)
     elif kind == "shear_reverse":
         n1 = max(2, n_steps // 3)
         n2 = max(n1 + 1, 2 * n_steps // 3)
-        fn[:n1] = np.linspace(Fn / n1, Fn, n1)
-        fn[n1:] = Fn
-        ft_max = float(rng.uniform(0.3, 0.7)) * mu * Fn
-        ft[n1:n2] = np.linspace(0.0, ft_max, n2 - n1)
-        ft[n2:] = np.linspace(ft_max, -0.5 * ft_max, n_steps - n2)
+        dn[:n1] = np.linspace(delta_n_max / n1, delta_n_max, n1)
+        dn[n1:] = delta_n_max
+        dt[n1:n2] = np.linspace(0.0, dt_scale, n2 - n1)
+        dt[n2:] = np.linspace(dt_scale, -0.55 * dt_scale, n_steps - n2)
+    elif kind == "no_contact":
+        dn[:] = np.linspace(0.0, 0.15 * delta_n_max, n_steps)
+        dt[:] = 0.0
     else:
         raise ValueError(kind)
-    return fn, ft
+    return dn, dt
 
 
 def _write_pack(spec: dict, out_dir: Path) -> None:
@@ -58,13 +56,12 @@ def _write_pack(spec: dict, out_dir: Path) -> None:
     mu = float(spec["mu"])
     rref = float(spec.get("rref", 1.0))
     p0 = spec["patches"][0]
-    Estar = E / (1.0 - nu * nu)
-    a = float(spec.get("a_target", 0.15 * (x_max - x_min)))
     R = float(p0["radius"])
-    Fn = float(spec.get("Fn_scale", 1.0)) * (np.pi * Estar * a**2 / (4.0 * R))
+    a = float(spec.get("a_target", 0.12 * (x_max - x_min)))
+    delta_n_max = float(spec.get("delta_n_scale", 1.0)) * (a * a / R)
     if len(spec["patches"]) > 1:
-        Fn *= float(spec.get("multi_load_factor", 1.8))
-    fn, ft = _load_history(spec["load_kind"], Fn, mu, int(spec["n_steps"]), rng)
+        delta_n_max *= float(spec.get("multi_approach_factor", 1.35))
+    dn, dt = _approach_history(spec["load_kind"], delta_n_max, mu, int(spec["n_steps"]), rng)
     meta = {
         "pack_id": spec["pack_id"],
         "E": E,
@@ -73,9 +70,10 @@ def _write_pack(spec: dict, out_dir: Path) -> None:
         "rref": rref,
         "plane_strain": True,
         "kernel": "plane_strain_log",
+        "control": "approach",
         "n_nodes": n,
         "n_steps": int(spec["n_steps"]),
-        "notes": "Synthetic multi-patch frictional contact pack",
+        "notes": "Synthetic approach-controlled multi-patch frictional contact pack",
     }
     (out_dir / "meta.json").write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n")
     with (out_dir / "interface.csv").open("w") as f:
@@ -83,17 +81,25 @@ def _write_pack(spec: dict, out_dir: Path) -> None:
         for xi, gi in zip(x, g0):
             f.write(f"{xi:.16e},{gi:.16e}\n")
     with (out_dir / "loads.csv").open("w") as f:
-        f.write("step,Fn,Ft\n")
-        for i, (a_, b_) in enumerate(zip(fn, ft), start=1):
+        f.write("step,delta_n,delta_t\n")
+        for i, (a_, b_) in enumerate(zip(dn, dt), start=1):
             f.write(f"{i},{a_:.16e},{b_:.16e}\n")
 
 
 def hidden_specs(seed: int, n_packs: int = 8) -> list[dict]:
     rng = np.random.default_rng(seed)
     specs = []
-    load_kinds = ["normal_then_shear", "proportional", "shear_reverse"]
+    load_kinds = ["normal_then_shear", "proportional", "shear_reverse", "normal_then_shear"]
     for i in range(n_packs):
-        n_patches = int(rng.integers(1, 4))
+        if i == 0:
+            kind, n_patches = "shear_reverse", 1
+        elif i == 1:
+            kind, n_patches = "shear_reverse", 2
+        elif i == 7:
+            kind, n_patches = "no_contact", 1
+        else:
+            kind = load_kinds[i % len(load_kinds)]
+            n_patches = int(rng.integers(1, 4))
         span = float(rng.uniform(0.0055, 0.010))
         patches = []
         for k in range(n_patches):
@@ -101,7 +107,9 @@ def hidden_specs(seed: int, n_packs: int = 8) -> list[dict]:
                 {
                     "center": float(rng.uniform(-0.45 * span, 0.45 * span)),
                     "radius": float(rng.uniform(0.03, 0.09)),
-                    "clearance": float(rng.uniform(0.0, 3.5e-6) if k > 0 else 0.0),
+                    "clearance": float(
+                        rng.uniform(0.0, 3.5e-6) if k > 0 else (4e-6 if kind == "no_contact" else 0.0)
+                    ),
                 }
             )
         specs.append(
@@ -116,16 +124,16 @@ def hidden_specs(seed: int, n_packs: int = 8) -> list[dict]:
                 "mu": float(rng.uniform(0.12, 0.45)),
                 "rref": 1.0,
                 "a_target": float(rng.uniform(0.0009, 0.0016)),
-                "load_kind": str(load_kinds[i % len(load_kinds)]),
-                "Fn_scale": float(rng.uniform(0.9, 1.25)),
-                "multi_load_factor": float(rng.uniform(1.6, 2.4)),
+                "load_kind": kind,
+                "delta_n_scale": float(rng.uniform(0.85, 1.2)),
+                "multi_approach_factor": float(rng.uniform(1.25, 1.8)),
                 "patches": patches,
             }
         )
     return specs
 
 
-def seed_from_program(program_path: Path, salt: bytes = b"contact-shift-v1") -> int:
+def seed_from_program(program_path: Path, salt: bytes = b"contact-shift-v2-approach") -> int:
     data = program_path.read_bytes()
     digest = hashlib.sha256(salt + data).hexdigest()
     return int(digest[:16], 16) % (2**31 - 1)

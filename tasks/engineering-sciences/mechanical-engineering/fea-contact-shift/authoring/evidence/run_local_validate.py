@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Harbor-free local validation: oracle-like analyze vs truth; nop/baselines fail."""
+"""Harbor-free local validation of oracle vs Gauss-truth; defective probes fail."""
 
 from __future__ import annotations
 
@@ -14,28 +14,34 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "solution"))
 sys.path.insert(0, str(ROOT / "tests"))
 
-from analyze import analyze_pack, main as analyze_main  # noqa: E402
+from analyze import analyze_pack, solve_history, _load_pack, _kernel_coeff, diagnostics  # noqa: E402
 from hidden_family import materialize_heldout  # noqa: E402
 from truth_solver import truth_for_pack  # noqa: E402
+import numpy as np  # noqa: E402
 
 REL = {
-    "p_peak": 0.12,
-    "p_rms": 0.12,
+    "p_peak": 0.05,
     "fn_total": 0.02,
-    "ft_total": 0.08,
-    "contact_length": 0.12,
+    "ft_total": 0.02,
+    "contact_length": 0.10,
+    "q_peak": 0.10,
+    "slip_length": 0.15,
+    "cum_slip_l1": 0.30,
 }
-ABS = {"mobilization": 0.05, "x_p_centroid": 5e-4}
+ABS = {"stick_fraction": 0.08, "x_q_centroid": 1e-4}
 
 
 def compare(pred, truth, name):
     for k, tol in REL.items():
-        err = abs(pred[k] - truth[k]) / max(abs(truth[k]), 1e-30)
+        p, t = float(pred[k]), float(truth[k])
+        if abs(t) < 1e-30 and abs(p) < 1e-30:
+            continue
+        err = abs(p - t) / max(abs(t), 1e-30)
         if err > tol:
             raise AssertionError(f"{name} {k} rel={err} > {tol}")
     for k, tol in ABS.items():
-        if abs(pred[k] - truth[k]) > tol:
-            raise AssertionError(f"{name} {k} abs={abs(pred[k]-truth[k])} > {tol}")
+        if abs(float(pred[k]) - float(truth[k])) > tol:
+            raise AssertionError(f"{name} {k} abs diff too large")
 
 
 def main() -> int:
@@ -51,53 +57,38 @@ def main() -> int:
 
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
-        # Simulate oracle artifact
         prog = td_path / "analyze.py"
         shutil.copy2(ROOT / "solution/analyze.py", prog)
         packs = materialize_heldout(prog, td_path / "packs", n_packs=8)
         for pack in packs:
-            out = td_path / f"{pack.name}.json"
             t0 = time.time()
-            rc = analyze_main(["--pack", str(pack), "--out", str(out)])
+            pred = analyze_pack(pack)
             dt = time.time() - t0
-            assert rc == 0
-            pred = json.loads(out.read_text())
             truth = truth_for_pack(pack)
             compare(pred, truth, pack.name)
             print(f"ORACLE_HELD_PASS {pack.name} wall_s={dt:.4f}")
 
-        # nop: missing program
-        nop_ok = not (td_path / "missing.py").exists()
-        print(f"NOP_MISSING_PROGRAM {nop_ok}")
+        # frictionless probe on a contacting pack
+        contact_pack = next(p for p in packs if truth_for_pack(p)["contact_length"] > 0)
+        truth = truth_for_pack(contact_pack)
+        meta, x, g0, dn, dtv = _load_pack(contact_pack)
+        A = _kernel_coeff(meta["E"], meta["nu"])
+        sol = solve_history(x, g0, A, meta["mu"], dn, np.zeros_like(dtv), meta["rref"])
+        probe = diagnostics(meta, x, sol)
+        try:
+            compare(probe, truth, "zero_dt_probe")
+            print("FRICTIONLESS_PROBE_UNEXPECTED_PASS")
+            return 2
+        except AssertionError:
+            print("FRICTIONLESS_PROBE_FAIL_AS_EXPECTED")
 
-        # baseline zero fails
-        truth = truth_for_pack(packs[0])
-        zeros = {
-            "schema_version": 1,
-            "p_peak": 0.0,
-            "p_rms": 0.0,
-            "fn_total": 0.0,
-            "ft_total": 0.0,
-            "contact_length": 0.0,
-            "x_p_centroid": 0.0,
-            "mobilization": 0.0,
-        }
+        zeros = {k: (1 if k == "schema_version" else 0.0) for k in truth}
         try:
             compare(zeros, truth, "zeros")
             print("BASELINE_ZERO_FAIL_UNEXPECTED")
-            return 2
-        except AssertionError:
-            print("BASELINE_ZERO_FAIL_AS_EXPECTED")
-
-        # copy-input style nonsense
-        bogus = dict(zeros)
-        bogus.update({"fn_total": 1.0, "p_peak": 1.0, "contact_length": 1.0})
-        try:
-            compare(bogus, truth, "bogus")
-            print("BASELINE_CONSTANT_FAIL_UNEXPECTED")
             return 3
         except AssertionError:
-            print("BASELINE_CONSTANT_FAIL_AS_EXPECTED")
+            print("BASELINE_ZERO_FAIL_AS_EXPECTED")
 
     print(f"ORACLE_MAX_PRACTICE_S {max(times):.4f}")
     print("LOCAL_VALIDATE_REWARD 1")

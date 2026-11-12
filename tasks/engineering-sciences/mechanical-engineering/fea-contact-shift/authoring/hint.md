@@ -1,1 +1,1 @@
-Focus on the plane-strain log-kernel influence operator and incremental Coulomb stick-slip under the exact discrete Fn/Ft history. Isolated Hertz per patch and frictionless solves will not survive held-out multi-patch and shear-reversal packs.
+Use approach-controlled IC contact with the plane-strain log kernel and incremental Coulomb stick-slip under the exact discrete delta_n/delta_t history. Forces are outputs. Ignoring friction or zeroing delta_t will not match held-out shear and reversal packs.

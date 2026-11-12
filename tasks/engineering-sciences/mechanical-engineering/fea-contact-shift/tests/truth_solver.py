@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
-"""Independent ground truth for frictional IC contact packs.
+"""Independent ground truth for approach-controlled frictional contact.
 
-Same continuum conventions as the instruction; independent numerics:
-upsampled interface, load sub-steps, and a separately coded active-set
-complementarity loop (not imported from the reference analyzer).
+Physical independence from the reference analyzer:
+- Influence operator assembled by 4-point Gauss quadrature of the log kernel
+  (reference uses the closed-form antiderivative of ln|x-s|).
+- Complementarity solved by a separately authored active-set loop in this file
+  (no import of solution/analyze.py).
+
+Continuum conventions match the instruction: plane-strain log kernel, prescribed
+δ_n/δ_t, Coulomb stick-slip with accumulated plastic slip γ.
 """
 
 from __future__ import annotations
@@ -12,6 +17,8 @@ import json
 from pathlib import Path
 
 import numpy as np
+
+CONTACT_FRAC = 1e-8
 
 
 def _edges(x: np.ndarray) -> np.ndarray:
@@ -26,22 +33,26 @@ def _edges(x: np.ndarray) -> np.ndarray:
     return e
 
 
-def log_kernel(x: np.ndarray, rref: float) -> tuple[np.ndarray, np.ndarray]:
+def assemble_kernel(x: np.ndarray, rref: float) -> tuple[np.ndarray, np.ndarray]:
     n = len(x)
     edges = _edges(x)
     w = edges[1:] - edges[:-1]
+    # Gauss–Legendre 4-point on each element
+    gnodes = np.array([-0.8611363115940526, -0.3399810435848563, 0.3399810435848563, 0.8611363115940526])
+    gwt = np.array([0.34785484513745385, 0.6521451548625461, 0.6521451548625461, 0.34785484513745385])
     K = np.zeros((n, n), dtype=float)
-    lr = float(np.log(rref))
-    for i, xi in enumerate(x):
-        xi = float(xi)
+    log_r = float(np.log(rref))
+    for i, xp in enumerate(x):
+        xp = float(xp)
         for j in range(n):
             L, R = float(edges[j]), float(edges[j + 1])
-
-            def F(z: float) -> float:
-                az = abs(z)
-                return 0.0 if az < 1e-45 else z * np.log(az) - z
-
-            K[i, j] = (F(xi - L) - F(xi - R)) - lr * (R - L)
+            mid = 0.5 * (L + R)
+            half = 0.5 * (R - L)
+            acc = 0.0
+            for g, wg in zip(gnodes, gwt):
+                s = mid + half * g
+                acc += wg * (np.log(max(abs(xp - s), 1e-45)) - log_r)
+            K[i, j] = acc * half
     return K, w
 
 
@@ -56,169 +67,155 @@ def _load(pack_dir: Path):
     return meta, iface[:, 0].astype(float), iface[:, 1].astype(float), loads[:, 1].astype(float), loads[:, 2].astype(float)
 
 
-def _refine(x, g0, factor=2):
-    if factor <= 1:
-        return x.copy(), g0.copy()
-    xn = np.linspace(x[0], x[-1], (len(x) - 1) * factor + 1)
-    return xn, np.interp(xn, x, g0)
-
-
-def _expand_history(fn, ft, substeps: int):
-    if substeps <= 1:
-        return fn.astype(float), ft.astype(float)
-    fn_o = [0.0]
-    ft_o = [0.0]
-    prev_n, prev_t = 0.0, 0.0
-    for a, b in zip(fn, ft):
-        for s in range(1, substeps + 1):
-            t = s / substeps
-            fn_o.append(prev_n + t * (float(a) - prev_n))
-            ft_o.append(prev_t + t * (float(b) - prev_t))
-        prev_n, prev_t = float(a), float(b)
-    return np.asarray(fn_o[1:]), np.asarray(ft_o[1:])
-
-
-def _solve_step(K, w, A, g0, mu, Fn, Ft, uslip, max_iter=150):
-    n = len(g0)
+def _solve_history(x, g0, A, mu, dn_hist, dt_hist, K, w, max_inner=160):
+    n = len(x)
     p = np.zeros(n)
     q = np.zeros(n)
+    gamma = np.zeros(n)
     active = np.zeros(n, dtype=bool)
     stick = np.zeros(n, dtype=bool)
-    # seed near minimum gap
-    seed_n = max(7, n // 10)
-    active[np.argsort(g0)[:seed_n]] = True
-    stick[active] = True
-    c_n = c_t = 0.0
 
-    for _ in range(max_iter):
-        idx = np.flatnonzero(active)
-        if idx.size == 0:
-            active[np.argsort(g0)[:seed_n]] = True
-            stick[:] = False
+    for delta_n, delta_t in zip(dn_hist, dt_hist):
+        delta_n = float(delta_n)
+        delta_t = float(delta_t)
+        interf = g0 - delta_n
+        if not np.any(active):
+            cand = np.flatnonzero(interf < 0.0)
+            if cand.size == 0:
+                p[:] = 0.0
+                q[:] = 0.0
+                active[:] = False
+                stick[:] = False
+                continue
+            active[:] = False
+            active[cand] = True
             stick[active] = True
+
+        for _ in range(max_inner):
             idx = np.flatnonzero(active)
-        st = np.flatnonzero(active & stick)
-        sl = np.flatnonzero(active & ~stick)
-        m, ms = idx.size, st.size
+            if idx.size == 0:
+                break
+            st = np.flatnonzero(active & stick)
+            sl = np.flatnonzero(active & ~stick)
+            m, ms = idx.size, st.size
 
-        slip_sign = np.zeros(n)
-        if sl.size:
-            s = np.sign(q[sl])
-            default = 1.0 if Ft >= 0 else -1.0
-            s[s == 0] = default
-            slip_sign[sl] = s
+            slip_sign = np.zeros(n)
+            if sl.size:
+                pred = A * (K @ q) + gamma
+                s = np.sign(pred[sl] - delta_t)
+                s[s == 0] = 1.0 if delta_t >= 0 else -1.0
+                slip_sign[sl] = s
 
-        nv = m + ms + 2
-        M = np.zeros((nv, nv))
-        rhs = np.zeros(nv)
-        st_map = {int(j): k for k, j in enumerate(st)}
+            nv = m + ms
+            M = np.zeros((nv, nv))
+            rhs = np.zeros(nv)
+            st_map = {int(j): k for k, j in enumerate(st)}
 
-        for a, i in enumerate(idx):
-            for b, j in enumerate(idx):
-                M[a, b] = A * K[i, j]
-            M[a, m + ms] = 1.0
-            rhs[a] = g0[i]
+            for a, i in enumerate(idx):
+                for b, j in enumerate(idx):
+                    M[a, b] = A * K[i, j]
+                rhs[a] = g0[i] - delta_n
 
-        for ka, i in enumerate(st):
-            row = m + ka
-            for b, j in enumerate(idx):
-                if stick[j]:
-                    M[row, m + st_map[int(j)]] += A * K[i, j]
-                else:
-                    M[row, b] += A * K[i, j] * slip_sign[j] * mu
-            M[row, m + ms + 1] = 1.0
-            rhs[row] = -uslip[i]
+            for ka, i in enumerate(st):
+                row = m + ka
+                for b, j in enumerate(idx):
+                    if stick[j]:
+                        M[row, m + st_map[int(j)]] += A * K[i, j]
+                    else:
+                        M[row, b] += A * K[i, j] * slip_sign[j] * mu
+                rhs[row] = delta_t - gamma[i]
 
-        rn = m + ms
-        rt = m + ms + 1
-        for b, j in enumerate(idx):
-            M[rn, b] = w[j]
-            if stick[j]:
-                M[rt, m + st_map[int(j)]] = w[j]
-            else:
-                M[rt, b] += w[j] * slip_sign[j] * mu
-        rhs[rn] = Fn
-        rhs[rt] = Ft
+            if nv == 0:
+                break
+            try:
+                sol = np.linalg.solve(M, rhs)
+            except np.linalg.LinAlgError:
+                sol = np.linalg.lstsq(M, rhs, rcond=None)[0]
 
-        try:
-            sol = np.linalg.solve(M, rhs)
-        except np.linalg.LinAlgError:
-            sol = np.linalg.lstsq(M, rhs, rcond=None)[0]
+            pa = sol[:m]
+            qs = sol[m:] if ms else np.zeros(0)
+            p_new = np.zeros(n)
+            q_new = np.zeros(n)
+            p_new[idx] = pa
+            if ms:
+                q_new[st] = qs
+            for i in sl:
+                q_new[i] = slip_sign[i] * mu * max(p_new[i], 0.0)
 
-        pa = sol[:m]
-        qs = sol[m : m + ms]
-        c_n = float(sol[m + ms])
-        c_t = float(sol[m + ms + 1])
-        p.fill(0.0)
-        q.fill(0.0)
-        p[idx] = pa
-        q[st] = qs
-        q[sl] = slip_sign[sl] * mu * p[sl]
-
-        changed = False
-        neg = pa < -1e-14
-        if np.any(neg):
-            active[idx[neg]] = False
-            stick[idx[neg]] = False
-            changed = True
-        gap = g0 - c_n - A * (K @ p)
-        add = (~active) & (gap < -1e-16)
-        if np.any(add):
-            active[add] = True
-            stick[add] = True
-            changed = True
-        for i in np.flatnonzero(active & stick):
-            lim = mu * max(p[i], 0.0)
-            if abs(q[i]) > lim + 1e-9 * max(1.0, lim):
-                stick[i] = False
-                q[i] = np.copysign(lim, q[i] if q[i] != 0 else Ft)
+            changed = False
+            if np.any(pa < -1e-14):
+                active[idx[pa < -1e-14]] = False
+                stick[idx[pa < -1e-14]] = False
                 changed = True
-        if not changed:
-            break
+            p, q = p_new, q_new
+            gap = g0 - delta_n - A * (K @ p)
+            add = (~active) & (gap < -1e-16)
+            if np.any(add):
+                active[add] = True
+                stick[add] = True
+                changed = True
+            for i in np.flatnonzero(active & stick):
+                lim = mu * max(p[i], 0.0)
+                if abs(q[i]) > lim + 1e-9 * max(1.0, lim):
+                    stick[i] = False
+                    q[i] = np.copysign(lim, q[i] if q[i] != 0 else (delta_t - gamma[i]))
+                    changed = True
+            if not changed:
+                break
 
-    uslip_next = -A * (K @ q) - c_t
-    return p, q, uslip_next
+        u_el = A * (K @ q)
+        for i in range(n):
+            if not active[i]:
+                gamma[i] = 0.0
+            elif not stick[i]:
+                gamma[i] = delta_t - u_el[i]
+
+    return p, q, w, active, stick, gamma
 
 
-def solve_pack_truth(pack_dir: Path, upsample_factor: int = 2, substeps: int = 2) -> dict:
-    meta, x0, g00, fn0, ft0 = _load(pack_dir)
-    x, g0 = _refine(x0, g00, factor=upsample_factor)
-    fn, ft = _expand_history(fn0, ft0, substeps=substeps)
+def solve_pack_truth(pack_dir: Path) -> dict:
+    meta, x, g0, dn, dt = _load(pack_dir)
     E, nu, mu = float(meta["E"]), float(meta["nu"]), float(meta["mu"])
     rref = float(meta.get("rref", 1.0))
     A = 2.0 * (1.0 - nu * nu) / (np.pi * E)
-    K, w = log_kernel(x, rref)
-    uslip = np.zeros(len(x))
-    p = q = None
-    for Fn, Ft in zip(fn, ft):
-        p, q, uslip = _solve_step(K, w, A, g0, mu, float(Fn), float(Ft), uslip)
-    return _metrics(x, p, q, w, mu)
+    K, w = assemble_kernel(x, rref)
+    p, q, w, active, stick, gamma = _solve_history(x, g0, A, mu, dn, dt, K, w)
+    return _metrics(x, p, q, w, stick, gamma, mu)
 
 
-def _metrics(x, p, q, w, mu) -> dict:
-    pmax = float(np.max(p))
-    contact = p > 1e-8 * max(pmax, 1e-30)
+def _metrics(x, p, q, w, stick, gamma, mu) -> dict:
+    pmax = float(np.max(p)) if p.size else 0.0
+    contact = p > CONTACT_FRAC * max(pmax, 1e-30)
+    slip = contact & (np.abs(q) >= 0.99 * mu * np.maximum(p, 0.0) - 1e-30)
+    stick_m = contact & stick & (~slip)
+    slip = contact & (~stick_m)
     cl = float(np.sum(w[contact]))
+    sl = float(np.sum(w[slip]))
+    sf = float(np.sum(w[stick_m]) / cl) if cl > 0 else 0.0
     fn = float(np.sum(p * w))
     ft = float(np.sum(q * w))
-    if np.any(contact):
-        p_rms = float(np.sqrt(np.sum((p[contact] ** 2) * w[contact]) / max(cl, 1e-30)))
+    q_peak = float(np.max(np.abs(q))) if q.size else 0.0
+    cum = float(np.sum(w * np.abs(gamma)))
+    if np.any(contact) and float(np.sum(np.abs(q[contact]) * w[contact])) > 0:
+        xq = float(
+            np.sum(x[contact] * np.abs(q[contact]) * w[contact])
+            / np.sum(np.abs(q[contact]) * w[contact])
+        )
     else:
-        p_rms = 0.0
-    xc = float(np.sum(x[contact] * p[contact] * w[contact]) / fn) if cl > 0 and abs(fn) > 0 else 0.0
-    mob = float(abs(ft) / (mu * abs(fn))) if abs(fn) > 0 and mu > 0 else 0.0
+        xq = 0.0
     return {
         "schema_version": 1,
         "p_peak": pmax,
-        "p_rms": p_rms,
         "fn_total": fn,
         "ft_total": ft,
         "contact_length": cl,
-        "x_p_centroid": xc,
-        "mobilization": mob,
+        "q_peak": q_peak,
+        "stick_fraction": sf,
+        "slip_length": sl,
+        "x_q_centroid": xq,
+        "cum_slip_l1": cum,
     }
 
 
 def truth_for_pack(pack_dir: str | Path) -> dict:
-    # Upsampled interface + independently coded active-set (not the reference file).
-    return solve_pack_truth(Path(pack_dir), upsample_factor=2, substeps=1)
+    return solve_pack_truth(Path(pack_dir))

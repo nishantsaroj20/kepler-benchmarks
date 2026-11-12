@@ -16,13 +16,18 @@ RUN useradd --create-home --shell /usr/sbin/nologin runner
 RUN mkdir -p /app
 RUN mkdir -p /app/output
 RUN mkdir -p /app/solver
+RUN mkdir -p /app/data
 RUN mkdir -p /logs/verifier
 
 COPY . /tests/
 
-RUN chmod 755 /tests/test.sh \
+# Practice packs are sealed into the verifier for instruction-alignment checks.
+RUN cp -a /tests/practice_data /app/data/practice \
+ && chmod 755 /tests/test.sh \
  && chmod -R go-rwx /tests \
  && chmod 700 /logs/verifier \
- && chmod 755 /app /app/output /app/solver
+ && chmod 755 /app /app/output /app/solver /app/data \
+ && chmod -R a+rX /app/data/practice \
+ && chown -R root:root /tests /logs/verifier
 
 WORKDIR /tests

@@ -3,7 +3,7 @@ artifacts = ["/app/solver/analyze.py"]
 
 [task]
 name = "afterquery/fea-contact-shift"
-description = "Build a reusable plane-strain frictional contact analyzer that recovers pressure and reaction diagnostics on mesh-and-load packs, including held-out geometry and friction shifts."
+description = "Build a reusable plane-strain frictional contact analyzer that recovers pressure and stick-slip diagnostics on approach-controlled mesh packs, including held-out geometry and friction shifts."
 authors = [{ name = "Nishant Kumar Saroj", email = "nishantsaroj20@gmail.com" }]
 keywords = ["contact-mechanics", "friction", "stick-slip", "influence-coefficients", "plane-strain"]
 
@@ -21,9 +21,9 @@ subcategory = "Mechanical & Aerospace Engineering"
 tags = ["contact-mechanics", "friction", "stick-slip", "influence-coefficients", "plane-strain", "multi-patch"]
 expert_time_estimate_hours = 14
 relevant_experience = "Mechanical engineer with an M.Tech in Engineering Analysis & Design at IIT Delhi, focused on scientific computing, numerical methods, and FEA (Python, MATLAB, Abaqus). Experience authoring and evaluating STEM / physical-science AI tasks for Turing, Handshake AI, Alignerr, and Mercor, including executable reference solutions and objective grading criteria."
-difficulty_explanation = "Synthetic but continuum-faithful multi-patch plane-strain frictional contact packs. Hardness comes from elastic coupling between neighboring patches, Coulomb incremental stick-slip under non-proportional and reversing shear, and the log-kernel influence operator—not from formatting. Single-patch Hertz, frictionless, or tied-contact shortcuts fail held-out shifts in geometry, mu, and load path."
-solution_explanation = "Assemble the piecewise-constant plane-strain log-kernel influence matrix, then march the prescribed Fn/Ft history with an active-set complementarity solve: normal Signorini conditions plus Coulomb stick or slip using an accumulated tangential slip state. Report unique end-of-history diagnostics (peak/RMS pressure, reactions, contact length, pressure centroid, mobilization)."
-verification_explanation = "The verifier materializes eight held-out packs seeded from the submission bytes with deliberately shifted patch geometry, moduli, friction, and load-path family. It re-runs /app/solver/analyze.py on each pack with an 8 s wall cap and thread pins, then compares JSON metrics to an independent upsampled active-set truth implementation sealed under tests/. Relative tolerances are taken from native-versus-refined mesh spread; constant/mean/zero baselines fail every case."
+difficulty_explanation = "Synthetic approach-controlled multi-patch plane-strain frictional contact. Forces are unknowns, so frictionless or delta_t=0 probes cannot copy Ft from the load file. Hardness is elastic patch coupling, incremental Coulomb stick-slip under non-proportional and reversing shear, and the log-kernel operator—not formatting."
+solution_explanation = "Assemble the piecewise-constant plane-strain log-kernel influence matrix, then march prescribed delta_n/delta_t with an active-set complementarity solve: Signorini normals plus Coulomb stick/slip with accumulated slip gamma. Report end-of-history pressure, forces, and frictional-field metrics (q peak, stick fraction, slip length, cumulative slip)."
+verification_explanation = "Verifier materializes eight held-out packs seeded from submission bytes (shifted geometry/mu/paths, including no-contact), runs analyze.py as unprivileged runner with sealed /tests, and compares to an independent Gauss-quadrature active-set truth. Practice packs are also executed. Tolerances follow measured oracle-versus-Gauss-truth spread; zero/constant and frictionless probes fail."
 
 [verifier]
 timeout_sec = 900.0
