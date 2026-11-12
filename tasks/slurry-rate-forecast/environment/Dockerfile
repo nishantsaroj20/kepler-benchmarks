@@ -18,4 +18,5 @@ WORKDIR /app
 COPY data_note.md /app/data_note.md
 COPY data/ /app/data/
 
-RUN mkdir -p /app/output
+RUN mkdir -p /app/output \
+    && chmod 1777 /app /app/output

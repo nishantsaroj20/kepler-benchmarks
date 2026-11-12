@@ -76,7 +76,6 @@ def _discard(path: Path):
 
 
 def _run_program(campaign: Path, cases: Path, output: Path):
-    user = pwd.getpwnam("runner")
     env = os.environ.copy()
     env["OMP_NUM_THREADS"] = "1"
     env["OPENBLAS_NUM_THREADS"] = "1"
@@ -84,12 +83,32 @@ def _run_program(campaign: Path, cases: Path, output: Path):
     env["NUMEXPR_NUM_THREADS"] = "1"
     env["HOME"] = "/tmp"
     env.pop("PYTHONPATH", None)
+    for path in (campaign, output.parent):
+        for root, dirs, files in os.walk(path):
+            os.chmod(root, 0o755)
+            for name in files:
+                os.chmod(Path(root) / name, 0o644)
 
     def _pin():
         try:
             os.sched_setaffinity(0, {0})
         except (AttributeError, OSError):
             return
+
+    kwargs = {
+        "stdout": subprocess.PIPE,
+        "stderr": subprocess.PIPE,
+        "env": env,
+        "start_new_session": True,
+        "preexec_fn": _pin,
+    }
+    if os.geteuid() == 0:
+        user = pwd.getpwnam("runner")
+        os.chown(output.parent, user.pw_uid, user.pw_gid)
+        os.chmod(output.parent, 0o700)
+        kwargs["user"] = user.pw_uid
+        kwargs["group"] = user.pw_gid
+        kwargs["extra_groups"] = []
 
     proc = subprocess.Popen(
         [
@@ -102,14 +121,7 @@ def _run_program(campaign: Path, cases: Path, output: Path):
             "--output",
             str(output),
         ],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        env=env,
-        start_new_session=True,
-        user=user.pw_uid,
-        group=user.pw_gid,
-        extra_groups=[],
-        preexec_fn=_pin,
+        **kwargs,
     )
     timed_out = False
     try:
@@ -137,9 +149,6 @@ def forecast_document():
     work = Path(tempfile.mkdtemp(prefix="slurry-campaign-"))
     shutil.copytree(CAMPAIGN, work, dirs_exist_ok=True)
     out_dir = Path(tempfile.mkdtemp(prefix="slurry-out-"))
-    user = pwd.getpwnam("runner")
-    os.chown(out_dir, user.pw_uid, user.pw_gid)
-    os.chmod(out_dir, 0o700)
     output = out_dir / "predictions.json"
     _run_program(work, work / "predict_cases.csv", output)
     return load_document(output)

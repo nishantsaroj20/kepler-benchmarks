@@ -1,21 +1,15 @@
 #!/bin/bash
-set -u
 mkdir -p /logs/verifier
-on_exit() {
-  if [ ! -f /logs/verifier/reward.txt ]; then
-    printf '0\n' > /logs/verifier/reward.txt
-  fi
-}
-trap on_exit EXIT
+chmod 777 /logs/verifier || true
+if [ "$(id -u)" -eq 0 ]; then
+  chmod 700 /tests/truth || true
+fi
 cd /tmp
-python3 -m pytest -p no:cacheprovider \
+if python3 -m pytest -p no:cacheprovider \
   --ctrf /logs/verifier/ctrf.json \
   --junitxml /logs/verifier/junit.xml \
-  /tests/test_outputs.py
-status=$?
-if [ "$status" -eq 0 ]; then
-  printf '1\n' > /logs/verifier/reward.txt
+  /tests/test_outputs.py; then
+  echo 1 > /logs/verifier/reward.txt
 else
-  printf '0\n' > /logs/verifier/reward.txt
+  echo 0 > /logs/verifier/reward.txt
 fi
-exit 0
