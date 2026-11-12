@@ -1,4 +1,4 @@
-Put your solver at `/workspace/output/column_solver.py`. It will be called repeatedly on case folders; each call must finish in 120 seconds on a single CPU.
+Put your solver at `/workspace/output/column_solver.py`. It will be called repeatedly on case folders; each call must finish in 120 seconds on a single CPU and must work without network access (held-out runs are offline even though the agent environment may have public networking).
 
 Sample cases live under `/workspace/data/sample_cases/` and are indexed in `/workspace/data/run_index.json`. Look through those first: some beds are densely packed, some runs are fast with strong axial dispersion, some mid-bed traces have dropouts or spikes, some feeds are concentrated, and one isotherm is nearly linear. Held-out runs use other cases built the same way, just with different numbers.
 
