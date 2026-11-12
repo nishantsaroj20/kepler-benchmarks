@@ -1,7 +1,7 @@
 {
   "visible": {
     "solvent": "toluene",
-    "metal_location": "eggshell",
+    "metal_location": "uniform",
     "k_ref_mol_kg_s": 0.0125,
     "K_ref_m3_mol": 0.28,
     "E_J_mol": 62000.0,
@@ -25,12 +25,11 @@
     "noise_sigma_relative": 0.012,
     "case_count": 1539,
     "shift": [
-      "uniform palladium through large particles, so internal diffusion changes the rate",
       "anisole instead of toluene, with its own Antoine constants and solubility table",
+      "a lower diffusivity and larger particles than the visible uniform week",
       "temperatures, stirrer speeds, diameters, and catalyst masses outside the visible window",
-      "regenerated catalyst state, absent from the visible sites table",
-      "aborted chromatograph rows, a third response-factor window, and a curved thermocouple table",
-      "near-boiling hydrogen partial pressure and holds long enough to empty a small headspace"
+      "a different curved thermocouple table and a different chromatograph calendar",
+      "the visible week already contains uniform particles, a curved thermocouple, three chromatograph windows, aborted rows, a regenerated state, and a hold that empties a small headspace"
     ]
   }
 }

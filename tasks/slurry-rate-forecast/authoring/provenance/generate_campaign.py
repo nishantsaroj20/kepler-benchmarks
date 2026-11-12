@@ -3,7 +3,8 @@
 
 The hidden forecast truth is this latent forward model on a finer grid than
 the reference program. It is not the reference fit. The hidden grid is a
-different regime, solvent, instrument model, and operating map. A new noise
+different solvent, instrument curve, and operating map. Every fault that
+changes the graded result also appears in the visible week. A new noise
 seed is not the shift.
 """
 
@@ -52,8 +53,7 @@ def visible_campaign() -> None:
     rho, fresh = 1900.0, 186.0
     slurry, p_atm = 0.0015, 1.01325
     antoine = (4.07827, 1343.943, -53.773)
-    diffusivity = 2.5e-9
-    shell_um = 3.0
+    diffusivity = 1.8e-9
 
     def psat(temp_k: float) -> float:
         a_coef, b_coef, c_coef = antoine
@@ -64,13 +64,14 @@ def visible_campaign() -> None:
         return cstar_ref * math.exp(-dh_sol / R_GAS * (1.0 / temp_k - 1.0 / T_REF))
 
     def tic_of(temp_c: float) -> float:
-        return temp_c + 4.6 + 0.018 * (temp_c - 75.0)
+        # Monotonic and curved, so a straight-line calibration misses the table.
+        return temp_c + 3.2 + 0.012 * (temp_c - 75.0) + 0.0024 * (temp_c - 75.0) ** 2
 
     def kla(speed: float) -> float:
         return 0.048 * (speed / 12.0) ** 0.82
 
     def kc(speed: float, diameter: float) -> float:
-        return 6.8e-5 * math.sqrt(speed / 12.0) * math.sqrt(80.0 / diameter)
+        return 6.8e-5 * math.sqrt(speed / 12.0) * math.sqrt(280.0 / diameter)
 
     def conditioned(speed: float) -> float:
         return fresh / (1.0 + (speed / 21.0) ** 2)
@@ -90,14 +91,14 @@ def visible_campaign() -> None:
     dump_json(data / "catalyst.json", {
         "metal": "palladium",
         "support": "activated carbon",
-        "metal_location": "eggshell",
-        "eggshell_depth_um": shell_um,
+        "metal_location": "uniform",
+        "eggshell_depth_um": None,
         "effective_diffusivity_m2_per_s": diffusivity,
         "particle_density_kg_m3": rho,
         "fresh_co_uptake_umol_per_g": fresh,
     })
     speeds = (6.0, 9.0, 12.0, 16.0)
-    diameters = (40.0, 80.0, 150.0)
+    diameters = (120.0, 280.0, 420.0)
     write_csv(data / "kla_measurements.csv", ["N_rps", "kla_per_s", "note"], [
         {"N_rps": f"{speed:g}", "kla_per_s": f"{kla(speed):.8e}", "note": ""} for speed in speeds
     ] + [{"N_rps": "", "kla_per_s": "4.10000000e-02", "note": "tachometer blank"}])
@@ -105,12 +106,15 @@ def visible_campaign() -> None:
     for speed in speeds:
         for diameter in diameters:
             kc_rows.append({"N_rps": f"{speed:g}", "dp_um": f"{diameter:g}", "kc_m_per_s": f"{kc(speed, diameter):.8e}", "note": ""})
-    kc_rows.append({"N_rps": "12", "dp_um": "80", "kc_m_per_s": f"{kc(12, 80) * 1.65:.8e}", "note": "baffles removed"})
+    kc_rows.append({"N_rps": "12", "dp_um": "280", "kc_m_per_s": f"{kc(12, 280) * 1.65:.8e}", "note": "baffles removed"})
     write_csv(data / "kc_measurements.csv", ["N_rps", "dp_um", "kc_m_per_s", "note"], kc_rows)
     write_csv(data / "catalyst_sites.csv", ["catalyst_state", "N_rps", "co_uptake_umol_per_g"], [
         {"catalyst_state": "conditioned", "N_rps": f"{speed:g}", "co_uptake_umol_per_g": f"{conditioned(speed):.6f}"}
         for speed in speeds
-    ] + [{"catalyst_state": "fresh", "N_rps": "", "co_uptake_umol_per_g": f"{fresh:.6f}"}])
+    ] + [
+        {"catalyst_state": "fresh", "N_rps": "", "co_uptake_umol_per_g": f"{fresh:.6f}"},
+        {"catalyst_state": "regenerated", "N_rps": "", "co_uptake_umol_per_g": "112.000000"},
+    ])
     write_csv(data / "thermocouple_calibration.csv", ["tic201_C", "reference_C"], [
         {"tic201_C": f"{tic_of(temp):.6f}", "reference_C": f"{temp:.4f}"} for temp in range(40, 135, 5)
     ])
@@ -118,40 +122,41 @@ def visible_campaign() -> None:
         {"reference_C": f"{temp:.4f}", "cstar_mol_m3_at_1bar": f"{c_one(temp):.8e}"} for temp in range(40, 132, 2)
     ])
     write_csv(data / "gc_standards.csv", ["start_date", "end_date", "response_factor_mol_per_count"], [
-        {"start_date": "2024-04-01", "end_date": "2024-04-15", "response_factor_mol_per_count": "2.62000000e-06"},
-        {"start_date": "2024-04-16", "end_date": "2024-04-30", "response_factor_mol_per_count": "2.02000000e-06"},
+        {"start_date": "2024-04-01", "end_date": "2024-04-10", "response_factor_mol_per_count": "2.84000000e-06"},
+        {"start_date": "2024-04-11", "end_date": "2024-04-20", "response_factor_mol_per_count": "2.15000000e-06"},
+        {"start_date": "2024-04-21", "end_date": "2024-04-30", "response_factor_mol_per_count": "1.72000000e-06"},
     ])
     runs = [
-        ("R01", "2024-04-18", 60, 0.8, 12, 22, 80),
-        ("R02", "2024-04-09", 60, 1.6, 12, 22, 80),
-        ("R03", "2024-04-19", 60, 3.0, 12, 22, 80),
-        ("R04", "2024-04-08", 60, 5.0, 12, 22, 80),
-        ("R05", "2024-04-11", 60, 7.0, 12, 22, 80),
-        ("R06", "2024-04-17", 75, 0.8, 12, 22, 80),
-        ("R07", "2024-04-10", 75, 1.6, 12, 22, 80),
-        ("R08", "2024-04-18", 75, 3.0, 12, 22, 80),
-        ("R09", "2024-04-07", 75, 5.0, 12, 22, 80),
-        ("R10", "2024-04-12", 75, 7.0, 12, 22, 80),
-        ("R11", "2024-04-20", 90, 0.8, 12, 22, 80),
-        ("R12", "2024-04-08", 90, 1.6, 12, 22, 80),
-        ("R13", "2024-04-22", 90, 3.0, 12, 22, 80),
-        ("R14", "2024-04-09", 90, 5.0, 12, 22, 80),
-        ("R15", "2024-04-14", 90, 7.0, 12, 22, 80),
-        ("R16", "2024-04-11", 75, 3.0, 12, 8, 80),
-        ("R17", "2024-04-23", 75, 3.0, 12, 14, 80),
-        ("R18", "2024-04-06", 75, 3.0, 12, 35, 80),
-        ("R19", "2024-04-24", 75, 3.0, 12, 50, 80),
-        ("R20", "2024-04-13", 75, 3.0, 6, 22, 80),
-        ("R21", "2024-04-16", 75, 3.0, 9, 22, 80),
-        ("R22", "2024-04-05", 75, 3.0, 16, 22, 80),
-        ("R23", "2024-04-15", 75, 3.0, 12, 22, 40),
-        ("R24", "2024-04-25", 75, 3.0, 12, 22, 150),
-        ("R25", "2024-04-04", 75, 3.0, 6, 8, 40),
-        ("R26", "2024-04-26", 75, 3.0, 16, 8, 40),
-        ("R27", "2024-04-03", 75, 2.0, 6, 50, 150),
-        ("R28", "2024-04-27", 60, 3.0, 6, 40, 150),
-        ("R29", "2024-04-02", 90, 2.0, 16, 10, 40),
-        ("R30", "2024-04-28", 75, 3.0, 12, 22, 80),
+        ("R01", "2024-04-18", 60, 0.8, 12, 22, 280),
+        ("R02", "2024-04-09", 60, 1.6, 12, 22, 280),
+        ("R03", "2024-04-19", 60, 3.0, 12, 22, 280),
+        ("R04", "2024-04-08", 60, 5.0, 12, 22, 280),
+        ("R05", "2024-04-11", 60, 7.0, 12, 22, 280),
+        ("R06", "2024-04-17", 75, 0.8, 12, 22, 280),
+        ("R07", "2024-04-10", 67, 1.6, 12, 22, 280),
+        ("R08", "2024-04-18", 75, 3.0, 12, 22, 280),
+        ("R09", "2024-04-07", 75, 5.0, 12, 22, 280),
+        ("R10", "2024-04-12", 75, 7.0, 12, 22, 280),
+        ("R11", "2024-04-20", 90, 0.8, 12, 22, 280),
+        ("R12", "2024-04-08", 90, 1.6, 12, 22, 280),
+        ("R13", "2024-04-22", 90, 3.0, 12, 22, 280),
+        ("R14", "2024-04-09", 90, 5.0, 12, 22, 280),
+        ("R15", "2024-04-14", 90, 7.0, 12, 22, 280),
+        ("R16", "2024-04-11", 82, 3.0, 12, 8, 280),
+        ("R17", "2024-04-23", 75, 3.0, 12, 14, 280),
+        ("R18", "2024-04-06", 75, 3.0, 12, 35, 280),
+        ("R19", "2024-04-24", 75, 3.0, 12, 50, 280),
+        ("R20", "2024-04-13", 75, 3.0, 6, 22, 280),
+        ("R21", "2024-04-16", 71, 3.0, 9, 22, 280),
+        ("R22", "2024-04-05", 75, 3.0, 16, 22, 280),
+        ("R23", "2024-04-15", 75, 3.0, 12, 22, 120),
+        ("R24", "2024-04-25", 75, 3.0, 12, 22, 420),
+        ("R25", "2024-04-04", 75, 3.0, 6, 8, 120),
+        ("R26", "2024-04-26", 75, 3.0, 16, 8, 120),
+        ("R27", "2024-04-03", 75, 2.0, 6, 50, 420),
+        ("R28", "2024-04-27", 60, 3.0, 6, 40, 420),
+        ("R29", "2024-04-02", 90, 2.0, 16, 10, 120),
+        ("R30", "2024-04-28", 88, 3.0, 12, 22, 280),
     ]
     run_rows = []
     for run_id, date, temp, gauge, speed, mass, diameter in runs:
@@ -164,38 +169,39 @@ def visible_campaign() -> None:
     run_rows.append({
         "run_id": "R31", "run_date": "2024-04-12", "status": "aborted",
         "tic201_C": f"{tic_of(75):.6f}", "P_total_barg": "3.0000",
-        "N_rps": "12", "m_cat_g": "22.0000", "dp_um": "80",
+        "N_rps": "12", "m_cat_g": "22.0000", "dp_um": "280",
         "h2_peak_area": "9.50000000e+06", "window_s": "600.0", "sheet_rate_mol_m3_s": "1.20000000e+01",
     })
     write_csv(data / "rate_runs.csv", list(run_rows[0].keys()), run_rows)
     cases = [
-        ("H1", 75.0, 11.5, 12.0, 40.0, 40.0, "conditioned"),
-        ("L1", 75.0, 0.25, 12.0, 22.0, 80.0, "conditioned"),
-        ("T1", 114.0, 1.55, 12.0, 10.0, 80.0, "conditioned"),
-        ("W1", 75.0, 2.0, 6.0, 85.0, 80.0, "conditioned"),
-        ("D1", 60.0, 5.5, 9.0, 36.0, 150.0, "conditioned"),
-        ("F1", 75.0, 4.5, 16.0, 10.0, 40.0, "fresh"),
-        ("X1", 108.0, 6.5, 6.0, 78.0, 150.0, "fresh"),
-        ("K1", 60.0, 0.85, 16.0, 7.0, 40.0, "conditioned"),
+        ("H1", 75.0, 11.5, 12.0, 40.0, 120.0, "conditioned", 600.0, 0.008),
+        ("L1", 75.0, 0.25, 12.0, 22.0, 280.0, "conditioned", 600.0, 0.008),
+        ("T1", 114.0, 1.55, 12.0, 10.0, 280.0, "conditioned", 600.0, 0.008),
+        ("W1", 75.0, 2.0, 6.0, 85.0, 280.0, "conditioned", 600.0, 0.008),
+        ("D1", 60.0, 5.5, 9.0, 36.0, 420.0, "conditioned", 600.0, 0.008),
+        ("F1", 75.0, 4.5, 16.0, 10.0, 120.0, "fresh", 600.0, 0.008),
+        ("X1", 108.0, 6.5, 6.0, 78.0, 420.0, "fresh", 600.0, 0.008),
+        ("K1", 60.0, 0.85, 16.0, 7.0, 120.0, "conditioned", 600.0, 0.008),
+        ("G1", 80.0, 4.0, 9.0, 30.0, 280.0, "regenerated", 600.0, 0.008),
+        ("S1", 100.0, 2.0, 16.0, 80.0, 120.0, "fresh", 5000.0, 0.00012),
     ]
     write_csv(data / "predict_cases.csv", ["case_id", "bath_C", "P_total_barg", "N_rps", "m_cat_g", "dp_um", "catalyst_state", "hold_s", "headspace_m3"], [
         {
             "case_id": case_id, "bath_C": f"{temp:.4f}", "P_total_barg": f"{gauge:.4f}",
             "N_rps": f"{speed:g}", "m_cat_g": f"{mass:.4f}", "dp_um": f"{diameter:g}",
-            "catalyst_state": state, "hold_s": "600.0", "headspace_m3": "0.008000",
+            "catalyst_state": state, "hold_s": f"{hold:.4f}", "headspace_m3": f"{head:.6f}",
         }
-        for case_id, temp, gauge, speed, mass, diameter, state in cases
+        for case_id, temp, gauge, speed, mass, diameter, state, hold, head in cases
     ])
     (data / "operator_note.txt").write_text(
         "Weekly note, 28 Apr 2024. Across the 12 rps and 9 rps sheet rates the uptake looked flat, "
         "so I treated the hydrogenation as kinetic and first order in hydrogen, same as the 2022 anisole charges. "
         "The sheet rates are what went into the report.\n"
     )
-    fill_measurements(
-        data, (k_ref, energy, kads_ref, enthalpy), VISIBLE_SEED, 0.011, "2.62000000e-06", slurry,
-    )
-    write_effectiveness(data, slurry, fresh, conditioned(16.0), 75.0, tic_of(75.0), 16.0, 8.0, 40.0, 3.0, "2024-04-27")
-    for temp, gauge, speed, mass, diameter, _state in [(row[1], row[2], row[3], row[4], row[5], row[6]) for row in cases]:
+    params = (k_ref, energy, kads_ref, enthalpy)
+    fill_measurements(data, params, VISIBLE_SEED, 0.011, "2.84000000e-06", slurry)
+    write_effectiveness(data, slurry, fresh, conditioned(16.0), 75.0, tic_of(75.0), 16.0, 8.0, 420.0, 3.0, "2024-04-27", params)
+    for _case_id, temp, gauge, speed, mass, diameter, _state, _hold, _head in cases:
         partial = gauge + p_atm - psat(temp + 273.15)
         if partial <= 0.05:
             raise SystemExit(f"visible hydrogen partial pressure {partial}")
@@ -381,17 +387,17 @@ def hidden_campaign() -> list[dict]:
     )
     (data / "operator_note.txt").write_text(
         "Week of 30 Jun 2025. The anisole charges were logged from the spreadsheet rate. "
-        "Internal gradients were ignored because the toluene week had matched a crushed aliquot, "
-        "and the hold was treated as the initial rate times the clock time.\n"
+        "The hold was written up as the initial rate times the clock time.\n"
     )
     fill_measurements(data, (k_ref, energy, kads_ref, enthalpy), HIDDEN_SEED, 0.012, "3.15000000e-06", slurry)
     write_effectiveness(
         data, slurry, fresh, conditioned(14.0), hidden_reference(105.0), 105.0, 14.0, 18.0, 420.0, 4.0, "2025-06-18",
+        (k_ref, energy, kads_ref, enthalpy),
     )
     return cases
 
 
-def write_effectiveness(data, slurry, fresh, uptake, temperature_c, tic, speed, mass, diameter, gauge, date):
+def write_effectiveness(data, slurry, fresh, uptake, temperature_c, tic, speed, mass, diameter, gauge, date, params):
     campaign = forecast.load_campaign(data)
     rows = []
     for label, size, note in (
@@ -408,8 +414,9 @@ def write_effectiveness(data, slurry, fresh, uptake, temperature_c, tic, speed, 
         base_diameter = diameter
         kc_value = campaign["kc"][(round(speed, 6), round(base_diameter, 6))] * math.sqrt(base_diameter / size)
         ks = kc_value * 6.0 * loading / (campaign["rho"] * size * 1e-6)
-        k_value = forecast.k_of(np.array([temperature]), 0.0134 if campaign["distribution"] == "uniform" else 0.0125, 64000.0 if campaign["distribution"] == "uniform" else 62000.0)
-        k_ads = forecast.kads_of(np.array([temperature]), 0.31 if campaign["distribution"] == "uniform" else 0.28, -39000.0 if campaign["distribution"] == "uniform" else -42000.0)
+        k_ref, energy, kads_ref, enthalpy = params
+        k_value = forecast.k_of(np.array([temperature]), k_ref, energy)
+        k_ads = forecast.kads_of(np.array([temperature]), kads_ref, enthalpy)
         shell = None if campaign["distribution"] == "uniform" else campaign["shell_um"] * 1e-6
         rate, *_ = forecast.initial_rates(
             np.array([partial]), np.array([temperature]), np.array([kla]), np.array([ks]),
@@ -469,20 +476,63 @@ def assert_shift() -> None:
         if key in hidden_keys or key in visible_keys:
             raise SystemExit(f"repeated condition {key}")
         hidden_keys.add(key)
-    visible_solvent = json.loads((ROOT / "environment" / "data" / "solvent.json").read_text())["name"]
-    hidden_solvent = json.loads((ROOT / "tests" / "hidden_campaign" / "solvent.json").read_text())["name"]
-    visible_metal = json.loads((ROOT / "environment" / "data" / "catalyst.json").read_text())["metal_location"]
-    hidden_metal = json.loads((ROOT / "tests" / "hidden_campaign" / "catalyst.json").read_text())["metal_location"]
-    if visible_solvent == hidden_solvent or visible_metal == hidden_metal:
-        raise SystemExit("hidden campaign repeats the visible solvent or metal location")
+    visible_dir = ROOT / "environment" / "data"
+    hidden_dir = ROOT / "tests" / "hidden_campaign"
+    visible_solvent = json.loads((visible_dir / "solvent.json").read_text())["name"]
+    hidden_solvent = json.loads((hidden_dir / "solvent.json").read_text())["name"]
+    visible_metal = json.loads((visible_dir / "catalyst.json").read_text())["metal_location"]
+    hidden_metal = json.loads((hidden_dir / "catalyst.json").read_text())["metal_location"]
+    if visible_solvent == hidden_solvent:
+        raise SystemExit("hidden campaign repeats the visible solvent")
+    if visible_metal != "uniform" or hidden_metal != "uniform":
+        raise SystemExit("the graded particle balance is not the uniform balance in the visible file")
+    visible_sites = list(csv.DictReader((visible_dir / "catalyst_sites.csv").open()))
+    if not any(row["catalyst_state"] == "regenerated" for row in visible_sites):
+        raise SystemExit("visible sites table has no regenerated state")
+    if not any(row["catalyst_state"] == "regenerated" for row in visible):
+        raise SystemExit("visible campaign has no regenerated charge")
     if not any(row["catalyst_state"] == "regenerated" for row in hidden):
         raise SystemExit("hidden campaign has no regenerated charge")
-    hidden_runs = list(csv.DictReader((ROOT / "tests" / "hidden_campaign" / "rate_runs.csv").open()))
+    if not any(float(row["headspace_m3"]) <= 0.0002 for row in visible):
+        raise SystemExit("visible campaign has no small-headspace hold")
+    visible_runs = list(csv.DictReader((visible_dir / "rate_runs.csv").open()))
+    hidden_runs = list(csv.DictReader((hidden_dir / "rate_runs.csv").open()))
+    if not any(row["status"] != "ok" for row in visible_runs):
+        raise SystemExit("visible campaign has no aborted row")
     if not any(row["status"] != "ok" for row in hidden_runs):
         raise SystemExit("hidden campaign has no aborted row")
-    if any(row["dp_um"] in {"40", "40.0", "80", "80.0", "150", "150.0"} for row in hidden):
+    if len(list(csv.DictReader((visible_dir / "gc_standards.csv").open()))) < 3:
+        raise SystemExit("visible chromatograph table has fewer than three windows")
+    visible_dp = {row["dp_um"] for row in visible}
+    if any(row["dp_um"] in visible_dp for row in hidden):
         raise SystemExit("hidden case uses a visible sieve cut")
-    print(f"hidden cases {len(hidden)} visible cases {len(visible)} overlap 0")
+    calibration = list(csv.DictReader((visible_dir / "thermocouple_calibration.csv").open()))
+    tic = np.array([float(row["tic201_C"]) for row in calibration])
+    reference = np.array([float(row["reference_C"]) for row in calibration])
+    residual = float(np.max(np.abs(reference - np.polyval(np.polyfit(tic, reference, 1), tic))))
+    if residual < 0.5:
+        raise SystemExit(f"visible thermocouple is too close to a straight line: {residual}")
+    effectiveness = list(csv.DictReader((visible_dir / "effectiveness_check.csv").open()))
+    areas = {row["aliquot"]: float(row["h2_peak_area"]) for row in effectiveness}
+    ratio = areas["whole"] / areas["crushed"]
+    if ratio > 0.7:
+        raise SystemExit(f"visible whole particle is not slower than the crushed aliquot: {ratio}")
+    campaign = forecast.load_campaign(visible_dir)
+    small = [row for row in visible if float(row["headspace_m3"]) <= 0.0002]
+    packed = forecast.forecast_cases(campaign, small, (0.0125, 62000.0, 0.28, -42000.0), nodes=48, steps=80)
+    temperature = float(small[0]["bath_C"]) + 273.15
+    partial = float(small[0]["P_total_barg"]) + campaign["p_atm"] - float(forecast.vapor_pressure(campaign["antoine"], temperature))
+    inventory = partial * 1e5 * float(small[0]["headspace_m3"]) / (R_GAS * temperature)
+    # The initial rate times the clock time is an upper bound only while pressure stays up.
+    # Several inventories of that upper bound means a closed headspace reaches zero.
+    offered = packed[0]["rate_mol_m3_s"] * float(small[0]["hold_s"]) * campaign["slurry_volume"]
+    if offered < 5.0 * inventory:
+        raise SystemExit(f"visible small headspace does not empty: initial uptake {offered} mol, inventory {inventory} mol")
+    print(
+        f"hidden cases {len(hidden)} visible cases {len(visible)} overlap 0 "
+        f"calibration residual {residual:.3f} C whole/crushed {ratio:.3f} "
+        f"headspace initial-uptake/inventory {offered / inventory:.1f}"
+    )
 
 
 def write_truth() -> None:
@@ -527,7 +577,7 @@ def write_provenance(hidden_cases: int) -> None:
     dump_json(provenance / "latent.json", {
         "visible": {
             "solvent": "toluene",
-            "metal_location": "eggshell",
+            "metal_location": "uniform",
             "k_ref_mol_kg_s": 0.0125,
             "K_ref_m3_mol": 0.28,
             "E_J_mol": 62000.0,
@@ -551,12 +601,11 @@ def write_provenance(hidden_cases: int) -> None:
             "noise_sigma_relative": 0.012,
             "case_count": hidden_cases,
             "shift": [
-                "uniform palladium through large particles, so internal diffusion changes the rate",
                 "anisole instead of toluene, with its own Antoine constants and solubility table",
+                "a lower diffusivity and larger particles than the visible uniform week",
                 "temperatures, stirrer speeds, diameters, and catalyst masses outside the visible window",
-                "regenerated catalyst state, absent from the visible sites table",
-                "aborted chromatograph rows, a third response-factor window, and a curved thermocouple table",
-                "near-boiling hydrogen partial pressure and holds long enough to empty a small headspace",
+                "a different curved thermocouple table and a different chromatograph calendar",
+                "the visible week already contains uniform particles, a curved thermocouple, three chromatograph windows, aborted rows, a regenerated state, and a hold that empties a small headspace",
             ],
         },
     })
