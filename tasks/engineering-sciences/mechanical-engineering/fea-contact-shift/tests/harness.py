@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Run the submitted analyzer under an unprivileged, sealed process.
 
-Outputs are written inside a runner-owned work directory (not the pytest temp
-tree), then copied back by the root verifier process. This avoids the common
-failure where setuid children cannot traverse root-only TemporaryDirectory paths.
+Both the pack inputs and the JSON output live inside a runner-owned work
+directory under /tmp. Pytest TemporaryDirectory trees are mode 0700 root-only,
+so the child cannot traverse them even if the leaf pack is chmod'd world-readable.
+Copying the pack into the workdir avoids that and keeps /tests sealed.
 """
 
 from __future__ import annotations
@@ -76,7 +77,27 @@ def run_analyzer(pack_dir: Path, out_json: Path, program: Path = PROGRAM) -> dic
     work.mkdir(mode=0o700)
     os.chown(work, user.pw_uid, user.pw_gid)
 
-    # Runner-owned output and stderr live inside work/
+    # Runner-owned pack copy, output, and stderr all live inside work/.
+    # Do not point --pack at pytest temp paths: parents are often 0700/root.
+    pack_src = pack_dir.resolve()
+    if not pack_src.is_dir():
+        raise FileNotFoundError(f"missing pack: {pack_src}")
+    if pack_src.is_symlink():
+        raise RuntimeError("pack path must not be a symlink")
+
+    inner_pack = work / "pack"
+    shutil.copytree(pack_src, inner_pack, symlinks=False, dirs_exist_ok=False)
+    for dirpath, _, filenames in os.walk(inner_pack):
+        os.chown(dirpath, user.pw_uid, user.pw_gid)
+        os.chmod(dirpath, 0o500)
+        for name in filenames:
+            fp = Path(dirpath) / name
+            if fp.is_symlink():
+                fp.unlink()
+                continue
+            os.chown(fp, user.pw_uid, user.pw_gid)
+            os.chmod(fp, 0o400)
+
     inner_out = work / "out.json"
     err_path = work / "err.txt"
     for path in (inner_out, err_path):
@@ -85,17 +106,6 @@ def run_analyzer(pack_dir: Path, out_json: Path, program: Path = PROGRAM) -> dic
         os.close(fd)
 
     os.chmod(program, 0o644)
-    # Pack must be readable/traversable by runner without being writable.
-    for dirpath, _, filenames in os.walk(pack_dir):
-        try:
-            os.chmod(dirpath, 0o555)
-        except OSError:
-            pass
-        for name in filenames:
-            try:
-                os.chmod(os.path.join(dirpath, name), 0o444)
-            except OSError:
-                pass
 
     env = {
         "PATH": "/usr/local/bin:/usr/bin:/bin",
@@ -112,7 +122,7 @@ def run_analyzer(pack_dir: Path, out_json: Path, program: Path = PROGRAM) -> dic
         "python3",
         str(program),
         "--pack",
-        str(pack_dir.resolve()),
+        str(inner_pack),
         "--out",
         str(inner_out),
     ]
