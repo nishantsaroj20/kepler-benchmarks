@@ -1,7 +1,11 @@
 #!/bin/bash
-mkdir -p /logs/verifier
+mkdir -p /logs/verifier /app
 chmod 777 /logs/verifier || true
 if [ "$(id -u)" -eq 0 ]; then
+  chmod a+rx /app || true
+  if [ -f /app/forecast.py ]; then
+    chmod a+r /app/forecast.py || true
+  fi
   chmod 700 /tests/truth || true
 fi
 cd /tmp

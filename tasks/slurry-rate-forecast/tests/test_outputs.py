@@ -108,6 +108,9 @@ def _run_program(campaign: Path, cases: Path, output: Path):
         except KeyError:
             user = None
         if user is not None:
+            if PROGRAM.is_file():
+                os.chmod(PROGRAM, 0o644)
+            os.chmod(PROGRAM.parent, 0o755)
             os.chown(output.parent, user.pw_uid, user.pw_gid)
             os.chmod(output.parent, 0o700)
             kwargs["user"] = user.pw_uid
@@ -129,20 +132,21 @@ def _run_program(campaign: Path, cases: Path, output: Path):
     )
     timed_out = False
     try:
-        proc.communicate(timeout=RUN_LIMIT_SECONDS)
+        stdout, stderr = proc.communicate(timeout=RUN_LIMIT_SECONDS)
     except subprocess.TimeoutExpired:
         timed_out = True
         try:
             os.killpg(proc.pid, signal.SIGKILL)
         except ProcessLookupError:
             pass
-        proc.communicate()
+        stdout, stderr = proc.communicate()
     if timed_out:
         _discard(output)
         pytest.fail(f"python3 /app/forecast.py exceeded {RUN_LIMIT_SECONDS} seconds")
     if proc.returncode != 0:
         _discard(output)
-        pytest.fail(f"python3 /app/forecast.py exited {proc.returncode}")
+        detail = stderr.decode("utf-8", "replace").strip()[-400:]
+        pytest.fail(f"python3 /app/forecast.py exited {proc.returncode}: {detail}")
 
 
 @pytest.fixture(scope="session")
