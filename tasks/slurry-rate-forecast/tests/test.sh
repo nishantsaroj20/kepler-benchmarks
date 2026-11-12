@@ -1,17 +1,12 @@
 #!/bin/bash
 set -u
 mkdir -p /logs/verifier
-chmod 700 /logs/verifier
-if [ -d /tests ]; then
-  chmod 700 /tests
-fi
-reward=0
-write_reward() {
-  chmod 700 /logs/verifier
-  printf '%s\n' "$reward" > /logs/verifier/reward.txt
-  chmod 700 /logs/verifier/reward.txt || true
+on_exit() {
+  if [ ! -f /logs/verifier/reward.txt ]; then
+    printf '0\n' > /logs/verifier/reward.txt
+  fi
 }
-trap write_reward EXIT
+trap on_exit EXIT
 cd /tmp
 python3 -m pytest -p no:cacheprovider \
   --ctrf /logs/verifier/ctrf.json \
@@ -19,6 +14,8 @@ python3 -m pytest -p no:cacheprovider \
   /tests/test_outputs.py
 status=$?
 if [ "$status" -eq 0 ]; then
-  reward=1
+  printf '1\n' > /logs/verifier/reward.txt
+else
+  printf '0\n' > /logs/verifier/reward.txt
 fi
 exit 0

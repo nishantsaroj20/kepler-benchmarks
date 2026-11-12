@@ -86,7 +86,10 @@ def _run_program(campaign: Path, cases: Path, output: Path):
     env.pop("PYTHONPATH", None)
 
     def _pin():
-        os.sched_setaffinity(0, {0})
+        try:
+            os.sched_setaffinity(0, {0})
+        except (AttributeError, OSError):
+            return
 
     proc = subprocess.Popen(
         [
