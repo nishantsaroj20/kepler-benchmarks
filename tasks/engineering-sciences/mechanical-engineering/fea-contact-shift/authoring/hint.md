@@ -1,0 +1,1 @@
+Use approach-controlled IC contact with the plane-strain log kernel and incremental Coulomb stick-slip under the exact discrete delta_n/delta_t history. Forces are outputs. Ignoring friction or zeroing delta_t will not match held-out shear and reversal packs.

@@ -1,0 +1,13 @@
+{
+  "E": 110000000000.0,
+  "control": "approach",
+  "kernel": "plane_strain_log",
+  "mu": 0.18,
+  "n_nodes": 131,
+  "n_steps": 12,
+  "notes": "Synthetic approach-controlled multi-patch frictional contact pack",
+  "nu": 0.28,
+  "pack_id": "practice_03",
+  "plane_strain": true,
+  "rref": 1.0
+}
