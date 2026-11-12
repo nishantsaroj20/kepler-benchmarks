@@ -22,12 +22,15 @@ RUN mkdir -p /logs/verifier
 COPY . /tests/
 
 # Practice packs are sealed into the verifier for instruction-alignment checks.
+# /tests is root-only so the unprivileged analyzer child cannot read truth modules.
+# test.sh / pytest still run as root in the verifier container.
 RUN cp -a /tests/practice_data /app/data/practice \
  && chmod 755 /tests/test.sh \
- && chmod -R go-rwx /tests \
+ && chown -R root:root /tests /logs/verifier \
+ && chmod -R u=rwX,go= /tests \
+ && chmod 755 /tests/test.sh \
  && chmod 700 /logs/verifier \
  && chmod 755 /app /app/output /app/solver /app/data \
- && chmod -R a+rX /app/data/practice \
- && chown -R root:root /tests /logs/verifier
+ && chmod -R a+rX /app/data/practice
 
 WORKDIR /tests

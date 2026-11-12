@@ -80,9 +80,13 @@ def _compare(pred: dict, truth: dict, name: str) -> None:
 
 def _run_and_score(pack: Path, out_json: Path) -> dict:
     result = run_analyzer(pack, out_json)
-    assert not result["timeout"], f"timeout on {pack.name}"
-    assert result["status"] == 0, f"nonzero exit on {pack.name}: {result['status']}"
+    err = result.get("stderr_tail", "")
+    assert not result["timeout"], f"timeout on {pack.name}; stderr={err[-500:]}"
+    assert result["status"] == 0, (
+        f"nonzero exit on {pack.name}: {result['status']}; stderr={err[-500:]}"
+    )
     assert result["seconds"] <= PER_RUN_TIMEOUT_SEC
+    assert out_json.is_file() and out_json.stat().st_size > 0, f"missing output for {pack.name}"
     pred = load_output_json(out_json)
     _validate_schema(pred)
     return pred
