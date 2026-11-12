@@ -14,17 +14,17 @@
       "value": 1.3,
       "meaning": "Reject L_min larger than ceil \u00d7 reference design length so trivially padded beds fail while still allowing modest safety factors and coarser MOL grids.",
       "why": "Oracle and independent estimators routinely land a few percent above the generator binary-search L_min because of 1.05 design margins and grid differences; ceil=1.30 leaves headroom (~30%) without accepting giant padded answers.",
-      "measured_max_oracle_L_ratio": 1.151233,
-      "headroom_vs_ceil": 0.148767
+      "measured_max_oracle_L_ratio": 1.048519,
+      "headroom_vs_ceil": 0.251481
     },
     "outlet_feasibility_slack": {
       "value": 1.03,
       "meaning": "On the true parameters, max outlet at the reported L_min must be \u2264 slack \u00d7 purity limit under an independent MOL check.",
-      "why": "Alternate spatial grids (n=48, n=80) differ slightly from the generator mesh; slack=1.03 (3%) absorbs that numerical scatter without relaxing the purity duty in a material way.",
-      "measured_max_outlet_over_limit": 0.84835,
-      "headroom_vs_slack": 0.18165,
+      "why": "Alternate spatial grids (n=64 verifier grid, n=80) differ slightly from the generator mesh; slack=1.03 (3%) absorbs that numerical scatter without relaxing the purity duty in a material way.",
+      "measured_max_outlet_over_limit": 0.762124,
+      "headroom_vs_slack": 0.267876,
       "alt_grids": [
-        48,
+        64,
         80
       ]
     }
@@ -34,175 +34,175 @@
     "all_hidden_pass": true,
     "relative_errors": {
       "H1_new_material": {
-        "qm": 0.008048,
-        "K": 0.019898,
-        "k_LDF": 0.272727,
-        "D_ax": 0.0
+        "qm": 0.009105,
+        "K": 0.021128,
+        "k_LDF": 0.045385,
+        "D_ax": 0.058616
       },
       "H2_dispersion_regime": {
-        "qm": 4e-06,
-        "K": 0.028194,
-        "k_LDF": 0.078343,
-        "D_ax": 0.120612
+        "qm": 0.010571,
+        "K": 0.008394,
+        "k_LDF": 0.064873,
+        "D_ax": 0.091665
       },
       "H3_sensor_faults": {
-        "qm": 0.001398,
-        "K": 0.013345,
-        "k_LDF": 0.026247,
-        "D_ax": 0.078848
+        "qm": 0.005678,
+        "K": 0.024615,
+        "k_LDF": 0.239215,
+        "D_ax": 0.09382
       },
       "H4_high_cin": {
-        "qm": 0.003003,
-        "K": 0.016588,
-        "k_LDF": 0.0,
-        "D_ax": 0.0
+        "qm": 0.000716,
+        "K": 0.020852,
+        "k_LDF": 0.00609,
+        "D_ax": 0.163886
       },
       "H5_near_linear": {
-        "qm": 0.004297,
-        "K": 0.004295,
-        "k_LDF": 0.048469,
-        "D_ax": 0.072615
+        "qm": 0.07371,
+        "K": 0.089412,
+        "k_LDF": 0.191661,
+        "D_ax": 0.219626
       }
     }
   },
   "rows": [
     {
       "case_id": "H1_new_material",
-      "elapsed_s": 41.31,
+      "elapsed_s": 70.35,
       "oracle_estimate": {
-        "qm": 0.5591871235880692,
-        "K": 3.3976891042934256,
-        "k_LDF": 0.012039458667875437,
-        "D_ax": 0.00015023139532091112,
-        "L_min_m": 0.048431250751018534
+        "qm": 0.6958035470468567,
+        "K": 2.5303671075157164,
+        "k_LDF": 0.016629095435827503,
+        "D_ax": 0.0001616749673414906,
+        "L_min_m": 0.045537294745445274
       },
       "relative_errors": {
-        "qm": 0.016704,
-        "K": 0.056197,
-        "k_LDF": 0.452752,
-        "D_ax": 0.073081
+        "qm": 0.005995,
+        "K": 0.007699,
+        "k_LDF": 0.496088,
+        "D_ax": 0.265114
       },
-      "L_min_m_ref": 0.04206903614103794,
-      "L_min_oversize_ratio": 1.151233,
+      "L_min_m_ref": 0.043813363611698145,
+      "L_min_oversize_ratio": 1.039347,
       "param_ok": true,
       "feasible_alt_grids": true,
       "not_trivially_oversized": true,
-      "max_outlet_n48": 0.002980161965107867,
-      "max_outlet_n80": 0.00240048061213904,
-      "outlet_over_limit_n48": 0.106434,
-      "outlet_over_limit_n80": 0.085731,
+      "max_outlet_n64": 0.017259753745360158,
+      "max_outlet_n80": 0.01672108914101259,
+      "outlet_over_limit_n64": 0.61642,
+      "outlet_over_limit_n80": 0.597182,
       "c_limit": 0.027999999999999997,
       "pass": true
     },
     {
       "case_id": "H2_dispersion_regime",
-      "elapsed_s": 32.51,
+      "elapsed_s": 30.99,
       "oracle_estimate": {
-        "qm": 0.39653205675654707,
-        "K": 2.4367272369170454,
-        "k_LDF": 0.043173827398141476,
-        "D_ax": 0.0005642685130178797,
-        "L_min_m": 0.18169581313133237
+        "qm": 0.29502316809336515,
+        "K": 1.6027468932769455,
+        "k_LDF": 0.058171040116518455,
+        "D_ax": 0.000672468439070026,
+        "L_min_m": 0.28288817622542384
       },
       "relative_errors": {
-        "qm": 0.00867,
-        "K": 0.025309,
-        "k_LDF": 0.040582,
-        "D_ax": 0.373035
+        "qm": 0.016589,
+        "K": 0.001717,
+        "k_LDF": 0.030483,
+        "D_ax": 0.292138
       },
-      "L_min_m_ref": 0.17612099580001092,
-      "L_min_oversize_ratio": 1.031653,
+      "L_min_m_ref": 0.27022121749506334,
+      "L_min_oversize_ratio": 1.046876,
       "param_ok": true,
       "feasible_alt_grids": true,
       "not_trivially_oversized": true,
-      "max_outlet_n48": 0.03541844839415195,
-      "max_outlet_n80": 0.0305091710557592,
-      "outlet_over_limit_n48": 0.621376,
-      "outlet_over_limit_n80": 0.535249,
+      "max_outlet_n64": 0.02570653146287745,
+      "max_outlet_n80": 0.023608006083084915,
+      "outlet_over_limit_n64": 0.450992,
+      "outlet_over_limit_n80": 0.414176,
       "c_limit": 0.056999999999999995,
       "pass": true
     },
     {
       "case_id": "H3_sensor_faults",
-      "elapsed_s": 22.69,
+      "elapsed_s": 34.12,
       "oracle_estimate": {
-        "qm": 0.6123603887148074,
-        "K": 1.309461922819389,
-        "k_LDF": 0.04074957683113735,
-        "D_ax": 0.00037454800623363437,
-        "L_min_m": 0.11675391805171967
+        "qm": 0.703844061090542,
+        "K": 1.063730769230427,
+        "k_LDF": 0.053079884793517954,
+        "D_ax": 0.0005264985935363208,
+        "L_min_m": 0.12297513520717619
       },
       "relative_errors": {
-        "qm": 0.003869,
-        "K": 0.030028,
-        "k_LDF": 0.072357,
-        "D_ax": 0.219692
+        "qm": 0.005492,
+        "K": 0.032972,
+        "k_LDF": 0.034911,
+        "D_ax": 0.190002
       },
-      "L_min_m_ref": 0.11476342493668198,
-      "L_min_oversize_ratio": 1.017344,
+      "L_min_m_ref": 0.12019531475380063,
+      "L_min_oversize_ratio": 1.023128,
       "param_ok": true,
       "feasible_alt_grids": true,
       "not_trivially_oversized": true,
-      "max_outlet_n48": 0.03732740890538647,
-      "max_outlet_n80": 0.03338281322076911,
-      "outlet_over_limit_n48": 0.84835,
-      "outlet_over_limit_n80": 0.7587,
+      "max_outlet_n64": 0.03353344211984414,
+      "max_outlet_n80": 0.032360890738552035,
+      "outlet_over_limit_n64": 0.762124,
+      "outlet_over_limit_n80": 0.735475,
       "c_limit": 0.044000000000000004,
       "pass": true
     },
     {
       "case_id": "H4_high_cin",
-      "elapsed_s": 38.59,
+      "elapsed_s": 56.86,
       "oracle_estimate": {
-        "qm": 0.46436154913133443,
-        "K": 2.152796510081271,
-        "k_LDF": 0.024707245268548644,
-        "D_ax": 0.00012787174897823465,
-        "L_min_m": 0.3013537403225899
+        "qm": 0.7104782086451211,
+        "K": 0.9509976312020505,
+        "k_LDF": 0.05263902897681391,
+        "D_ax": 0.00022247045581305823,
+        "L_min_m": 0.24022331081628798
       },
       "relative_errors": {
-        "qm": 0.03258,
-        "K": 0.133051,
-        "k_LDF": 0.202992,
-        "D_ax": 0.360641
+        "qm": 0.014969,
+        "K": 0.094288,
+        "k_LDF": 0.052781,
+        "D_ax": 0.414551
       },
-      "L_min_m_ref": 0.2810754045681097,
-      "L_min_oversize_ratio": 1.072146,
+      "L_min_m_ref": 0.229711454727687,
+      "L_min_oversize_ratio": 1.045761,
       "param_ok": true,
       "feasible_alt_grids": true,
       "not_trivially_oversized": true,
-      "max_outlet_n48": 0.007005964833812924,
-      "max_outlet_n80": 0.0032500457845196645,
-      "outlet_over_limit_n48": 0.053892,
-      "outlet_over_limit_n80": 0.025,
+      "max_outlet_n64": 0.03194420410904,
+      "max_outlet_n80": 0.027771868983350958,
+      "outlet_over_limit_n64": 0.245725,
+      "outlet_over_limit_n80": 0.21363,
       "c_limit": 0.13,
       "pass": true
     },
     {
       "case_id": "H5_near_linear",
-      "elapsed_s": 14.55,
+      "elapsed_s": 33.49,
       "oracle_estimate": {
-        "qm": 0.6057713404612847,
-        "K": 0.34438165161027595,
-        "k_LDF": 0.02129335071411336,
-        "D_ax": 0.0001316610806839716,
-        "L_min_m": 0.5278920809371235
+        "qm": 0.7596159216058322,
+        "K": 0.20922472257051636,
+        "k_LDF": 0.030117756753509597,
+        "D_ax": 0.00015641099594217484,
+        "L_min_m": 0.6439389345374554
       },
       "relative_errors": {
-        "qm": 0.009619,
-        "K": 0.016052,
-        "k_LDF": 0.064668,
-        "D_ax": 0.177118
+        "qm": 0.05048,
+        "K": 0.046124,
+        "k_LDF": 0.158375,
+        "D_ax": 0.348288
       },
-      "L_min_m_ref": 0.4945902491555154,
-      "L_min_oversize_ratio": 1.067332,
+      "L_min_m_ref": 0.6141412370014638,
+      "L_min_oversize_ratio": 1.048519,
       "param_ok": true,
       "feasible_alt_grids": true,
       "not_trivially_oversized": true,
-      "max_outlet_n48": 0.01915117720421067,
-      "max_outlet_n80": 0.014005161612741877,
-      "outlet_over_limit_n48": 0.589267,
-      "outlet_over_limit_n80": 0.430928,
+      "max_outlet_n64": 0.01933736669020092,
+      "max_outlet_n80": 0.017195370587747314,
+      "outlet_over_limit_n64": 0.594996,
+      "outlet_over_limit_n80": 0.529088,
       "c_limit": 0.0325,
       "pass": true
     }

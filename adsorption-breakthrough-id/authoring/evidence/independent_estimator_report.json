@@ -1,114 +1,131 @@
 {
-  "estimator": "independent_estimator.py (LSODA N=48, equal-weight outlet+mid, log10 grid search + polish, MAD mid filter; \u2260 oracle BDF N=32 front-weighted ln-space multi-start least_squares)",
+  "estimator": "independent_estimator.py (BDF N=40 equal-weight outlet+mid, log10 least_squares, MAD mid filter; \u2260 oracle BDF N=32 front-weighted ln-space). Validation uses the real verifier path: isolated subprocess + BDF/N=64 feasibility gates + 120s wall clock.",
+  "gates": {
+    "integrator": "BDF",
+    "n_nodes": 64,
+    "per_run_timeout_s": 120.0,
+    "L_min_oversize_ceil": 1.3,
+    "outlet_feasibility_slack": 1.03
+  },
   "all_hidden_pass": true,
   "rows": [
     {
       "case_id": "H1_new_material",
+      "elapsed_s": 36.161,
+      "under_120s": true,
       "estimate": {
         "case_id": "H1_new_material",
-        "qm": 0.5455737725568413,
-        "K": 3.6716336637264875,
-        "k_LDF": 0.028000004797452696,
-        "D_ax": 0.00014000000688343058,
-        "L_min_m": 0.043633019685745233
+        "qm": 0.6936267592002237,
+        "K": 2.603877360806274,
+        "k_LDF": 0.03150228975964448,
+        "D_ax": 0.00023289554980637163,
+        "L_min_m": 0.04706084096431731
       },
       "relative_errors": {
-        "qm": 0.008048,
-        "K": 0.019898,
-        "k_LDF": 0.272727,
-        "D_ax": 0.0
+        "qm": 0.009105,
+        "K": 0.021128,
+        "k_LDF": 0.045385,
+        "D_ax": 0.058616
       },
-      "L_min_m_est": 0.043633019685745233,
-      "L_min_m_ref": 0.04206903614103794,
-      "true_model_max_outlet": 0.015944685773761035,
+      "feasible_bdf_n64": true,
+      "not_oversized": true,
+      "max_outlet_bdf_n64": 0.011353700571198671,
       "c_limit": 0.027999999999999997,
       "pass": true
     },
     {
       "case_id": "H2_dispersion_regime",
+      "elapsed_s": 19.565,
+      "under_120s": true,
       "estimate": {
         "case_id": "H2_dispersion_regime",
-        "qm": 0.4000014796578029,
-        "K": 2.42951419887439,
-        "k_LDF": 0.04147454307445693,
-        "D_ax": 0.0007914491790663994,
-        "L_min_m": 0.18663180577754973
+        "qm": 0.29682861231022645,
+        "K": 1.6134299826602927,
+        "k_LDF": 0.06389239687995626,
+        "D_ax": 0.0008629184721885764,
+        "L_min_m": 0.28456973876953134
       },
       "relative_errors": {
-        "qm": 4e-06,
-        "K": 0.028194,
-        "k_LDF": 0.078343,
-        "D_ax": 0.120612
+        "qm": 0.010571,
+        "K": 0.008394,
+        "k_LDF": 0.064873,
+        "D_ax": 0.091665
       },
-      "L_min_m_est": 0.18663180577754973,
-      "L_min_m_ref": 0.17612099580001092,
-      "true_model_max_outlet": 0.02089453262755846,
+      "feasible_bdf_n64": true,
+      "not_oversized": true,
+      "max_outlet_bdf_n64": 0.02322589723438687,
       "c_limit": 0.056999999999999995,
       "pass": true
     },
     {
       "case_id": "H3_sensor_faults",
+      "elapsed_s": 32.649,
+      "under_120s": true,
       "estimate": {
         "case_id": "H3_sensor_faults",
-        "qm": 0.6108525637886114,
-        "K": 1.3319845852289112,
-        "k_LDF": 0.03899739258959099,
-        "D_ax": 0.000442153097155559,
-        "L_min_m": 0.1197969675064087
+        "qm": 0.7039747046368219,
+        "K": 1.0729236508259323,
+        "k_LDF": 0.06815681700244072,
+        "D_ax": 0.0005890171328074295,
+        "L_min_m": 0.12398831677436829
       },
       "relative_errors": {
-        "qm": 0.001398,
-        "K": 0.013345,
-        "k_LDF": 0.026247,
-        "D_ax": 0.078848
+        "qm": 0.005678,
+        "K": 0.024615,
+        "k_LDF": 0.239215,
+        "D_ax": 0.09382
       },
-      "L_min_m_est": 0.1197969675064087,
-      "L_min_m_ref": 0.11476342493668198,
-      "true_model_max_outlet": 0.026189391564467843,
+      "feasible_bdf_n64": true,
+      "not_oversized": true,
+      "max_outlet_bdf_n64": 0.03059664434516939,
       "c_limit": 0.044000000000000004,
       "pass": true
     },
     {
       "case_id": "H4_high_cin",
+      "elapsed_s": 42.277,
+      "under_120s": true,
       "estimate": {
         "case_id": "H4_high_cin",
-        "qm": 0.47855878905066945,
-        "K": 1.9315178768139027,
-        "k_LDF": 0.030999999999999996,
-        "D_ax": 0.00020000000000000004,
-        "L_min_m": 0.29655873413085937
+        "qm": 0.699498483871564,
+        "K": 1.028105147509922,
+        "k_LDF": 0.050304483918378044,
+        "D_ax": 0.0003177231799701202,
+        "L_min_m": 0.24242938041687015
       },
       "relative_errors": {
-        "qm": 0.003003,
-        "K": 0.016588,
-        "k_LDF": 0.0,
-        "D_ax": 0.0
+        "qm": 0.000716,
+        "K": 0.020852,
+        "k_LDF": 0.00609,
+        "D_ax": 0.163886
       },
-      "L_min_m_est": 0.29655873413085937,
-      "L_min_m_ref": 0.2810754045681097,
-      "true_model_max_outlet": 0.011527772617469291,
+      "feasible_bdf_n64": true,
+      "not_oversized": true,
+      "max_outlet_bdf_n64": 0.02403404637211652,
       "c_limit": 0.13,
       "pass": true
     },
     {
       "case_id": "H5_near_linear",
+      "elapsed_s": 24.076,
+      "under_120s": true,
       "estimate": {
         "case_id": "H5_near_linear",
-        "qm": 0.5974216239655523,
-        "K": 0.3515032599773226,
-        "k_LDF": 0.02096937495609793,
-        "D_ax": 0.00017161839732131033,
-        "L_min_m": 0.529513231201172
+        "qm": 0.8589682035878144,
+        "K": 0.1821176800069723,
+        "k_LDF": 0.030983177625183118,
+        "D_ax": 0.00018728985032985304,
+        "L_min_m": 0.6544319414062499
       },
       "relative_errors": {
-        "qm": 0.004297,
-        "K": 0.004295,
-        "k_LDF": 0.048469,
-        "D_ax": 0.072615
+        "qm": 0.07371,
+        "K": 0.089412,
+        "k_LDF": 0.191661,
+        "D_ax": 0.219626
       },
-      "L_min_m_est": 0.529513231201172,
-      "L_min_m_ref": 0.4945902491555154,
-      "true_model_max_outlet": 0.016723238830829778,
+      "feasible_bdf_n64": true,
+      "not_oversized": true,
+      "max_outlet_bdf_n64": 0.01639935439007722,
       "c_limit": 0.0325,
       "pass": true
     }

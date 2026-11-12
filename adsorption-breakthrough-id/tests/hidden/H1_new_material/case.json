@@ -7,13 +7,13 @@
     "csv": "breakthrough_exp_A.csv",
     "c_in_mol_m3": 0.5,
     "interstitial_velocity_m_s": 0.03,
-    "t_end_s": 24431.52678571429
+    "t_end_s": 27106.749999999996
   },
   "experiment_B": {
     "csv": "breakthrough_exp_B.csv",
     "c_in_mol_m3": 1.1,
     "interstitial_velocity_m_s": 0.055,
-    "t_end_s": 7525.992118768326
+    "t_end_s": 8843.06480707203
   },
   "design_duty": {
     "c_in_mol_m3": 0.7,

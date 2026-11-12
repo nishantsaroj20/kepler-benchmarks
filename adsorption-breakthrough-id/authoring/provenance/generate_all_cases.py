@@ -443,14 +443,17 @@ def main():
     (ROOT / "environment" / "data" / "run_index.json").write_text(json.dumps(index, indent=2) + "\n")
 
     # ----- Hidden cases (verifier-only) -----
+    # Hidden params are spaced outside every visible tolerance ball so copying
+    # any visible sample's parameters (or simple 1.1–1.2× L scalings) fails.
     hidden = [
         {
             "case_id": "H1_new_material",
             "seed": 91001,
             "bed": {"bed_voidage": 0.32, "particle_density_kg_m3": 1250.0, "lab_bed_length_m": 0.26},
-            "params": {"qm": 0.55, "K": 3.6, "k_LDF": 0.022, "D_ax": 1.4e-4},
-            "exp_a": {"c_in_mol_m3": 0.50, "interstitial_velocity_m_s": 0.030, "t_end_s": 3600.0},
-            "exp_b": {"c_in_mol_m3": 1.10, "interstitial_velocity_m_s": 0.055, "t_end_s": 1600.0},
+            # qm kept well above every visible so V*-param cheats fail; K/D mid-range for ID.
+            "params": {"qm": 0.70, "K": 2.55, "k_LDF": 0.033, "D_ax": 2.2e-4},
+            "exp_a": {"c_in_mol_m3": 0.50, "interstitial_velocity_m_s": 0.030, "t_end_s": 4200.0},
+            "exp_b": {"c_in_mol_m3": 1.10, "interstitial_velocity_m_s": 0.055, "t_end_s": 1800.0},
             "duty": {
                 "c_in_mol_m3": 0.70,
                 "interstitial_velocity_m_s": 0.040,
@@ -462,7 +465,7 @@ def main():
             "case_id": "H2_dispersion_regime",
             "seed": 91002,
             "bed": {"bed_voidage": 0.40, "particle_density_kg_m3": 820.0, "lab_bed_length_m": 0.22},
-            "params": {"qm": 0.40, "K": 2.5, "k_LDF": 0.045, "D_ax": 9.0e-4},
+            "params": {"qm": 0.30, "K": 1.60, "k_LDF": 0.060, "D_ax": 9.5e-4},
             "exp_a": {"c_in_mol_m3": 0.60, "interstitial_velocity_m_s": 0.090, "t_end_s": 900.0},
             "exp_b": {"c_in_mol_m3": 1.30, "interstitial_velocity_m_s": 0.120, "t_end_s": 700.0},
             "duty": {
@@ -473,12 +476,11 @@ def main():
             },
         },
         {
-            # Far from visible V4_sensor_faults so a V4-constant echo fails H3.
             "case_id": "H3_sensor_faults",
             "seed": 91003,
             "fault_mode": "midbed_spikes_dropouts",
             "bed": {"bed_voidage": 0.37, "particle_density_kg_m3": 920.0, "lab_bed_length_m": 0.28},
-            "params": {"qm": 0.61, "K": 1.35, "k_LDF": 0.038, "D_ax": 4.8e-4},
+            "params": {"qm": 0.70, "K": 1.10, "k_LDF": 0.055, "D_ax": 6.5e-4},
             "exp_a": {"c_in_mol_m3": 0.70, "interstitial_velocity_m_s": 0.045, "t_end_s": 2800.0},
             "exp_b": {"c_in_mol_m3": 1.80, "interstitial_velocity_m_s": 0.078, "t_end_s": 1400.0},
             "duty": {
@@ -492,8 +494,7 @@ def main():
             "case_id": "H4_high_cin",
             "seed": 91004,
             "bed": {"bed_voidage": 0.41, "particle_density_kg_m3": 780.0, "lab_bed_length_m": 0.27},
-            "params": {"qm": 0.48, "K": 1.9, "k_LDF": 0.031, "D_ax": 2.0e-4},
-            # Still outside the visible c_in range (<=1.4), but spaced for Langmuir ID.
+            "params": {"qm": 0.70, "K": 1.05, "k_LDF": 0.050, "D_ax": 3.8e-4},
             "exp_a": {"c_in_mol_m3": 1.90, "interstitial_velocity_m_s": 0.038, "t_end_s": 2200.0},
             "exp_b": {"c_in_mol_m3": 3.40, "interstitial_velocity_m_s": 0.072, "t_end_s": 1100.0},
             "duty": {
@@ -507,9 +508,9 @@ def main():
             "case_id": "H5_near_linear",
             "seed": 91005,
             "bed": {"bed_voidage": 0.43, "particle_density_kg_m3": 740.0, "lab_bed_length_m": 0.32},
-            "params": {"qm": 0.60, "K": 0.35, "k_LDF": 0.020, "D_ax": 1.6e-4},
-            "exp_a": {"c_in_mol_m3": 0.40, "interstitial_velocity_m_s": 0.028, "t_end_s": 4000.0},
-            "exp_b": {"c_in_mol_m3": 0.90, "interstitial_velocity_m_s": 0.050, "t_end_s": 2200.0},
+            "params": {"qm": 0.80, "K": 0.20, "k_LDF": 0.026, "D_ax": 2.4e-4},
+            "exp_a": {"c_in_mol_m3": 0.40, "interstitial_velocity_m_s": 0.028, "t_end_s": 7000.0},
+            "exp_b": {"c_in_mol_m3": 0.90, "interstitial_velocity_m_s": 0.050, "t_end_s": 4500.0},
             "duty": {
                 "c_in_mol_m3": 0.65,
                 "interstitial_velocity_m_s": 0.035,

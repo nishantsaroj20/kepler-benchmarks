@@ -211,16 +211,18 @@ def estimate_parameters(case, frames):
     qm0, K0 = isotherm_seed(case, frames)
     # Multi-start joint fit in log space around the uptake seed.
     starts = []
-    for qm in (qm0, qm0 * 0.9, qm0 * 1.1):
-        for K in (K0, K0 * 0.75, K0 * 1.3):
+    for qm in (qm0, qm0 * 0.88, qm0 * 1.12):
+        for K in (K0, K0 * 0.7, K0 * 1.35, max(0.12, K0 * 0.4)):
             for k_ldf, D_ax in (
-                (0.02, 1.5e-4),
-                (0.03, 3.0e-4),
-                (0.04, 7.0e-4),
+                (0.016, 1.2e-4),
+                (0.022, 2.5e-4),
+                (0.032, 4.5e-4),
+                (0.045, 8.0e-4),
+                (0.060, 1.2e-3),
             ):
                 starts.append(pack4(qm, max(K, 0.1), k_ldf, D_ax))
-    # Cap starts for runtime (~1 CPU, per-run limit).
-    starts = starts[::3][:8]
+    # Cap starts for runtime (~1 CPU, per-run limit) while keeping diversity.
+    starts = starts[::5][:12]
 
     best = None
     for th0 in starts:
@@ -234,7 +236,7 @@ def estimate_parameters(case, frames):
             xtol=3e-7,
             ftol=3e-7,
             gtol=3e-7,
-            max_nfev=25,
+            max_nfev=30,
         )
         cost = float(np.sum(res.fun**2))
         if best is None or cost < best[0]:
@@ -251,7 +253,7 @@ def estimate_parameters(case, frames):
         xtol=1e-8,
         ftol=1e-8,
         gtol=1e-8,
-        max_nfev=40,
+        max_nfev=50,
     )
     qm, K, k_ldf, D_ax = unpack4(res.x)
     return {"qm": qm, "K": K, "k_LDF": k_ldf, "D_ax": D_ax}

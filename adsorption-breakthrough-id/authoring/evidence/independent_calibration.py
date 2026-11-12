@@ -112,12 +112,12 @@ def main():
             case["design_duty"]["outlet_mole_fraction_limit"]
             * case["design_duty"]["c_in_mol_m3"]
         )
-        # Independent grids (48 and 80) — neither needs to match generator n_nodes.
-        m48 = max_outlet(case, entry["parameters"], payload["L_min_m"], 48)
+        # Independent grids (64 verifier + 80) — neither needs to match generator n_nodes.
+        m64 = max_outlet(case, entry["parameters"], payload["L_min_m"], 64)
         m80 = max_outlet(case, entry["parameters"], payload["L_min_m"], 80)
         case_slack = float(tol["outlet_feasibility_slack"])
         case_ceil = float(tol["L_min_oversize_ceil"])
-        feasible = m48 <= c_limit * case_slack and m80 <= c_limit * case_slack
+        feasible = m64 <= c_limit * case_slack and m80 <= c_limit * case_slack
         L_ref = float(entry["L_min_m"])
         L_est = float(payload["L_min_m"])
         L_ratio = L_est / L_ref
@@ -139,9 +139,9 @@ def main():
                 "param_ok": param_ok,
                 "feasible_alt_grids": feasible,
                 "not_trivially_oversized": not_huge,
-                "max_outlet_n48": m48,
+                "max_outlet_n64": m64,
                 "max_outlet_n80": m80,
-                "outlet_over_limit_n48": round(m48 / c_limit, 6),
+                "outlet_over_limit_n64": round(m64 / c_limit, 6),
                 "outlet_over_limit_n80": round(m80 / c_limit, 6),
                 "c_limit": c_limit,
                 "pass": param_ok and feasible and not_huge,
@@ -150,7 +150,7 @@ def main():
 
     max_L_ratio = max(r["L_min_oversize_ratio"] for r in rows)
     max_outlet_frac = max(
-        max(r["outlet_over_limit_n48"], r["outlet_over_limit_n80"]) for r in rows
+        max(r["outlet_over_limit_n64"], r["outlet_over_limit_n80"]) for r in rows
     )
 
     estimator_cite = None
@@ -199,13 +199,13 @@ def main():
                     "be ≤ slack × purity limit under an independent MOL check."
                 ),
                 "why": (
-                    "Alternate spatial grids (n=48, n=80) differ slightly from the "
+                    "Alternate spatial grids (n=64 verifier grid, n=80) differ slightly from the "
                     "generator mesh; slack=1.03 (3%) absorbs that numerical scatter "
                     "without relaxing the purity duty in a material way."
                 ),
                 "measured_max_outlet_over_limit": round(max_outlet_frac, 6),
                 "headroom_vs_slack": round(slack - max_outlet_frac, 6),
-                "alt_grids": [48, 80],
+                "alt_grids": [64, 80],
             },
         },
         "independent_estimator": estimator_cite,
